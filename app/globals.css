@@ -251,6 +251,14 @@
   font-style: italic;
 }
 
+/* Ссылки мобильного меню (Figma: mobile/menu-link) */
+@utility text-menu-link {
+  font-size: 28px;
+  line-height: normal;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
 @utility text-button-selected {
   font-size: 16px;
   line-height: normal;
