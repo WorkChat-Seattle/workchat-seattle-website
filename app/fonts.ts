@@ -1,0 +1,98 @@
+import localFont from "next/font/local";
+
+/**
+ * Google Sans (SIL OFL 1.1, лицензия — app/fonts/OFL.txt).
+ * Вариативный шрифт (вес 400–700) + курсив, WOFF2, только с нашего сервера.
+ * Источник — пакет @fontsource-variable/google-sans (ось wght).
+ *
+ * Один вызов на подмножество с unicode-range: браузер скачивает только те
+ * файлы, символы которых реально есть на странице (на EN — только latin,
+ * на RU — cyrillic). Семейства склеены в --font-sans в globals.css.
+ *
+ * Опции next/font должны быть литералами (статический анализ), поэтому
+ * повторы не вынесены в помощники.
+ */
+
+const latin = localFont({
+  src: [
+    { path: "./fonts/google-sans-latin-normal.woff2", weight: "400 700", style: "normal" },
+    { path: "./fonts/google-sans-latin-italic.woff2", weight: "400 700", style: "italic" },
+  ],
+  variable: "--font-gs-latin",
+  display: "swap",
+  preload: true,
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  adjustFontFallback: false,
+  declarations: [
+    {
+      prop: "unicode-range",
+      value:
+        "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD",
+    },
+  ],
+});
+
+const latinExt = localFont({
+  src: [
+    { path: "./fonts/google-sans-latin-ext-normal.woff2", weight: "400 700", style: "normal" },
+    { path: "./fonts/google-sans-latin-ext-italic.woff2", weight: "400 700", style: "italic" },
+  ],
+  variable: "--font-gs-latin-ext",
+  display: "swap",
+  preload: false,
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  adjustFontFallback: false,
+  declarations: [
+    {
+      prop: "unicode-range",
+      value:
+        "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF",
+    },
+  ],
+});
+
+const cyrillic = localFont({
+  src: [
+    { path: "./fonts/google-sans-cyrillic-normal.woff2", weight: "400 700", style: "normal" },
+    { path: "./fonts/google-sans-cyrillic-italic.woff2", weight: "400 700", style: "italic" },
+  ],
+  variable: "--font-gs-cyrillic",
+  display: "swap",
+  preload: false,
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  adjustFontFallback: false,
+  declarations: [
+    {
+      prop: "unicode-range",
+      value:
+        "U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116",
+    },
+  ],
+});
+
+const cyrillicExt = localFont({
+  src: [
+    { path: "./fonts/google-sans-cyrillic-ext-normal.woff2", weight: "400 700", style: "normal" },
+    { path: "./fonts/google-sans-cyrillic-ext-italic.woff2", weight: "400 700", style: "italic" },
+  ],
+  variable: "--font-gs-cyrillic-ext",
+  display: "swap",
+  preload: false,
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  adjustFontFallback: false,
+  declarations: [
+    {
+      prop: "unicode-range",
+      value:
+        "U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F",
+    },
+  ],
+});
+
+/** Классы с CSS-переменными шрифта — вешаются на <html>. */
+export const fontVariables = [
+  latin.variable,
+  latinExt.variable,
+  cyrillic.variable,
+  cyrillicExt.variable,
+].join(" ");

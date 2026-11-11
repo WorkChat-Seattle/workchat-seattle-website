@@ -1,0 +1,378 @@
+# WorkChat Seattle — сайт по макету Figma
+
+Актуально на 11.11.2026. Сайт некоммерческого сообщества WorkChat Seattle (женщины-профессионалы, Seattle area, 501(c)(3), сообщество с 2018 года). Домен — https://workchatseattle.org. Верстаем по макету Figma через Figma MCP, код хранится в GitHub, деплой на Vercel. Дальше сайт тоже ведём через Claude Code.
+
+## Документы проекта
+Этот файл главный. Подробности — в дополнениях в папке `docs/`, при противоречии верен этот файл, а между дополнениями — более поздний документ.
+- **decisions-2026-11-05.md** — менторы («View all mentors»), Donate, пустой Upcoming, Show more, Featured на Home, Registration closed, обложки, био команды, картинки.
+- **dynamic-content.md** — события и менторы из Notion, Upcoming → Past, публикация в 4 канала. Его раздел «Открытые вопросы» закрыт решениями 05.11; раздел «Счётчик N people going» устарел — счётчика на сайте нет.
+- **event-pages-sizes.md** — кадры страниц всех событий во всех размерах.
+- **forms-to-notion.md** — формы: Notion + почта, выпадающие списки, тексты окон, согласия, FAQ Mentorship, Subscribe через Zeffy.
+- **ru-version.md** — русская версия, таблица текстов EN/RU, стиль русских текстов. Пункт 1 раздела «Что нашла витрина» (длинные вопросы в выпадающих списках) решён — см. «Правила вёрстки», п. 8.
+- **cookie-consent.md** — cookies, баннер, окно настроек, карта. Его «Открытые вопросы» закрыты: RU-тексты есть в таблице, срок хранения выбора — 12 месяцев, cookie `wc_consent`, для ЕС отдельного режима нет (см. «Cookies»).
+- **privacy-policy.md** — страница Privacy Policy.
+- **social-previews.md** — картинки-превью (Open Graph), включая og-event (решено 11.11).
+- **seo-ai-visibility.md** — robots, sitemap, метаданные, JSON-LD, проверка.
+- **animations.md** — анимации: появление при прокрутке, кнопки, ссылки, карточки, логотип, шапка, параллакс, Numbers, Find your mentor, слайдер отзывов, Our Values (закреплённый блок), FAQ. Эталон — тестовая версия, репозиторий **julia-seas/workchat-v2** на GitHub (Home — `index.html`; About — `about.html`, `assets/js/about-values.js`; общие скрипты — `assets/js/site.js`; стили — `styles.css`). Параметры переносим как есть.
+- **figma-adaptive-handoff.md** — как устроен файл Figma (для работы в Figma, не для вёрстки).
+
+## Стек
+- **Next.js (App Router) + TypeScript**, **Tailwind CSS v4**, деплой на Vercel. Страницы — SSG/ISR, содержимое отдаётся в HTML с сервера (seo-ai-visibility.md, п. 5).
+- **Языки:** EN без префикса (`/`, `/events/<slug>`), RU с префиксом `/ru` (`/ru`, `/ru/events/<slug>`), slug одинаковый. Privacy Policy только на английском. Подробности — ru-version.md.
+- **Тексты интерфейса** — словари `en` / `ru`, собранные из Google-таблицы «WorkChat — тексты сайта EN/RU» (https://docs.google.com/spreadsheets/d/1pAWcR_tmgkjm55qbNIX0NstggJhiiEXS8lOj2JgQNgw/edit). В компонентах текста нет, только ключи.
+- **Данные** (события, спикеры, менторы, команда, FAQ, ценности, варианты форм) — файлы `data/*.ts`; события и менторы переносятся из Notion (dynamic-content.md). Страницы событий и менторов генерируются из данных.
+- **Формы** Mentorship, Volunteer, Suggest an event → свой Route Handler `app/api/forms/[form]/route.ts` → запись в Notion + письмо на workchatseattle@gmail.com через Resend, антиспам Cloudflare Turnstile + honeypot (forms-to-notion.md).
+- **Subscribe** — встроенная форма Zeffy (iframe), не наш сервер.
+- **Donate** — внешняя ссылка на кампанию Zeffy: https://www.zeffy.com/en-US/donation-form/support-workchat-seattle (шапка, мобильное меню, get-involved, футер). Страницы `/donate` нет.
+- **События** — регистрация в Zeffy (Registration link из данных); `/`, `/events`, `/events/[slug]` — ISR `revalidate = 3600`.
+- **Анимации** — без библиотек: CSS-переходы, `@keyframes`, хук `useInView` (IntersectionObserver) и общий обработчик прокрутки на `requestAnimationFrame` (animations.md).
+
+### Правила Tailwind
+1. Цвета, шрифты, размеры текста, брейкпоинты — только из токенов в `@theme` (см. «Токены»). Стандартная палитра Tailwind отключена. Произвольные значения (`bg-[#323232]`, `left-[420px]`, `text-[56px]`) запрещены; единичное исключение — только с комментарием, почему.
+2. Классы из ответа Figma MCP не копировать как есть: `absolute`, `left-[…]`, `top-[…]`, фиксированные `w-[…]`/`h-[…]` у секций и текстовых блоков. Раскладка — flex / grid по сетке и отступам ниже.
+3. Отступы — шкала Tailwind (`--spacing: 4px`, т. е. `p-10` = 40 px); все отступы макета кратны 4.
+4. Компоненты со сложными состояниями (Values, модальные окна, мобильное меню, выпадающие списки, cookie-окно) можно писать с отдельным CSS-модулем — внутри тоже только токены (`var(--color-…)`).
+5. Повторяющиеся наборы классов — в компонент, а не через `@apply` повсюду. Типографические стили — через `@utility` (см. «Типографика»).
+6. Длительности и кривые анимаций — тоже токены (`--duration-*`, `--ease-*` в `@theme`), значения — из animations.md.
+
+## Макет
+- Figma fileKey: `PRALafbEv1Nz9J0GRcw7sa`, страница **Claude** (`1003:3470`).
+- Компоненты — секция **Components** (`1003:7995`).
+- Читать макет через `get_design_context` (fileKey + nodeId), сверять через `get_screenshot`. Ответ `get_design_context` — ориентир, а не готовый код (см. «Правила Tailwind» и «Правила вёрстки»).
+
+### Кадры страниц (nodeId)
+| Страница | Маршрут | 390 (mobile) | 768 (tablet) | 1440 (desktop) | 1920 |
+|---|---|---|---|---|---|
+| Home | `/` | `1110:10587` | `1203:14301` | `1003:3471` | `1198:3496` |
+| About | `/about` | `1113:11016` | `1240:14904` | `1003:3944` | `1264:16782` |
+| Mentorship | `/mentorship` | `1135:11286` | `1240:15215` | `1003:4997` | `1264:17023` |
+| Mentor info | `/mentors/[slug]` | `1145:11990` | `1240:15965` | `1003:4640` | `1264:17634` |
+| Volunteer | `/volunteer` | `1145:11767` | `1240:15704` | `1003:4794` | `1264:17395` |
+| Events | `/events` | `1145:12534` | `1240:16472` | `1003:4174` | `1264:18058` |
+| Events — нет предстоящих | `/events` | `1582:26100` | `1582:26137` | `1582:24736` | `1582:26177` |
+| Event page (How AI…) | `/events/[slug]` | `1145:12238` | `1240:16177` | `1003:5145` | `1264:17819` |
+| Privacy Policy | `/privacy-policy` | `1457:23154` | `1457:23047` | `1457:22619` | `1457:22833` |
+| 404 | `app/not-found.tsx` | `1454:22443` | `1454:22422` | `1454:22166` | `1454:22294` |
+
+- Кадры 1920 отдельно не верстаем: они показывают широкий экран — контент 1200 по центру, фоны на всю ширину.
+- Страницы остальных событий (онлайн, без спикеров, прошедшие) во всех размерах — event-pages-sizes.md.
+- Окно «Suggest an event» на Events: `Events / … / Suggest event` (390 `1381:13870`, 768 `1381:13914`, 1440 `1381:14032`, 1920 `1381:14148`) и `… / Thank you` (390 `1381:13901`, 768 `1381:13982`, 1440 `1381:14099`, 1920 `1381:14215`).
+- Состояния форм — секция **Form states** (`1442:18556`); открытый выпадающий список — `Volunteer / help dropdown open` 1440 `1648:28105`, 390 `1648:28140`.
+- Cookie-баннер и окно настроек — секция **Cookie consent** (cookie-consent.md).
+- Русская версия: **Home / RU** 1440 `1648:28532`, витрина компонентов **RU / Components check** `1672:24122`.
+- Превью для соцсетей: OG / Default `1481:11920`, OG / Default / RU `1789:17200`, og-event `1481:11940` (примеры EN `1795:17228`, RU `1795:17268`).
+
+## Брейкпоинты и сетка
+Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --breakpoint-xl: 1280px;` — классы без префикса = mobile, `md:` = tablet, `xl:` = desktop.
+
+| Диапазон | Макет | Поля | Контент | Между секциями | Заголовок→текст |
+|---|---|---|---|---|---|
+| < 768 | 390 | 20 | резиновый | 80 | 20 |
+| 768–1279 | 768 | 40 | резиновый, 4 колонки (172 при 768, без зазоров; направляющие 40/212/384/556/728) | 120 | 20 |
+| ≥ 1280 | 1440 / 1920 | авто | `max-width: 1200px`, по центру | 160 | 40 |
+
+- **Desktop:** контейнер 1200, на 1440 поля по 120, на 1920 — по 360. Полноширинные фоны секций, subscribe и footer идут на всю ширину окна, контент внутри них — в контейнере 1200.
+- **Tablet (по макету 768):**
+  - заголовки и одиночные тексты начинаются со 2-й колонки (отступ 172 от контента, x=212);
+  - карточки на всю ширину контента (688) с внутренними отступами 40;
+  - внутри карточек две колонки 264 и 304, промежуток 40;
+  - поля форм на всю ширину; подписи, согласие и кнопка формы — со 2-й колонки;
+  - отдельные кнопки под блоками — со 2-й колонки, по ширине текста; «Back to all…» и «Show more» — по центру;
+  - футер сразу после get-involved, без отступа.
+- **Mobile:**
+  - внутри карточек отступы 20, текст→контент 40;
+  - кнопки друг под другом через 10;
+  - область нажатия ≥ 44;
+  - get-involved и футер встык; на 404 и Privacy Policy перед футером 80.
+- **Шапка:** мобильная (бургер) на mobile и tablet, десктопная — с 1280.
+  - Открытое меню — компонент `mobile-menu` (варианты `size = mobile | tablet`): ссылки About Us, Events, Mentorship, Volunteer, Donate и переключатель EN/RU.
+  - Бургер — `icon/menu` с состояниями `state = closed | open`.
+  - Поведение: кнопка-бургер с `aria-expanded` и `aria-controls`; при открытом меню фокус остаётся внутри, прокрутка страницы заблокирована; закрытие по Esc, по повторному нажатию и при переходе по ссылке; после закрытия фокус возвращается на бургер.
+  - Переключатель EN / RU ведёт на ту же страницу на другом языке; без автоопределения языка и редиректов.
+- Русские тексты длиннее английских: блоки растут по высоте, фиксированных высот у текстовых блоков нет.
+
+## Токены
+Цвета в Figma заведены переменными. В коде (`app/globals.css`):
+- **примитивы** — обычные CSS-переменные в `:root` (`--gray-900`, `--neutral-600`, …), утилит для них нет;
+- **семантика** — в `@theme` с префиксом `--color-` и ссылкой на примитив: Figma `bg/page` → `--color-bg-page: var(--neutral-600)`, `text/heading` → `--color-text-heading`. Классы: `bg-bg-page`, `text-text-heading`, `border-border-divider`;
+- стандартные цвета Tailwind отключены (`--color-*: initial;`), чтобы в разметке были только наши токены.
+
+**Примитивы**
+
+| Токен | Значение | | Токен | Значение |
+|---|---|---|---|---|
+| gray/900 | #323232 | | neutral/900 | #d7cec8 |
+| gray/700 | #4a4a4a | | neutral/800 | #dbd4ce |
+| gray/500 | #565252 | | neutral/600 | #edeae6 |
+| gray/300 | #857f7f | | neutral/500 | #f1eeeb |
+| white | #ffffff | | neutral/400 | #f5f3f1 |
+| green | #0d5a3b | | neutral/200 | #faf9f7 |
+| red/600 | #a63d33 | | | |
+
+Альфа-примитивы:
+- white-alpha/90 — #ffffff 90%;
+- neutral-alpha/80 — #faf9f7 80%;
+- neutral-alpha/50 — #faf9f7 50%;
+- dark-alpha/70 — #3a3a3a 70%;
+- dark-alpha/10 — #3a3a3a 10%;
+- alpha/70 — #323232 70%;
+- black-alpha/50 — #121212 50%.
+
+**Семантика**
+- **Фоны:**
+  - bg/page → neutral/600;
+  - bg/card-neutral → neutral/400;
+  - bg/card-light → neutral/200;
+  - bg/card-muted → neutral/500;
+  - bg/card-dark → neutral/800 (hover: bg/card-dark-hover → neutral/900);
+  - bg/card-white → white;
+  - bg/card-green → green;
+  - bg/card-transparent → neutral-alpha/50;
+  - bg/glass → neutral-alpha/80;
+  - bg/inverse → gray/900;
+  - bg/input → white.
+- **Текст:**
+  - text/heading → gray/900;
+  - text/body → gray/700;
+  - text/muted → gray/500;
+  - text/placeholder → gray/300;
+  - text/white → white;
+  - text/inverse → neutral/600;
+  - text/inverse-muted → neutral-alpha/50.
+- **Кнопки:**
+  - button/dark → gray/700 (hover: button/hover → gray/900);
+  - button/white → white;
+  - button/outline → gray/700;
+  - button/text-light → neutral/200;
+  - button/text-dark → gray/700.
+- **Обводки:**
+  - border/divider → neutral/800;
+  - border/input-hover → neutral/800;
+  - border/input-focus → gray/300.
+- **Прочее:**
+  - status/error → red/600;
+  - decor/card-outline → white-alpha/90;
+  - decor/icon → gray/300;
+  - decor/accent → gray/900;
+  - icon/bg → gray/700;
+  - icon/glyph → white;
+  - overlay/blur-light → dark-alpha/10;
+  - overlay/hover-dark → black-alpha/50 (также затемнение под модальными окнами).
+- **Градиенты (paint styles):**
+  - bg/gradient-center — white 0% → 100% → 0%;
+  - bg/gradient-bottom-neutral — #edeae6 0% → 100%;
+  - bg/gradient-neutral-top — #edeae6 0% → 100%.
+- Тень модальных окон и выпадающих списков — 0 8 24, 12% (в `@theme` как `--shadow-modal`).
+
+Направление градиентов и параметры размытия (стеклянная карточка subscribe) брать из `get_design_context` конкретного узла и заводить токенами.
+
+## Типографика
+Шрифт — **Google Sans**. Лицензия SIL Open Font License 1.1 (проверено 05.11.2026): бесплатно, в том числе для встраивания на сайт. Кириллица есть — для RU шрифт не меняем.
+
+**Подключение:**
+- Только с нашего сервера через `next/font/local` (без запросов к Google — cookie-consent.md). Переменная шрифта → `--font-sans` в `@theme`.
+- Файлы: вариативный шрифт (ось веса 400–700) и отдельный файл курсива, WOFF2. Источник — пакет `@fontsource-variable/google-sans` или Google Fonts (Download).
+- Подмножества: latin, latin-ext, cyrillic, cyrillic-ext. Курсив нужен только для body-italic-accent (Bold Italic).
+- Веса: 400, 500, 700, курсив 700. `display: 'swap'`, запасной — системный sans-serif.
+- Рядом с файлами шрифта положить `OFL.txt`.
+
+Стили заводить через `@utility` (например `@utility text-h1 { … }` с размерами для `md` и `xl` внутри), чтобы в разметке был один класс на стиль.
+
+Размеры: font-size / line-height, letter-spacing.
+
+| Стиль | desktop (≥1280) | tablet | mobile |
+|---|---|---|---|
+| h1 | 80 / 90%, −2% | 56 | 36 |
+| h2 | 56 / 90%, −3% | 44 | 32 |
+| h3 | 30 / 90%, −3% | 28 | 28 |
+| numbers | 65 / 90%, −3% | 36 | 36 |
+| button | Medium 16 / auto | Medium 18 | Medium 18 |
+
+Общие для всех брейкпоинтов:
+- body — Regular 16 / 130%;
+- caption — 16 / 110%, −3%, UPPERCASE;
+- feature — Medium 20 / 100%;
+- body-bold-accent — Bold 16 / 130%;
+- body-italic-accent — Bold Italic 16 / 100%;
+- button-selected — Bold 16, −2% (активный пункт меню).
+
+У h1 и h2 в Figma включён Title Case, а сами тексты записаны обычным регистром. В коде — `text-transform: capitalize` на h1/h2 **только для `:lang(en)`**; для русского регистр как в тексте. Тексты не переписывать.
+
+## Компоненты
+Варианты в Figma задаются свойством `size = desktop | mobile | tablet`. В коде — один компонент на весь набор, адаптив через классы `md:` / `xl:`, а не три разных компонента. Набор id для `get_design_context`:
+- **Базовые:**
+  - button `1003:8012` (option dark/white/outlined; state default/hover; у dark есть state=disabled — opacity 50%, подписи «Sending…» и «Registration closed»);
+  - button-round `1003:8025`;
+  - button-vertical `1048:1439`;
+  - button-social `1003:8087` (linkedin/facebook);
+  - menu-button `1003:7999`;
+  - Language `1003:8105`;
+  - logo `1048:1421`;
+  - icon `1036:1384` (type date/location/time/language);
+  - icon/chevron-down `1017:1347`;
+  - icon/menu `1291:5` (state closed/open);
+  - avatar `1009:1302` (фото спикера в card-speaker, круглое);
+  - pagination-dot `1123:2094`;
+  - tag (фильтр по тегам на Events; 10 тегов — dynamic-content.md).
+- **Формы:**
+  - form-field `1017:1449` (text/select; default/hover/focus/filled/error);
+  - form-textarea `1017:1470`;
+  - checkbox-consent `1442:22081` (state unchecked/checked; в коде нативный `<input type="checkbox">` с `<label>`);
+  - modal-message `1442:18126` — результат отправки формы (type success/error × size) — см. «Состояния отправки форм»;
+  - modal-suggest-event `1381:13869` — окно формы «Suggest an event» (state form/sending × size);
+  - выпадающие списки (одиночный выбор и чекбоксы) — по образцу `Volunteer / help dropdown open`, правила — forms-to-notion.md, «Выпадающие списки»; длинный текст — «Правила вёрстки», п. 8.
+- **Раскладка:**
+  - header `1084:10369`;
+  - mobile-menu `1298:12443` (mobile `1297:66`, tablet `1298:12421`);
+  - footer `1110:10554` (в нём ссылки Privacy Policy и «Cookie Settings» — `<button>`, открывает окно настроек cookies);
+  - subscribe `1084:10472` — только state=default: наш заголовок и подпись + iframe Zeffy (см. «Subscribe»). Варианты sending / success / error устарели, не верстать;
+  - get-involved `1084:10523` (+ get-involved/mobile `1084:10473`).
+- **Карточки:**
+  - card-square `1003:8038`;
+  - card-rectangle `1003:8059`;
+  - card-image `1009:1304`;
+  - number-card `1075:3170`;
+  - card-testimonial `1084:10455`;
+  - quote-accent `1084:10527`;
+  - values / value-tab `1113:10994` / `1029:1364` (см. «Блок Our Values»);
+  - card-team-member `1077:3174` (state default/hover × color; био — см. ниже);
+  - card-mentor `1010:1323`;
+  - mentor-profile `1145:12181`;
+  - card-program `1135:11285`;
+  - list-item `1010:1361`;
+  - faq-item / faq-toggle `1010:1354` / `1041:1384`.
+- **События:**
+  - card-featured-event `1084:10416`;
+  - card-event `1145:12510`;
+  - card-event-past `1145:12533` (в рамке `tags` один или два тега через разделитель);
+  - card-speaker `1145:12237`;
+  - event-detail `1034:1380`;
+  - empty-state (пустой Upcoming Events — decisions-2026-11-05.md, п. 3).
+- **Cookies и карта** (cookie-consent.md): toggle, cookie-banner, cookie-settings, map-embed (state loaded/consent).
+
+### Блок Our Values (страница About)
+Один интерактивный блок с вкладками. Компонент `values` (`1113:10994`) — 15 вариантов: `size = desktop | mobile | tablet` × `active = community | support | growth | empowerment | learning`. Вкладки — экземпляры `value-tab` (`1029:1364`, `state = default | active`, текстовое свойство `label`).
+
+| `active` | Вкладка | Описание |
+|---|---|---|
+| community | Community & Belonging | We foster meaningful connections and build a community where every woman feels welcome, respected, and valued. |
+| support | Support | We understand the unique challenges women may face in their careers. We create a safe space for honest conversations, practical help, and mutual support. |
+| growth | Growth | We help women move toward their professional goals — whether they are looking for a job, changing careers, developing new skills, or advancing in their field. |
+| empowerment | Empowerment | We help women build the confidence, agency, influence, and leadership skills they need to shape their own professional paths. |
+| learning | Continuous Learning | We believe professional growth is an ongoing process. We encourage curiosity, knowledge-sharing, experimentation, and learning from both successes and setbacks. |
+
+- В коде — один компонент `Values` с состоянием активной вкладки. Данные — массив `{ id }`, тексты — из словаря (EN выше, RU — вкладка About таблицы).
+- **Раскладка:**
+  - **desktop:** список вкладок 308 слева, описание шириной 347 от x=720 (через 600 от начала контента), заголовок блока — со 2-й колонки (x=420);
+  - **tablet:** вкладки 344 слева, описание 344 справа (от x=384), заголовок — со 2-й колонки, шаг вкладок 65;
+  - **mobile:** вкладки списком на всю ширину с шагом 45, описание под ними через 40.
+- **Стиль вкладок:** h3. Активная — `text-white`; неактивная — `text-inverse-muted` с opacity 50%.
+- **Фон** — фотография, у каждой вкладки своя, меняется при переключении. Выгрузить 5 фото скриптом картинок (п. 6 «Правил вёрстки») из вариантов desktop (`values-community.webp` … `values-learning.webp`) с фильтрами из Figma (не повторять CSS-фильтрами). `object-fit: cover`; следующее фото предзагружать.
+- **Анимация (решено 11.11, по версии Юлии в workchat-v2):** блок закрепляется на экране (`position: sticky`), и ценности сменяются прокруткой страницы — шаг 60vh на ценность; фон перетекает, текст уезжает и приезжает по словам, клик по вкладке плавно прокручивает к её шагу. Параметры — animations.md, п. 11. Без движения (reduced motion) — без закрепления, переключение нажатием.
+- **Доступность:** ARIA tabs (`role="tablist"`, `role="tab"` + `aria-selected`, `role="tabpanel"`), стрелки ↑/↓, видимый фокус, по умолчанию активна первая вкладка. Неактивные панели — `aria-hidden` + `inert`.
+- **Все 5 панелей в HTML** (для поиска и ИИ), наложены grid в одну ячейку — так же высота не прыгает. Высоты в макете: desktop 800, tablet 605, mobile 558 (минимальная).
+
+### Команда (card-team-member, About)
+Био каждого человека (два абзаца) — в `data/team.ts`, тексты — секция Figma «Overlays» (`1633:28076`). Оверлей с био: на устройствах с мышью — по `:hover` и `:focus-within`; на телефонах и планшетах — по нажатию (`<button aria-expanded aria-controls>`), одновременно открыт один, закрытие повторным нажатием, другой карточкой или Esc. Текст био в HTML всегда, до открытия — визуально скрыт. Подробности — decisions-2026-11-05.md, п. 8.
+
+### Менторы
+- **Mentorship:** карточки `card-mentor` — LinkedIn и «View profile» → `/mentors/[slug]`. Кнопка «View all mentors» — `<button aria-expanded aria-controls>`, разворачивает остальные карточки на месте; показывать, только если менторов больше, чем видно по умолчанию (сейчас двое — кнопки нет). Скрытые карточки — в HTML (`hidden`).
+- **Mentor info:** «Get connected» в `mentor-profile` — `<a href="mailto:{email}">`; показывать только при наличии email и Consent received. LinkedIn — `button-social`.
+- Публикуются только карточки с Consent received; порядок — поле Order.
+- Форма на Mentorship — для тех, кто хочет **стать ментором**; у секции `id="mentor-form"` и `scroll-margin-top` под шапку.
+
+### События
+Логика — dynamic-content.md и decisions-2026-11-05.md:
+- Прошло ли событие — по времени окончания в `America/Los_Angeles`. Upcoming — ближайшие сверху, Past — последние сверху, у Past фильтр по тегам.
+- **Featured на Home:** ближайшее предстоящее, если нет — последнее прошедшее. Кнопки «Details» (dark) → `/events/[slug]` и «See all events» (outlined) → `/events`.
+- **Пустой Upcoming:** блок empty-state + кнопка «Suggest an event».
+- **Past Events:** кнопка карточки → `/events/[slug]`; «Video recording» — внешняя ссылка из Recording link (только если есть). «Show more» — `<button>`, по 10 событий; показывать, только если прошедших больше 10; после подгрузки фокус на первую новую карточку.
+- **Event page:** онлайн-событие — без блока Location; без спикеров — без Speakers. Счётчика участников («N people going») и аватаров участников нет — убраны из макета (проверено 11.11 на всех 20 кадрах; аватары на странице — только фото спикеров). У прошедшего события обе Register — `<button disabled>Registration closed</button>`, Share активна; клиентский компонент переключает Register в момент окончания.
+- **Карта (офлайн-события):** интерактивная Google Maps (JS API) по адресу, по умолчанию включена; если Embedded content выключен или есть GPC — статичная картинка с нашего сервера + «Show map» (cookie-consent.md). Ссылка «открыть в Google Maps» — из поля Google Maps link.
+
+### Состояния отправки форм (Mentorship, Volunteer, Suggest an event)
+Примеры — секция **Form states** (`1442:18556`). Subscribe — форма Zeffy, свои состояния показывает сама.
+- **Sending:** кнопка отправки — `button` option=dark, state=disabled, «Sending…»; `disabled` + `aria-busy`; поля не очищаются. У Suggest an event — `modal-suggest-event` state=sending.
+- **Success и Error — модальное окно `modal-message`** (`1442:18126`, `type = success | error` × `size`):
+  - затемнение `overlay/hover-dark` (desktop, tablet), окно по центру: desktop 680 (мин. высота 388), tablet 640 (мин. 378); на mobile — во весь экран без затемнения;
+  - фон `bg/card-neutral`, тень модальных окон; крестик, иконка 64, заголовок (h2 по размеру), текст (body), кнопка «Close» (outlined);
+  - success — зелёная `icon-success`; error — `icon-error` цвета `status/error`;
+  - у Suggest an event результат заменяет окно формы;
+  - после ошибки данные в полях сохраняются, кнопка снова активна;
+  - `role="dialog"`, `aria-modal="true"`, `aria-labelledby`; фокус внутри окна; прокрутка заблокирована; закрытие по крестику, «Close», Esc и клику по затемнению; после закрытия фокус на кнопку отправки (после успеха — на начало формы).
+- Ошибки полей — `form-field` / `form-textarea` state=error, текст «This field is required» и т. п. под полем, **в потоке**: он не налезает на следующее поле.
+- **Тексты (итоговые; RU — вкладка «Общее» таблицы):**
+  - Mentorship и Volunteer success: «Thank You!» / «We’ve received your information and will get back to you within 3 business days with the next steps.»
+  - Suggest an event success: «Thank You!» / «We’ve received your suggestion. Our team will review it and may reach out to you by email.»
+  - Error: «Something went wrong» / «We couldn't send your form. Please try again in a few minutes. If the problem continues, email us at workchatseattle@gmail.com.» (Suggest an event — «We couldn't send your suggestion. …»). Адрес — ссылка `mailto:`, берётся из константы `FORMS_TO_EMAIL`.
+- Кнопки отправки форм ментора и волонтёра: EN «Submit», RU «Отправить заявку».
+- «Privacy Policy» внутри текстов согласия, под Subscribe и в cookie-окне — подчёркнутая ссылка `/privacy-policy`; в согласии — внутри `<label>` чекбокса.
+- Данные в полях на примерах (Anna Petrova и т. д.) — только для макета.
+
+### Subscribe
+`subscribe` (`1084:10472`): наш заголовок и подзаголовок, внутри контейнер `zeffy-embed` (фон #EDEAE6 — токен, без скругления, отступы сверху/снизу 40) с кодом:
+`<div data-zeffy-embed data-form-url="/en-US/embed/newsletter-form/stay-connected-36">` + `<script src="https://www.zeffy.com/embed/v2/zeffy-embed.js">`.
+Под формой наша подпись: «By clicking the "Submit" button, you agree to the terms of our Privacy Policy.» Внутри iframe ничего не настраивается, он только на английском. Подробности раскладки — forms-to-notion.md.
+
+### Страница 404
+Шутка «у страницы перерыв на кофе». `app/not-found.tsx`, статус 404, `robots: { index: false }`.
+- **Состав:** header → блок `not-found` → footer (без subscribe и get-involved).
+- **Блок `not-found`** собран как card-featured-event: карточка с текстом (`bg/card-neutral`) + фото, без скруглений.
+  - **desktop:** 1200×600 по центру, 148 от верха. Слева карточка 600 с отступами 80, текст по центру по вертикали; справа фото 600×600. До футера 160.
+  - **tablet:** карточка 688: сверху фото 688×460, ниже текст с отступами 40. Сверху 60, снизу 120.
+  - **mobile:** сверху фото 350×350, ниже текст с отступами 20, кнопка на всю ширину. Сверху 40, снизу 80.
+  - Внутри текста: метка → заголовок → описание через 20, текст → кнопка 40.
+- **Тексты (EN; RU — вкладка 404, заголовок «Страничка ушла на повышение»):** метка «Error 404»; заголовок «Looks like this page is on a coffee break» — `h1`, стиль h2 по размеру; описание «We've sent someone to find it.» `<br>` «Why don't you take a little break too?»; кнопка `button` dark «Back to Homepage» — `<a href="/">`.
+- **Фото:** выгрузить из кадров 404 (`404-coffee-desktop.webp`, `-tablet`, `-mobile`), разная обрезка, переключать через `<picture>` по брейкпоинтам; декоративное, `alt=""`.
+
+### Страница Privacy Policy
+`/privacy-policy`, только на английском (из RU ведёт сюда же). header → intro (`h1` стиля h2, «Effective date: …», вводный текст) → 13 разделов на `faq-item` (кнопка с `aria-expanded` и анимацией высоты, как FAQ — animations.md, п. 12; первый раздел открыт) → блок контактов (раздел 14) → footer. Источник текста — Google Doc; раскладка и ссылки — privacy-policy.md.
+
+### Cookies
+Баннер, окно настроек, категории и Consent Mode для GA4 — cookie-consent.md. Кратко: Necessary всегда; Analytics (GA4) и Embedded content (карта) включены по умолчанию, можно выключить; Hotjar — только после согласия (пока не подключаем, баннер type=notice); GPC выключает всё опциональное. Тексты RU — вкладка «Общее». Выбор хранится в first-party cookie `wc_consent` 12 месяцев.
+- **Посетители из ЕС (решено 11.11):** отдельного режима (opt-in по GDPR, определение страны) **не делаем** — одна модель для всех. Через пару месяцев после запуска посмотреть в GA4 долю посетителей из ЕС и вернуться к вопросу, если она заметная.
+
+### SEO и превью
+- robots, sitemap, метаданные, hreflang, JSON-LD (NGO + WebSite, Event, ProfilePage) — seo-ai-visibility.md; title / description — вкладка SEO таблицы.
+- Картинки-превью: общая EN (`app/opengraph-image.png`), общая RU, генерируемые для событий EN и RU по шаблону og-event (логотип высотой 60, название, краткое описание, дата / время / место) — social-previews.md.
+
+## Правила вёрстки
+1. **Не переносить абсолютные координаты.** Секции десктопа в Figma собраны без auto-layout, MCP отдаёт `position: absolute` и x/y. Раскладку строить flex/grid по сетке и отступам выше, координаты — только чтобы понять порядок и выравнивание.
+2. **Порядок работы:**
+   1. проект Next.js + Tailwind v4: токены, брейкпоинты, шрифт, типографика;
+   2. словари `en` / `ru` из таблицы текстов, маршрутизация EN и `/ru`;
+   3. базовые компоненты;
+   4. раскладка: header с мобильным меню, footer, subscribe (Zeffy), get-involved;
+   5. страницы по одной, начиная с Home (сначала EN, потом проверка RU), затем 404 и Privacy Policy — в статике, без анимаций;
+   6. события и менторы из файлов данных (логика Upcoming/Past, Featured, Registration closed);
+   7. анимации по animations.md (отдельным проходом, когда страницы совпали с макетом);
+   8. формы: клиент (валидация, выпадающие списки, состояния), затем сервер (Notion, Resend, Turnstile);
+   9. cookies и карта;
+   10. SEO, превью, JSON-LD;
+   11. проверка (п. 3 и seo-ai-visibility.md, п. 8).
+3. На каждой странице сверять 390, 768, 1440 и 1920 со скриншотами кадров и промежуточные ширины 360, 430, 1024, 1280 — на обоих языках.
+4. Семантическая разметка: один h1 на страницу, `<nav>`, `<main>`, `<footer>`, `<button>` для действий, `<a href>` для переходов (без переходов через `onClick`), `<label>` у полей, `lang` у `<html>` (`en` / `ru`), skip link. FAQ и разделы Privacy Policy — кнопка с `aria-expanded` (не `<details>`, чтобы анимировать высоту); ответы в HTML и в свёрнутом виде (закрытый — `inert`).
+5. Состояния из вариантов (hover, focus, active, error, expanded, disabled) реализовать все. Focus виден с клавиатуры. Все анимации выключаются при `prefers-reduced-motion: reduce`.
+6. **Картинки** (все проверены и одобрены 06.11 — брать из Figma как есть):
+   - **выгрузка — скриптом, а не по одной** (решено 11.11): `npm run export:figma` (`scripts/export-figma.ts`) через Figma REST API (`GET /v1/images/:file_key`). Список картинок — в `scripts/figma-assets.ts`: `{ nodeId, name, format: 'png' | 'svg', scale }`. Узлы рендерятся как в макете — с обрезкой и фильтрами (ч/б и затемнение у фото Our Values и т. п.), CSS-фильтрами не повторять. Фото — PNG 2× (кадр 1440 → 2880 px по ширине); логотип и иконки — SVG, затем SVGO. Оригиналы — в `design-assets/` (вне `public`, в git), файлы для сайта — копии с осмысленными именами в `public/images/`. Повторный запуск перезаписывает файлы: заменили картинку в Figma — одна команда. Список пополняется постранично (начать с Home). Токен — `FIGMA_TOKEN` (личный токен Юлии, только чтение `file_content:read`) в `.env.local`; `.env.local` — в `.gitignore`, в Vercel токен не нужен. Запросы к API — пачками по нескольку узлов, при ответе 429 подождать и повторить. Для разовой картинки можно и `download_assets` из Figma MCP, но затем добавить её в список скрипта;
+   - оригиналы хранить вне `public`, в `public/images` — только то, что идёт на сайт, имена в kebab-case;
+   - сжимать один раз — через `next/image` (WebP/AVIF);
+   - у каждой `next/image` задавать `sizes`; у hero — `priority`, остальное лениво;
+   - полноширинные фоны — до ~2560–3000 px по ширине, карточки — 2× от размера в макете;
+   - у каждой содержательной картинки — alt;
+   - логотип и иконки — SVG через SVGO, цвет через `currentColor`;
+   - круглые фото (mentor-profile, card-mentor, card-speaker, аватары) — квадратные файлы, в CSS `aspect-ratio: 1; border-radius: 50%; object-fit: cover`;
+   - фото hero на десктопе отражено по горизонтали — так и задумано, отражение уже в файле;
+   - обложка #IAmRemarkable — картинка 1402×1122 из узла `1602:27169`.
+7. **Тексты:** источник истины — таблица EN/RU (вычитана полностью 10–11.11). Если текст в таблице отличается от макета — верна таблица. Ничего не придумывать; если в таблице нет нужной строки — не сочинять, а записать в «Открытые вопросы». Строки со статусом «Вычитано» не переписывать. Русские тексты: кавычки «ёлочки», неразрывный пробел перед тире, даты «Среда, 18 ноября 2026», время 24 часа (стиль — ru-version.md).
+8. **Длинный текст в выпадающих списках** (решено 11.11, оба языка, все ширины, проблема заметна на 350): в закрытом поле и вопрос (он стоит вместо плейсхолдера), и выбранное значение **переносятся по словам на две строки**, поле растёт по высоте, стрелка остаётся по центру по вертикали. Многоточие (`text-overflow: ellipsis`) не использовать; вопрос не переносить в подпись над полем. Если текст не помещается и в две строки — пусть занимает больше строк, ничего не обрезать. Варианты в открытом списке тоже переносятся по словам. У списков с чекбоксами в закрытом поле — выбранные через запятую, а если не помещаются в две строки — «N selected» (forms-to-notion.md).
+
+## Переменные окружения (Vercel)
+`NEXT_PUBLIC_SITE_URL` (= https://workchatseattle.org), `NOTION_TOKEN`, `NOTION_DS_MENTOR_CARDS`, `NOTION_DS_VOLUNTEERS`, `NOTION_DS_EVENT_SUGGESTIONS`, `RESEND_API_KEY`, `FORMS_TO_EMAIL` (= workchatseattle@gmail.com), `FORMS_FROM_EMAIL` (адрес на подтверждённом домене, например forms@workchatseattle.org), `TURNSTILE_SECRET_KEY` + `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` (ограничить по домену), `NEXT_PUBLIC_GA_ID`.
+Только локально (`.env.local`, не в Vercel и не в git): `FIGMA_TOKEN` — для скрипта выгрузки картинок.
+
+## Открытые вопросы
+Решить по ходу вёрстки; без решения — не верстать соответствующую часть.
+- **Токен Figma** для скрипта картинок — Юлия создаёт в Figma (Settings → Security → Personal access tokens, только чтение) и кладёт в `.env.local` перед выгрузкой картинок Home.
+- **Аккаунты и ключи** (нужны к этапу форм и запуска): проект Vercel и домен; интеграция Notion (internal) с доступом к Mentor cards, Volunteers, Event suggestions, Event listings, Speakers; Resend и подтверждение домена в DNS; Cloudflare Turnstile; ключ Google Maps JS API; GA4 — заведён ли и какой ID.
+- **Дата в Privacy Policy** («Effective date: November 6, 2026») — обновить в Google Doc и Figma, если запуск сдвинется.

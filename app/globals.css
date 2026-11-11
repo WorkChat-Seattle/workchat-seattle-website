@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Примитивы — обычные CSS-переменные, утилит для них нет (CLAUDE.md, «Токены»)
+   ========================================================================== */
+:root {
+  --gray-900: #323232;
+  --gray-700: #4a4a4a;
+  --gray-500: #565252;
+  --gray-300: #857f7f;
+  --white: #ffffff;
+  --green: #0d5a3b;
+  --red-600: #a63d33;
+
+  --neutral-900: #d7cec8;
+  --neutral-800: #dbd4ce;
+  --neutral-600: #edeae6;
+  --neutral-500: #f1eeeb;
+  --neutral-400: #f5f3f1;
+  --neutral-200: #faf9f7;
+
+  /* альфа-примитивы */
+  --white-alpha-90: rgb(255 255 255 / 0.9);
+  --neutral-alpha-80: rgb(250 249 247 / 0.8);
+  --neutral-alpha-50: rgb(250 249 247 / 0.5);
+  --dark-alpha-70: rgb(58 58 58 / 0.7);
+  --dark-alpha-10: rgb(58 58 58 / 0.1);
+  --alpha-70: rgb(50 50 50 / 0.7);
+  --black-alpha-50: rgb(18 18 18 / 0.5);
+}
+
+/* ==========================================================================
+   Тема. `static` — чтобы переменные попадали в CSS всегда, в том числе когда
+   их читают CSS-модули через var(--color-…) (правило 4 в «Правилах Tailwind»).
+   ========================================================================== */
+@theme static {
+  /* Стандартная палитра, размеры текста и брейкпоинты Tailwind отключены */
+  --color-*: initial;
+  --text-*: initial;
+  --breakpoint-*: initial;
+
+  /* Брейкпоинты: без префикса = mobile (<768), md: = tablet, xl: = desktop */
+  --breakpoint-md: 768px;
+  --breakpoint-xl: 1280px;
+
+  /* Шкала отступов: p-10 = 40px */
+  --spacing: 4px;
+
+  /* Шрифт: подмножества Google Sans (app/fonts.ts) в одном стеке */
+  --font-sans:
+    var(--font-gs-latin), var(--font-gs-latin-ext), var(--font-gs-cyrillic),
+    var(--font-gs-cyrillic-ext), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---------- Семантика: фоны ---------- */
+  --color-bg-page: var(--neutral-600);
+  --color-bg-card-neutral: var(--neutral-400);
+  --color-bg-card-light: var(--neutral-200);
+  --color-bg-card-muted: var(--neutral-500);
+  --color-bg-card-dark: var(--neutral-800);
+  --color-bg-card-dark-hover: var(--neutral-900);
+  --color-bg-card-white: var(--white);
+  --color-bg-card-green: var(--green);
+  --color-bg-card-transparent: var(--neutral-alpha-50);
+  --color-bg-glass: var(--neutral-alpha-80);
+  --color-bg-inverse: var(--gray-900);
+  --color-bg-input: var(--white);
+
+  /* ---------- Текст ---------- */
+  --color-text-heading: var(--gray-900);
+  --color-text-body: var(--gray-700);
+  --color-text-muted: var(--gray-500);
+  --color-text-placeholder: var(--gray-300);
+  --color-text-white: var(--white);
+  --color-text-inverse: var(--neutral-600);
+  --color-text-inverse-muted: var(--neutral-alpha-50);
+
+  /* ---------- Кнопки ---------- */
+  --color-button-dark: var(--gray-700);
+  --color-button-hover: var(--gray-900);
+  --color-button-white: var(--white);
+  --color-button-outline: var(--gray-700);
+  --color-button-text-light: var(--neutral-200);
+  --color-button-text-dark: var(--gray-700);
+
+  /* ---------- Обводки ---------- */
+  --color-border-divider: var(--neutral-800);
+  --color-border-input-hover: var(--neutral-800);
+  --color-border-input-focus: var(--gray-300);
+
+  /* ---------- Прочее ---------- */
+  --color-status-error: var(--red-600);
+  --color-decor-card-outline: var(--white-alpha-90);
+  --color-decor-icon: var(--gray-300);
+  --color-decor-accent: var(--gray-900);
+  --color-icon-bg: var(--gray-700);
+  --color-icon-glyph: var(--white);
+  --color-overlay-blur-light: var(--dark-alpha-10);
+  --color-overlay-hover-dark: var(--black-alpha-50);
+
+  /* Тень модальных окон и выпадающих списков: 0 8 24, 12% */
+  --shadow-modal: 0 8px 24px rgb(0 0 0 / 0.12);
+
+  /* ==========================================================================
+     Анимации — значения из docs/animations.md (эталон — workchat-v2).
+     Только токены; сами анимации — отдельным проходом (шаг 7).
+     ========================================================================== */
+
+  /* 1. Появление при прокрутке */
+  --duration-reveal: 600ms;
+  --duration-reveal-step: 100ms; /* шаг между соседями в строке */
+  --duration-reveal-row: 150ms; /* шаг между строками сетки карточек */
+  --reveal-shift: 24px;
+  --reveal-threshold: 0.15;
+
+  /* 2. Кнопки */
+  --ease-btn: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-btn-in: 650ms;
+  --duration-btn-out: 450ms;
+
+  /* 3. Ссылки: подчёркивание */
+  --ease-link: ease-out;
+  --duration-link: 300ms;
+
+  /* 4. Карточки-ссылки */
+  --ease-card: ease-out;
+  --duration-card-bg: 300ms;
+  --duration-card-scale: 350ms;
+  --card-scale: 1.02;
+
+  /* 5. Логотип: «печатает…» */
+  --duration-logo-dot: 1200ms;
+  --logo-dot-lift: -3px;
+
+  /* 6. Шапка при прокрутке */
+  --header-scroll-threshold: 16px;
+  --header-blur: 12px;
+
+  /* 7. Параллакс (≥1280) */
+  --parallax-shift: 60px;
+  --parallax-shift-community: 120px;
+
+  /* 9. Find your mentor */
+  --duration-mentor-ring: 450ms;
+  --duration-mentor-avatar: 350ms;
+  --duration-mentor-text: 250ms;
+  --duration-mentor-hover: 400ms;
+
+  /* 10. Отзывы (слайдер) */
+  --ease-slider: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-slider: 600ms;
+
+  /* 11. Our Values (About) */
+  --values-step: 60vh;
+  --values-shift: 100px;
+  --ease-values-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-values-color: cubic-bezier(0.5, 1, 0.89, 1);
+  --duration-values-out: 600ms;
+  --duration-values-color: 400ms;
+  --duration-values-word-step: 10ms;
+
+  /* 12. FAQ */
+  --ease-faq: ease-out;
+  --duration-faq: 350ms;
+}
+
+/* ==========================================================================
+   Типографика (CLAUDE.md, «Типографика»). Один класс на стиль.
+   Размеры: mobile → md (tablet) → xl (desktop). Шрифт — Google Sans.
+   ========================================================================== */
+@utility text-h1 {
+  font-size: 36px;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  @media (width >= theme(--breakpoint-md)) {
+    font-size: 56px;
+  }
+  @media (width >= theme(--breakpoint-xl)) {
+    font-size: 80px;
+  }
+}
+
+@utility text-h2 {
+  font-size: 32px;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  @media (width >= theme(--breakpoint-md)) {
+    font-size: 44px;
+  }
+  @media (width >= theme(--breakpoint-xl)) {
+    font-size: 56px;
+  }
+}
+
+@utility text-h3 {
+  font-size: 28px;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  @media (width >= theme(--breakpoint-xl)) {
+    font-size: 30px;
+  }
+}
+
+@utility text-numbers {
+  font-size: 36px;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  @media (width >= theme(--breakpoint-xl)) {
+    font-size: 65px;
+  }
+}
+
+@utility text-button {
+  font-size: 18px;
+  line-height: normal;
+  font-weight: 500;
+  @media (width >= theme(--breakpoint-xl)) {
+    font-size: 16px;
+  }
+}
+
+/* Общие для всех брейкпоинтов */
+@utility text-body {
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+@utility text-caption {
+  font-size: 16px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+@utility text-feature {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+@utility text-body-bold-accent {
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+@utility text-body-italic-accent {
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 700;
+  font-style: italic;
+}
+
+@utility text-button-selected {
+  font-size: 16px;
+  line-height: normal;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   База
+   ========================================================================== */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg-page);
+    color: var(--color-text-body);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.3;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* В Figma у h1/h2 включён Title Case, тексты записаны обычным регистром.
+     Только для EN; в русском регистр как в тексте. */
+  h1:lang(en),
+  h2:lang(en) {
+    text-transform: capitalize;
+  }
+}
