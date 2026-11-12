@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "texts:build": "tsx scripts/build-texts.ts"
+    "texts:build": "tsx scripts/build-texts.ts",
+    "export:figma": "tsx scripts/export-figma.ts"
   },
   "dependencies": {
     "@fontsource-variable/google-sans": "^5.3.2",
@@ -23,6 +24,7 @@
     "csv-parse": "^7.0.3",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+    "svgo": "^4.1.0",
     "tailwindcss": "4.3.3",
     "tsx": "^4.23.15",
     "typescript": "^5"
