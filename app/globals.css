@@ -284,6 +284,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Видимый фокус с клавиатуры у всех интерактивных элементов */
+  :focus-visible {
+    outline: 2px solid var(--color-decor-accent);
+    outline-offset: 2px;
+  }
+
   /* В Figma у стилей h1 / h2 включён Title Case, тексты записаны обычным
      регистром. Привязано к стилям .text-h1 / .text-h2 (не к тегам): например,
      «h1 стиля h2» на 404 и Privacy Policy. Только для EN; в русском регистр
