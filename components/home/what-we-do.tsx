@@ -4,12 +4,12 @@ import { type Locale, localePath } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { FACEBOOK_URL } from "@/lib/constants";
 import hug from "@/public/images/home/hug-illustration.svg";
-import photo1Desktop from "@/public/images/home/what-we-do-1-desktop.png";
-import photo1Mobile from "@/public/images/home/what-we-do-1-mobile.png";
-import photo1Tablet from "@/public/images/home/what-we-do-1-tablet.png";
-import photo2Desktop from "@/public/images/home/what-we-do-2-desktop.png";
-import photo3Desktop from "@/public/images/home/what-we-do-3-desktop.png";
-import photo3Tablet from "@/public/images/home/what-we-do-3-tablet.png";
+import photo1Desktop from "@/public/images/home/what-we-do-1-desktop.jpg";
+import photo1Mobile from "@/public/images/home/what-we-do-1-mobile.jpg";
+import photo1Tablet from "@/public/images/home/what-we-do-1-tablet.jpg";
+import photo2Desktop from "@/public/images/home/what-we-do-2-desktop.jpg";
+import photo3Desktop from "@/public/images/home/what-we-do-3-desktop.jpg";
+import photo3Tablet from "@/public/images/home/what-we-do-3-tablet.jpg";
 import Image from "next/image";
 
 /**

@@ -4,9 +4,9 @@ import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { PRIVACY_LINK_TEXT, PRIVACY_PATH } from "@/lib/constants";
 import { linkPhrase } from "@/lib/rich";
-import bgDesktop from "@/public/images/subscribe/subscribe-bg-desktop.png";
-import bgMobile from "@/public/images/subscribe/subscribe-bg-mobile.png";
-import bgTablet from "@/public/images/subscribe/subscribe-bg-tablet.png";
+import bgDesktop from "@/public/images/subscribe/subscribe-bg-desktop.jpg";
+import bgMobile from "@/public/images/subscribe/subscribe-bg-mobile.jpg";
+import bgTablet from "@/public/images/subscribe/subscribe-bg-tablet.jpg";
 import { ZeffyEmbed } from "./zeffy-embed";
 
 /**

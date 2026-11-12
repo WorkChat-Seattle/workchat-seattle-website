@@ -27,6 +27,15 @@
   --dark-alpha-10: rgb(58 58 58 / 0.1);
   --alpha-70: rgb(50 50 50 / 0.7);
   --black-alpha-50: rgb(18 18 18 / 0.5);
+
+  /* Градиенты (paint styles Figma): bg/gradient-center — белый 0% → 100% → 0% по вертикали
+     (get_design_context 1003:3548: прозрачный → белый на 49.909% → прозрачный на 99.519%) */
+  --gradient-center: linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0),
+    var(--white) 49.909%,
+    rgb(255 255 255 / 0) 99.519%
+  );
 }
 
 /* ==========================================================================
@@ -253,6 +262,10 @@
   line-height: 1;
   font-weight: 700;
   font-style: italic;
+}
+
+@utility bg-gradient-center {
+  background-image: var(--gradient-center);
 }
 
 /* Ссылки мобильного меню (Figma: mobile/menu-link) */

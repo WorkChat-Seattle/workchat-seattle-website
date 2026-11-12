@@ -3,9 +3,9 @@ import { CardSquare } from "@/components/ui/card-square";
 import { type Locale, localePath } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { DONATE_URL } from "@/lib/constants";
-import imgDesktop from "@/public/images/get-involved/get-involved-desktop.png";
-import imgMobile from "@/public/images/get-involved/get-involved-mobile.png";
-import imgTablet from "@/public/images/get-involved/get-involved-tablet.png";
+import imgDesktop from "@/public/images/get-involved/get-involved-desktop.jpg";
+import imgMobile from "@/public/images/get-involved/get-involved-mobile.jpg";
+import imgTablet from "@/public/images/get-involved/get-involved-tablet.jpg";
 
 /**
  * Get Involved (Figma: get-involved `1084:10523`; desktop `1013:1389`, tablet `1203:14182`,

@@ -7,9 +7,9 @@ import { MenuAction, MenuButton } from "@/components/ui/menu-button";
 import { type Locale, localePath } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { DONATE_URL, SITE_NAME, FACEBOOK_URL, LINKEDIN_URL, PRIVACY_PATH } from "@/lib/constants";
-import photoDesktop from "@/public/images/footer/footer-photo-desktop.png";
-import photoMobile from "@/public/images/footer/footer-photo-mobile.png";
-import photoTablet from "@/public/images/footer/footer-photo-tablet.png";
+import photoDesktop from "@/public/images/footer/footer-photo-desktop.jpg";
+import photoMobile from "@/public/images/footer/footer-photo-mobile.jpg";
+import photoTablet from "@/public/images/footer/footer-photo-tablet.jpg";
 import hug from "@/public/images/footer/footer-hug.svg";
 
 /**
@@ -22,7 +22,7 @@ import hug from "@/public/images/footer/footer-hug.svg";
  */
 export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
   return (
-    <footer className="pt-10">
+    <footer className="pt-10 md:pt-0 xl:pt-10">
       <div className="bg-bg-card-neutral">
         <div className="mx-auto max-w-300 xl:flex xl:gap-20">
           <div className="hidden xl:-mt-10 xl:block xl:h-106.75 xl:w-75 xl:shrink-0">

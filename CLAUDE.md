@@ -78,12 +78,13 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
   - внутри карточек две колонки 264 и 304, промежуток 40;
   - поля форм на всю ширину; подписи, согласие и кнопка формы — со 2-й колонки;
   - отдельные кнопки под блоками — со 2-й колонки, по ширине текста; «Back to all…» и «Show more» — по центру;
-  - футер сразу после get-involved, без отступа.
+  - перед футером отступа нет (0): футер идёт сразу после последнего блока.
 - **Mobile:**
   - внутри карточек отступы 20, текст→контент 40;
   - кнопки друг под другом через 10;
   - область нажатия ≥ 44;
-  - get-involved и футер встык; на 404 и Privacy Policy перед футером 80.
+  - перед футером 40 — внутренний отступ обёртки футера, на всех страницах (включая 404 и Privacy Policy).
+- **Отступ перед футером (по всем кадрам Figma, решено 12.11):** mobile — 40 (внутренний отступ обёртки футера), tablet — 0, desktop и 1920 — 160 (до верха фото футера). На Mentorship 1440 в макете 400 — не повторять, разобрать на шаге Mentorship.
 - **Шапка:** мобильная (бургер) на mobile и tablet, десктопная — с 1280.
   - Открытое меню — компонент `mobile-menu` (варианты `size = mobile | tablet`): ссылки About Us, Events, Mentorship, Volunteer, Donate и переключатель EN/RU.
   - Бургер — `icon/menu` с состояниями `state = closed | open`.
@@ -354,7 +355,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 4. Семантическая разметка: один h1 на страницу, `<nav>`, `<main>`, `<footer>`, `<button>` для действий, `<a href>` для переходов (без переходов через `onClick`), `<label>` у полей, `lang` у `<html>` (`en` / `ru`), skip link. FAQ и разделы Privacy Policy — кнопка с `aria-expanded` (не `<details>`, чтобы анимировать высоту); ответы в HTML и в свёрнутом виде (закрытый — `inert`).
 5. Состояния из вариантов (hover, focus, active, error, expanded, disabled) реализовать все. Focus виден с клавиатуры. Все анимации выключаются при `prefers-reduced-motion: reduce`.
 6. **Картинки** (все проверены и одобрены 06.11 — брать из Figma как есть):
-   - **выгрузка — скриптом, а не по одной** (решено 11.11): `npm run export:figma` (`scripts/export-figma.ts`) через Figma REST API (`GET /v1/images/:file_key`). Список картинок — в `scripts/figma-assets.ts`: `{ nodeId, name, format: 'png' | 'svg', scale }`. Узлы рендерятся как в макете — с обрезкой и фильтрами (ч/б и затемнение у фото Our Values и т. п.), CSS-фильтрами не повторять. Фото — PNG 2× (кадр 1440 → 2880 px по ширине); логотип и иконки — SVG, затем SVGO. Оригиналы — в `design-assets/` (вне `public`, в git), файлы для сайта — копии с осмысленными именами в `public/images/`. Повторный запуск перезаписывает файлы: заменили картинку в Figma — одна команда. Список пополняется постранично (начать с Home). Токен — `FIGMA_TOKEN` (личный токен Юлии, только чтение `file_content:read`) в `.env.local`; `.env.local` — в `.gitignore`, в Vercel токен не нужен. Запросы к API — пачками по нескольку узлов, при ответе 429 подождать и повторить. Для разовой картинки можно и `download_assets` из Figma MCP, но затем добавить её в список скрипта;
+   - **выгрузка — скриптом, а не по одной** (решено 11.11): `npm run export:figma` (`scripts/export-figma.ts`) через Figma REST API (`GET /v1/images/:file_key`). Список картинок — в `scripts/figma-assets.ts`: `{ nodeId, name, format: 'jpg' | 'png' | 'svg', scale, dir }`. Узлы рендерятся как в макете — с обрезкой и фильтрами (ч/б и затемнение у фото Our Values и т. п.), CSS-фильтрами не повторять. Фото — **JPG 2×** (кадр 1440 → 2880 px по ширине; PNG — только там, где нужна прозрачность); логотип и иконки — SVG, затем SVGO. Оригиналы — в `design-assets/` (вне `public`, в git), файлы для сайта — копии с осмысленными именами в `public/images/`. Повторный запуск перезаписывает файлы: заменили картинку в Figma — одна команда. Список пополняется постранично (начать с Home). Токен — `FIGMA_TOKEN` (личный токен Юлии, только чтение `file_content:read`) в `.env.local`; `.env.local` — в `.gitignore`, в Vercel токен не нужен. Запросы к API — пачками по нескольку узлов, при ответе 429 подождать и повторить. Для разовой картинки можно и `download_assets` из Figma MCP, но затем добавить её в список скрипта;
    - оригиналы хранить вне `public`, в `public/images` — только то, что идёт на сайт, имена в kebab-case;
    - сжимать один раз — через `next/image` (WebP/AVIF);
    - у каждой `next/image` задавать `sizes`; у hero — `priority`, остальное лениво;
@@ -377,3 +378,4 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 - **Аккаунты и ключи** (нужны к этапу форм и запуска): проект Vercel и домен; интеграция Notion (internal) с доступом к Mentor cards, Volunteers, Event suggestions, Event listings, Speakers; Resend и подтверждение домена в DNS; Cloudflare Turnstile; ключ Google Maps JS API; GA4 — заведён ли и какой ID.
 - **Дата в Privacy Policy** («Effective date: November 6, 2026») — обновить в Google Doc и Figma, если запуск сдвинется.
 - **Локализованный 404** (с 12.11) — `notFound()` внутри `app/[lang]/…` отдаёт голую оболочку Next вместо нашей страницы (проверено: not-found на уровне `[lang]`, внутри `[...rest]`, route group, `globalNotFound`, корневой `app/not-found.tsx` — не помогло). Нужно решение до страницы 404 (шаг 5): например, свой catch-all `app/[lang]/[...rest]/page.tsx`, который сам рендерит блок `not-found` со статусом 404, и проверка статуса на каждом маршруте.
+- **Кнопка в Community на Home** — в Figma подпись «Join our Facebook community», в таблице такой строки нет (есть `home.whatWeDo.community.button` = «Join our community» / «Присоединиться на Facebook»). Пока кнопка использует этот ключ; нужна строка для кнопки секции Community (ключ, например, `home.community.button`) или подтверждение, что берём существующую.

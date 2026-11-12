@@ -8,7 +8,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   turbopack: {
     rules: {
-      "*.css": {
+      // только globals.css: иначе загрузчик Tailwind перехватывает и *.module.css (CSS-модули перестают работать)
+      "globals.css": {
         loaders: ["@tailwindcss/turbopack"],
         as: "*.css",
       },

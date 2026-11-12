@@ -1,0 +1,43 @@
+/*
+ * Коллаж фото секции Community (Figma: community `1003:3548`, mobile `1110:10668`).
+ * Разрешённое исключение из правил Tailwind (правило 4 в CLAUDE.md): расположение фото — это
+ * рисунок из макета, поэтому координаты в px как в Figma. Цвета и шрифты здесь не используются.
+ * desktop: холст 1440×1200 по центру, координаты от его левого верхнего угла;
+ * mobile: три фото сверху и три снизу, 150×150, с наложением.
+ * Медиазапрос не может брать брейкпоинт из токена — 1280px / 768px здесь вручную.
+ */
+.photo {
+  position: absolute;
+  overflow: hidden;
+}
+
+/* mobile (< 768): top — 3 фото в блоке высотой 259, bottom — 3 фото в блоке высотой 180 */
+.m {
+  width: 150px;
+  height: 150px;
+}
+.mTop1 { left: 0; top: 20px; }
+.mTop2 { left: 50%; margin-left: -70px; top: 69px; }
+.mTop3 { right: 0; top: 59px; }
+.mBottom1 { left: 0; top: 10px; }
+.mBottom2 { left: 50%; margin-left: -70px; top: 30px; }
+.mBottom3 { right: 0; top: 0; }
+
+/* desktop (≥ 1280): 10 фото, порядок слоёв как в Figma (дальше в списке — выше) */
+@media (min-width: 1280px) {
+  .d10 { left: 420px; top: 0; width: 300px; height: 300px; }
+  .d09 { left: 1020px; top: 480px; width: 375px; height: 375px; }
+  .d08 { left: 570px; top: 750px; width: 300px; height: 300px; }
+  .d07 { left: 53px; top: 750px; width: 270px; height: 270px; }
+  .d06 { left: 120px; top: 180px; width: 270px; height: 270px; }
+  .d05 { left: 271px; top: 660px; width: 150px; height: 150px; }
+  .d04 { left: 870px; top: 180px; width: 150px; height: 150px; }
+  .d03 { left: 720px; top: 930px; width: 270px; height: 270px; }
+  .d02 { left: -79px; top: 480px; width: 150px; height: 150px; }
+  .d01 { left: 1254px; top: 90px; width: 150px; height: 150px; }
+  .copy {
+    position: absolute;
+    left: 420px;
+    top: 382px;
+  }
+}
