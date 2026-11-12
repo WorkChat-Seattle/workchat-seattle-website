@@ -315,6 +315,9 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 `<div data-zeffy-embed data-form-url="/en-US/embed/newsletter-form/stay-connected-36">` + `<script src="https://www.zeffy.com/embed/v2/zeffy-embed.js">`.
 Под формой наша подпись: «By clicking the "Submit" button, you agree to the terms of our Privacy Policy.» Внутри iframe ничего не настраивается, он только на английском. Подробности раскладки — forms-to-notion.md.
 
+### Resource Hub на Home
+Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) до готовности контента; при возврате — решить, куда ведут кнопки карточек (`data/resources.ts`). Код, картинки и тексты сохранены; пока флаг выключен, секция не рендерится (в HTML ничего нет), у Find your mentor отступ сверху как у обычной секции.
+
 ### Страница 404
 Шутка «у страницы перерыв на кофе». `app/not-found.tsx`, статус 404, `robots: { index: false }`.
 - **Состав:** header → блок `not-found` → footer (без subscribe и get-involved).
@@ -378,4 +381,3 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 - **Аккаунты и ключи** (нужны к этапу форм и запуска): проект Vercel и домен; интеграция Notion (internal) с доступом к Mentor cards, Volunteers, Event suggestions, Event listings, Speakers; Resend и подтверждение домена в DNS; Cloudflare Turnstile; ключ Google Maps JS API; GA4 — заведён ли и какой ID.
 - **Дата в Privacy Policy** («Effective date: November 6, 2026») — обновить в Google Doc и Figma, если запуск сдвинется.
 - **Локализованный 404** (с 12.11) — `notFound()` внутри `app/[lang]/…` отдаёт голую оболочку Next вместо нашей страницы (проверено: not-found на уровне `[lang]`, внутри `[...rest]`, route group, `globalNotFound`, корневой `app/not-found.tsx` — не помогло). Нужно решение до страницы 404 (шаг 5): например, свой catch-all `app/[lang]/[...rest]/page.tsx`, который сам рендерит блок `not-found` со статусом 404, и проверка статуса на каждом маршруте.
-- **Ссылки карточек Resource Hub на Home** — куда ведут «Get started», «Take the next step», «Move your career forward», «Build your business» (адреса или страницы), в документах не указано. Пока в `data/resources.ts` адреса пустые, карточки показывают подпись без ссылки; адреса вписать в этот файл.

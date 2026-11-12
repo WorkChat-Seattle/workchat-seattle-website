@@ -146,3 +146,10 @@ figmaAssets.push(
   { nodeId: "1110:10750", name: "avatar-m3", format: "png", scale: 2, dir: "home" },
   { nodeId: "1110:10749", name: "avatar-m4", format: "png", scale: 2, dir: "home" },
 );
+
+// Home, testimonials (1088:1724): фото автора отзыва (заливка узла photo в card-testimonial, обрезка и круг — в CSS)
+// и знак кавычек (контур в glyphs.ts).
+figmaAssets.push(
+  { nodeId: "I1003:3490;1048:1383", name: "testimonial-kristina", format: "jpg", scale: 1, dir: "home", fill: true },
+  { nodeId: "I1003:3490;1048:1385", name: "quote-mark", format: "svg", scale: 1, dir: "ui", publish: false },
+);

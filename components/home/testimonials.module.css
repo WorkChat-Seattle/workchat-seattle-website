@@ -1,0 +1,33 @@
+/*
+ * Лента отзывов (Figma: testimonials `1088:1724`; tablet `1203:14497`, mobile `1110:10777`).
+ * Ширина слайда зависит от брейкпоинта и считается от ширины ленты: mobile — ширина − 20 (виден край
+ * следующей карточки), tablet — ширина − 48, desktop — вся лента (900). Зазор 16 / 16 / 0.
+ * Значения — расчёт из макета, а не токены; медиазапросы не берут брейкпоинт из токена (768 / 1280 вручную).
+ */
+.track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+.slide {
+  flex: 0 0 calc(100% - 20px);
+  scroll-snap-align: start;
+}
+@media (min-width: 768px) {
+  .slide {
+    flex-basis: calc(100% - 48px);
+  }
+}
+@media (min-width: 1280px) {
+  .track {
+    gap: 0;
+  }
+  .slide {
+    flex-basis: 100%;
+  }
+}

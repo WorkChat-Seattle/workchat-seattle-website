@@ -69,13 +69,14 @@ function Avatars({
  * готовый SVG из макета, на mobile — те же кольца в CSS (в Figma там отдельные слои). Холст: 1440×1200,
  * 768×688, 750 высотой. Аватары декоративные, их «плавание» — на проходе анимаций (animations.md, п. 9).
  * Текст и кнопки на холсте: desktop от (420, 496), tablet от (212, 228), mobile от (20, 245).
- * Секция идёт сразу после Resource Hub и перед Subscribe, без отступов.
+ * Секция идёт сразу после Resource Hub и перед Subscribe, без отступов. `spaced` — когда Resource Hub скрыт
+ * (SHOW_RESOURCE_HUB): отступ сверху как у любой секции (80 / 120 / 160), иначе блок слипнется с предыдущим.
  */
-export function FindMentor({ lang, t }: { lang: Locale; t: Dictionary }) {
+export function FindMentor({ lang, t, spaced = false }: { lang: Locale; t: Dictionary; spaced?: boolean }) {
   return (
     <section
       aria-labelledby="find-mentor-title"
-      className="flex justify-center overflow-x-clip"
+      className={`flex justify-center overflow-x-clip ${spaced ? "mt-20 md:mt-30 xl:mt-40" : ""}`}
     >
       {/* холст фиксированной ширины по центру: на 1280–1439 лишнее по бокам обрезается поровну */}
       <div className="relative h-187.5 w-full shrink-0 md:h-172 md:w-192 xl:h-300 xl:w-360">
