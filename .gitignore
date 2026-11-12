@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# оригиналы для загрузки в Notion (не в git)
+design-assets/notion-upload/
