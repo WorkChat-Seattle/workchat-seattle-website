@@ -4,12 +4,15 @@
  *
  *   npm run privacy:build
  *
- * Структура документа: **заголовок**, «Effective date: …», вводный абзац, затем разделы **N\. Название**
+ * Структура документа: **название документа** (на странице не используется — h1 «Privacy Policy» задан в PAGE_TITLE), «Effective date: …», вводный абзац, затем разделы **N\. Название**
  * с абзацами; раздел 14 («Organization Information and Contact Details») — блок контактов вне списка.
  * Экранирование Markdown (`\.`, `\:`) снимается, жёсткие переносы (два пробела) становятся «\n».
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+
+/** Заголовок h1 страницы — постоянное значение (как в Figma); название документа в Google Doc («WorkChat Seattle Privacy Policy») не используется. */
+const PAGE_TITLE = "Privacy Policy";
 
 const root = process.cwd();
 const md = readFileSync(join(root, "content/texts/privacy-policy.md"), "utf8");
@@ -18,7 +21,6 @@ const unescape = (s: string) => s.replace(/\\(.)/g, "$1");
 const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 type Section = { n: number; title: string; body: string[] };
-let title = "";
 let effectiveDate = "";
 let intro = "";
 const sections: Section[] = [];
@@ -33,9 +35,8 @@ for (const raw of md.trim().split(/\n\s*\n/)) {
     if (num) {
       cur = { n: Number(num[1]), title: num[2], body: [] };
       sections.push(cur);
-    } else {
-      title = text;
     }
+    // иначе — название документа (первая строка), заменено на PAGE_TITLE
     continue;
   }
   const text = unescape(block.replace(/ {2}\n/g, "\n"));
@@ -46,7 +47,7 @@ for (const raw of md.trim().split(/\n\s*\n/)) {
 
 const list = sections.filter((s) => s.n <= 13);
 const contact = sections.find((s) => s.n === 14);
-if (!title || !effectiveDate || !intro || list.length !== 13 || !contact) {
+if (!effectiveDate || !intro || list.length !== 13 || !contact) {
   console.error("Разбор не удался: ожидались заголовок, дата, вводный абзац, 13 разделов и раздел 14.");
   process.exit(1);
 }
@@ -68,7 +69,7 @@ export const privacyPolicy: {
   sections: PolicySection[];
   contact: { title: string; body: string[] };
 } = {
-  title: ${JSON.stringify(title)},
+  title: ${JSON.stringify(PAGE_TITLE)},
   effectiveDate: ${JSON.stringify(effectiveDate)},
   intro: ${JSON.stringify(intro)},
   sections: ${json(

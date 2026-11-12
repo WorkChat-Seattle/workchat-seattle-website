@@ -10,7 +10,7 @@
 Скрипт сборки: `code.privacy-build.js` в ~/Documents/figma-claude-plugin (пересобирает все 4 кадра, старые «Privacy Policy / …» удаляет; тексты в нём с правками разделов 4, 6, 7 от 02.11, **но без правок 05.11 и даты от 06.11** — после пересборки снова запустить `code.privacy-zeffy.js` и `code.privacy-date.js`). Header и footer клонированы с кадров 404.
 
 ## Источник текста
-**С 12.11 источник истины для кода — `content/texts/privacy-policy.md`** (выгрузка Google Doc в Markdown). Из него `npm run privacy:build` (`scripts/build-privacy.ts`) собирает `data/privacy-policy.ts` (заголовок, строка «Effective date», вводный абзац, 13 разделов `{ id, title, body[] }`, контакты). Файл данных руками не править; текст изменился в Google Doc — обновить `.md` и запустить команду. Если текст в документе отличается от макета Figma — верен документ.
+**С 12.11 источник истины для кода — `content/texts/privacy-policy.md`** (выгрузка Google Doc в Markdown). Из него `npm run privacy:build` (`scripts/build-privacy.ts`) собирает `data/privacy-policy.ts` (заголовок, строка «Effective date», вводный абзац, 13 разделов `{ id, title, body[] }`, контакты). Файл данных руками не править; текст изменился в Google Doc — обновить `.md` и запустить команду. Если текст в документе отличается от макета Figma — верен документ; исключение — h1 страницы: «Privacy Policy» (как в Figma, постоянное значение в скрипте сборки). Заголовок контактов — как в документе («Organization Information and Contact Details»).
 
 Google Doc «WorkChat Seattle Privacy Policy»: https://docs.google.com/document/d/1F0yUcXXI9VehZX1_xd6waTv6wE0hplG93_wcVvSFyZU/edit
 Образец структуры — https://seattle-envelopes.org/privacy-policy (вводный текст → разворачивающийся список).

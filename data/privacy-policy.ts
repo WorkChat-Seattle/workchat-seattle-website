@@ -14,7 +14,7 @@ export const privacyPolicy: {
   sections: PolicySection[];
   contact: { title: string; body: string[] };
 } = {
-  title: "WorkChat Seattle Privacy Policy",
+  title: "Privacy Policy",
   effectiveDate: "Effective date: November 6, 2026",
   intro: "WORKCHAT SEATTLE, a Washington nonprofit corporation (“WorkChat Seattle,” “we,” “us,” or “our”), operates https://workchatseattle.org. This Privacy Policy explains how we collect, use, disclose, protect, and retain personal information in connection with our website, communications, programs, and activities.",
   sections: [
