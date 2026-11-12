@@ -319,7 +319,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) до готовности контента; при возврате — решить, куда ведут кнопки карточек (`data/resources.ts`). Код, картинки и тексты сохранены; пока флаг выключен, секция не рендерится (в HTML ничего нет), у Find your mentor отступ сверху как у обычной секции.
 
 ### Страница 404
-Шутка «у страницы перерыв на кофе». `app/not-found.tsx`, статус 404, `robots: { index: false }`.
+Шутка «у страницы перерыв на кофе». `app/global-not-found.tsx` (`experimental.globalNotFound` в `next.config.ts`; обычный `not-found.tsx` при корневом layout с сегментом `[lang]` не подходит — Next показывает свою оболочку), статус 404, `robots: { index: false }`. Язык берётся из пути: `proxy.ts` кладёт его в заголовок `x-pathname`; страница ловит и несуществующие адреса, и `notFound()` внутри страниц. Общая рамка (skip-ссылка, шапка, футер) — `components/layout/site-chrome.tsx`, блок — `not-found-block.tsx`.
 - **Состав:** header → блок `not-found` → footer (без subscribe и get-involved).
 - **Блок `not-found`** собран как card-featured-event: карточка с текстом (`bg/card-neutral`) + фото, без скруглений.
   - **desktop:** 1200×600 по центру, 148 от верха. Слева карточка 600 с отступами 80, текст по центру по вертикали; справа фото 600×600. До футера 160.
@@ -380,4 +380,4 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - **Токен Figma** для скрипта картинок — Юлия создаёт в Figma (Settings → Security → Personal access tokens, только чтение) и кладёт в `.env.local` перед выгрузкой картинок Home.
 - **Аккаунты и ключи** (нужны к этапу форм и запуска): проект Vercel и домен; интеграция Notion (internal) с доступом к Mentor cards, Volunteers, Event suggestions, Event listings, Speakers; Resend и подтверждение домена в DNS; Cloudflare Turnstile; ключ Google Maps JS API; GA4 — заведён ли и какой ID.
 - **Дата в Privacy Policy** («Effective date: November 6, 2026») — обновить в Google Doc и Figma, если запуск сдвинется.
-- **Локализованный 404** (с 12.11) — `notFound()` внутри `app/[lang]/…` отдаёт голую оболочку Next вместо нашей страницы (проверено: not-found на уровне `[lang]`, внутри `[...rest]`, route group, `globalNotFound`, корневой `app/not-found.tsx` — не помогло). Нужно решение до страницы 404 (шаг 5): например, свой catch-all `app/[lang]/[...rest]/page.tsx`, который сам рендерит блок `not-found` со статусом 404, и проверка статуса на каждом маршруте.
+

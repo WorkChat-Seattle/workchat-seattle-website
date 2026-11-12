@@ -6,6 +6,10 @@ import type { NextConfig } from "next";
  * Без автоопределения языка и без редиректов по языку браузера.
  */
 const nextConfig: NextConfig = {
+  experimental: {
+    // 404 для корневого layout с динамическим сегментом [lang] (app/global-not-found.tsx)
+    globalNotFound: true,
+  },
   turbopack: {
     rules: {
       // только globals.css: иначе загрузчик Tailwind перехватывает и *.module.css (CSS-модули перестают работать)

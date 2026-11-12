@@ -43,7 +43,16 @@ const isSection = (path: string, base: string) => path === base || path.startsWi
  * Если позже на шапку добавится backdrop-filter (animations.md, п. 6), размытие делать
  * на отдельном слое-подложке, иначе fixed-меню станет «приклеено» к шапке.
  */
-export function SiteHeader({ lang, labels }: { lang: Locale; labels: HeaderLabels }) {
+export function SiteHeader({
+  lang,
+  labels,
+  switchPath,
+}: {
+  lang: Locale;
+  labels: HeaderLabels;
+  /** Куда ведёт переключатель EN / RU; по умолчанию — та же страница (на 404 — главная). */
+  switchPath?: string;
+}) {
   const pathname = usePathname();
   const path = stripLocale(pathname);
   // Меню открыто, пока страница та же, на которой его открыли: переход по ссылке закрывает его.
@@ -128,7 +137,7 @@ export function SiteHeader({ lang, labels }: { lang: Locale; labels: HeaderLabel
               ))}
             </ul>
           </nav>
-          <LanguageSwitch current={lang} path={path} label={labels.language} />
+          <LanguageSwitch current={lang} path={switchPath ?? path} label={labels.language} />
           <div className="flex items-center gap-2.5">
             <ButtonLink option="white" href={localePath(lang, "/volunteer")}>
               {labels.volunteer}
@@ -178,7 +187,7 @@ export function SiteHeader({ lang, labels }: { lang: Locale; labels: HeaderLabel
               {labels.donate}
             </ButtonLink>
           </div>
-          <LanguageSwitch current={lang} path={path} label={labels.language} />
+          <LanguageSwitch current={lang} path={switchPath ?? path} label={labels.language} />
         </div>
       </div>
     </header>

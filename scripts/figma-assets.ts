@@ -159,3 +159,10 @@ figmaAssets.push(
   { nodeId: "I1349:6401;1048:1383", name: "testimonial-natalia", format: "jpg", scale: 1, dir: "home", fill: true },
   { nodeId: "I1347:6391;1048:1383", name: "testimonial-yana", format: "jpg", scale: 1, dir: "home", fill: true },
 );
+
+// Страница 404 (кадры `1454:22166` / `1454:22422` / `1454:22443`): фото «кофе» с разной обрезкой по размерам, декоративное.
+figmaAssets.push(
+  { nodeId: "1454:22459", name: "coffee-mobile", format: "jpg", scale: 2, dir: "not-found" },
+  { nodeId: "1454:22438", name: "coffee-tablet", format: "jpg", scale: 2, dir: "not-found" },
+  { nodeId: "1454:22230", name: "coffee-desktop", format: "jpg", scale: 2, dir: "not-found" },
+);
