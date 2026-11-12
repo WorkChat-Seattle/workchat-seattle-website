@@ -166,3 +166,9 @@ figmaAssets.push(
   { nodeId: "1454:22438", name: "coffee-tablet", format: "jpg", scale: 2, dir: "not-found" },
   { nodeId: "1454:22230", name: "coffee-desktop", format: "jpg", scale: 2, dir: "not-found" },
 );
+
+// faq-toggle (`1041:1384`): плюс и крестик 24×24 — контуры в glyphs.ts
+figmaAssets.push(
+  { nodeId: "1041:1378", name: "faq-toggle-plus", format: "svg", scale: 1, dir: "ui", publish: false },
+  { nodeId: "1041:1382", name: "faq-toggle-close", format: "svg", scale: 1, dir: "ui", publish: false },
+);
