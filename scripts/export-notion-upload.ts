@@ -3,7 +3,7 @@
  * разрешение), JPG качества 95. Для людей — квадрат по обрезке, как в макете (аватар 1:1), из исходника в полном разрешении.
  * Папка design-assets/notion-upload/ в git не попадает (.gitignore). Запуск: npx tsx --env-file=.env.local scripts/export-notion-upload.ts
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 import sharp from "sharp";
 
