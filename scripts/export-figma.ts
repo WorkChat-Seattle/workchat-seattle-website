@@ -91,6 +91,8 @@ async function downloadFill(a: FigmaAsset): Promise<Buffer> {
             type: string;
             imageRef?: string;
             visible?: boolean;
+            scaleMode?: string;
+            imageTransform?: number[][];
             filters?: { exposure?: number; saturation?: number };
           }[];
         };
@@ -111,6 +113,24 @@ async function downloadFill(a: FigmaAsset): Promise<Buffer> {
   if (a.format === "svg") throw new Error("fill: нужен jpg или png");
   const { default: sharp } = await import("sharp");
   let img = sharp(raw);
+  // STRETCH + imageTransform — это обрезка картинки внутри узла: вырезаем нужный прямоугольник
+  // (доли исходного размера: x0 = t[0][2], ширина = t[0][0], y0 = t[1][2], высота = t[1][1]).
+  const t = fill?.scaleMode === "STRETCH" ? fill.imageTransform : undefined;
+  if (t) {
+    const meta = await sharp(raw).metadata();
+    const W = meta.width ?? 0;
+    const H = meta.height ?? 0;
+    const crop = {
+      left: Math.max(0, Math.round(t[0][2] * W)),
+      top: Math.max(0, Math.round(t[1][2] * H)),
+      width: Math.min(W, Math.round(t[0][0] * W)),
+      height: Math.min(H, Math.round(t[1][1] * H)),
+    };
+    if (crop.width > 0 && crop.height > 0 && (crop.width < W || crop.height < H)) {
+      img = img.extract(crop);
+      console.log(`    обрезка заливки: ${crop.width}×${crop.height} от (${crop.left}, ${crop.top})`);
+    }
+  }
   // Фильтры заливки из Figma (exposure, saturation) запекаются в файл — CSS-фильтрами не повторяем.
   // Приближение: exposure — множитель 2^e на значения пикселей, saturation — modulate(1 + s).
   const { exposure = 0, saturation = 0 } = fill?.filters ?? {};

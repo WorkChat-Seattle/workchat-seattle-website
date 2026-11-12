@@ -15,7 +15,8 @@ export type TestimonialItem = {
   name: string;
 };
 
-export type SliderLabels = { prev: string; next: string; slide: (n: number) => string };
+/** Подписи из словаря; `slideN` — шаблон с {n} и {total} (a11y.slideN). */
+export type SliderLabels = { prev: string; next: string; slideN: string };
 
 /** Карточка отзыва (Figma: card-testimonial `1084:10455`, tablet 640×610, mobile 330×723, desktop 900×518). */
 function Card({ item, readMore }: { item: TestimonialItem; readMore: string }) {
@@ -67,7 +68,7 @@ function Card({ item, readMore }: { item: TestimonialItem; readMore: string }) {
 
 /**
  * Лента отзывов: на desktop — полосы со стрелками по бокам (150) и карточка 900; на tablet / mobile —
- * карточки в ленте с виднеющимся краем следующей и точки под лентой. Прокрутка и привязка — нативные
+ * карточки в ленте с виднеющимся краем следующей (лента тянется до края экрана) и точки под лентой. Прокрутка и привязка — нативные
  * (scroll-snap), стрелки и точки листают программно; невидимые карточки — `inert`.
  * При одном отзыве листать нечего: стрелки и точки не выводятся (полосы остаются как фон).
  * Подписи стрелок и точек — из словаря (a11y.*); без них управления не показываются.
@@ -121,7 +122,7 @@ export function TestimonialSlider({
             <div aria-hidden="true" className="h-full w-37.5 bg-bg-card-muted" />
           )}
         </div>
-        <ul ref={track} className={`${s.track} min-w-0 flex-1`}>
+        <ul ref={track} className={`${s.track} -mr-5 min-w-0 flex-1 pr-5 md:-mr-10 md:pr-10 xl:mr-0 xl:pr-0`}>
           {items.map((item, i) => (
             <li key={item.id} className={s.slide} inert={items.length > 1 && i !== index}>
               <Card item={item} readMore={readMore} />
@@ -139,7 +140,7 @@ export function TestimonialSlider({
       {multiple ? (
         <div className="mt-5 flex justify-center gap-2 xl:hidden">
           {items.map((item, i) => (
-            <PaginationDot key={item.id} active={i === index} label={labels.slide(i + 1)} onClick={() => go(i)} />
+            <PaginationDot key={item.id} active={i === index} label={labels.slideN.replace("{n}", String(i + 1)).replace("{total}", String(items.length))} onClick={() => go(i)} />
           ))}
         </div>
       ) : null}

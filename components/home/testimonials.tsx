@@ -25,7 +25,15 @@ export function Testimonials({ t }: { t: Dictionary }) {
           {t["home.testimonials.title"]}
         </h2>
         <div className="mt-10 xl:mt-15">
-          <TestimonialSlider items={items} readMore={t["home.testimonials.readMore"]} />
+          <TestimonialSlider
+            items={items}
+            readMore={t["home.testimonials.readMore"]}
+            labels={{
+              prev: t["a11y.prevSlide"],
+              next: t["a11y.nextSlide"],
+              slideN: t["a11y.slideN"],
+            }}
+          />
         </div>
       </div>
     </section>

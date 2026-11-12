@@ -153,3 +153,9 @@ figmaAssets.push(
   { nodeId: "I1003:3490;1048:1383", name: "testimonial-kristina", format: "jpg", scale: 1, dir: "home", fill: true },
   { nodeId: "I1003:3490;1048:1385", name: "quote-mark", format: "svg", scale: 1, dir: "ui", publish: false },
 );
+
+// Home, testimonials, остальные отзывы (секция Testimonials 1819:24757): фото авторов — заливки узлов photo.
+figmaAssets.push(
+  { nodeId: "I1349:6401;1048:1383", name: "testimonial-natalia", format: "jpg", scale: 1, dir: "home", fill: true },
+  { nodeId: "I1347:6391;1048:1383", name: "testimonial-yana", format: "jpg", scale: 1, dir: "home", fill: true },
+);

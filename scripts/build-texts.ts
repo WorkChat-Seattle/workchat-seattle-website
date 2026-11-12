@@ -9,6 +9,7 @@
  *  - «Черновик» (и «Проверить») попадают в словарь, но выводятся списком;
  *  - пустое RU → подставляется EN (ru-version.md), тоже выводится списком;
  *  - повтор ключа в разных файлах — ошибка.
+ * Пробелы в конце строк и абзацев обрезаются; в RU обычный пробел перед «—» заменяется неразрывным.
  * Результат — плоские словари i18n/dictionaries/{en,ru}.json (коммитятся, чтобы
  * правки текстов были видны в git diff). Файлы руками не править.
  */
@@ -31,6 +32,15 @@ type Row = {
 };
 
 const norm = (s: string | undefined) => (s ?? "").replace(/\r\n?/g, "\n").trim();
+
+/** Пробелы в конце каждой строки и абзаца убираем (оба языка). */
+const trimLines = (s: string) => s.replace(/[ \t\u00A0]+$/gm, "");
+
+/**
+ * Типографика RU (ru-version.md): обычный пробел перед тире «—» заменяется неразрывным,
+ * чтобы тире не оставалось в начале строки. В таблице расставлять вручную не нужно.
+ */
+const ruTypography = (s: string) => s.replace(/ —/g, "\u00A0—");
 
 const en: Record<string, string> = {};
 const ru: Record<string, string> = {};
@@ -71,8 +81,8 @@ for (const file of files) {
     }
     if (UNFINISHED.has(status)) drafts.push(`${file} → ${key} (${status})`);
 
-    en[key] = enText;
-    ru[key] = ruText;
+    en[key] = trimLines(enText);
+    ru[key] = ruTypography(trimLines(ruText));
   }
 }
 
