@@ -1,0 +1,6 @@
+Ключ,Где на странице,EN,RU,Статус,Комментарий
+notFound.label,Метка над заголовком,Error 404,Ошибка 404,Вычитано,
+notFound.title,Заголовок,Looks like this page is on a coffee break,Страничка ушла на повышение,Вычитано,
+notFound.text,Текст,"We've sent someone to find it.
+Why don't you take a little break too?","Поздравляем её, а вам предлагаем вернуться на главную.",Вычитано,
+—,Кнопка,—,—,Не переводить здесь,btn.backHome (вкладка «Общее»)

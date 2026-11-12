@@ -1,0 +1,15 @@
+Ключ,Где,EN,RU,Статус,Комментарий
+seo.home.title,Home: заголовок вкладки и соцсетей,"WorkChat Seattle — Empowering women, advancing careers",WorkChat Seattle — помогаем женщинам строить карьеру,Вычитано,До 60 знаков. EN тоже черновик — в макетах нет
+seo.home.description,Home: описание для поиска и соцсетей,"WorkChat Seattle helps women grow professionally, connect with mentors, and find their next opportunity.","Некоммерческое сообщество в Сиэтле: помогаем женщинам строить карьеру в США — мероприятия, менторство и взаимная поддержка.",Вычитано,До 160 знаков. EN — как подзаголовок на OG-картинке
+seo.about.title,About: заголовок,About Us — WorkChat Seattle,О нас — WorkChat Seattle,Вычитано,
+seo.about.description,About: описание,"Our mission, values, story, and team: how WorkChat Seattle helps immigrant women across the Seattle area build careers in the U.S.","Наша миссия, ценности, история и команда: как WorkChat Seattle помогает женщинам в районе Сиэтла строить карьеру в США.",Вычитано,
+seo.events.title,Events: заголовок,Events — WorkChat Seattle,Мероприятия — WorkChat Seattle,Вычитано,
+seo.events.description,Events: описание,"Workshops, webinars, and meetups on career growth, job search, and networking — online and in the Seattle area.","Воркшопы, вебинары и встречи о карьере, поиске работы и нетворкинге — онлайн и в районе Сиэтла.",Вычитано,
+seo.event.title,Страница мероприятия: шаблон заголовка,{title} — WorkChat Seattle,{title} — WorkChat Seattle,Вычитано,{title} — Title / Title RU из Notion; описание — Short description / Short description RU
+seo.mentorship.title,Mentorship: заголовок,Mentorship — WorkChat Seattle,Менторство — WorkChat Seattle,Вычитано,
+seo.mentorship.description,Mentorship: описание,"Find a mentor who has walked a similar path, or share your own experience as a mentor at WorkChat Seattle.","Найдите ментора, который уже прошёл похожий путь, или станьте ментором сами и поделитесь опытом.",Вычитано,
+seo.mentor.title,Страница ментора: шаблон заголовка,{name} — Mentor at WorkChat Seattle,{name} — ментор WorkChat Seattle,Вычитано,{name} — имя из Notion; описание — начало Bio / Bio RU
+seo.volunteer.title,Volunteer: заголовок,Volunteer — WorkChat Seattle,Волонтёрство — WorkChat Seattle,Вычитано,
+seo.volunteer.description,Volunteer: описание,"Help with events, programs, and outreach, and become part of a community that supports women in their careers.","Помогайте с мероприятиями, программами и сайтом — и станьте частью сообщества, которое поддерживает женщин в карьере.",Вычитано,
+seo.notFound.title,404: заголовок,Page not found — WorkChat Seattle,Страница не найдена — WorkChat Seattle,Вычитано,
+seo.ogImage.alt,Описание картинки-превью (alt),"WorkChat Seattle — Empowering women, advancing careers",WorkChat Seattle — помогаем женщинам строить карьеру,Вычитано,"Решено 11.11: для /ru своя картинка — кадр «OG / Default / RU» (1789:17200) в Figma, текст на ней по-русски"

@@ -19,7 +19,7 @@
 ## Стек
 - **Next.js (App Router) + TypeScript**, **Tailwind CSS v4**, деплой на Vercel. Страницы — SSG/ISR, содержимое отдаётся в HTML с сервера (seo-ai-visibility.md, п. 5).
 - **Языки:** EN без префикса (`/`, `/events/<slug>`), RU с префиксом `/ru` (`/ru`, `/ru/events/<slug>`), slug одинаковый. Privacy Policy только на английском. Подробности — ru-version.md.
-- **Тексты интерфейса** — словари `en` / `ru`, собранные из Google-таблицы «WorkChat — тексты сайта EN/RU» (https://docs.google.com/spreadsheets/d/1pAWcR_tmgkjm55qbNIX0NstggJhiiEXS8lOj2JgQNgw/edit). В компонентах текста нет, только ключи.
+- **Тексты интерфейса** — словари `en` / `ru`, собранные из Google-таблицы «WorkChat — тексты сайта EN/RU» (https://docs.google.com/spreadsheets/d/1pAWcR_tmgkjm55qbNIX0NstggJhiiEXS8lOj2JgQNgw/edit). У Claude Code доступа к таблице нет: её выгрузка лежит в `content/texts/*.csv` (по файлу на вкладку, правила — `content/texts/README.md`). Словари собирать скриптом из этих CSV; сами CSV руками не править — их обновляет Claude из проекта по просьбе Юлии. В компонентах текста нет, только ключи.
 - **Данные** (события, спикеры, менторы, команда, FAQ, ценности, варианты форм) — файлы `data/*.ts`; события и менторы переносятся из Notion (dynamic-content.md). Страницы событий и менторов генерируются из данных.
 - **Формы** Mentorship, Volunteer, Suggest an event → свой Route Handler `app/api/forms/[form]/route.ts` → запись в Notion + письмо на workchatseattle@gmail.com через Resend, антиспам Cloudflare Turnstile + honeypot (forms-to-notion.md).
 - **Subscribe** — встроенная форма Zeffy (iframe), не наш сервер.

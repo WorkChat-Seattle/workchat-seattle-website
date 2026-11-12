@@ -1,0 +1,89 @@
+Ключ,Где на сайте,EN,RU,Статус,Комментарий
+nav.about,"Шапка, мобильное меню, футер",About Us,О нас,Итог (макет),
+nav.events,"Шапка, мобильное меню, футер",Events,Мероприятия,Итог (макет),
+nav.mentorship,"Шапка, мобильное меню, футер",Mentorship,Менторство,Итог (макет),
+nav.volunteer,"Шапка, мобильное меню, футер",Volunteer,Волонтёрство,Итог (макет),
+nav.donate,"Шапка, мобильное меню, футер",Donate,Поддержать,Итог (макет),Ведёт на кампанию Zeffy (на английском)
+nav.lang.en,Переключатель языка,EN,EN,Итог (макет),Ведёт на ту же страницу без /ru
+nav.lang.ru,Переключатель языка,RU,RU,Итог (макет),Ведёт на ту же страницу с /ru
+a11y.lang,"Переключатель языка, подпись для скринридера",Choose language,Выбор языка,Вычитано,Не видно на экране
+a11y.openMenu,"Мобильная шапка, кнопка меню (для скринридера)",Open menu,Открыть меню,Вычитано,Не видно на экране
+a11y.closeMenu,"Мобильное меню, крестик (для скринридера)",Close menu,Закрыть меню,Вычитано,Не видно на экране
+a11y.skipToContent,Первая ссылка страницы (видна при Tab),Skip to main content,Перейти к основному содержанию,Вычитано,
+a11y.newTab,"Пометка у ссылок, открывающихся в новой вкладке",(opens in a new tab),(откроется в новой вкладке),Вычитано,Не видно на экране
+footer.tagline,Футер: слоган,"Empowering women
+Advancing careers","Помогаем женщинам
+строить карьеру",Итог (макет),
+footer.privacy,Футер: ссылка,Privacy Policy,Политика конфиденциальности,Итог (макет),Ведёт на /privacy-policy (английская)
+footer.cookieSettings,Футер: кнопка,Cookie Settings,Настройки cookie,Итог (макет),Открывает окно настроек cookie
+footer.legal,Футер: юридическая информация,"A 501(c)(3) non-profit center
+EIN: 42-5207715","Некоммерческая организация
+501(c)(3), EIN: 42-5207715",Итог (макет),
+footer.copyright,Футер: копирайт,"© 2026 WorkChat Seattle.
+All rights reserved","© 2026 WorkChat Seattle.
+Все права защищены",Итог (макет),Год подставлять автоматически
+btn.register,Кнопка (мероприятия),Register,Зарегистрироваться,Вычитано,
+btn.registrationClosed,Кнопка неактивная (мероприятия),Registration closed,Регистрация закрыта,Вычитано,
+btn.details,Кнопка (карточки мероприятий),Details,Подробнее,Итог (макет),
+btn.videoRecording,Кнопка (прошедшие мероприятия),Video recording,Видеозапись,Вычитано,
+btn.showMore,Кнопка под прошедшими мероприятиями,Show more,Показать ещё,Вычитано,
+btn.suggestEvent,Кнопка (Events),Suggest an event,Предложить мероприятие,Вычитано,
+btn.backHome,"Кнопка (страница 404, окна)",Back to Homepage,Вернуться на главную,Вычитано,
+btn.close,Кнопка в окнах,Close,Закрыть,Вычитано,
+btn.submit,Кнопка отправки форм,Submit,Отправить,Вычитано,Только наши формы; в форме подписки Zeffy остаётся «Submit»
+btn.sending,Кнопка во время отправки,Sending…,Отправляем…,Вычитано,
+btn.viewProfile,Карточка ментора,View profile,Посмотреть профиль,Вычитано,
+btn.getConnected,Профиль ментора (email),Get connected,Связаться,Вычитано,
+form.name,Формы: поле,Your full name,Ваше имя и фамилия,Вычитано,
+form.email,Формы: поле,Your email,Ваш email,Вычитано,
+form.linkedin,Формы: поле,Link to your LinkedIn profile,Ссылка на профиль в LinkedIn,Вычитано,
+form.required,Формы: ошибка под полем,This field is required,Обязательное поле,Вычитано,
+form.selectedCount,"Формы: закрытый список, когда выбрано много",{n} selected,Выбрано: {n},Вычитано,{n} — число
+modal.success.title,Окно после отправки формы,Thank You!,Спасибо!,Вычитано,
+modal.success.mentorVolunteer,Окно успеха: формы ментора и волонтёра,We’ve received your information and will get back to you within 3 business days with the next steps.,"Мы получили ваши данные и свяжемся с вами в течение 3 рабочих дней, чтобы рассказать о следующих шагах.",Вычитано,
+modal.success.suggestEvent,Окно успеха: Suggest an event,We’ve received your suggestion. Our team will review it and may reach out to you by email.,Мы получили ваше предложение. Команда его рассмотрит и при необходимости напишет вам.,Вычитано,
+modal.error.title,Окно ошибки отправки,Something went wrong,Что-то пошло не так,Вычитано,
+modal.error.text,Окно ошибки отправки,"We couldn’t send your form. Please try again in a few minutes. If the problem continues, email us at workchatseattle@gmail.com.","Не получилось отправить форму. Попробуйте ещё раз через несколько минут. Если ошибка повторится, напишите нам на workchatseattle@gmail.com.",Вычитано,Адрес — ссылка mailto:
+cookie.banner.title,Cookie-баннер,"Cookies, anyone?",Мы используем cookie,Вычитано,
+cookie.banner.text,Cookie-баннер,"We use cookies to keep the site working, see what’s helpful, and show event maps. You can change this anytime in Cookie Settings.","Так сайт работает корректно, а вам удобнее им пользоваться. Изменить выбор можно в любой момент в настройках cookie.",Вычитано,
+cookie.banner.accept,Cookie-баннер: кнопка,Sure!,Хорошо!,Вычитано,
+cookie.banner.settings,Cookie-баннер: кнопка,Cookie settings,Настройки cookie,Вычитано,
+cookie.settings.title,Окно настроек cookie,Cookie Settings,Настройки cookie,Вычитано,
+cookie.settings.text,Окно настроек cookie,Choose which cookies and services we may use. You can change your choice anytime using the Cookie Settings link at the bottom of every page. Learn more in our Privacy Policy.,"Выберите, какие cookie и сервисы нам можно использовать. Изменить выбор можно в любой момент по ссылке «Настройки cookie» внизу каждой страницы. Подробнее — в Политике конфиденциальности.",Вычитано,«Политике конфиденциальности» — ссылка на /privacy-policy
+cookie.necessary.title,Окно настроек cookie,Necessary,Необходимые,Вычитано,
+cookie.necessary.always,Окно настроек cookie: подпись у переключателя,Always active,Всегда,Итог,Решено 06.11
+cookie.necessary.text,Окно настроек cookie,Keep the site secure and working: remember your cookie choice and protect our forms from spam.,"Нужны, чтобы сайт работал и был защищён: запоминают ваш выбор cookie и защищают формы от спама.",Вычитано,
+cookie.analytics.title,Окно настроек cookie,Analytics,Аналитика,Вычитано,
+cookie.analytics.text,Окно настроек cookie,"Help us see which pages are useful and how visitors find us, so we can improve the site. Provided by Google Analytics.","Помогают понять, какие страницы полезны и как нас находят, чтобы делать сайт лучше. Сервис: Google Analytics.",Вычитано,
+cookie.embedded.title,Окно настроек cookie,Embedded content,Встроенный контент,Вычитано,
+cookie.embedded.text,Окно настроек cookie,"Show interactive maps on event pages. When a map loads, Google receives your IP address and may set its own cookies. Provided by Google Maps.","Показывают интерактивные карты на страницах мероприятий. Когда карта загружается, Google получает ваш IP-адрес и может установить свои cookie. Сервис: Google Maps.",Вычитано,
+cookie.rejectAll,Окно настроек cookie: кнопка,Reject all,Отклонить все,Вычитано,
+cookie.acceptAll,Окно настроек cookie: кнопка,Accept all,Принять все,Вычитано,
+cookie.save,Окно настроек cookie: кнопка,Save preferences,Сохранить настройки,Вычитано,
+map.consent.text,"Страница мероприятия: карта, если встроенный контент выключен",The map is provided by Google. Loading it shares data with Google.,"Карту показывает Google. Когда она загружается, Google получает данные о вас.",Вычитано,
+map.consent.button,Страница мероприятия: кнопка на заглушке карты,Show map,Показать карту,Вычитано,
+mentor.expertise,Карточка и профиль ментора: подпись,Expertise:,Экспертиза:,Вычитано,
+mentor.industry,Карточка и профиль ментора: подпись,Industry:,Отрасль:,Вычитано,
+expertise.Software Engineering,Метка экспертизы (Notion → Mentor cards → Expertise),Software Engineering,Разработка ПО,Вычитано,Ключ = значение в Notion
+expertise.AI Engineering,Метка экспертизы,AI Engineering,AI-инжиниринг,Вычитано,
+expertise.Burnout prevention,Метка экспертизы,Burnout prevention,Профилактика выгорания,Вычитано,
+expertise.Emotional regulation,Метка экспертизы,Emotional regulation,Эмоциональная регуляция,Вычитано,
+expertise.Career switch,Метка экспертизы,Career switch,Смена профессии,Вычитано,
+industry.Technology,Метка отрасли (Notion → Mentor cards → Industry),Technology,Технологии,Вычитано,
+tag.Career Growth,Тег мероприятия (Notion → Event listings → Tags),Career Growth,Карьерный рост,Вычитано,Ключ = значение в Notion; новый тег — добавить строку
+tag.Family&Career,Тег мероприятия,Family&Career,Семья и карьера,Вычитано,
+tag.Goal setting,Тег мероприятия,Goal setting,Цели,Вычитано,
+tag.Hands-on AI,Тег мероприятия,Hands-on AI,ИИ на практике,Вычитано,
+tag.Industry Insights,Тег мероприятия,Industry Insights,Взгляд изнутри,Вычитано,"Варианты: «Об отрасли изнутри», «Инсайты отрасли»"
+tag.Job Search,Тег мероприятия,Job Search,Поиск работы,Вычитано,
+tag.Networking,Тег мероприятия,Networking,Нетворкинг,Вычитано,
+tag.Personal Brand,Тег мероприятия,Personal Brand,Личный бренд,Вычитано,
+tag.Personal Finance,Тег мероприятия,Personal Finance,Личные финансы,Вычитано,
+tag.Well-Being,Тег мероприятия,Well-Being,Благополучие,Вычитано,
+format.Online,Формат мероприятия (Notion → Format),Online,Онлайн,Итог (макет),
+format.In person,Формат мероприятия,In person,Очно,Вычитано,Для очных показываем город/место; эта подпись — в фильтрах и на странице события
+format.Hybrid,Формат мероприятия,Hybrid,Онлайн и очно,Вычитано,
+language.English,Язык мероприятия (Notion → Language),In English,На английском,Вычитано,
+language.Russian,Язык мероприятия,In Russian,На русском,Вычитано,
+language.English & Russian,Язык мероприятия,In English & Russian,На английском и русском,Вычитано,
+date.format,Даты на всём сайте,2026-11-18 00:00:00,"Среда, 18 ноября 2026",Итог (макет),Пример формата; даты форматируются автоматически по языку

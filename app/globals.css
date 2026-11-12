@@ -284,10 +284,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* В Figma у h1/h2 включён Title Case, тексты записаны обычным регистром.
-     Только для EN; в русском регистр как в тексте. */
-  h1:lang(en),
-  h2:lang(en) {
+  /* В Figma у стилей h1 / h2 включён Title Case, тексты записаны обычным
+     регистром. Привязано к стилям .text-h1 / .text-h2 (не к тегам): например,
+     «h1 стиля h2» на 404 и Privacy Policy. Только для EN; в русском регистр
+     как в тексте. */
+  :lang(en) .text-h1,
+  :lang(en) .text-h2,
+  .text-h1:lang(en),
+  .text-h2:lang(en) {
     text-transform: capitalize;
   }
 }

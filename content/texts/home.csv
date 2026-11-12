@@ -1,0 +1,73 @@
+Ключ,Где на странице,EN,RU,Статус,Комментарий
+home.hero.title,Hero: заголовок,"Empowering women
+Advancing careers","Помогаем женщинам
+строить карьеру",Вычитано,Перенос строки — как в макете
+home.hero.text,Hero: текст,"WorkChat Seattle helps immigrant women grow professionally, connect with mentors, and find their next opportunity — with a community that sees their potential and supports every step forward.","WorkChat Seattle — это некоммерческое сообщество, которое помогает женщинам строить карьеру в США, профессионально развиваться и реализовывать свой потенциал благодаря обучению, менторству и взаимной поддержке.",Вычитано,
+home.whatWeDo.title,Чем помогаем: заголовок,Get support for your next step,"Поддержка, когда она нужна",Вычитано,
+home.whatWeDo.text,Чем помогаем: текст,"Build skills, get guidance, and connect with women who understand your journey. Whatever your next professional step, you don’t have to take it alone.","Строить карьеру в новой стране трудно. Переезд — это не только новый адрес, но и новые правила игры в работе, которые никто не объясняет заранее. В WorkChat Seattle вы можете задать вопросы, прокачать нужные навыки и просто выдохнуть рядом с теми, кто вас понимает.",Вычитано,
+home.whatWeDo.events.title,"Чем помогаем: карточка «Мероприятия», заголовок",Events,Мероприятия,Вычитано,
+home.whatWeDo.events.text,"Чем помогаем: карточка «Мероприятия», текст","Join our virtual and in-person workshops and expert talks covering career growth, leadership, and professional development topics.","Воркшопы, встречи с экспертами и нетворкинг, онлайн и вживую. О поиске работы, росте, лидерстве и о том, как не выгореть по дороге.",Вычитано,
+home.whatWeDo.events.button,"Чем помогаем: карточка «Мероприятия», кнопка",See all events,Посмотреть расписание,Вычитано,Ведёт на /ru/events
+home.whatWeDo.mentorship.title,"Чем помогаем: карточка «Менторство», заголовок",Mentorship,Менторство,Вычитано,
+home.whatWeDo.mentorship.text,"Чем помогаем: карточка «Менторство», текст",Connect with experienced professionals who can guide you through your career journey and help you achieve your goals.,"Иногда достаточно одного разговора с человеком, который уже прошёл этот путь, чтобы всё встало на свои места.",Вычитано,
+home.whatWeDo.mentorship.button,"Чем помогаем: карточка «Менторство», кнопка",Find a mentor,Найти ментора,Вычитано,
+home.whatWeDo.community.title,"Чем помогаем: карточка «Сообщество», заголовок",Community,Сообщество,Вычитано,
+home.whatWeDo.community.text,"Чем помогаем: карточка «Сообщество», текст",Be part of a supportive community of women who understand your unique challenges and celebrate your successes.,"Место, где понимают ваши трудности и радуются успехам вместе с вами.",Вычитано,
+home.whatWeDo.community.button,"Чем помогаем: карточка «Сообщество», кнопка",Join our community,Присоединиться на Facebook,Вычитано,
+home.numbers.caption,Цифры: подпись,"Behind every number are women sharing their experience, making connections, and helping each other move forward.","За каждой цифрой — живые люди, которые делятся опытом и помогают друг другу.",Вычитано,
+home.numbers.founded.value,"Цифры: год основания, число",2018,2018,Вычитано,
+home.numbers.founded.label,"Цифры: год основания, подпись",Year founded,Год основания,Вычитано,
+home.numbers.members.value,"Цифры: участники, число","5,800+",5 800+,Вычитано,В RU — неразрывный пробел между тысячами
+home.numbers.members.label,"Цифры: участники, подпись",Members,Участниц,Вычитано,
+home.numbers.events.value,"Цифры: мероприятия, число",50+,50+,Вычитано,
+home.numbers.events.label,"Цифры: мероприятия, подпись",Events hosted,Проведённых мероприятий,Вычитано,
+home.numbers.questions.value,"Цифры: ответы, число","10,000+",10 000+,Вычитано,В RU — неразрывный пробел между тысячами
+home.numbers.questions.label,"Цифры: ответы, подпись",questions answered,Ответов на вопросы,Вычитано,
+home.community.title,Сообщество в Facebook: заголовок,Join our community,Присоединяйтесь!,Вычитано,
+home.community.text,Сообщество в Facebook: текст,"Connect with us on Facebook to stay updated on the latest events, discussions, and opportunities.","Самое живое — в нашем комьюнити в Facebook: обсуждения, вакансии, анонсы мероприятий и ответы на вопросы о работе и карьере после переезда.",Вычитано,
+home.featured.label,Мероприятие на главной: метка,FEATURED EVENT,Рекомендуем,Вычитано,"Прописные буквы — через CSS, в тексте обычный регистр"
+home.featured.details,Мероприятие на главной: кнопка,Details,Подробнее,Вычитано,
+home.featured.allEvents,Мероприятие на главной: кнопка,See all events,Все мероприятия,Вычитано,
+—,"Мероприятие на главной: название, описание, дата, формат",из Notion,из Notion,Не переводить здесь,"Берутся из Event listings: Title RU, Short description RU. Дата — по-русски автоматически. Для #IAmRemarkable русские тексты из макета перенесены в Notion 06.11"
+home.resources.title,Полезные ресурсы: заголовок,Resource Hub,Полезные ресурсы,Вычитано,
+home.resources.findWork.title,"Ресурсы, карточка 1: заголовок",Find Work & Start Earning,Как начать зарабатывать?,Вычитано,
+home.resources.findWork.text,"Ресурсы, карточка 1: текст","Are you new to the U.S. job market and looking for a job to cover everyday expenses while you figure out your next steps? Explore job options, get help with applications, and prepare for interviews.","Когда вы только переехали, иногда нужна работа просто чтобы «держаться на плаву», пока вы разбираетесь, что делать дальше. Мы подобрали возможные варианты работы, а также ресурсы для помощи с анкетами и подготовки к собеседованиям.",Вычитано,Кавычки заменены на «ёлочки» 06.11 (и в макете)
+home.resources.findWork.button,"Ресурсы, карточка 1: кнопка",Get started,С чего начать?,Вычитано,
+home.resources.usCareer.title,"Ресурсы, карточка 2: заголовок",Launch Your U.S. Career,Старт карьеры в США,Вычитано,
+home.resources.usCareer.text,"Ресурсы, карточка 2: текст","Do you have professional qualifications and work experience from another country? Learn how to translate your qualifications for U.S. employers, navigate credential requirements, and land your first professional role in the U.S.","Есть профессия и опыт, но американские работодатели не понимают, что стоит за вашим дипломом? Расскажем, как подтвердить квалификацию, перевести опыт на понятный язык и найти первую работу по специальности.",Вычитано,
+home.resources.usCareer.button,"Ресурсы, карточка 2: кнопка",Take the next step,Делаем следующий шаг,Вычитано,
+home.resources.advance.title,"Ресурсы, карточка 3: заголовок",Advance or Change Your Career,Карьерный рост и смена профессии,Вычитано,
+home.resources.advance.text,"Ресурсы, карточка 3: текст","Already working in your field and ready for more, or considering a different path? Explore resources to pursue a promotion, negotiate better pay, or transition into a new profession.","Чувствуете, что можете больше? Или хочется попробовать что-то совсем другое? Посмотрите ресурсы о карьерном росте, переговорах о зарплате и смене профессии.",Вычитано,
+home.resources.advance.button,"Ресурсы, карточка 3: кнопка",Move your career forward,Двигаемся дальше,Вычитано,
+home.resources.business.title,"Ресурсы, карточка 4: заголовок",Start or Grow Your Business,Свой бизнес,Вычитано,
+home.resources.business.text,"Ресурсы, карточка 4: текст","Starting a business, freelancing, or growing your own practice? Get practical guidance on shaping your offer, setting prices, marketing your services, and attracting clients.","Запускаете своё дело, работаете на фрилансе или открыли частную практику? Мы собрали полезные ресурсы для предпринимателей.",Вычитано,
+home.resources.business.button,"Ресурсы, карточка 4: кнопка",Build your business,Развиваем свой бизнес,Вычитано,
+home.findMentor.title,Найдите ментора: заголовок,Find Your Mentor,Найдите своего ментора,Вычитано,
+home.findMentor.text,Найдите ментора: текст,"Connect with experienced professionals ready to guide your career journey. Get personalized advice, expand your network, and accelerate your growth.","Наши менторы — опытные профессионалы, которые построили карьеру в США. Они подскажут, на что обратить внимание, и помогут не тратить годы на ошибки, которые можно обойти.",Вычитано,
+home.findMentor.browse,Найдите ментора: кнопка,Browse mentors,Менторы WorkChat Seattle,Вычитано,
+home.findMentor.become,Найдите ментора: кнопка,Become a mentor,Стать ментором,Вычитано,
+home.subscribe.title,Подписка: заголовок,Subscribe to our Newsletter,Подпишитесь на рассылку,Вычитано,
+home.subscribe.text,Подписка: текст,"Each month, you'll receive announcements about our events: in-person meetups, webinars, and much more. Join us and don't miss the updates!","Раз в месяц пишем о ближайших встречах, вебинарах и других событиях. Ничего лишнего — мы бережём ваше время.",Вычитано,
+home.subscribe.note,Подписка: подпись под формой,"By clicking the ""Submit"" button, you agree to the terms of our Privacy Policy.","Нажимая кнопку «Submit», вы соглашаетесь с условиями нашей Политики конфиденциальности.",Вычитано,«Privacy Policy» / «Политики конфиденциальности» — ссылка на /privacy-policy (английская)
+—,"Подписка: форма Zeffy (Stay connected, Email address, Submit)",Stay connected / Email address / Submit,—,Не переводится,"Форма Zeffy только на английском, мы её не меняем"
+home.testimonials.title,Отзывы: заголовок,Our Stories,Наши истории,Вычитано,
+home.testimonials.kristina.title,Отзыв Кристины: заголовок,WorkChat has had a huge impact on my career journey.,WorkChat оказал огромное влияние на мой карьерный путь.,Вычитано,
+home.testimonials.kristina.text,Отзыв Кристины: текст,"I first joined as a participant, then had the opportunity to help administer online meetings, masterminds, and book clubs.
+
+Over the years, WorkChat's helped me pivot my career, prepare for interviews with major tech companies, and stay informed about what's happening in the corporate world.
+
+This is an incredible network of like-minded professionals who genuinely want to help each other succeed. I'm so grateful to the founders, Masha Makarenkova and Masha Boone, for creating such a supportive community.","Сначала я присоединилась как участница, а затем у меня появилась возможность помогать администрировать онлайн-встречи, мастермайнды и книжные клубы.
+
+За эти годы WorkChat помог мне сменить карьерное направление, подготовиться к собеседованиям в крупных технологических компаниях и быть в курсе того, что происходит в корпоративном мире. Это удивительная сеть единомышленников-профессионалов, которые искренне хотят помогать друг другу добиваться успеха. Я очень благодарна основательницам, Маше Макаренковой и Маше Бун, за создание такого поддерживающего сообщества.",Вычитано,"В EN три абзаца, в RU два — проверить, нужен ли перенос перед «Это удивительная сеть…»"
+home.testimonials.kristina.name,Отзыв Кристины: имя,Kristina E.,Кристина Е.,Вычитано,"Здесь имя по-русски (это отзыв, а не профиль ментора)"
+home.testimonials.readMore,Отзыв: кнопка на mobile,Read more,Читать дальше,Вычитано,
+home.getInvolved.title,Как помочь: заголовок,Get Involved,Поддержите нас!,Вычитано,
+home.getInvolved.mentor.title,"Как помочь: карточка 1, заголовок",Become a Mentor,Менторство,Вычитано,
+home.getInvolved.mentor.text,"Как помочь: карточка 1, текст",Share your experience and guide another member through her career journey.,"Помните, как сложно было в начале? Ваш опыт может очень облегчить кому-то этот путь.",Вычитано,
+home.getInvolved.mentor.button,"Как помочь: карточка 1, кнопка",Share your expertise,Поделиться опытом,Вычитано,
+home.getInvolved.volunteer.title,"Как помочь: карточка 2, заголовок",Volunteer,Волонтёрство,Вычитано,
+home.getInvolved.volunteer.text,"Как помочь: карточка 2, текст",Lend a hand organizing or running one of our workshops or meetups.,"Без вас многое просто не случится. Всё, что у нас происходит, держится на людях, которые однажды сказали: «Я могу помочь».",Вычитано,
+home.getInvolved.volunteer.button,"Как помочь: карточка 2, кнопка",Volunteer with us,Стать волонтёром,Вычитано,
+home.getInvolved.donate.title,"Как помочь: карточка 3, заголовок",Donate,Финансовая помощь,Вычитано,
+home.getInvolved.donate.text,"Как помочь: карточка 3, текст",Your support helps us keep events accessible and our programs running.,"Ваш вклад делает мероприятия доступными для всех, кому они нужны. И возможно, ваш работодатель может удвоить сумму!",Вычитано,
+home.getInvolved.donate.button,"Как помочь: карточка 3, кнопка",Make a donation,Поддержать финансово,Вычитано,Ведёт на кампанию Zeffy (страница на английском)
