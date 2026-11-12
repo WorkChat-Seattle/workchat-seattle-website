@@ -27,6 +27,7 @@
   --dark-alpha-10: rgb(58 58 58 / 0.1);
   --alpha-70: rgb(50 50 50 / 0.7);
   --black-alpha-50: rgb(18 18 18 / 0.5);
+  --dark-alpha-90: rgb(50 50 50 / 0.9);
 
   /* Градиенты (paint styles Figma): bg/gradient-center — белый 0% → 100% → 0% по вертикали
      (get_design_context 1003:3548: прозрачный → белый на 49.909% → прозрачный на 99.519%) */
@@ -105,6 +106,8 @@
   --color-icon-glyph: var(--white);
   --color-overlay-blur-light: var(--dark-alpha-10);
   --color-overlay-hover-dark: var(--black-alpha-50);
+  /* био участницы команды поверх фото (оверлей Figma `1582:24722`, dark-alpha/90) */
+  --color-overlay-team-bio: var(--dark-alpha-90);
 
   /* Размытие в Subscribe (get_design_context 1013:1378): фон-фото и стеклянная карточка */
   --blur-subscribe-bg: 22px;
@@ -272,6 +275,14 @@
 }
 @utility bg-gradient-bottom-neutral {
   background-image: linear-gradient(to bottom, rgb(237 234 230 / 0), var(--neutral-600));
+}
+
+/* лента без полосы прокрутки (слайдеры с привязкой) */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @utility bg-gradient-center {

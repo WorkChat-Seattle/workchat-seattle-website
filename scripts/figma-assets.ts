@@ -172,3 +172,29 @@ figmaAssets.push(
   { nodeId: "1041:1378", name: "faq-toggle-plus", format: "svg", scale: 1, dir: "ui", publish: false },
   { nodeId: "1041:1382", name: "faq-toggle-close", format: "svg", scale: 1, dir: "ui", publish: false },
 );
+
+// About (`1003:3944`): фото hero (три обрезки), фоны Our Values (5 ценностей × 3 размера — рендер узла background: обрезка и фильтры из Figma),
+// портреты команды (слой image карточки card-team-member, ч/б из макета; PNG — у слоя прозрачный фон, под ним тон карточки).
+figmaAssets.push(
+  { nodeId: "1003:4019", name: "about-hero-desktop", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1240:14912", name: "about-hero-tablet", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1113:11044", name: "about-hero-mobile", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1029:1366", name: "values-community-desktop", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1240:14872", name: "values-community-tablet", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1113:10983", name: "values-community-mobile", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23369", name: "values-support-desktop", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23521", name: "values-support-tablet", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23445", name: "values-support-mobile", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23388", name: "values-growth-desktop", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23540", name: "values-growth-tablet", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23464", name: "values-growth-mobile", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23407", name: "values-empowerment-desktop", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23559", name: "values-empowerment-tablet", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23483", name: "values-empowerment-mobile", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23426", name: "values-learning-desktop", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23578", name: "values-learning-tablet", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "1278:23502", name: "values-learning-mobile", format: "jpg", scale: 2, dir: "about" },
+  { nodeId: "I1047:6886;1010:1364", name: "team-masha", format: "png", scale: 2, dir: "about" },
+  { nodeId: "I1047:6892;1077:3170", name: "team-tatyana", format: "png", scale: 2, dir: "about" },
+  { nodeId: "I1047:6898;1077:3164", name: "team-julia", format: "png", scale: 2, dir: "about" },
+);
