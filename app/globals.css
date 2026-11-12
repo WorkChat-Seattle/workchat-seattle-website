@@ -97,6 +97,10 @@
   --color-overlay-blur-light: var(--dark-alpha-10);
   --color-overlay-hover-dark: var(--black-alpha-50);
 
+  /* Размытие в Subscribe (get_design_context 1013:1378): фон-фото и стеклянная карточка */
+  --blur-subscribe-bg: 22px;
+  --blur-subscribe-card: 47px;
+
   /* Тень модальных окон и выпадающих списков: 0 8 24, 12% */
   --shadow-modal: 0 8px 24px rgb(0 0 0 / 0.12);
 

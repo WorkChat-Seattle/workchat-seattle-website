@@ -6,3 +6,6 @@ export const FACEBOOK_URL = "https://www.facebook.com/groups/workchatseattle";
 export const PRIVACY_PATH = "/privacy-policy";
 /** Название — имя собственное, не переводится (логотип, подпись ссылки на главную). */
 export const SITE_NAME = "WorkChat Seattle";
+
+/** Текст ссылки на Privacy Policy внутри фраз (подпись Subscribe, согласия): так он записан в таблице текстов. */
+export const PRIVACY_LINK_TEXT = { en: "Privacy Policy", ru: "Политики конфиденциальности" } as const;

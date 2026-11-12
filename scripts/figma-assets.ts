@@ -55,3 +55,18 @@ figmaAssets.push(
   // один рисунок на tablet и desktop (172×78, на desktop 150×68 — тот же контур)
   { nodeId: "1203:14254", name: "footer-hug", format: "svg", scale: 1, dir: "footer" },
 );
+
+// Subscribe (1084:10472): фон — фото под размытием (размытие и подложка — в CSS, токены blur-subscribe-*).
+// Фон сильно размыт, поэтому масштаб 1, а не 2 — иначе PNG на несколько МБ без выигрыша в качестве.
+figmaAssets.push(
+  { nodeId: "1023:1361", name: "subscribe-bg-desktop", format: "png", scale: 1, dir: "subscribe" },
+  { nodeId: "1203:14161", name: "subscribe-bg-tablet", format: "png", scale: 1, dir: "subscribe" },
+  { nodeId: "1084:10458", name: "subscribe-bg-mobile", format: "png", scale: 1, dir: "subscribe" },
+);
+
+// Get involved (1084:10523): фото-плитка card-image, разная обрезка по размерам.
+figmaAssets.push(
+  { nodeId: "1013:1397", name: "get-involved-desktop", format: "png", scale: 2, dir: "get-involved" },
+  { nodeId: "1203:14187", name: "get-involved-tablet", format: "png", scale: 2, dir: "get-involved" },
+  { nodeId: "1084:10478", name: "get-involved-mobile", format: "png", scale: 2, dir: "get-involved" },
+);

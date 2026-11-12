@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { hasLocale } from "@/i18n/config";
+import { GetInvolved } from "@/components/sections/get-involved";
+import { Subscribe } from "@/components/sections/subscribe";
 import { getDictionary } from "@/i18n/dictionaries";
 
 // Временная страница шага 2: проверка словаря и маршрутизации. Home — шаг 5.
@@ -9,8 +11,12 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
   const t = await getDictionary(lang);
 
   return (
+    <>
     <div className="min-h-100 px-5">
       <h1 className="text-h1 whitespace-pre-line">{t["home.hero.title"]}</h1>
     </div>
+    <Subscribe lang={lang} t={t} />
+    <GetInvolved lang={lang} t={t} />
+    </>
   );
 }
