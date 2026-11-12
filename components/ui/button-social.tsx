@@ -11,25 +11,28 @@ const paths: Record<Network, string> = {
 /**
  * Круглая кнопка-ссылка на соцсеть (Figma: button-social `1003:8087`, 50×50).
  * Default: тёмный круг, светлый глиф. Hover: белый круг, тёмный глиф.
- * Открывается в новой вкладке; `label` — подпись для скринридера.
+ * Открывается в новой вкладке; `label` — подпись для скринридера (a11y.linkedin / a11y.facebook), к ней добавляется `newTabLabel` (a11y.newTab).
  */
 export function ButtonSocial({
   network,
   href,
   label,
+  newTabLabel,
   className,
   ...rest
 }: {
   network: Network;
   href: string;
   label: string;
+  /** a11y.newTab — добавляется к подписи (ссылка открывается в новой вкладке). */
+  newTabLabel: string;
 } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href">) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={label}
+      aria-label={`${label} ${newTabLabel}`}
       className={["group inline-flex shrink-0 rounded-full", className].filter(Boolean).join(" ")}
       {...rest}
     >

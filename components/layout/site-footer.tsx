@@ -47,7 +47,7 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
             </div>
 
             <div className="flex flex-col justify-between gap-10 md:gap-5 xl:w-40.25">
-              <nav>
+              <nav aria-label={t["a11y.navFooter"]}>
                 <ul className="flex flex-col gap-1.5 xl:gap-5">
                   <li className="flex">
                     <MenuButton href={localePath(lang, "/about")}>{t["nav.about"]}</MenuButton>
@@ -67,8 +67,8 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
                 </ul>
               </nav>
               <div className="flex gap-2.5">
-                <ButtonSocial network="linkedin" href={LINKEDIN_URL} label="LinkedIn" />
-                <ButtonSocial network="facebook" href={FACEBOOK_URL} label="Facebook" />
+                <ButtonSocial network="linkedin" href={LINKEDIN_URL} label={t["a11y.linkedin"]} newTabLabel={t["a11y.newTab"]} />
+                <ButtonSocial network="facebook" href={FACEBOOK_URL} label={t["a11y.facebook"]} newTabLabel={t["a11y.newTab"]} />
               </div>
             </div>
 
@@ -77,7 +77,7 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
                 <ButtonLink option="white" href={localePath(lang, "/volunteer")} className="w-full">
                   {t["nav.volunteer"]}
                 </ButtonLink>
-                <ButtonLink option="dark" href={DONATE_URL} className="w-full">
+                <ButtonLink option="dark" href={DONATE_URL} newTabLabel={t["a11y.newTab"]} className="w-full">
                   {t["nav.donate"]}
                 </ButtonLink>
               </div>

@@ -44,6 +44,8 @@ export default async function RootLayout({
             openMenu: t["a11y.openMenu"],
             closeMenu: t["a11y.closeMenu"],
             language: t["a11y.lang"],
+            navMain: t["a11y.navMain"],
+            newTab: t["a11y.newTab"],
           }}
         />
         <main id="main">{children}</main>

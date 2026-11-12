@@ -20,6 +20,10 @@ export type HeaderLabels = {
   openMenu: string;
   closeMenu: string;
   language: string;
+  /** a11y.navMain — подпись <nav aria-label={labels.navMain}>. */
+  navMain: string;
+  /** a11y.newTab — пометка у внешней ссылки Donate. */
+  newTab: string;
 };
 
 /** Путь без языкового префикса: «/ru/events» → «/events», «/ru» → «/». */
@@ -113,7 +117,7 @@ export function SiteHeader({ lang, labels }: { lang: Locale; labels: HeaderLabel
 
         {/* Desktop */}
         <div className="hidden w-225 items-center justify-between xl:flex">
-          <nav>
+          <nav aria-label={labels.navMain}>
             <ul className="flex items-center gap-12">
               {items.map((item) => (
                 <li key={item.href} className="flex">
@@ -129,7 +133,7 @@ export function SiteHeader({ lang, labels }: { lang: Locale; labels: HeaderLabel
             <ButtonLink option="white" href={localePath(lang, "/volunteer")}>
               {labels.volunteer}
             </ButtonLink>
-            <ButtonLink option="dark" href={DONATE_URL}>
+            <ButtonLink option="dark" href={DONATE_URL} newTabLabel={labels.newTab}>
               {labels.donate}
             </ButtonLink>
           </div>
@@ -155,7 +159,7 @@ export function SiteHeader({ lang, labels }: { lang: Locale; labels: HeaderLabel
         className="fixed inset-0 -z-10 overflow-y-auto bg-bg-page px-5 pt-16.25 md:px-10 xl:hidden"
       >
         <div className="flex flex-col gap-10 pt-10 pb-5 md:gap-15 md:pb-10">
-          <nav>
+          <nav aria-label={labels.navMain}>
             <ul className="flex flex-col gap-1.5">
               {items.map((item) => (
                 <li key={item.href} className="flex">
@@ -170,7 +174,7 @@ export function SiteHeader({ lang, labels }: { lang: Locale; labels: HeaderLabel
             <ButtonLink option="white" href={localePath(lang, "/volunteer")} className="w-full md:w-60">
               {labels.volunteer}
             </ButtonLink>
-            <ButtonLink option="dark" href={DONATE_URL} className="w-full md:w-60">
+            <ButtonLink option="dark" href={DONATE_URL} newTabLabel={labels.newTab} className="w-full md:w-60">
               {labels.donate}
             </ButtonLink>
           </div>

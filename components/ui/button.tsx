@@ -35,8 +35,15 @@ export function ButtonLink({
   option = "dark",
   className,
   href,
+  newTabLabel,
+  children,
   ...rest
-}: Props & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & { href: string }) {
+}: Props &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
+    href: string;
+    /** a11y.newTab: пометка для скринридера у внешней ссылки (она открывается в новой вкладке). */
+    newTabLabel?: string;
+  }) {
   const cls = classes(option, className);
   const external = /^(https?:|mailto:|tel:)/.test(href);
   if (external) {
@@ -46,8 +53,15 @@ export function ButtonLink({
         className={cls}
         {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         {...rest}
-      />
+      >
+        {children}
+        {href.startsWith("http") && newTabLabel ? <span className="sr-only"> {newTabLabel}</span> : null}
+      </a>
     );
   }
-  return <Link href={href} className={cls} {...rest} />;
+  return (
+    <Link href={href} className={cls} {...rest}>
+      {children}
+    </Link>
+  );
 }
