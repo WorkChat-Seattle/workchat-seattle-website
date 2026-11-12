@@ -20,6 +20,7 @@ volunteer.roles.resources.title,Роли: карточка,Grow our resource hub
 volunteer.roles.resources.text,Роли: текст,"Find and organize career tools, educational programs, and local opportunities to help our members take their next steps.","Помогите нам собрать карьерные инструменты и обучающие программы в одном месте, чтобы участницам было проще находить информацию.",Вычитано,
 volunteer.roles.stories.title,Роли: карточка,Share our stories,Контент,Вычитано,
 volunteer.roles.stories.text,Роли: текст,"Write social posts, create visuals, take photos, or help with our newsletter. Make it easier for women to discover WorkChat and get involved.","Нам нужна помощь с фотосессиями, постами и рассылками.",Вычитано,
+volunteer.roles.more,Роли: кнопка на mobile (раскрывает остальные роли),More ways to contribute,Ещё способы помочь,Вычитано,EN — из макета (Volunteer / Mobile); RU — черновик Claude
 volunteer.form.title,Форма: заголовок,Volunteer at WorkChat Seattle,Волонтёрьте с WorkChat Seattle,Вычитано,
 volunteer.form.text,Форма: подзаголовок,Let’s explore what we can do together!,"Расскажите немного о себе, и мы вместе найдём, где ваша помощь будет нужнее всего.",Вычитано,"Поля имя / email / LinkedIn — вкладка «Общее», form.*"
 volunteer.form.help.label,Форма: список «Чем помочь»,How would you like to help?,Чем вы хотели бы помочь?,Вычитано,Подсказка — mentorship.form.meet.hint («Можно выбрать несколько вариантов.»)
