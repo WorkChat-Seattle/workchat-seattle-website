@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AboutFaq } from "@/components/about/faq";
 import { AboutHero } from "@/components/about/hero";
 import { Story } from "@/components/about/story";
 import { Team } from "@/components/about/team";
 import { Values } from "@/components/about/values";
+import { FaqSection } from "@/components/sections/faq-section";
 import { GetInvolved } from "@/components/sections/get-involved";
 import { Subscribe } from "@/components/sections/subscribe";
+import { aboutFaq } from "@/data/faq";
 import { team } from "@/data/team";
 import { values } from "@/data/values";
 import { hasLocale, locales } from "@/i18n/config";
@@ -49,7 +50,7 @@ export default async function Page({ params }: PageProps<"/[lang]/about">) {
           bio: t[`about.team.${m.id}.bio` as TextKey],
         }))}
       />
-      <AboutFaq t={t} />
+      <FaqSection t={t} prefix="about.faq" ids={aboutFaq} />
       <div className="mt-20 md:mt-30 xl:mt-40">
         <Subscribe lang={lang} t={t} />
       </div>

@@ -198,3 +198,12 @@ figmaAssets.push(
   { nodeId: "I1047:6892;1077:3170", name: "team-tatyana", format: "png", scale: 2, dir: "about" },
   { nodeId: "I1047:6898;1077:3164", name: "team-julia", format: "png", scale: 2, dir: "about" },
 );
+
+// Mentorship (`1003:4997`): фото hero (3 обрезки) и логотипы внешних программ (Upwardly Global — SVG, ADPList — PNG).
+figmaAssets.push(
+  { nodeId: "1003:5080", name: "mentorship-hero-desktop", format: "jpg", scale: 2, dir: "mentorship" },
+  { nodeId: "1240:15223", name: "mentorship-hero-tablet", format: "jpg", scale: 2, dir: "mentorship" },
+  { nodeId: "1135:11315", name: "mentorship-hero-mobile", format: "jpg", scale: 2, dir: "mentorship" },
+  { nodeId: "I1047:7232;1577:15105", name: "logo-upwardly-global", format: "svg", scale: 1, dir: "mentorship" },
+  { nodeId: "I1047:7243;1013:1369", name: "logo-adplist", format: "png", scale: 2, dir: "mentorship" },
+);
