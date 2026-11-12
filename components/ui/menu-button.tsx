@@ -17,12 +17,14 @@ type Common = {
   /** nav — пункты шапки (aria-current="page"); language — EN / RU (aria-current="true", жирный на всех размерах). */
   variant?: "nav" | "language";
   size?: "default" | "large";
+  /** white — на тёмной фото-карточке (text/white). */
+  tone?: "default" | "white";
   current?: boolean;
   className?: string;
   children: ReactNode;
 };
 
-function styles({ variant = "nav", size = "default", className }: Pick<Common, "variant" | "size" | "className">) {
+function styles({ variant = "nav", size = "default", tone = "default", className }: Pick<Common, "variant" | "size" | "tone" | "className">) {
   const line =
     variant === "nav"
       ? "scale-x-0 group-aria-[current=page]:scale-x-100 group-hover:scale-x-100 group-focus-visible:scale-x-100"
@@ -42,7 +44,7 @@ function styles({ variant = "nav", size = "default", className }: Pick<Common, "
   const pad =
     variant === "language" ? "py-2.75 -my-2.75 xl:my-0 xl:py-0" : "py-2.75 xl:py-0";
   return {
-    root: [`group inline-flex flex-col gap-1 text-text-body`, pad, type, bold, className]
+    root: [`group inline-flex flex-col gap-1`, tone === "white" ? "text-text-white" : "text-text-body", pad, type, bold, className]
       .filter(Boolean)
       .join(" "),
     label: `whitespace-nowrap ${trimAlways ? trimmed : `xl:h-2.75 xl:leading-2.75`}`,
@@ -67,11 +69,12 @@ export function MenuButton({
   current = false,
   variant = "nav",
   size = "default",
+  tone = "default",
   className,
   children,
   ...rest
 }: { href: string } & Common & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "children" | "className">) {
-  const s = styles({ variant, size, className });
+  const s = styles({ variant, size, tone, className });
   return (
     <Link href={href} aria-current={ariaCurrent(current, variant)} className={s.root} {...rest}>
       <Inner label={s.label} line={s.line}>{children}</Inner>

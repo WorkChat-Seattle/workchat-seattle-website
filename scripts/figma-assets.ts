@@ -11,6 +11,7 @@
  *  - dir    — подпапка: оригинал → design-assets/<dir>/, копия → public/images/<dir>/;
  *  - publish — false: только оригинал (контуры уже встроены в код, см. glyphs.ts);
  *  - currentColor — в копии для сайта заменить цвета на currentColor (только svg);
+ *  - fill — выгрузить не рендер узла, а исходную картинку-заливку узла (без текста поверх; масштаб не используется);
  *  - keepIds — svg_include_id=true: у каждого <path> id по имени слоя Figma; в SVGO
  *    отключены mergePaths и cleanupIds (нужно для анимации частей, напр. точек логотипа).
  */
@@ -23,6 +24,7 @@ export type FigmaAsset = {
   publish?: boolean;
   currentColor?: boolean;
   keepIds?: boolean;
+  fill?: boolean;
 };
 
 export const figmaAssets: FigmaAsset[] = [
@@ -113,4 +115,34 @@ figmaAssets.push(
   { nodeId: "1110:10674", name: "community-m04", format: "jpg", scale: 2, dir: "home" },
   { nodeId: "1110:10675", name: "community-m05", format: "jpg", scale: 2, dir: "home" },
   { nodeId: "1110:10676", name: "community-m06", format: "jpg", scale: 2, dir: "home" },
+);
+
+// Home, find-mentor: фон из колец и градиентов (desktop и tablet — готовые кадры background, mobile — собран из слоёв в коде).
+figmaAssets.push(
+  { nodeId: "1003:3503", name: "find-mentor-bg-desktop", format: "svg", scale: 1, dir: "home" },
+  { nodeId: "1203:14460", name: "find-mentor-bg-tablet", format: "svg", scale: 1, dir: "home" },
+);
+
+// Home, resource-hub (1003:3521): фото-фон четвёртой карточки — заливка узла card-rectangle (под ним тёмная подложка с размытием в CSS).
+figmaAssets.push({ nodeId: "1003:3527", name: "resource-hub-business", format: "jpg", scale: 1, dir: "home", fill: true });
+
+// Home, find-mentor: аватары менторов с кольцом-ореолом (прозрачность — поэтому PNG). Номера как в Figma (Avatar02…08);
+// у tablet те же люди, у mobile четыре аватара (m1…m4 — слева направо и сверху вниз).
+figmaAssets.push(
+  { nodeId: "1003:3514", name: "avatar-d02", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1003:3513", name: "avatar-d03", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1003:3512", name: "avatar-d04", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1003:3511", name: "avatar-d05", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1003:3510", name: "avatar-d07", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1003:3509", name: "avatar-d08", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14471", name: "avatar-t02", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14470", name: "avatar-t03", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14469", name: "avatar-t04", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14468", name: "avatar-t05", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14467", name: "avatar-t07", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14466", name: "avatar-t08", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1110:10748", name: "avatar-m1", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1110:10751", name: "avatar-m2", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1110:10750", name: "avatar-m3", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1110:10749", name: "avatar-m4", format: "png", scale: 2, dir: "home" },
 );

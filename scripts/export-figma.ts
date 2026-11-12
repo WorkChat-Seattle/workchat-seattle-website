@@ -78,6 +78,48 @@ function svgForSite(svg: string, a: FigmaAsset): string {
   return optimize(svg, { multipass: true, plugins }).data;
 }
 
+/** Исходник картинки-заливки узла (без текста и других слоёв поверх): imageRef → файл. */
+async function downloadFill(a: FigmaAsset): Promise<Buffer> {
+  const nodeRes = await request(`${API}/files/${FILE_KEY}/nodes?ids=${encodeURIComponent(a.nodeId)}&depth=1`, true);
+  if (!nodeRes.ok) throw new Error(`Figma /nodes: ${nodeRes.status}`);
+  const nodes = (await nodeRes.json()) as {
+    nodes: Record<
+      string,
+      {
+        document: {
+          fills?: {
+            type: string;
+            imageRef?: string;
+            visible?: boolean;
+            filters?: { exposure?: number; saturation?: number };
+          }[];
+        };
+      } | null
+    >;
+  };
+  const fills = nodes.nodes[a.nodeId]?.document.fills ?? [];
+  const fill = fills.find((f) => f.type === "IMAGE" && f.visible !== false);
+  const ref = fill?.imageRef;
+  if (!ref) throw new Error("у узла нет заливки-картинки");
+  const imgRes = await request(`${API}/files/${FILE_KEY}/images`, true);
+  if (!imgRes.ok) throw new Error(`Figma /images (заливки): ${imgRes.status}`);
+  const url = ((await imgRes.json()) as { meta: { images: Record<string, string> } }).meta.images[ref];
+  if (!url) throw new Error("Figma не отдала заливку");
+  const file = await request(url, false);
+  if (!file.ok) throw new Error(`загрузка заливки: ${file.status}`);
+  const raw = Buffer.from(await file.arrayBuffer());
+  if (a.format === "svg") throw new Error("fill: нужен jpg или png");
+  const { default: sharp } = await import("sharp");
+  let img = sharp(raw);
+  // Фильтры заливки из Figma (exposure, saturation) запекаются в файл — CSS-фильтрами не повторяем.
+  // Приближение: exposure — множитель 2^e на значения пикселей, saturation — modulate(1 + s).
+  const { exposure = 0, saturation = 0 } = fill?.filters ?? {};
+  if (exposure) img = img.linear(2 ** exposure, 0);
+  if (saturation) img = img.modulate({ saturation: 1 + saturation });
+  if (exposure || saturation) console.log(`    фильтры заливки: exposure ${exposure}, saturation ${saturation}`);
+  return a.format === "jpg" ? img.jpeg({ quality: 90, mozjpeg: true }).toBuffer() : img.png().toBuffer();
+}
+
 async function main() {
   const only = process.argv.slice(2);
   const wanted = only.length ? figmaAssets.filter((a) => only.includes(a.name)) : figmaAssets;
@@ -86,14 +128,29 @@ async function main() {
     process.exit(1);
   }
 
+  let failed = 0;
+
+  // заливки-картинки (fill) — отдельным путём: оригинал картинки, без рендера узла
+  for (const a of wanted.filter((x) => x.fill)) {
+    try {
+      const buf = await downloadFill(a);
+      const file = `${a.name}.${a.format}`;
+      write(join(root, "design-assets", a.dir, file), buf);
+      if (a.publish !== false) write(join(root, "public/images", a.dir, file), buf);
+      console.log(`✓ ${a.dir}/${file} (заливка узла ${a.nodeId})`);
+    } catch (e) {
+      console.error(`✗ ${a.dir}/${a.name}: ${e instanceof Error ? e.message : e}`);
+      failed++;
+    }
+  }
+
   // группируем по формату и масштабу — это параметры запроса
   const groups = new Map<string, FigmaAsset[]>();
-  for (const a of wanted) {
+  for (const a of wanted.filter((x) => !x.fill)) {
     const k = `${a.format}@${a.scale}@${a.keepIds ? "ids" : ""}`;
     groups.set(k, [...(groups.get(k) ?? []), a]);
   }
 
-  let failed = 0;
   for (const group of groups.values()) {
     const urls = await renderUrls(group);
     for (const a of group) {

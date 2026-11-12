@@ -25,6 +25,7 @@ home.numbers.questions.value,"Цифры: ответы, число","10,000+",10
 home.numbers.questions.label,"Цифры: ответы, подпись",questions answered,Ответов на вопросы,Вычитано,
 home.community.title,Сообщество в Facebook: заголовок,Join our community,Присоединяйтесь!,Вычитано,
 home.community.text,Сообщество в Facebook: текст,"Connect with us on Facebook to stay updated on the latest events, discussions, and opportunities.","Самое живое — в нашем комьюнити в Facebook: обсуждения, вакансии, анонсы мероприятий и ответы на вопросы о работе и карьере после переезда.",Вычитано,
+home.community.button,Сообщество в Facebook: кнопка,Join our Facebook community,Присоединиться к сообществу в Facebook,На вычитку,EN — из макета; ведёт на Facebook-группу в новой вкладке
 home.featured.label,Мероприятие на главной: метка,FEATURED EVENT,Рекомендуем,Вычитано,"Прописные буквы — через CSS, в тексте обычный регистр"
 home.featured.details,Мероприятие на главной: кнопка,Details,Подробнее,Вычитано,
 home.featured.allEvents,Мероприятие на главной: кнопка,See all events,Все мероприятия,Вычитано,

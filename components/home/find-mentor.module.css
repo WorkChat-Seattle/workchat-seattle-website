@@ -1,0 +1,45 @@
+/*
+ * Find your mentor (Figma: find-mentor `1003:3502`; tablet `1203:14458`, mobile `1110:10741`).
+ * Разрешённое исключение из правил Tailwind (правило 4 в CLAUDE.md): аватары разбросаны по холсту как в
+ * рисунке макета, координаты в px из Figma. desktop — холст 1440×1200 (от его левого верхнего угла),
+ * tablet — 768×688, mobile — 4 аватара у краёв экрана (левые от левого края, правые от правого).
+ * Медиазапрос не берёт брейкпоинт из токена — 768px / 1280px здесь вручную.
+ */
+.avatar {
+  position: absolute;
+}
+
+/* mobile (< 768) */
+.m1 { left: 40px; top: 107px; width: 120px; height: 120px; }
+.m2 { right: 100px; top: 41px; width: 75px; height: 75px; }
+.m3 { left: 58px; top: 538px; width: 90px; height: 90px; }
+.m4 { right: 20px; top: 563px; width: 150px; height: 150px; }
+
+.copy {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 245px;
+}
+
+/* tablet (768–1279): холст 768×688 */
+@media (min-width: 768px) {
+  .t08 { left: 64px; top: 285.33px; width: 96px; height: 96px; }
+  .t07 { left: 120px; top: 424px; width: 40px; height: 40px; }
+  .t05 { left: 112px; top: 210.67px; width: 48px; height: 48px; }
+  .t04 { left: 636px; top: 187.2px; width: 32px; height: 32px; }
+  .t03 { left: 636px; top: 385.07px; width: 112px; height: 112px; }
+  .t02 { left: 636px; top: 242.13px; width: 80px; height: 80px; }
+  .copy { left: 212px; right: auto; top: 228px; width: 400px; }
+}
+
+/* desktop (≥ 1280): холст 1440×1200 */
+@media (min-width: 1280px) {
+  .d08 { left: 166px; top: 490px; width: 180px; height: 180px; }
+  .d07 { left: 369px; top: 750px; width: 75px; height: 75px; }
+  .d05 { left: 369px; top: 350px; width: 90px; height: 90px; }
+  .d04 { left: 977px; top: 306px; width: 60px; height: 60px; }
+  .d03 { left: 902px; top: 677px; width: 210px; height: 210px; }
+  .d02 { left: 1129px; top: 409px; width: 150px; height: 150px; }
+  .copy { left: 420px; top: 496px; width: 557px; }
+}

@@ -56,21 +56,19 @@ const mobileBottom = [
  * градиентом bg/gradient-center; tablet — заголовок со 2-й колонки и сетка 3×2 из квадратов 229;
  * mobile — 3 фото сверху, текст, 3 фото снизу, градиент. Лишние группы фото скрыты (display: none,
  * lazy-картинки не скачиваются). Фото декоративные (alt="").
- * Подпись кнопки пока из home.whatWeDo.community.button: в Figma «Join our Facebook community»,
- * строки с таким текстом в таблице нет (открытый вопрос в CLAUDE.md).
  */
 export function Community({ t }: { t: Dictionary }) {
   return (
     <section
       aria-labelledby="community-title"
-      className="relative mt-5 overflow-x-clip md:mt-30 xl:mt-20"
+      className="relative mt-5 overflow-x-clip md:mt-30 xl:mt-20 xl:flex xl:justify-center"
     >
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-170 bg-gradient-center md:max-xl:hidden xl:h-300"
       />
 
-      <div className="relative xl:mx-auto xl:h-300 xl:w-360">
+      <div className="relative xl:h-300 xl:w-360 xl:shrink-0">
         {/* mobile: фото сверху */}
         <div className="relative h-64.75 md:hidden">
           {mobileTop.map(([img, cls], i) => (
@@ -91,7 +89,7 @@ export function Community({ t }: { t: Dictionary }) {
             newTabLabel={t["a11y.newTab"]}
             className="mt-10 w-full md:w-fit"
           >
-            {t["home.whatWeDo.community.button"]}
+            {t["home.community.button"]}
           </ButtonLink>
         </div>
 
