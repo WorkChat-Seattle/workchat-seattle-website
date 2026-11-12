@@ -9,8 +9,8 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
   const t = await getDictionary(lang);
 
   return (
-    <main>
-      <h1 className="whitespace-pre-line">{t["home.hero.title"]}</h1>
-    </main>
+    <div className="min-h-100 px-5">
+      <h1 className="text-h1 whitespace-pre-line">{t["home.hero.title"]}</h1>
+    </div>
   );
 }

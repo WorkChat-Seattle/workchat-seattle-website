@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, Ref } from "react";
 
 /**
  * Кнопка-бургер (Figma: icon/menu `1291:5`, 44×44 — область нажатия).
@@ -16,6 +16,7 @@ export function IconMenu({
   expanded: boolean;
   controls: string;
   label: string;
+  ref?: Ref<HTMLButtonElement>;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "aria-expanded" | "aria-controls" | "aria-label">) {
   return (
     <button

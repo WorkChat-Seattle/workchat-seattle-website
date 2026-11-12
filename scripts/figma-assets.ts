@@ -52,6 +52,6 @@ figmaAssets.push(
   { nodeId: "1048:1442", name: "footer-photo-desktop", format: "png", scale: 2, dir: "footer" },
   { nodeId: "1203:14234", name: "footer-photo-tablet", format: "png", scale: 2, dir: "footer" },
   { nodeId: "1119:2092", name: "footer-photo-mobile", format: "png", scale: 2, dir: "footer" },
-  { nodeId: "1048:1460", name: "footer-hug-desktop", format: "svg", scale: 1, dir: "footer", currentColor: true },
-  { nodeId: "1203:14254", name: "footer-hug-tablet", format: "svg", scale: 1, dir: "footer", currentColor: true },
+  // один рисунок на tablet и desktop (172×78, на desktop 150×68 — тот же контур)
+  { nodeId: "1203:14254", name: "footer-hug", format: "svg", scale: 1, dir: "footer" },
 );
