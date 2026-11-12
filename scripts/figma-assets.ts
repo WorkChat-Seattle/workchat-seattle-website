@@ -70,3 +70,21 @@ figmaAssets.push(
   { nodeId: "1203:14187", name: "get-involved-tablet", format: "png", scale: 2, dir: "get-involved" },
   { nodeId: "1084:10478", name: "get-involved-mobile", format: "png", scale: 2, dir: "get-involved" },
 );
+
+// Home, hero (1003:3576): фото на всю ширину, три обрезки. Отражение на desktop уже в файле.
+figmaAssets.push(
+  { nodeId: "1110:10615", name: "hero-mobile", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14329", name: "hero-tablet", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1003:3577", name: "hero-desktop", format: "png", scale: 2, dir: "home" },
+);
+
+// Home, what-we-do (1003:3563): фото-плитки и рисунок «обнимающие руки» (один контур на все размеры).
+figmaAssets.push(
+  { nodeId: "1110:10621", name: "what-we-do-1-mobile", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14335", name: "what-we-do-1-tablet", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1047:6865", name: "what-we-do-1-desktop", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1047:6866", name: "what-we-do-2-desktop", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1203:14352", name: "what-we-do-3-tablet", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1047:6867", name: "what-we-do-3-desktop", format: "png", scale: 2, dir: "home" },
+  { nodeId: "1003:3574", name: "hug-illustration", format: "svg", scale: 1, dir: "home" },
+);

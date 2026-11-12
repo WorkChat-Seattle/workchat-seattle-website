@@ -22,7 +22,7 @@ import hug from "@/public/images/footer/footer-hug.svg";
  */
 export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
   return (
-    <footer className="md:pt-10">
+    <footer className="pt-10">
       <div className="bg-bg-card-neutral">
         <div className="mx-auto max-w-300 xl:flex xl:gap-20">
           <div className="hidden xl:-mt-10 xl:block xl:h-106.75 xl:w-75 xl:shrink-0">

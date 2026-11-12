@@ -110,7 +110,7 @@ export function SiteHeader({ lang, labels }: { lang: Locale; labels: HeaderLabel
 
   return (
     <header ref={rootRef} className="sticky top-0 z-50">
-      <div className="mx-auto flex max-w-300 items-center justify-between px-5 pt-5 pb-5 md:px-10 xl:px-0">
+      <div className="mx-auto flex max-w-300 items-center justify-between px-5 pt-5 md:px-10 xl:px-0 xl:pb-5">
         <Link href={localePath(lang, "/")} aria-label={SITE_NAME} className="shrink-0">
           <Logo title={SITE_NAME} />
         </Link>
