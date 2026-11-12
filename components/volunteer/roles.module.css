@@ -1,0 +1,39 @@
+/*
+ * Сетка ролей Volunteer (Figma: volunteer-roles `1088:1733`; tablet `1240:15711`, mobile `1145:11795`).
+ * Разрешённое исключение из правил Tailwind (правило 4 в CLAUDE.md): расположение плиток — рисунок макета.
+ * В HTML порядок как на mobile (колонка). tablet (768–1279): сетка в 2 колонки по 344, порядок меняется через order;
+ * desktop (≥ 1280): четыре колонки по 300 со «ступенькой» (колонки начинаются на 150 / 0 / 75 / 150 от верха), плитка
+ * занимает 4 строки по 75. Медиазапросы не берут брейкпоинты из токенов — 768 и 1280 здесь вручную.
+ */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .photo1 { order: 1; } .events { order: 2; } .speak { order: 3; } .photo2 { order: 4; }
+  .resources { order: 5; } .connect { order: 6; } .programs { order: 7; } .photo3 { order: 8; }
+  .operations { order: 9; } .mentor { order: 10; } .photo4 { order: 11; } .stories { order: 12; }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 300px);
+    grid-auto-rows: 75px;
+    justify-content: center;
+  }
+  .tile { grid-row-end: span 4; }
+  /* колонка 1 (старт 150): фото, speak, resources */
+  .photo1 { grid-column: 1; grid-row-start: 3; }
+  .speak { grid-column: 1; grid-row-start: 7; }
+  .resources { grid-column: 1; grid-row-start: 11; }
+  /* колонка 2 (старт 0): events, фото, connect */
+  .events { grid-column: 2; grid-row-start: 1; }
+  .photo2 { grid-column: 2; grid-row-start: 5; }
+  .connect { grid-column: 2; grid-row-start: 9; }
+  /* колонка 3 (старт 75): programs, operations, фото */
+  .programs { grid-column: 3; grid-row-start: 2; }
+  .operations { grid-column: 3; grid-row-start: 6; }
+  .photo3 { grid-column: 3; grid-row-start: 10; }
+  /* колонка 4 (старт 150): фото, mentor, stories */
+  .photo4 { grid-column: 4; grid-row-start: 3; }
+  .mentor { grid-column: 4; grid-row-start: 7; }
+  .stories { grid-column: 4; grid-row-start: 11; }
+}

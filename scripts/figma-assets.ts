@@ -207,3 +207,19 @@ figmaAssets.push(
   { nodeId: "I1047:7232;1577:15105", name: "logo-upwardly-global", format: "svg", scale: 1, dir: "mentorship" },
   { nodeId: "I1047:7243;1013:1369", name: "logo-adplist", format: "png", scale: 2, dir: "mentorship" },
 );
+
+// Volunteer (`1003:4794`): четыре фото-плитки card-image в разных обрезках (desktop / tablet / mobile); номера 1…4 — по порядку в макете. Mobile-плитки 2–4 в Figma скрыты (не рендерятся) — берём заливку узла (fill).
+figmaAssets.push(
+  { nodeId: "1047:7014", name: "volunteer-photo-1-desktop", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1240:15770", name: "volunteer-photo-1-tablet", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1145:11813", name: "volunteer-photo-1-mobile", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1047:7024", name: "volunteer-photo-2-desktop", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1240:15781", name: "volunteer-photo-2-tablet", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1145:11797", name: "volunteer-photo-2-mobile", format: "jpg", scale: 2, dir: "volunteer", fill: true },
+  { nodeId: "1047:7034", name: "volunteer-photo-3-desktop", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1240:15797", name: "volunteer-photo-3-tablet", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1145:11829", name: "volunteer-photo-3-mobile", format: "jpg", scale: 2, dir: "volunteer", fill: true },
+  { nodeId: "1047:7035", name: "volunteer-photo-4-desktop", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1240:15808", name: "volunteer-photo-4-tablet", format: "jpg", scale: 2, dir: "volunteer" },
+  { nodeId: "1145:11840", name: "volunteer-photo-4-mobile", format: "jpg", scale: 2, dir: "volunteer", fill: true },
+);

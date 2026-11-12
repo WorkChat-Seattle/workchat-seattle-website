@@ -380,4 +380,4 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - **Токен Figma** для скрипта картинок — Юлия создаёт в Figma (Settings → Security → Personal access tokens, только чтение) и кладёт в `.env.local` перед выгрузкой картинок Home.
 - **Аккаунты и ключи** (нужны к этапу форм и запуска): проект Vercel и домен; интеграция Notion (internal) с доступом к Mentor cards, Volunteers, Event suggestions, Event listings, Speakers; Resend и подтверждение домена в DNS; Cloudflare Turnstile; ключ Google Maps JS API; GA4 — заведён ли и какой ID.
 - **Дата в Privacy Policy** («Effective date: November 6, 2026») — обновить в Google Doc и Figma, если запуск сдвинется.
-
+- **Кнопка «More ways to contribute» на Volunteer (mobile)** — в Figma на телефоне видны 3 роли и 1 фото, остальное раскрывается кнопкой «More ways to contribute»; в таблице текстов такой строки нет. Пока на mobile показаны все роли без кнопки; нужна строка (например, `volunteer.roles.more`), тогда добавлю сворачивание.
