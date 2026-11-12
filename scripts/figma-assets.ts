@@ -45,3 +45,13 @@ export const figmaAssets: FigmaAsset[] = [
   { nodeId: "1003:8094", name: "social-hover-facebook", format: "svg", scale: 1, dir: "ui", publish: false },
   { nodeId: "1003:8097", name: "social-hover-linkedin", format: "svg", scale: 1, dir: "ui", publish: false },
 ];
+
+// Шапка и мобильное меню: своих картинок нет — логотип, бургер и иконки уже в коде.
+// Футер (1110:10554): фото разной обрезки по размерам и рисунок «обнимающие руки».
+figmaAssets.push(
+  { nodeId: "1048:1442", name: "footer-photo-desktop", format: "png", scale: 2, dir: "footer" },
+  { nodeId: "1203:14234", name: "footer-photo-tablet", format: "png", scale: 2, dir: "footer" },
+  { nodeId: "1119:2092", name: "footer-photo-mobile", format: "png", scale: 2, dir: "footer" },
+  { nodeId: "1048:1460", name: "footer-hug-desktop", format: "svg", scale: 1, dir: "footer", currentColor: true },
+  { nodeId: "1203:14254", name: "footer-hug-tablet", format: "svg", scale: 1, dir: "footer", currentColor: true },
+);
