@@ -7,7 +7,6 @@ import { pageMetadata } from "@/lib/seo";
 
 // Privacy Policy — только на английском: /privacy-policy (en); /ru/privacy-policy не существует (404),
 // русские страницы ссылаются на английский адрес (CLAUDE.md).
-export const dynamicParams = false;
 export function generateStaticParams() {
   return [{ lang: "en" }];
 }
