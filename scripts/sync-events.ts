@@ -120,26 +120,37 @@ async function download(fileProp: Props | undefined, name: string): Promise<stri
 }
 
 type Coords = { lat: number; lng: number };
+type Found = Coords & { source: "Google" | "Nominatim" };
 
-async function geocode(address: string): Promise<Coords | null> {
+let lastNominatim = 0;
+/** Nominatim: не чаще одного запроса в секунду (правила использования), общий для всех вызовов. */
+async function nominatim(q: string): Promise<Coords | null> {
+  const wait = lastNominatim + 1100 - Date.now();
+  if (wait > 0) await new Promise((ok) => setTimeout(ok, wait));
+  lastNominatim = Date.now();
+  const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(q)}`, {
+    headers: { "User-Agent": "WorkChatSeattle-website-sync/1.0" },
+  });
+  const r = (await res.json()) as { lat: string; lon: string }[];
+  return r[0] ? { lat: +r[0].lat, lng: +r[0].lon } : null;
+}
+
+/** Ищет только по Address (Place name — подпись, в поиск не уходит): строки через запятую, при неудаче — без suite / Ste / скобок. */
+async function geocode(address: string): Promise<Found | null> {
   const q = address.replace(/\s*\n\s*/g, ", ");
+  const plain = q.replace(/,?\s*(suite|ste\.?|unit|#)\s*[\w-]+(\s*\([^)]*\))?/gi, "").replace(/\s*\([^)]*\)/g, "");
   const key = process.env.GOOGLE_MAPS_SERVER_KEY;
-  if (key) {
-    const r = (await (await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(q)}&key=${key}`)).json()) as {
-      results?: { geometry: { location: { lat: number; lng: number } } }[];
-    };
-    const l = r.results?.[0]?.geometry.location;
-    return l ? { lat: l.lat, lng: l.lng } : null;
-  }
-  // Nominatim не знает «suite / ste»: пробуем адрес как есть, затем без номера офиса
-  const plain = q.replace(/,?\s*(suite|ste\.?|unit|#)\s*[\w-]+(\s*\([^)]*\))?/gi, "");
-  for (const variant of [q, plain]) {
-    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(variant)}`, {
-      headers: { "User-Agent": "workchat-seattle-sync" },
-    });
-    const r = (await res.json()) as { lat: string; lon: string }[];
-    if (r[0]) return { lat: +r[0].lat, lng: +r[0].lon };
-    await new Promise((ok) => setTimeout(ok, 1100)); // лимит Nominatim — 1 запрос в секунду
+  for (const variant of q === plain ? [q] : [q, plain]) {
+    if (key) {
+      const r = (await (await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(variant)}&key=${key}`)).json()) as {
+        results?: { geometry: { location: { lat: number; lng: number } } }[];
+      };
+      const l = r.results?.[0]?.geometry.location;
+      if (l) return { lat: l.lat, lng: l.lng, source: "Google" };
+    } else {
+      const c = await nominatim(variant);
+      if (c) return { ...c, source: "Nominatim" };
+    }
   }
   return null;
 }
@@ -206,9 +217,22 @@ async function main() {
     const format = sel(pr.Format) as "In person" | "Online" | "Hybrid" | "";
     const address = text(pr.Address) || null;
     let coords: Coords | null = null;
-    if (address && format !== "Online") {
-      coords = prev.get(address) ?? (await geocode(address));
-      if (!coords) report.push(`Нет координат (адрес не найден): ${title} — ${address.replace(/\n/g, ", ")}`);
+    if (format !== "Online") {
+      if (!address) {
+        report.push(`!!! ВНИМАНИЕ: «${title}» — Format = ${format || "не задан"}, а Address пустой. Координат нет, блока карты на странице не будет.`);
+      } else if (prev.has(address)) {
+        coords = prev.get(address)!;
+      } else {
+        const found = await geocode(address);
+        if (found) {
+          coords = { lat: found.lat, lng: found.lng };
+          report.push(
+            `Новые координаты (${found.source}): ${title} — ${address.replace(/\n/g, ", ")} → ${found.lat}, ${found.lng}  https://www.google.com/maps?q=${found.lat},${found.lng}`,
+          );
+        } else {
+          report.push(`!!! Нет координат (адрес не найден): ${title} — ${address.replace(/\n/g, ", ")}. Блока карты не будет.`);
+        }
+      }
     }
     events.push({
       slug,
