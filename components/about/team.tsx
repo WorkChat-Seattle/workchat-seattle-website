@@ -66,7 +66,7 @@ export function Team({
     >
       <div className="mx-auto max-w-300 px-5 md:px-10 xl:px-0">
         <div className="flex flex-col gap-5 md:pl-43 xl:block xl:pl-75">
-          <h2 id="team-title" className="text-h2 text-text-heading">
+          <h2 data-reveal id="team-title" className="text-h2 text-text-heading">
             {title}
           </h2>
           <QuoteAccent className="w-79 md:w-129 xl:hidden">

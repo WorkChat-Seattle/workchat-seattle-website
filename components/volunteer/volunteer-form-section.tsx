@@ -14,7 +14,7 @@ export function VolunteerFormSection({ t, children }: { t: Dictionary; children?
     >
       <div className="bg-bg-card-neutral px-5 py-20 md:px-10 md:py-30 xl:px-75">
         <div className="flex flex-col gap-5 md:pl-43 xl:max-w-130 xl:pl-0">
-          <h2 id="volunteer-form-title" className="text-h2 text-text-heading">
+          <h2 data-reveal id="volunteer-form-title" className="text-h2 text-text-heading">
             {t["volunteer.form.title"]}
           </h2>
           <p className="text-body text-text-body">{t["volunteer.form.text"]}</p>

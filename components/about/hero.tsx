@@ -13,13 +13,13 @@ import tablet from "@/public/images/about/about-hero-tablet.jpg";
 export function AboutHero({ t }: { t: Dictionary }) {
   return (
     <section className="mx-auto mt-10 max-w-300 px-5 pb-5 md:mt-15 md:px-10 md:pb-10 xl:flex xl:px-0 xl:pb-0">
-      <div className="order-1 xl:order-2 xl:flex xl:h-150 xl:w-150 xl:flex-col xl:justify-center xl:bg-bg-card-neutral xl:px-9.25">
+      <div data-reveal="now" className="order-1 xl:order-2 xl:flex xl:h-150 xl:w-150 xl:flex-col xl:justify-center xl:bg-bg-card-neutral xl:px-9.25">
         <div className="flex flex-col gap-5 md:pl-43 xl:max-w-114.5 xl:pl-0">
           <h1 className="text-h2 text-text-heading">{t["about.mission.title"]}</h1>
           <p className="text-body text-text-body">{t["about.mission.text"]}</p>
         </div>
       </div>
-      <div className="relative order-2 mt-10 aspect-square md:aspect-auto md:h-129 xl:order-1 xl:mt-0 xl:h-150 xl:w-150 xl:shrink-0">
+      <div data-reveal="now" className="relative order-2 mt-10 aspect-square md:aspect-auto md:h-129 xl:order-1 xl:mt-0 xl:h-150 xl:w-150 xl:shrink-0">
         <ResponsiveImage mobile={mobile} tablet={tablet} desktop={desktop} priority sizes="(min-width: 1280px) 600px, 100vw" />
       </div>
     </section>

@@ -29,13 +29,13 @@ export function WhatWeDo({ lang, t }: { lang: Locale; t: Dictionary }) {
       className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:px-0"
     >
       <div className="flex flex-col gap-5 md:pl-43 xl:gap-10 xl:pl-75">
-        <h2 id="what-we-do-title" className="text-h2 text-text-heading">
+        <h2 data-reveal id="what-we-do-title" className="text-h2 text-text-heading">
           {t["home.whatWeDo.title"]}
         </h2>
-        <p className="text-body max-w-150 text-text-body">{t["home.whatWeDo.text"]}</p>
+        <p data-reveal className="text-body max-w-150 text-text-body">{t["home.whatWeDo.text"]}</p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-0 xl:mt-15 xl:grid-cols-4">
+      <div data-reveal-grid="one-row" className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-0 xl:mt-15 xl:grid-cols-4">
         <div
           className={`${cell} h-45 md:order-1 md:h-auto md:min-h-86 xl:order-none xl:col-span-2 xl:col-start-1 xl:row-start-1 xl:min-h-75`}
         >

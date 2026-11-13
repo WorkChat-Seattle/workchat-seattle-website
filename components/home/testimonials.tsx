@@ -21,10 +21,10 @@ export function Testimonials({ t }: { t: Dictionary }) {
       className="mt-20 overflow-x-clip md:mt-30 xl:mt-40"
     >
       <div className="mx-auto max-w-300 px-5 md:px-10 xl:px-0">
-        <h2 id="testimonials-title" className="text-h2 text-text-heading md:pl-43 xl:pl-75">
+        <h2 data-reveal id="testimonials-title" className="text-h2 text-text-heading md:pl-43 xl:pl-75">
           {t["home.testimonials.title"]}
         </h2>
-        <div className="mt-10 xl:mt-15">
+        <div data-reveal className="mt-10 xl:mt-15">
           <TestimonialSlider
             items={items}
             readMore={t["home.testimonials.readMore"]}

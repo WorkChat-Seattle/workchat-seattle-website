@@ -27,14 +27,14 @@ export function Subscribe({ lang, t }: { lang: Locale; t: Dictionary }) {
       </div>
 
       <div className="mx-auto md:mx-10 xl:mx-auto xl:max-w-300">
-        <div className="flex flex-col gap-5 bg-bg-glass py-10 backdrop-blur-subscribe-card md:gap-10 md:py-15 xl:px-37.5 xl:py-20">
+        <div data-reveal className="flex flex-col gap-5 bg-bg-glass py-10 backdrop-blur-subscribe-card md:gap-10 md:py-15 xl:px-37.5 xl:py-20">
           <div className="flex flex-col gap-5 px-5 md:px-10 xl:pl-37.5">
-            <h2 id="subscribe-title" className="text-h2 text-text-heading">
+            <h2 data-reveal id="subscribe-title" className="text-h2 text-text-heading">
               {t["home.subscribe.title"]}
             </h2>
-            <p className="text-body max-w-139.25 text-text-body">{t["home.subscribe.text"]}</p>
+            <p data-reveal className="text-body max-w-139.25 text-text-body">{t["home.subscribe.text"]}</p>
           </div>
-          <div className="flex flex-col gap-3">
+          <div data-reveal className="flex flex-col gap-3">
             <ZeffyEmbed />
             <p className="text-body px-5 text-text-muted md:px-10 xl:pl-37.5">
               {linkPhrase(t["home.subscribe.note"], PRIVACY_LINK_TEXT[lang], (phrase) => (

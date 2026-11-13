@@ -14,7 +14,7 @@ import { SHOW_SUGGEST_EVENT } from "@/lib/constants";
 export function UpcomingEvents({ events, lang, t }: { events: EventItem[]; lang: Locale; t: Dictionary }) {
   return (
     <section aria-labelledby="upcoming-title" className="mx-auto mt-10 max-w-300 px-5 md:mt-15 md:px-10 xl:px-0">
-      <h1 id="upcoming-title" className="text-h2 text-text-heading md:pl-43 xl:pl-75">
+      <h1 data-reveal="now" id="upcoming-title" className="text-h2 text-text-heading md:pl-43 xl:pl-75">
         {t["events.upcoming.title"]}
       </h1>
       {events.length ? (

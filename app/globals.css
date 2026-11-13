@@ -317,6 +317,18 @@
   font-weight: 700;
 }
 
+/* Появление при прокрутке (animations.md, п. 1; логика — components/layout/reveal-controller.tsx).
+   Скрывает только класс .js (его нет без JS и при reduced motion), только opacity + transform. */
+.js :is([data-reveal], [data-reveal-grid] > *):not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(var(--reveal-shift));
+}
+.js :is([data-reveal], [data-reveal-grid] > *)[data-revealed="in"] {
+  transition:
+    opacity var(--duration-reveal) ease-out var(--reveal-delay, 0ms),
+    transform var(--duration-reveal) ease-out var(--reveal-delay, 0ms);
+}
+
 /* Логотип «печатает…» (animations.md, п. 5): точки прыгают по очереди, пока логотип под курсором */
 @keyframes logo-typing {
   0%,

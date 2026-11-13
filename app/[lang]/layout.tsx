@@ -24,7 +24,17 @@ export default async function RootLayout({
   const t = await getDictionary(lang);
 
   return (
-    <html lang={lang} className={fontVariables}>
+    // suppressHydrationWarning: скрипт в <head> до отрисовки ставит класс `js` (animations.md, общие правила)
+    <html lang={lang} className={fontVariables} suppressHydrationWarning>
+      <head>
+        {/* Скрытие до появления включается только с JS и без prefers-reduced-motion */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
       <body>
         <SiteChrome lang={lang} t={t}>
           {children}

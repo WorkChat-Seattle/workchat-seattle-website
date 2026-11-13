@@ -14,10 +14,10 @@ export function ResourceHub({ t }: { t: Dictionary }) {
       aria-labelledby="resource-hub-title"
       className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:px-0"
     >
-      <h2 id="resource-hub-title" className="text-h2 text-text-heading md:pl-43 xl:pl-75">
+      <h2 data-reveal id="resource-hub-title" className="text-h2 text-text-heading md:pl-43 xl:pl-75">
         {t["home.resources.title"]}
       </h2>
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:mt-15">
+      <div data-reveal-grid="one-row" className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:mt-15">
         {resourceCards.map((card) => (
           <CardRectangle
             key={card.id}

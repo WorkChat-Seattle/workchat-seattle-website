@@ -23,7 +23,7 @@ export function FaqSection({
       aria-labelledby={titleId}
       className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:px-0"
     >
-      <h2 id={titleId} className="text-h2 text-text-heading md:pl-43 xl:pl-75">
+      <h2 data-reveal id={titleId} className="text-h2 text-text-heading md:pl-43 xl:pl-75">
         {t[`${prefix}.title` as TextKey]}
       </h2>
       <div className="mt-10 border-t border-border-divider xl:mt-15 xl:ml-37.5 xl:w-225">

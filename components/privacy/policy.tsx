@@ -18,7 +18,7 @@ export function PrivacyPolicy() {
     <section className="mx-auto mt-10 mb-20 flex max-w-300 flex-col gap-10 px-5 md:mt-15 md:mb-30 md:px-10 xl:mb-40 xl:px-0">
       <div className={column}>
         <div className="xl:max-w-150">
-          <h1 className="text-h2 text-text-heading">{title}</h1>
+          <h1 data-reveal="now" className="text-h2 text-text-heading">{title}</h1>
           <div className="mt-5 xl:mt-10">
             <p className="text-caption text-text-body">{effectiveDate}</p>
             <p className="text-body mt-5 text-text-body">{intro}</p>

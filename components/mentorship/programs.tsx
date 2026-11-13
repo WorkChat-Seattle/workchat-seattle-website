@@ -18,12 +18,12 @@ export function Programs({ t }: { t: Dictionary }) {
       className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:px-0"
     >
       <div className="md:pl-43 xl:pl-75">
-        <h2 id="programs-title" className="text-h2 text-text-heading">
+        <h2 data-reveal id="programs-title" className="text-h2 text-text-heading">
           {t["mentorship.programs.title"]}
         </h2>
         <p className="text-body mt-5 text-text-body xl:mt-10 xl:max-w-150">{t["mentorship.programs.text"]}</p>
       </div>
-      <ul className="mt-10 flex flex-col gap-5 xl:gap-2.5">
+      <ul data-reveal-grid className="mt-10 flex flex-col gap-5 xl:gap-2.5">
         {programs.map((p) => {
           const [priceHead, ...priceRest] = t[`mentorship.programs.${p.id}.price` as TextKey].split("\n");
           return (

@@ -15,11 +15,11 @@ export function Hero({ t }: { t: Dictionary }) {
     <section className="pt-10 md:pt-15">
       <div className="mx-auto max-w-300 px-5 md:px-10 xl:px-0">
         <div className="flex flex-col gap-5 md:pl-43 xl:gap-10 xl:pl-75">
-          <h1 className="text-h1 whitespace-pre-line text-text-heading">{t["home.hero.title"]}</h1>
-          <p className="text-body max-w-142.25 text-balance text-text-body">{t["home.hero.text"]}</p>
+          <h1 data-reveal="now" className="text-h1 whitespace-pre-line text-text-heading">{t["home.hero.title"]}</h1>
+          <p data-reveal="now" className="text-body max-w-142.25 text-balance text-text-body">{t["home.hero.text"]}</p>
         </div>
       </div>
-      <div className="relative mt-10 h-135 md:mt-15 md:h-110 xl:h-162.5">
+      <div data-reveal="now" className="relative mt-10 h-135 md:mt-15 md:h-110 xl:h-162.5">
         <ResponsiveImage mobile={mobile} tablet={tablet} desktop={desktop} priority />
       </div>
     </section>

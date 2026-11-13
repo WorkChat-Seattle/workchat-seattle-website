@@ -41,7 +41,7 @@ export function FaqItem({
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
   return (
-    <div className="border-b border-border-divider">
+    <div data-reveal className="border-b border-border-divider">
       <h3 className="text-h3">
         <button
           type="button"

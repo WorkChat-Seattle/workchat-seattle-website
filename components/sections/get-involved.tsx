@@ -22,10 +22,10 @@ export function GetInvolved({ lang, t }: { lang: Locale; t: Dictionary }) {
       aria-labelledby="get-involved-title"
       className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:mb-40 xl:px-0"
     >
-      <h2 id="get-involved-title" className="text-h2 text-text-heading xl:pl-75">
+      <h2 data-reveal id="get-involved-title" className="text-h2 text-text-heading xl:pl-75">
         {t["home.getInvolved.title"]}
       </h2>
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:mt-15 xl:grid-cols-4">
+      <div data-reveal-grid className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:mt-15 xl:grid-cols-4">
         <CardSquare
           option="dark-neutral"
           title={t["home.getInvolved.mentor.title"]}

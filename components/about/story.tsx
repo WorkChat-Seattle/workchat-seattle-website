@@ -14,11 +14,11 @@ export function Story({ t }: { t: Dictionary }) {
     >
       <div className="md:pl-43 xl:pl-75">
         <div className="flex flex-col gap-5 xl:max-w-150">
-          <h2 id="story-title" className="text-h2 text-text-heading">
+          <h2 data-reveal id="story-title" className="text-h2 text-text-heading">
             {t["about.story.title"]}
           </h2>
-          <p className="text-h3 text-text-heading xl:mt-5">{t["about.story.lead"]}</p>
-          <p className="text-body whitespace-pre-line text-text-body">{t["about.story.text"]}</p>
+          <p data-reveal className="text-h3 text-text-heading xl:mt-5">{t["about.story.lead"]}</p>
+          <p data-reveal className="text-body whitespace-pre-line text-text-body">{t["about.story.text"]}</p>
         </div>
       </div>
     </section>

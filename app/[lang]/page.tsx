@@ -33,6 +33,7 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
       {featured ? (
         // Featured (Figma: featured-event `1110:10681` / `1203:14397` / `1047:6842`): ближайшее предстоящее; нет — блока нет
         <section
+          data-reveal
           aria-label={t["home.featured.label"]}
           className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:px-0"
         >

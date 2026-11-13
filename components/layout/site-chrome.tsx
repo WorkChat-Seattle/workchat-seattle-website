@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { RevealController } from "./reveal-controller";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
 
@@ -46,6 +47,7 @@ export function SiteChrome({
       />
       <main id="main">{children}</main>
       <SiteFooter lang={lang} t={t} />
+      <RevealController />
     </>
   );
 }

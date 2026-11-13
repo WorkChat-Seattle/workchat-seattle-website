@@ -15,7 +15,7 @@ export function MentorsSection({ lang, t }: { lang: Locale; t: Dictionary }) {
   return (
     <section aria-labelledby="mentors-title" className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:px-0">
       <div className="mb-10 flex flex-col gap-5 md:pl-43 xl:mb-15 xl:gap-10 xl:pl-75">
-        <h2 id="mentors-title" className="text-h2 text-text-heading">
+        <h2 data-reveal id="mentors-title" className="text-h2 text-text-heading">
           {t["mentorship.mentors.title"]}
         </h2>
         <p className="text-body text-text-body xl:max-w-150">{t["mentorship.mentors.text"]}</p>
