@@ -317,6 +317,31 @@
   font-weight: 700;
 }
 
+/* Логотип «печатает…» (animations.md, п. 5): точки прыгают по очереди, пока логотип под курсором */
+@keyframes logo-typing {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--logo-dot-lift));
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  a:hover .logo-dot,
+  a:focus-visible .logo-dot {
+    animation: logo-typing var(--duration-logo-dot) ease-in-out infinite;
+  }
+  a:hover .logo-dot-2,
+  a:focus-visible .logo-dot-2 {
+    animation-delay: 0.15s;
+  }
+  a:hover .logo-dot-3,
+  a:focus-visible .logo-dot-3 {
+    animation-delay: 0.3s;
+  }
+}
+
 /* Подложка шапки (animations.md, п. 6): прозрачная наверху, после прокрутки — стекло.
    Без поддержки backdrop-filter — почти непрозрачный фон. */
 .header-glass {
