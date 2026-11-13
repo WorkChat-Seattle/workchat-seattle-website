@@ -123,4 +123,5 @@
 `NOTION_TOKEN`, `NOTION_DS_MENTOR_CARDS`, `NOTION_DS_VOLUNTEERS`, `NOTION_DS_EVENT_SUGGESTIONS`, `RESEND_API_KEY` (или другой сервис), `FORMS_TO_EMAIL` (= workchatseattle@gmail.com), `FORMS_FROM_EMAIL`, `TURNSTILE_SECRET_KEY` (+ публичный site key).
 
 ## Открытые вопросы
-- Создать интеграцию Notion (internal) и выдать ей доступ к Mentor cards, Volunteers, Event suggestions (и Event listings, Speakers для чтения).
+- ~~Создать интеграцию Notion~~ — готово (13.11 проверено: запись в Mentor cards, Volunteers, Event suggestions работает).
+- Письма Resend выключены флагом `SEND_FORM_EMAILS` (`lib/constants.ts`) до подтверждения домена; Turnstile — тестовые ключи. Подробности — CLAUDE.md, «Открытые вопросы».
