@@ -1,3 +1,4 @@
+import { ParallaxColumns } from "@/components/ui/parallax";
 import { NumberCard } from "@/components/ui/number-card";
 import { QuoteAccent } from "@/components/ui/quote-accent";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -8,7 +9,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
  * обрезает секция по горизонтали. Карточки 2×2: desktop 300×210 (колонки по 300, верх на 125 от
  * верха круга), tablet 172, mobile 175 под кругом. В HTML порядок: 2018, 5,800+, 50+, 10,000+;
  * на tablet карточки идут по строкам в другом порядке (2018, 50+ / 5,800+, 10,000+).
- * Параллакс колонок на desktop — на проходе анимаций (animations.md, п. 8).
+ * Параллакс колонок на desktop — `ParallaxColumns` (animations.md, п. 8): левая колонка — чётные карточки.
  */
 export function Numbers({ t }: { t: Dictionary }) {
   return (
@@ -17,7 +18,7 @@ export function Numbers({ t }: { t: Dictionary }) {
         <div className="order-2 mt-5 -ml-31 flex size-114.75 shrink-0 items-center rounded-full bg-bg-card-neutral pl-31 md:order-1 md:mt-0 md:-ml-19 md:mr-5 md:-my-7 md:size-100 md:pl-19 xl:mr-22.5 xl:-ml-37.5 xl:my-0 xl:size-165 xl:pl-37.5">
           <QuoteAccent className="w-79 md:w-69 xl:w-75">{t["home.numbers.caption"]}</QuoteAccent>
         </div>
-        <div className="order-1 grid grid-cols-2 md:order-2 md:w-86 xl:mt-31.25 xl:w-150 xl:grid-cols-2">
+        <ParallaxColumns className="order-1 grid grid-cols-2 md:order-2 md:w-86 xl:mt-31.25 xl:w-150 xl:grid-cols-2">
           <NumberCard
             option="light"
             value={t["home.numbers.founded.value"]}
@@ -41,7 +42,7 @@ export function Numbers({ t }: { t: Dictionary }) {
             label={t["home.numbers.questions.label"]}
             className="md:order-4 xl:order-none"
           />
-        </div>
+        </ParallaxColumns>
       </div>
     </section>
   );

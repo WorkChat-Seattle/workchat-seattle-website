@@ -1,3 +1,4 @@
+import { ParallaxDrift } from "@/components/ui/parallax";
 import { EventDetail } from "@/components/events/event-detail";
 import { EventImage } from "@/components/events/event-image";
 import { ButtonLink } from "@/components/ui/button";
@@ -29,8 +30,15 @@ export function CardEvent({
   const href = localePath(lang, `/events/${event.slug}`);
   return (
     <article className="flex flex-col bg-bg-card-neutral xl:min-h-139 xl:flex-row">
-      <div className="relative order-first h-67.5 shrink-0 md:h-100 xl:order-last xl:h-auto xl:w-150">
-        <EventImage src={event.cover} sizes="(min-width: 1280px) 600px, (min-width: 768px) 688px, 350px" priority={priority} />
+      <div className="relative order-first h-67.5 shrink-0 overflow-hidden md:h-100 xl:order-last xl:h-auto xl:w-150">
+        {featured ? (
+          // Featured на Home: фото едет вниз внутри рамки на 60 px (animations.md, п. 7), слой выше рамки на 60 px (≥1280)
+          <ParallaxDrift basis="screen" className="absolute inset-0 xl:-top-15">
+            <EventImage src={event.cover} sizes="(min-width: 1280px) 600px, (min-width: 768px) 688px, 350px" priority={priority} />
+          </ParallaxDrift>
+        ) : (
+          <EventImage src={event.cover} sizes="(min-width: 1280px) 600px, (min-width: 768px) 688px, 350px" priority={priority} />
+        )}
       </div>
       <div className="flex flex-1 flex-col gap-10 p-5 md:p-10 xl:py-20 xl:pr-10 xl:pl-20">
         <div className="flex flex-col gap-5">

@@ -1,3 +1,4 @@
+import { ParallaxDrift } from "@/components/ui/parallax";
 import Image from "next/image";
 import { CardSquare } from "@/components/ui/card-square";
 import { type Locale, localePath } from "@/i18n/config";
@@ -34,21 +35,12 @@ export function GetInvolved({ lang, t }: { lang: Locale; t: Dictionary }) {
           href={`${localePath(lang, "/mentorship")}#mentor-form`}
         />
         <div className={photo}>
-          <Image
-            src={imgMobile}
-            alt=""
-            sizes="100vw"
-            className="object-cover md:hidden"
-            fill
-          />
-          <Image
-            src={imgTablet}
-            alt=""
-            sizes="50vw"
-            className="hidden object-cover md:block xl:hidden"
-            fill
-          />
-          <Image src={imgDesktop} alt="" sizes="300px" className="hidden object-cover xl:block" fill />
+          {/* ≥1280: слой выше рамки на 60 px, фото едет вниз (animations.md, п. 7) */}
+          <ParallaxDrift basis="screen" className="absolute inset-0 xl:-top-15">
+            <Image src={imgMobile} alt="" sizes="100vw" className="object-cover md:hidden" fill />
+            <Image src={imgTablet} alt="" sizes="50vw" className="hidden object-cover md:block xl:hidden" fill />
+            <Image src={imgDesktop} alt="" sizes="300px" className="hidden object-cover xl:block" fill />
+          </ParallaxDrift>
         </div>
         <CardSquare
           option="neutral"

@@ -1,3 +1,4 @@
+import { ParallaxDrift } from "@/components/ui/parallax";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import type { Dictionary } from "@/i18n/dictionaries";
 import desktop from "@/public/images/home/hero-desktop.jpg";
@@ -19,8 +20,11 @@ export function Hero({ t }: { t: Dictionary }) {
           <p data-reveal="now" className="text-body max-w-142.25 text-balance text-text-body">{t["home.hero.text"]}</p>
         </div>
       </div>
-      <div data-reveal="now" className="relative mt-10 h-135 md:mt-15 md:h-110 xl:h-162.5">
-        <ResponsiveImage mobile={mobile} tablet={tablet} desktop={desktop} priority />
+      <div data-reveal="now" className="relative mt-10 h-135 overflow-hidden md:mt-15 md:h-110 xl:h-162.5">
+        {/* ≥1280: слой выше рамки на 60 px (--parallax-shift) — запас, по которому фото едет вниз */}
+        <ParallaxDrift basis="page" className="absolute inset-0 xl:-top-15">
+          <ResponsiveImage mobile={mobile} tablet={tablet} desktop={desktop} priority />
+        </ParallaxDrift>
       </div>
     </section>
   );

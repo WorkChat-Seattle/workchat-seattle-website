@@ -156,6 +156,11 @@
   /* 7. Параллакс (≥1280) */
   --parallax-shift: 60px;
   --parallax-shift-community: 120px;
+  --parallax-gain-community: 400; /* скорость 0.25 → 100 px на краях видимого диапазона */
+
+  /* 8. Numbers: путь колонок от выровненного положения (v2: 200 и 200 + 150) */
+  --numbers-travel-left: 200px;
+  --numbers-travel-right: 350px;
 
   /* 9. Find your mentor */
   --duration-mentor-ring: 450ms;

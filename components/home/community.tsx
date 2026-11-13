@@ -24,19 +24,21 @@ import t03 from "@/public/images/home/community-t03.jpg";
 import t04 from "@/public/images/home/community-t04.jpg";
 import t05 from "@/public/images/home/community-t05.jpg";
 import t06 from "@/public/images/home/community-t06.jpg";
+import { ParallaxSpeed } from "@/components/ui/parallax";
 import s from "./community.module.css";
 
-const desktop: [string, StaticImageData, string][] = [
-  ["d10", d10, "300px"],
-  ["d09", d09, "375px"],
-  ["d08", d08, "300px"],
-  ["d07", d07, "270px"],
-  ["d06", d06, "270px"],
-  ["d05", d05, "150px"],
-  ["d04", d04, "150px"],
-  ["d03", d03, "270px"],
-  ["d02", d02, "150px"],
-  ["d01", d01, "150px"],
+// скорость параллакса каждого фото — из workchat-v2 (data-speed), animations.md, п. 7
+const desktop: [string, StaticImageData, string, number][] = [
+  ["d10", d10, "300px", 0.08],
+  ["d09", d09, "375px", 0.1],
+  ["d08", d08, "300px", 0.12],
+  ["d07", d07, "270px", 0.18],
+  ["d06", d06, "270px", 0.2],
+  ["d05", d05, "150px", 0.3],
+  ["d04", d04, "150px", 0.25],
+  ["d03", d03, "270px", 0.3],
+  ["d02", d02, "150px", 0.15],
+  ["d01", d01, "150px", 0.25],
 ];
 const tablet = [t01, t02, t03, t04, t05, t06];
 const mobileTop = [
@@ -113,10 +115,10 @@ export function Community({ t }: { t: Dictionary }) {
 
         {/* desktop: коллаж */}
         <div className="hidden xl:contents">
-          {desktop.map(([name, img, size]) => (
-            <div key={name} className={`${s.photo} ${s[name]}`}>
+          {desktop.map(([name, img, size, speed]) => (
+            <ParallaxSpeed key={name} speed={speed} className={`${s.photo} ${s[name]}`}>
               <Image src={img} alt="" fill sizes={size} className="object-cover" />
-            </div>
+            </ParallaxSpeed>
           ))}
         </div>
       </div>
