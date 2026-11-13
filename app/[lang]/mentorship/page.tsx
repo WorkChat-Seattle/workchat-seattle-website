@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { MentorsSection } from "@/components/mentorship/mentors-section";
 import { MentorFormSection } from "@/components/mentorship/mentor-form-section";
 import { MentorshipHero } from "@/components/mentorship/hero";
 import { Programs } from "@/components/mentorship/programs";
@@ -19,7 +20,7 @@ export const metadata: Metadata = { title: "Mentorship — WorkChat Seattle" };
 
 /**
  * Mentorship (Figma: 390 `1135:11286`, 768 `1240:15215`, 1440 `1003:4997`): hero → менторы → форма «Стать ментором» → FAQ →
- * программы → подписка → «Как помочь». Блок «Meet our mentors» скрыт, пока нет данных менторов (шаг 6); форма — шаг 8.
+ * программы → подписка → «Как помочь». «Meet our mentors» — из data/mentors.ts (нет менторов — секции нет); форма — шаг 8.
  */
 export default async function Page({ params }: PageProps<"/[lang]/mentorship">) {
   const { lang } = await params;
@@ -29,6 +30,7 @@ export default async function Page({ params }: PageProps<"/[lang]/mentorship">) 
   return (
     <>
       <MentorshipHero t={t} />
+      <MentorsSection lang={lang} t={t} />
       <MentorFormSection t={t} />
       <FaqSection t={t} prefix="mentorship.faq" ids={mentorshipFaq} />
       <Programs t={t} />
