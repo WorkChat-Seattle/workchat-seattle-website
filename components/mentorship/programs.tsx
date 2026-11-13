@@ -21,7 +21,7 @@ export function Programs({ t }: { t: Dictionary }) {
         <h2 data-reveal id="programs-title" className="text-h2 text-text-heading">
           {t["mentorship.programs.title"]}
         </h2>
-        <p className="text-body mt-5 text-text-body xl:mt-10 xl:max-w-150">{t["mentorship.programs.text"]}</p>
+        <p data-reveal className="text-body mt-5 text-text-body xl:mt-10 xl:max-w-150">{t["mentorship.programs.text"]}</p>
       </div>
       <ul data-reveal-grid className="mt-10 flex flex-col gap-5 xl:gap-2.5">
         {programs.map((p) => {

@@ -24,7 +24,7 @@ export function MentorList({
   const hasMore = items.length > visible;
   return (
     <>
-      <ul id={id} className="grid gap-5 md:gap-0 xl:grid-cols-2">
+      <ul id={id} data-reveal-grid className="grid gap-5 md:gap-0 xl:grid-cols-2">
         {items.map((item, i) => (
           <li key={item.key} className="flex" hidden={i >= visible && !open}>
             {item.node}

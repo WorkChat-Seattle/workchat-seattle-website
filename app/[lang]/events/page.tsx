@@ -55,7 +55,7 @@ export default async function Page({ params }: PageProps<"/[lang]/events">) {
       <UpcomingEvents events={upcoming} lang={lang} t={t} />
       {past.length ? (
         <section aria-labelledby="past-title" className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:px-0">
-          <h2 id="past-title" className="text-h2 text-text-heading md:pl-43 xl:pl-75">
+          <h2 data-reveal id="past-title" className="text-h2 text-text-heading md:pl-43 xl:pl-75">
             {t["events.past.title"]}
           </h2>
           <PastEvents

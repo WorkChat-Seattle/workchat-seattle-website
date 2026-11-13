@@ -36,7 +36,7 @@ export default async function Page({ params }: PageProps<"/[lang]/mentors/[slug]
     <>
       <section className="mx-auto mt-10 max-w-300 px-5 md:mt-15 md:px-10 xl:px-0">
         <MentorProfile mentor={mentor} lang={lang} t={t} />
-        <div className="mt-10 flex flex-col md:items-center xl:mt-20">
+        <div data-reveal className="mt-10 flex flex-col md:items-center xl:mt-20">
           <ButtonLink href={localePath(lang, "/mentorship")} option="dark" className="w-full md:w-fit xl:w-75">
             {t["mentorInfo.back"]}
           </ButtonLink>

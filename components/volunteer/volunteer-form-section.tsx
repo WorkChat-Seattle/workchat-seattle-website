@@ -17,7 +17,7 @@ export function VolunteerFormSection({ t, children }: { t: Dictionary; children?
           <h2 data-reveal id="volunteer-form-title" className="text-h2 text-text-heading">
             {t["volunteer.form.title"]}
           </h2>
-          <p className="text-body text-text-body">{t["volunteer.form.text"]}</p>
+          <p data-reveal className="text-body text-text-body">{t["volunteer.form.text"]}</p>
         </div>
         {children}
       </div>

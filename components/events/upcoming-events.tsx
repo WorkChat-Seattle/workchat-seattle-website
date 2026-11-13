@@ -18,7 +18,7 @@ export function UpcomingEvents({ events, lang, t }: { events: EventItem[]; lang:
         {t["events.upcoming.title"]}
       </h1>
       {events.length ? (
-        <ul className="mt-10 flex flex-col gap-5 xl:gap-2.5">
+        <ul data-reveal-grid className="mt-10 flex flex-col gap-5 xl:gap-2.5">
           {events.map((e, i) => (
             <li key={e.slug}>
               <CardEvent event={e} lang={lang} t={t} priority={i === 0} />
@@ -27,12 +27,12 @@ export function UpcomingEvents({ events, lang, t }: { events: EventItem[]; lang:
         </ul>
       ) : (
         <div className="mt-10 flex flex-col gap-5 md:pl-43 xl:max-w-150 xl:gap-10 xl:pl-75">
-          <p className="text-h3 text-text-heading">{t["events.empty.lead"]}</p>
-          <p className="text-body text-text-body">{t["events.empty.text"]}</p>
+          <p data-reveal="now" className="text-h3 text-text-heading">{t["events.empty.lead"]}</p>
+          <p data-reveal="now" className="text-body text-text-body">{t["events.empty.text"]}</p>
         </div>
       )}
       {SHOW_SUGGEST_EVENT ? (
-        <div className="mt-10 flex justify-center">
+        <div data-reveal className="mt-10 flex justify-center">
           <Button option="dark" className="w-full md:w-fit xl:w-75">
             {t["btn.suggestEvent"]}
           </Button>

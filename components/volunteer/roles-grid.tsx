@@ -30,7 +30,7 @@ export function RolesGrid({ tiles, moreLabel }: { tiles: TileView[]; moreLabel: 
 
   return (
     <>
-      <ul className={`${s.grid} flex flex-col`}>
+      <ul data-reveal-grid className={`${s.grid} flex flex-col`}>
         {tiles.map((tile, i) => {
           const hidden = !expanded && i >= VISIBLE_ON_MOBILE ? "max-md:hidden" : "";
           const ref = i === VISIBLE_ON_MOBILE ? firstNew : undefined;

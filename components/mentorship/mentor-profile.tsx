@@ -17,7 +17,7 @@ export function MentorProfile({ mentor, lang, t }: { mentor: Mentor; lang: Local
   const expertise = mentorTags(t, "expertise", mentor.expertise);
   const industry = mentorTags(t, "industry", mentor.industry);
   return (
-    <div className="grid gap-5 bg-bg-card-neutral p-5 md:grid-cols-[auto_1fr] md:gap-x-23 md:p-10 xl:gap-x-9 xl:py-20 xl:pr-37.5 xl:pl-10">
+    <div data-reveal="now" className="grid gap-5 bg-bg-card-neutral p-5 md:grid-cols-[auto_1fr] md:gap-x-23 md:p-10 xl:gap-x-9 xl:py-20 xl:pr-37.5 xl:pl-10">
       {mentor.photo ? (
         <span className="relative block aspect-square w-full self-start overflow-hidden rounded-full border-11 border-decor-card-outline md:w-53 xl:row-span-3 xl:w-93.75 xl:border-15">
           <Image src={mentor.photo} alt={mentor.name} fill sizes="(min-width: 1280px) 375px, (min-width: 768px) 212px, 310px" className="object-cover" priority />

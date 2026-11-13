@@ -11,8 +11,8 @@ export function VolunteerHero({ t }: { t: Dictionary }) {
       <div className="md:pl-43 xl:pl-75">
         <div className="flex flex-col gap-5 xl:max-w-150">
           <h1 data-reveal="now" className="text-h2 text-text-heading xl:mb-5">{t["volunteer.hero.title"]}</h1>
-          <p className="text-h3 text-text-heading">{t["volunteer.hero.lead"]}</p>
-          <p className="text-body whitespace-pre-line text-text-body">{t["volunteer.hero.text"]}</p>
+          <p data-reveal="now" className="text-h3 text-text-heading">{t["volunteer.hero.lead"]}</p>
+          <p data-reveal="now" className="text-body whitespace-pre-line text-text-body">{t["volunteer.hero.text"]}</p>
         </div>
       </div>
     </section>

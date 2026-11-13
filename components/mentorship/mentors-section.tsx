@@ -18,7 +18,7 @@ export function MentorsSection({ lang, t }: { lang: Locale; t: Dictionary }) {
         <h2 data-reveal id="mentors-title" className="text-h2 text-text-heading">
           {t["mentorship.mentors.title"]}
         </h2>
-        <p className="text-body text-text-body xl:max-w-150">{t["mentorship.mentors.text"]}</p>
+        <p data-reveal className="text-body text-text-body xl:max-w-150">{t["mentorship.mentors.text"]}</p>
       </div>
       <MentorList
         visible={MENTORS_VISIBLE}

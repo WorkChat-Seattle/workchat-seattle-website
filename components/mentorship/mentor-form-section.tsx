@@ -19,7 +19,7 @@ export function MentorFormSection({ t, children }: { t: Dictionary; children?: R
           <h2 data-reveal id="mentor-form-title" className="text-h2 whitespace-pre-line text-text-heading">
             {t["mentorship.form.title"]}
           </h2>
-          <p className="text-body text-text-body">{t["mentorship.form.text"]}</p>
+          <p data-reveal className="text-body text-text-body">{t["mentorship.form.text"]}</p>
         </div>
         {children}
       </div>

@@ -19,12 +19,12 @@ export function MentorshipHero({ t }: { t: Dictionary }) {
     <section className="mx-auto mt-10 max-w-300 px-5 md:mt-15 md:px-10 xl:px-0">
       <div className="md:pl-43 xl:pl-75">
         <h1 data-reveal="now" className="text-h2 whitespace-pre-line text-text-heading xl:max-w-187.5">{t["mentorship.hero.title"]}</h1>
-        <p className="text-body mt-5 whitespace-pre-line text-text-body xl:mt-10 xl:max-w-150">
+        <p data-reveal="now" className="text-body mt-5 whitespace-pre-line text-text-body xl:mt-10 xl:max-w-150">
           {t["mentorship.hero.text"]}
         </p>
       </div>
       <div className="mt-10 flex flex-col xl:mt-15 xl:flex-row">
-        <div className="relative aspect-square md:aspect-auto md:h-115 xl:h-150 xl:w-150 xl:shrink-0">
+        <div data-reveal="now" className="relative aspect-square md:aspect-auto md:h-115 xl:h-150 xl:w-150 xl:shrink-0">
           <ResponsiveImage mobile={mobile} tablet={tablet} desktop={desktop} sizes="(min-width: 1280px) 600px, 100vw" />
         </div>
         <ul data-reveal="now" className="flex flex-col gap-5 bg-bg-card-muted px-5 py-10 md:p-10 xl:h-150 xl:w-150 xl:justify-center xl:py-0 xl:pl-10">

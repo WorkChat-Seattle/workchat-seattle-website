@@ -68,7 +68,7 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
   return (
     <>
       <article className="mt-10 md:mt-15 md:px-10 xl:mx-auto xl:max-w-300 xl:px-0">
-        <div className="flex flex-col gap-10 bg-bg-card-neutral px-5 py-10 md:p-10 xl:gap-15 xl:px-10 xl:py-20">
+        <div data-reveal="now" className="flex flex-col gap-10 bg-bg-card-neutral px-5 py-10 md:p-10 xl:gap-15 xl:px-10 xl:py-20">
           <div className="flex flex-col gap-5 md:flex-row md:gap-10">
             <div className="relative aspect-square w-full shrink-0 md:size-66 xl:size-55">
               <EventImage src={event.cover} sizes="(min-width: 1280px) 220px, (min-width: 768px) 264px, 350px" priority />
@@ -103,20 +103,20 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
 
           <div className="flex flex-col gap-10 xl:gap-15 xl:pl-65">
             <section aria-labelledby="event-details" className="xl:max-w-150">
-              <h2 id="event-details" className={sectionTitle}>
+              <h2 data-reveal id="event-details" className={sectionTitle}>
                 {t["eventPage.details"]}
               </h2>
-              <div className="mt-5 xl:mt-10">
+              <div data-reveal className="mt-5 xl:mt-10">
                 <EventDescription blocks={eventDescription(event, lang)} />
               </div>
             </section>
 
             {event.speakers.length ? (
               <section aria-labelledby="event-speakers" className="xl:max-w-150">
-                <h2 id="event-speakers" className={sectionTitle}>
+                <h2 data-reveal id="event-speakers" className={sectionTitle}>
                   {t["eventPage.speakers"]}
                 </h2>
-                <ul className="mt-5 flex flex-col gap-5 xl:mt-10 xl:gap-2.5">
+                <ul data-reveal-grid className="mt-5 flex flex-col gap-5 xl:mt-10 xl:gap-2.5">
                   {event.speakers.map((s) => (
                     <SpeakerCard key={s.id} speaker={s} lang={lang} t={t} />
                   ))}
@@ -126,10 +126,10 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
 
             {hasPlace ? (
               <section aria-labelledby="event-location" className="xl:max-w-150">
-                <h2 id="event-location" className={sectionTitle}>
+                <h2 data-reveal id="event-location" className={sectionTitle}>
                   {t["eventPage.location"]}
                 </h2>
-                <div className="mt-5 flex flex-col gap-5 md:w-66 xl:mt-10 xl:w-75">
+                <div data-reveal className="mt-5 flex flex-col gap-5 md:w-66 xl:mt-10 xl:w-75">
                   {event.placeName ? <p className="text-feature text-text-body">{event.placeName}</p> : null}
                   {event.address ? <p className="text-body whitespace-pre-line text-text-body">{event.address}</p> : null}
                   {event.mapsLink ? (
@@ -147,14 +147,14 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
               </section>
             ) : null}
 
-            <div className="flex flex-col gap-2.5 md:flex-row md:gap-10 xl:gap-2.5">
+            <div data-reveal className="flex flex-col gap-2.5 md:flex-row md:gap-10 xl:gap-2.5">
               <RegisterButton {...register} className="w-full md:w-66 xl:w-72.5" />
               <ShareButton {...share} className="w-full md:w-76 xl:w-75" />
             </div>
           </div>
         </div>
       </article>
-      <div className="mt-10 flex justify-center px-5 md:px-10 xl:mt-20">
+      <div data-reveal className="mt-10 flex justify-center px-5 md:px-10 xl:mt-20">
         <ButtonLink option="dark" href={localePath(lang, "/events")} className="w-full md:w-45 xl:w-75">
           {t["eventPage.back"]}
         </ButtonLink>

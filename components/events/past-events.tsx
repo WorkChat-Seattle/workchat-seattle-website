@@ -64,7 +64,7 @@ export function PastEvents({
   return (
     <>
       {tags.length > 1 ? (
-        <div role="group" aria-labelledby={titleId} className="mt-10 flex flex-wrap gap-3 md:pl-43 xl:pl-75">
+        <div data-reveal role="group" aria-labelledby={titleId} className="mt-10 flex flex-wrap gap-3 md:pl-43 xl:pl-75">
           {tags.map((x) => (
             <Tag
               key={x.id}
