@@ -3,6 +3,8 @@ import { MenuButton } from "./menu-button";
 
 export type CardRectangleOption = "neutral" | "dark-neutral" | "image";
 
+// фон → hover-цвет 300 ms, содержимое scale(1.02) 350 ms, подчёркивание — на всю карточку (animations.md, п. 4)
+const bg = "transition-colors duration-(--duration-card-bg) ease-card motion-reduce:transition-none";
 const option: Record<CardRectangleOption, string> = {
   neutral: "bg-bg-card-neutral hover:bg-bg-card-light",
   "dark-neutral": "bg-bg-card-dark hover:bg-bg-card-dark-hover",
@@ -41,7 +43,8 @@ export function CardRectangle({
   return (
     <div
       className={[
-        "relative flex min-h-102.5 flex-col justify-between overflow-hidden px-5 pt-10 pb-7.25 has-focus-visible:outline-2 has-focus-visible:-outline-offset-2 has-focus-visible:outline-decor-accent md:min-h-95 md:px-10 xl:min-h-100 xl:p-15",
+        "group/card relative flex min-h-102.5 flex-col justify-between overflow-hidden px-5 pt-10 pb-7.25 has-focus-visible:outline-2 has-focus-visible:-outline-offset-2 has-focus-visible:outline-decor-accent md:min-h-95 md:px-10 xl:min-h-100 xl:p-15",
+        bg,
         option[opt],
         className,
       ]
@@ -51,14 +54,14 @@ export function CardRectangle({
       {isImage && image ? (
         <>
           <Image src={image} alt="" fill sizes="(min-width: 1280px) 600px, (min-width: 768px) 50vw, 100vw" className="object-cover" />
-          <div aria-hidden="true" className="absolute inset-0 bg-overlay-blur-light backdrop-blur-card-photo" />
+          <div aria-hidden="true" className={`absolute inset-0 bg-overlay-blur-light backdrop-blur-card-photo group-hover/card:bg-overlay-hover-dark ${bg}`} />
         </>
       ) : null}
-      <div className={`relative flex flex-col gap-5 ${isImage ? "text-text-white" : ""}`}>
+      <div className={`relative flex flex-col gap-5 transition-transform duration-(--duration-card-scale) ease-card motion-safe:group-hover/card:scale-(--card-scale) motion-reduce:transition-none ${isImage ? "text-text-white" : ""}`}>
         <h3 className={`text-h3 ${isImage ? "text-text-white" : "text-text-heading"}`}>{title}</h3>
         <p className={`text-body xl:max-w-111.75 ${isImage ? "text-text-white" : "text-text-body"}`}>{text}</p>
       </div>
-      <div className="relative">
+      <div className="relative transition-transform duration-(--duration-card-scale) ease-card motion-safe:group-hover/card:scale-(--card-scale) motion-reduce:transition-none">
         {href ? (
           <MenuButton
             href={href}

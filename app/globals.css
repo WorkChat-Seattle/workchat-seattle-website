@@ -329,6 +329,63 @@
     transform var(--duration-reveal) ease-out var(--reveal-delay, 0ms);
 }
 
+/* Кнопки (animations.md, п. 2): заливка (::before) въезжает слева за 650 ms, уходит вправо за 450 ms;
+   цвет текста и рамки — с теми же длительностями. Hover — только на устройствах с мышью и при фокусе с клавиатуры. */
+.btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    color var(--duration-btn-out) var(--ease-btn),
+    border-color var(--duration-btn-out) var(--ease-btn);
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--btn-fill);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-btn-out) var(--ease-btn);
+}
+.btn-dark {
+  --btn-fill: var(--color-button-hover);
+}
+.btn-white {
+  --btn-fill: var(--color-bg-card-light);
+}
+.btn-outlined {
+  --btn-fill: var(--color-button-hover);
+}
+@media (hover: hover) {
+  .btn:hover:not(:disabled),
+  .btn:hover:not(:disabled)::before {
+    transition-duration: var(--duration-btn-in);
+  }
+  .btn:hover:not(:disabled)::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .btn-outlined:hover {
+    border-color: var(--color-button-hover);
+    color: var(--color-button-text-light);
+  }
+  .btn-white:hover {
+    color: var(--color-button-dark);
+  }
+}
+.btn:focus-visible:not(:disabled)::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn::before {
+    transition: none;
+  }
+}
+
 /* Логотип «печатает…» (animations.md, п. 5): точки прыгают по очереди, пока логотип под курсором */
 @keyframes logo-typing {
   0%,

@@ -27,7 +27,7 @@ type Common = {
 function styles({ variant = "nav", size = "default", tone = "default", className }: Pick<Common, "variant" | "size" | "tone" | "className">) {
   const line =
     variant === "nav"
-      ? "scale-x-0 group-aria-[current=page]:scale-x-100 group-hover:scale-x-100 group-focus-visible:scale-x-100 group-aria-[current=page]:origin-left group-hover:origin-left group-focus-visible:origin-left"
+      ? "scale-x-0 group-aria-[current=page]:scale-x-100 group-hover:scale-x-100 group-focus-visible:scale-x-100 group-hover/card:scale-x-100 group-aria-[current=page]:origin-left group-hover:origin-left group-hover/card:origin-left group-focus-visible:origin-left"
       : "scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100 group-hover:origin-left group-focus-visible:origin-left";
   const bold =
     variant === "language"

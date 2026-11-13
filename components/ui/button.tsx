@@ -3,16 +3,16 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
 export type ButtonOption = "dark" | "white" | "outlined";
 
+// .btn — заливка въезжает слева и уходит вправо (animations.md, п. 2; стили в globals.css)
 const base =
-  "inline-flex h-12 items-center justify-center px-6 py-3 text-center text-button whitespace-nowrap";
+  "btn inline-flex h-12 items-center justify-center px-6 py-3 text-center text-button whitespace-nowrap";
 
 const options: Record<ButtonOption, string> = {
-  dark: "bg-button-dark text-button-text-light hover:bg-button-hover disabled:opacity-50 disabled:hover:bg-button-dark",
-  white:
-    "bg-button-white text-button-text-dark hover:bg-bg-card-light hover:text-button-dark",
+  dark: "btn-dark bg-button-dark text-button-text-light disabled:opacity-50",
+  white: "btn-white bg-button-white text-button-text-dark",
   // рамка 1px в цвет заливки при hover — размер кнопки не прыгает
   outlined:
-    "border border-button-outline text-button-text-dark hover:border-button-hover hover:bg-button-hover hover:text-button-text-light",
+    "btn-outlined border border-button-outline text-button-text-dark",
 };
 
 const classes = (option: ButtonOption, className?: string) =>
