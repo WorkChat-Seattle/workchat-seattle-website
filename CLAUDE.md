@@ -375,7 +375,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 `NEXT_PUBLIC_SITE_URL` (= https://workchatseattle.org), `NOTION_TOKEN`, `NOTION_DS_EVENT_LISTINGS`, `NOTION_DS_SPEAKERS`, `NOTION_DS_MENTOR_CARDS`, `NOTION_DS_VOLUNTEERS`, `NOTION_DS_EVENT_SUGGESTIONS`, `RESEND_API_KEY`, `FORMS_TO_EMAIL` (= workchatseattle@gmail.com), `FORMS_FROM_EMAIL` (адрес на подтверждённом домене, например forms@workchatseattle.org), `TURNSTILE_SECRET_KEY` + `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` (ограничить по домену), `NEXT_PUBLIC_GA_ID`.
 Только локально (`.env.local`, не в Vercel и не в git): `FIGMA_TOKEN` — для скрипта выгрузки картинок.
 
-## Статус на 13.11 (обновлено в конце сессии «менторы»)
+## Статус на 13.11 (обновлено в конце сессии «анимации, часть 1»)
 Работа идёт по «Порядку работы» (раздел «Правила вёрстки», п. 2). Всё ниже закоммичено и отправлено в `origin/main`; сборка и lint проходят. Новая сессия: прочитать этот раздел, затем «Открытые вопросы».
 
 ### Что готово
@@ -393,7 +393,17 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - Токены и id баз — `.env.local` (`FIGMA_TOKEN`, `NOTION_TOKEN`, пять `NOTION_DS_*`); файл не открывать и не выводить.
 
 ### Остановились здесь — начинать отсюда
-Шаг 6 закончен. Дальше шаг 7 (анимации по animations.md), 8 (формы, в т.ч. окно «Suggest an event» — кнопку включить флагом `SHOW_SUGGEST_EVENT`), 9 (cookies и карта на странице события: сейчас там адрес и ссылка «Open in Google Maps»), 10 (SEO, превью, JSON-LD Event / ProfilePage — должность и компания спикеров и менторов уже в данных), 11 (проверка).
+Шаг 7 (анимации) сделан частично. **Готово** (animations.md): п. 1 появление при прокрутке, п. 2 кнопки, п. 3 подчёркивание меню, п. 4 карточки-ссылки, п. 5 логотип, п. 6 шапка при прокрутке, п. 10 слайдер отзывов. **Осталось:** п. 7 параллакс (≥1280), п. 8 Numbers, п. 9 Find your mentor, п. 11 Our Values (закрепление, загрузка фонов), п. 12 FAQ (раскрытие по высоте, в т. ч. разделы Privacy Policy). Затем 8 (формы, окно «Suggest an event» — флаг `SHOW_SUGGEST_EVENT`), 9 (cookies и карта), 10 (SEO, превью, JSON-LD), 11 (проверка).
+
+### Анимации — как устроено (сессия 13.11)
+- **Появление:** атрибуты в серверной разметке — `data-reveal` (один раз при 15%), `data-reveal="now"` (сразу, hero и верх страницы), `data-reveal-grid` / `="one-row"` (контейнер: дети строками, шаг 150 ms). Логика — `components/layout/reveal-controller.tsx` (в `SiteChrome`), стили — в `globals.css`. Класс `js` на `<html>` ставит inline-скрипт в `<head>` `app/[lang]/layout.tsx` (только без reduced motion); без него ничего не скрывается. После перехода атрибуты снимаются (`data-revealed="done"`), дальше работают hover-переходы элемента. **Не ставить `data-reveal-grid` на списки, куда JS добавляет элементы позже** (Show more, mentor-list) — новые дети остались бы скрытыми. Размечены Home, About (кроме Values, Numbers, Community, Find mentor — у них свои анимации), заголовки и верхние блоки Mentorship / Volunteer / Events / Privacy; остальные блоки этих страниц и страница события — не размечены (при желании добавить `data-reveal`).
+- **Кнопки:** классы `btn btn-dark|white|outlined` в `components/ui/button.tsx`, заливка `::before` — CSS в `globals.css`.
+- **Карточки:** `group/card` в `card-square` / `card-rectangle`; подчёркивание `MenuButton` реагирует на `group-hover/card`. Карточки событий и теги hover-анимации пока не получили (в списке animations.md их нет).
+- **Шапка:** `data-scrolled` после 16 px, стекло — на отдельном слое `.header-glass` (не на `<header>`, иначе fixed-меню «приклеится»).
+- **Логотип:** `@keyframes logo-typing` в `globals.css`, срабатывает на `a:hover` / `a:focus-visible`.
+- **Слайдер:** остался нативный scroll-snap; добавлены opacity 0.4 + blur 3px, пока лента едет (`data-moving`), и плавная высота. Длительность/кривая самой прокрутки — браузерные, не 600 ms / `--ease-slider`.
+- **Расхождения, ждут решения Юлии:** (1) подчёркивание ссылок — оставлена ровная линия 1px из Figma, а не рукописная `underline-hover.svg` из v2 (animations.md, п. 3); (2) слайдер: перейти на `translateX` ради точных 600 ms (потеряется нативный свайп) или оставить scroll-snap; (3) подтвердить, что остальные страницы разметить так же подробно.
+- Проверялось: сборка, lint, скриншоты Home / About в headless Chrome (все блоки видны). Вживую движение и reduced motion (включить в системе) стоит посмотреть глазами.
 
 ### Менторы — решения сессии (13.11)
 - **Публикация:** Ready / Published + Consent received; Elena Perfilyeva — Draft без согласия, не публикуется. Сейчас на сайте Liudmila Gishman и Tatyana Yakushev; цвет карточки чередуется neutral / muted.
