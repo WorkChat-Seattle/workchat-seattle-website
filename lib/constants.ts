@@ -29,3 +29,7 @@ export const SEND_FORM_EMAILS = false;
 
 /** Почта команды для заявок и в текстах ошибок (docs/forms-to-notion.md). Берётся из env, запасное значение — тот же адрес. */
 export const FORMS_TO_EMAIL = process.env.FORMS_TO_EMAIL ?? "workchatseattle@gmail.com";
+
+/** Все события бесплатные (решено 13.11): цена для offers в Event JSON-LD, одна константа на все события, без поля в Notion. */
+export const EVENT_PRICE = 0;
+export const EVENT_PRICE_CURRENCY = "USD";

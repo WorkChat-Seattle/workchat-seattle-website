@@ -24,7 +24,7 @@
 - **Формы** Mentorship, Volunteer, Suggest an event → свой Route Handler `app/api/forms/[form]/route.ts` → запись в Notion + письмо на workchatseattle@gmail.com через Resend, антиспам Cloudflare Turnstile + honeypot (forms-to-notion.md).
 - **Subscribe** — встроенная форма Zeffy (iframe), не наш сервер.
 - **Donate** — внешняя ссылка на кампанию Zeffy: https://www.zeffy.com/en-US/donation-form/support-workchat-seattle (шапка, мобильное меню, get-involved, футер). Страницы `/donate` нет.
-- **События** — регистрация в Zeffy (Registration link из данных); `/`, `/events`, `/events/[slug]` — ISR `revalidate = 3600`.
+- **События** — регистрация в Zeffy (Registration link из данных); `/`, `/events`, `/events/[slug]` — ISR `revalidate = 3600`. Все события бесплатные (решено 13.11): в Event JSON-LD `offers` с `price: 0`, `priceCurrency: USD` (константы `EVENT_PRICE`, `EVENT_PRICE_CURRENCY` в `lib/constants.ts`) и `url` = Registration link, если она есть.
 - **Анимации** — без библиотек: CSS-переходы, `@keyframes`, хук `useInView` (IntersectionObserver) и общий обработчик прокрутки на `requestAnimationFrame` (animations.md).
 
 ### Правила Tailwind
@@ -395,6 +395,8 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - Токены и id баз — `.env.local` (`FIGMA_TOKEN`, `NOTION_TOKEN`, пять `NOTION_DS_*`); файл не открывать и не выводить.
 
 ### Остановились здесь — начинать отсюда
+**Шаг 11, часть 1 (13.11, без ключей и публичного адреса) сделана.** Проверено на `next start` с `VERCEL_ENV=production`: 25 адресов sitemap — 200, у каждого title, description, canonical, hreflang (кроме Privacy — только EN), один h1, JSON-LD (Event с `offers`: `price: 0`, USD, url регистрации); 404 на `/nope`, `/ru/nope`, `/ru/privacy-policy`; нет битых внутренних ссылок и картинок без alt; текст FAQ в HTML без JS; нет горизонтальной прокрутки на 360–1920 (EN и RU, 10 страниц); клиентские переходы и переключатель языка работают; формы API (404 / 422 / honeypot). **Найдено и исправлено:** при сборке `usePathname()` отдавал `/en/...`, из-за чего переключатель на английских страницах вёл на `/ru/en/...` (404); на Privacy Policy RU-кнопка теперь ведёт на `/ru`. **Мелочи, не чиним:** фоновый префетч `/privacy-policy?_rsc=` даёт 404 (сам переход по клику работает); нет заголовков безопасности (CSP, X-Frame-Options и т. п.) — решить до запуска. Осталось: ручная проверка в Safari / на iPhone (чек-лист у Юлии), ключи Turnstile / GA4 / Maps / Resend, превью-деплой, Rich Results Test, редиректы.
+
 Шаг 10 (SEO, превью, JSON-LD) закончен — см. «SEO и превью — как устроено» ниже; дальше **шаг 11 (проверка)** по «Правилам вёрстки», п. 3 и seo-ai-visibility.md, п. 8 (+ ключи и письма из «Открытых вопросов»). Шаг 9 (cookies и карта) закончен — см. «Cookies и карта — как устроено». Шаг 8 (формы) закончен: Mentorship, Volunteer, Suggest an event работают от клиента до Notion; письма Resend — код готов, отправка выключена флагом (см. «Открытые вопросы»). Дальше шаги 10 и 11 (проверка; вживую посмотреть движение и включить reduced motion в системе; формы — проверить на реальных ключах Turnstile и с письмами).
 
 ### Формы — как устроено (сессия 13.11, шаг 8)
@@ -473,8 +475,6 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 
 ## Открытые вопросы
 Решить по ходу вёрстки; без решения — не верстать соответствующую часть.
-- **SEO-строки для Privacy Policy и страниц без вкладки SEO:** в таблице нет `seo.privacy.*` — сейчас title «Privacy Policy — WorkChat Seattle» (из `footer.privacy`), description нет. Добавить строки в вкладку SEO (`npm run texts`) или подтвердить как есть. То же — description для события и ментора по шаблону из вкладки (сейчас Short description / начало Bio, как в комментариях таблицы).
-- **Цена в Event JSON-LD:** `offers` у предстоящих событий без `price` — в данных события цены нет. Если события бесплатные, добавить `price: 0`, `priceCurrency: USD` (решить, одно значение для всех или поле в Notion).
 - **После запуска (шаги Юлии, seo-ai-visibility.md, п. 9):** Search Console и Bing, одинаковое описание в Facebook / LinkedIn / Zeffy, каталоги, редиректы `www` и `*.vercel.app` → основной домен (Vercel → Domains), проверка Firewall (боты ИИ не блокируются), Rich Results Test для Event и Organization.
 - **GA4 и Google Maps (шаг 9, заглушки до запуска):** задать `NEXT_PUBLIC_GA_ID` (ID потока GA4) и `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` (только **Maps JavaScript API**, ограничить по referrer: workchatseattle.org). Геокодер в браузере не нужен. Необязательно, локально и не в Vercel: `GOOGLE_MAPS_SERVER_KEY` (Geocoding API, без ограничения по referrer) для `sync:events`; без него координаты берёт Nominatim. Для событий без координат (сейчас онлайн-события не требуют; у адресов без результата `sync:events` пишет предупреждение) интерактивной карты не будет в Vercel и `.env.local`. Пока ключей нет: GA не грузится, карта — статичная картинка без заглушки. После ключей проверить вживую: GA (Realtime, выключение через окно), интерактивную карту на всех трёх адресах, `wc_consent`, GPC.
 - **Токен Figma** для скрипта картинок — Юлия создаёт в Figma (Settings → Security → Personal access tokens, только чтение) и кладёт в `.env.local` перед выгрузкой картинок Home.

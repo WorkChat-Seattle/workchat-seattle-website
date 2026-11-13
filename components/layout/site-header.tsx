@@ -9,7 +9,7 @@ import { LanguageSwitch } from "@/components/ui/language-switch";
 import { Logo } from "@/components/ui/logo";
 import { MenuButton } from "@/components/ui/menu-button";
 import { type Locale, localePath } from "@/i18n/config";
-import { DONATE_URL, SITE_NAME } from "@/lib/constants";
+import { DONATE_URL, PRIVACY_PATH, SITE_NAME } from "@/lib/constants";
 
 export type HeaderLabels = {
   about: string;
@@ -26,9 +26,13 @@ export type HeaderLabels = {
   newTab: string;
 };
 
-/** Путь без языкового префикса: «/ru/events» → «/events», «/ru» → «/». */
+/**
+ * Путь без языкового префикса: «/ru/events» → «/events», «/ru» → «/».
+ * Префикс `/en` тоже снимаем: при статической сборке `usePathname()` отдаёт внутренний адрес после rewrite
+ * («/en/events»), и без этого в HTML попадали ссылки `/en/events` и `/ru/en/events` (баг 13.11).
+ */
 function stripLocale(pathname: string): string {
-  const rest = pathname.replace(/^\/ru(?=\/|$)/, "");
+  const rest = pathname.replace(/^\/(?:ru|en)(?=\/|$)/, "");
   return rest === "" ? "/" : rest;
 }
 
@@ -56,6 +60,8 @@ export function SiteHeader({
 }) {
   const pathname = usePathname();
   const path = stripLocale(pathname);
+  // Privacy Policy только на английском: переключатель на ней ведёт на главную, а не на несуществующий /ru/privacy-policy.
+  const switchTo = switchPath ?? (path === PRIVACY_PATH ? "/" : path);
   // Меню открыто, пока страница та же, на которой его открыли: переход по ссылке закрывает его.
   const [openedAt, setOpenedAt] = useState<string | null>(null);
   const open = openedAt === pathname;
@@ -149,7 +155,7 @@ export function SiteHeader({
               ))}
             </ul>
           </nav>
-          <LanguageSwitch current={lang} path={switchPath ?? path} label={labels.language} />
+          <LanguageSwitch current={lang} path={switchTo} label={labels.language} />
           <div className="flex items-center gap-2.5">
             <ButtonLink option="white" href={localePath(lang, "/volunteer")}>
               {labels.volunteer}
@@ -199,7 +205,7 @@ export function SiteHeader({
               {labels.donate}
             </ButtonLink>
           </div>
-          <LanguageSwitch current={lang} path={switchPath ?? path} label={labels.language} />
+          <LanguageSwitch current={lang} path={switchTo} label={labels.language} />
         </div>
       </div>
     </header>

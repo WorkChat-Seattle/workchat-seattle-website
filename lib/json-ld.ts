@@ -3,7 +3,7 @@ import type { EventItem } from "@/data/events";
 import type { Mentor } from "@/data/mentors";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { FACEBOOK_URL, FORMS_TO_EMAIL, LINKEDIN_URL } from "./constants";
+import { EVENT_PRICE, EVENT_PRICE_CURRENCY, FACEBOOK_URL, FORMS_TO_EMAIL, LINKEDIN_URL } from "./constants";
 import { eventShort, eventTitle, isPast } from "./events";
 import { mentorBio } from "./mentors";
 import { ORG_ID, SITE_NAME, SITE_URL, WEBSITE_ID, absoluteUrl, assetUrl } from "./seo";
@@ -97,7 +97,7 @@ export function eventJsonLd(e: EventItem, lang: Locale) {
         }
       : {}),
     ...(!past && e.registrationLink
-      ? { offers: { "@type": "Offer", url: e.registrationLink, availability: "https://schema.org/InStock" } }
+      ? { offers: { "@type": "Offer", url: e.registrationLink, price: EVENT_PRICE, priceCurrency: EVENT_PRICE_CURRENCY, availability: "https://schema.org/InStock" } }
       : {}),
     ...(LANGUAGE_CODES[e.language] ? { inLanguage: LANGUAGE_CODES[e.language] } : {}),
   };

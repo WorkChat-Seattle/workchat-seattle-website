@@ -11,5 +11,7 @@ seo.mentorship.description,Mentorship: описание,"Find a mentor who has w
 seo.mentor.title,Страница ментора: шаблон заголовка,{name} — Mentor at WorkChat Seattle,{name} — ментор WorkChat Seattle,Вычитано,{name} — имя из Notion; описание — начало Bio / Bio RU
 seo.volunteer.title,Volunteer: заголовок,Volunteer — WorkChat Seattle,Волонтёрство — WorkChat Seattle,Вычитано,
 seo.volunteer.description,Volunteer: описание,"Help with events, programs, and outreach, and become part of a community that supports women in their careers.","Помогайте с мероприятиями, программами и сайтом — и станьте частью сообщества, которое поддерживает женщин в карьере.",Вычитано,
+seo.privacy.title,Privacy Policy: заголовок,Privacy Policy — WorkChat Seattle,—,Вычитано,"Страница только на английском, RU не нужен. Черновик Claude (13.11)"
+seo.privacy.description,Privacy Policy: описание,"How WorkChat Seattle collects, uses, and protects your personal information on our website, at events, and in our programs.",—,Вычитано,"Страница только на английском, RU не нужен. Черновик Claude (13.11)"
 seo.notFound.title,404: заголовок,Page not found — WorkChat Seattle,Страница не найдена — WorkChat Seattle,Вычитано,
 seo.ogImage.alt,Описание картинки-превью (alt),"WorkChat Seattle — Empowering women, advancing careers",WorkChat Seattle — помогаем женщинам строить карьеру,Вычитано,"Решено 11.11: для /ru своя картинка — кадр «OG / Default / RU» (1789:17200) в Figma, текст на ней по-русски"
