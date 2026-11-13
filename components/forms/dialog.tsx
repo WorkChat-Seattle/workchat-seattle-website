@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { autoLink } from "@/lib/rich";
 import closeIcon from "@/public/images/forms/modal-close.svg";
@@ -73,7 +74,8 @@ export function Dialog({
     };
   }, []);
 
-  return (
+  // Портал в body: у предков бывает transform (анимация появления), он сделал бы `fixed` относительным к ним
+  return createPortal(
     <div
       className="fixed inset-0 z-60 overflow-y-auto bg-bg-card-neutral md:flex md:items-center md:justify-center md:bg-overlay-hover-dark md:p-10"
       onPointerDown={(e) => {
@@ -98,7 +100,8 @@ export function Dialog({
         </div>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

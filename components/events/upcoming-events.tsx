@@ -1,5 +1,6 @@
 import { CardEvent } from "@/components/events/card-event";
-import { Button } from "@/components/ui/button";
+import { SuggestEvent } from "@/components/forms/suggest-event";
+import { formLabels } from "@/components/forms/labels";
 import type { EventItem } from "@/data/events";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -9,7 +10,7 @@ import { SHOW_SUGGEST_EVENT } from "@/lib/constants";
  * Upcoming Events (Figma: upcoming-events `1088:1729`; tablet `1240:16475`, mobile `1145:12558`; пустое — `1582:24736`,
  * `1582:26137`, `1582:26100`). Заголовок — h1 стиля h2, со 2-й колонки (desktop x=300, tablet 172). Дальше карточки
  * предстоящих событий (между ними 10 / 20 / 20) или, если их нет, блок empty-state: lead (h3) и текст — на desktop колонка 600
- * от x=300, между ними 40 (tablet / mobile — 20). Кнопка «Suggest an event» — по центру; пока окна формы нет, скрыта флагом.
+ * от x=300, между ними 40 (tablet / mobile — 20). Кнопка «Suggest an event» — по центру; открывает окно с формой (components/forms/suggest-event.tsx).
  */
 export function UpcomingEvents({ events, lang, t }: { events: EventItem[]; lang: Locale; t: Dictionary }) {
   return (
@@ -33,9 +34,7 @@ export function UpcomingEvents({ events, lang, t }: { events: EventItem[]; lang:
       )}
       {SHOW_SUGGEST_EVENT ? (
         <div data-reveal className="mt-10 flex justify-center">
-          <Button option="dark" className="w-full md:w-fit xl:w-75">
-            {t["btn.suggestEvent"]}
-          </Button>
+          <SuggestEvent lang={lang} labels={formLabels(t)} buttonClassName="w-full md:w-fit xl:w-75" />
         </div>
       ) : null}
     </section>

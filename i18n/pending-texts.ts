@@ -11,12 +11,16 @@ export const pendingTexts = {
     "form.invalidUrl": "Please enter a valid link",
     "form.tooLong": "This text is too long",
     "form.otherTopic": "Please tell us which topic",
+    "modal.error.suggestEvent":
+      "We couldn’t send your suggestion. Please try again in a few minutes. If the problem continues, email us at workchatseattle@gmail.com.",
   },
   ru: {
     "form.invalidEmail": "Введите корректный адрес электронной почты",
     "form.invalidUrl": "Введите корректную ссылку",
     "form.tooLong": "Слишком длинный текст",
     "form.otherTopic": "Укажите, какая это тема",
+    "modal.error.suggestEvent":
+      "Не получилось отправить предложение. Попробуйте ещё раз через несколько минут. Если ошибка повторится, напишите нам на workchatseattle@gmail.com.",
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 
