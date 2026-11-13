@@ -21,8 +21,9 @@ export const upcomingEvents = (now: Date = new Date()): EventItem[] =>
 export const pastEvents = (now: Date = new Date()): EventItem[] =>
   events.filter((e) => isPast(e, now)).sort((a, b) => b.start.localeCompare(a.start));
 
-/** Featured на Home: ближайшее предстоящее. Если предстоящих нет — null, блок не показывается (решено 12.11, заменяет «последнее прошедшее»). */
-export const featuredEvent = (now: Date = new Date()): EventItem | null => upcomingEvents(now)[0] ?? null;
+/** Featured на Home: ближайшее предстоящее; если предстоящих нет — последнее прошедшее (docs/decisions-2026-11-05.md, п. 5). */
+export const featuredEvent = (now: Date = new Date()): EventItem | null =>
+  upcomingEvents(now)[0] ?? pastEvents(now)[0] ?? null;
 
 export const getEvent = (slug: string): EventItem | undefined => events.find((e) => e.slug === slug);
 
@@ -41,7 +42,7 @@ export function formatDate(iso: string, lang: Loc): string {
   return `${wd.charAt(0).toUpperCase()}${wd.slice(1)}, ${rest.replace(/\s*г\.$/, "")}`;
 }
 
-/** Время: EN «6:30 PM - 8:30 PM», RU «18:30–20:30» (24 часа, короткое тире без пробелов) — вкладка «Event page», eventPage.time. */
+/** Время: EN «6:30 PM - 8:30 PM PT», RU «18:30–20:30» (24 часа, короткое тире без пробелов) — вкладка «Event page», eventPage.time. */
 export function formatTime(startIso: string, endIso: string | null, lang: Loc): string {
   const f = (iso: string) =>
     new Intl.DateTimeFormat(lang === "en" ? "en-US" : "ru-RU", {
@@ -50,8 +51,8 @@ export function formatTime(startIso: string, endIso: string | null, lang: Loc): 
       hour12: lang === "en",
       timeZone: SITE_TZ,
     }).format(new Date(iso));
-  if (!endIso) return f(startIso);
-  return lang === "en" ? `${f(startIso)} - ${f(endIso)}` : `${f(startIso)}–${f(endIso)}`;
+  const range = endIso ? (lang === "en" ? `${f(startIso)} - ${f(endIso)}` : `${f(startIso)}–${f(endIso)}`) : f(startIso);
+  return lang === "en" ? `${range} PT` : range;
 }
 
 /** Порядок тегов в фильтре — как в Figma (docs/dynamic-content.md, «Поля баз»); неизвестные теги идут в конце. */

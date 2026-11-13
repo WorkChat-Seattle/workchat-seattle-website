@@ -285,7 +285,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 ### События
 Логика — dynamic-content.md и decisions-2026-11-05.md:
 - Прошло ли событие — по времени окончания в `America/Los_Angeles`. Upcoming — ближайшие сверху, Past — последние сверху, у Past фильтр по тегам.
-- **Featured на Home:** ближайшее предстоящее; если предстоящих нет — блока нет (решено 12.11, заменяет «последнее прошедшее»; docs/decisions-2026-11-05.md, п. 5, устарел в этой части). Кнопки «Details» (dark) → `/events/[slug]` и «See all events» (outlined) → `/events`.
+- **Featured на Home:** ближайшее предстоящее, если нет — последнее прошедшее (docs/decisions-2026-11-05.md, п. 5; подтверждено 12.11). Кнопки «Details» (dark) → `/events/[slug]` и «See all events» (outlined) → `/events`.
 - **Пустой Upcoming:** блок empty-state + кнопка «Suggest an event».
 - **Past Events:** кнопка карточки → `/events/[slug]`; «Video recording» — внешняя ссылка из Recording link (только если есть). «Show more» — `<button>`, по 10 событий; показывать, только если прошедших больше 10; после подгрузки фокус на первую новую карточку.
 - **Event page:** онлайн-событие — без блока Location; без спикеров — без Speakers. Счётчика участников («N people going») и аватаров участников нет — убраны из макета (проверено 11.11 на всех 20 кадрах; аватары на странице — только фото спикеров). У прошедшего события обе Register — `<button disabled>Registration closed</button>`, Share активна; клиентский компонент переключает Register в момент окончания.
@@ -395,9 +395,9 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 **Менторы** (шаг 6, продолжение): данные Notion `NOTION_DS_MENTOR_CARDS` и Volunteers по аналогии с `sync:events`; карточки на Mentorship, «View all mentors» (только при > видимых), Mentor info `/mentors/[slug]`. Блок «Meet our mentors» скрыт, пока данных нет; отступы вокруг него сверить. Затем шаги 7 (анимации), 8 (формы, в т.ч. окно «Suggest an event» — кнопку включить флагом `SHOW_SUGGEST_EVENT`), 9 (cookies и карта на странице события: сейчас там адрес и ссылка «Open in Google Maps»), 10 (SEO, превью, JSON-LD Event — должность и компания спикеров уже в данных), 11 (проверка).
 
 ### События — решения этой сессии (12.11)
-- **Featured:** нет предстоящих — блок не показывается. Остальное — как раньше. ISR 3600 на `/`, `/events`, `/events/[slug]`.
+- **Featured:** по decisions п. 5 (предстоящее, иначе последнее прошедшее). ISR 3600 на `/`, `/events`, `/events/[slug]`.
 - **Место на карточках:** очное — «Город, ШТ» из последней строки Address; онлайн — Place name из Notion, иначе «Online» (`format.Online`). Площадка и адрес целиком — в блоке Location страницы.
-- **Время и язык по таблице:** «6:30 PM - 8:30 PM» / «18:30–20:30» без «PT»; язык — «In Russian» / «На русском» (в Figma было «Russian»).
+- **Время и язык:** «6:30 PM - 8:30 PM PT» (EN, PT добавляет код) / «18:30–20:30»; язык — «In Russian» / «На русском» (в Figma было «Russian»).
 - **Фильтр Past:** только теги, которые есть у прошедших событий (не все 10 из Figma); порядок — `TAG_ORDER` в `lib/events.ts`. Повторное нажатие снимает фильтр.
 - **Suggest an event** скрыта флагом `SHOW_SUGGEST_EVENT` (`lib/constants.ts`) до окна формы — и под Upcoming, и в пустом состоянии.
 - **Event page:** кнопка «Video recording» (если есть ссылка) — в верхней группе кнопок; у предстоящего события без Registration link кнопки Register нет; у прошедшего — всегда неактивная. Спикер: LinkedIn-кнопка, сайт — текстовая ссылка под именем; должность и компания в макете не показаны.
