@@ -393,7 +393,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - Токены и id баз — `.env.local` (`FIGMA_TOKEN`, `NOTION_TOKEN`, пять `NOTION_DS_*`); файл не открывать и не выводить.
 
 ### Остановились здесь — начинать отсюда
-Шаг 7 (анимации) закончен: всё из animations.md, пп. 1–12, открытых вопросов нет. Дальше **шаг 8 — формы** (Mentorship, Volunteer, Suggest an event: клиент — валидация, выпадающие списки, состояния, модальные окна; затем сервер — Notion, Resend, Turnstile; см. docs/forms-to-notion.md и «Состояния отправки форм» выше), потом (формы, в т. ч. окно «Suggest an event» — флаг `SHOW_SUGGEST_EVENT`), 9 (cookies и карта), 10 (SEO, превью, JSON-LD), 11 (проверка; на проверке — вживую посмотреть движение и включить reduced motion в системе).
+Шаг 7 (анимации) закончен: всё из animations.md, пп. 1–12, открытых вопросов нет. Дальше **шаг 8 — формы** (Mentorship, Volunteer, Suggest an event: клиент — валидация, выпадающие списки, состояния, модальные окна; затем сервер — Notion, Resend, Turnstile; см. docs/forms-to-notion.md и «Состояния отправки форм» выше), в нём же окно «Suggest an event» (кнопку включить флагом `SHOW_SUGGEST_EVENT`). Дальше шаги 9 (cookies и карта), 10 (SEO, превью, JSON-LD), 11 (проверка; на проверке — вживую посмотреть движение и включить reduced motion в системе).
 
 ### Анимации — как устроено (сессия 13.11)
 - **Общее:** класс `js` на `<html>` ставит inline-скрипт в `<head>` `app/[lang]/layout.tsx` (только без reduced motion); без него ничего не скрывается и не закрепляется. Один общий обработчик прокрутки на rAF — `lib/scroll-loop.ts` (`subscribeScroll`, `cssNumber`); числа берутся из токенов `@theme` в `globals.css`.
