@@ -87,6 +87,9 @@ async function downloadFill(a: FigmaAsset): Promise<Buffer> {
       string,
       {
         document: {
+          absoluteBoundingBox?: { width: number; height: number };
+          strokes?: { type: string; opacity?: number; color?: { r: number; g: number; b: number } }[];
+          strokeWeight?: number;
           fills?: {
             type: string;
             imageRef?: string;
@@ -131,6 +134,7 @@ async function downloadFill(a: FigmaAsset): Promise<Buffer> {
       console.log(`    обрезка заливки: ${crop.width}×${crop.height} от (${crop.left}, ${crop.top})`);
     }
   }
+  if (a.avatarColor) return avatarColor(img, raw, fill, nodes.nodes[a.nodeId]!.document, a.scale);
   // Фильтры заливки из Figma (exposure, saturation) запекаются в файл — CSS-фильтрами не повторяем.
   // Приближение: exposure — множитель 2^e на значения пикселей, saturation — modulate(1 + s).
   const { exposure = 0, saturation = 0 } = fill?.filters ?? {};
@@ -138,6 +142,39 @@ async function downloadFill(a: FigmaAsset): Promise<Buffer> {
   if (saturation) img = img.modulate({ saturation: 1 + saturation });
   if (exposure || saturation) console.log(`    фильтры заливки: exposure ${exposure}, saturation ${saturation}`);
   return a.format === "jpg" ? img.jpeg({ quality: 90, mozjpeg: true }).toBuffer() : img.png().toBuffer();
+}
+
+/**
+ * Цветная версия аватара: фото без saturation, обрезка как в узле (STRETCH — imageTransform, FILL — cover по центру),
+ * маска-эллипс, кольцо — stroke узла (INSIDE, белый с прозрачностью) поверх. Размер = размер узла × scale.
+ */
+async function avatarColor(
+  img: import("sharp").Sharp,
+  raw: Buffer,
+  fill: { scaleMode?: string; filters?: { exposure?: number } } | undefined,
+  node: { absoluteBoundingBox?: { width: number; height: number }; strokes?: { opacity?: number; color?: { r: number; g: number; b: number } }[]; strokeWeight?: number },
+  scale: number,
+): Promise<Buffer> {
+  const { default: sharp } = await import("sharp");
+  const box = node.absoluteBoundingBox;
+  if (!box) throw new Error("у узла нет размера");
+  const S = Math.round(box.width * scale);
+  const exposure = fill?.filters?.exposure ?? 0;
+  let base = fill?.scaleMode === "FILL" ? sharp(raw) : img;
+  base = base.resize(S, S, { fit: "cover", position: "centre" });
+  if (exposure) base = base.linear(2 ** exposure, 0);
+  const stroke = node.strokes?.[0];
+  const w = Math.round((node.strokeWeight ?? 0) * scale);
+  const c = stroke?.color ?? { r: 1, g: 1, b: 1 };
+  const rgb = `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`;
+  const mask = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}"><circle cx="${S / 2}" cy="${S / 2}" r="${S / 2}"/></svg>`);
+  const ring = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}"><circle cx="${S / 2}" cy="${S / 2}" r="${S / 2 - w / 2}" fill="none" stroke="${rgb}" stroke-opacity="${stroke?.opacity ?? 1}" stroke-width="${w}"/></svg>`,
+  );
+  const photo = await base.png().toBuffer();
+  const masked = await sharp(photo).composite([{ input: mask, blend: "dest-in" }]).png().toBuffer();
+  console.log(`    аватар: ${S}×${S}, кольцо ${w}px, exposure ${exposure}`);
+  return sharp(masked).composite(w ? [{ input: ring }] : []).png().toBuffer();
 }
 
 async function main() {

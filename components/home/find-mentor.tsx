@@ -18,6 +18,16 @@ import t04 from "@/public/images/home/avatar-t04.png";
 import t05 from "@/public/images/home/avatar-t05.png";
 import t07 from "@/public/images/home/avatar-t07.png";
 import t08 from "@/public/images/home/avatar-t08.png";
+import d02Color from "@/public/images/home/avatar-d02-color.png";
+import d04Color from "@/public/images/home/avatar-d04-color.png";
+import d05Color from "@/public/images/home/avatar-d05-color.png";
+import d07Color from "@/public/images/home/avatar-d07-color.png";
+import d08Color from "@/public/images/home/avatar-d08-color.png";
+import t02Color from "@/public/images/home/avatar-t02-color.png";
+import t04Color from "@/public/images/home/avatar-t04-color.png";
+import t05Color from "@/public/images/home/avatar-t05-color.png";
+import t07Color from "@/public/images/home/avatar-t07-color.png";
+import t08Color from "@/public/images/home/avatar-t08-color.png";
 import s from "./find-mentor.module.css";
 
 const mobile: [string, StaticImageData][] = [
@@ -42,6 +52,20 @@ const desktop: [string, StaticImageData][] = [
   ["d03", d03],
   ["d02", d02],
 ];
+
+// Цветные версии для hover «ч/б → цвет» (animations.md, п. 9): у аватара, который в макете цветной (03), и у mobile их нет.
+const colorOf: Record<string, StaticImageData> = {
+  d02: d02Color,
+  d04: d04Color,
+  d05: d05Color,
+  d07: d07Color,
+  d08: d08Color,
+  t02: t02Color,
+  t04: t04Color,
+  t05: t05Color,
+  t07: t07Color,
+  t08: t08Color,
+};
 
 // Появление и «плавание» аватаров — значения из workchat-v2 (.mentorship__avatar--NN), по порядку списка:
 // задержка появления, амплитуда (px, вверх), период, сдвиг по времени. animations.md, п. 9.
@@ -79,6 +103,10 @@ function Avatars({
             }
           >
             <Image src={img} alt="" fill sizes="210px" />
+            {colorOf[name] ? (
+              // цветная версия проявляется поверх ч/б при hover (только @media (hover: hover), стили — fm-avatar-color)
+              <Image src={colorOf[name]} alt="" fill sizes="210px" className="fm-avatar-color" />
+            ) : null}
           </div>
         );
       })}

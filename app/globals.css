@@ -422,11 +422,20 @@
     fm-float var(--float-dur) ease-in-out calc(var(--appear-delay) + var(--duration-mentor-avatar) + var(--float-offset)) infinite alternate;
 }
 .fm-avatar img {
-  transition: transform var(--duration-mentor-hover) ease-out;
+  transition:
+    transform var(--duration-mentor-hover) ease-out,
+    opacity var(--duration-mentor-hover) ease-out;
+}
+/* цветная версия лежит поверх ч/б и проявляется при наведении */
+.fm-avatar-color {
+  opacity: 0;
 }
 @media (hover: hover) {
   .fm-avatar:hover img {
     transform: scale(var(--mentor-avatar-hover-scale));
+  }
+  .fm-avatar:hover .fm-avatar-color {
+    opacity: 1;
   }
 }
 [data-in-view][data-in] .fm-rise {
@@ -487,6 +496,7 @@
   .fm-avatar img {
     transition: none;
   }
+  /* без движения: цвет при наведении переключается сразу, без увеличения */
   .fm-avatar:hover img {
     transform: none;
   }

@@ -2,7 +2,9 @@
  * Our Values (About) — закреплённый блок (animations.md, п. 11; эталон — workchat-v2: .about-values в styles.css
  * и assets/js/about-values.js). Разрешённое исключение (правило 4 в CLAUDE.md): сложные состояния — в CSS-модуле,
  * внутри только токены (--values-*, --ease-values-*, --duration-values-*, задаются в globals.css).
- * Закрепление включается классом .js на <html> (его нет без JS и при prefers-reduced-motion).
+ * Закрепление включается классом .js на <html> (его нет без JS и при prefers-reduced-motion) и только с 768:
+ * на телефоне (< 768) блок без закрепления, ценность переключается нажатием (решение 13.11, animations.md, п. 11).
+ * Медиазапрос не берёт брейкпоинт из токена — 768px здесь вручную.
  */
 
 /* секция выше сцены на count × шаг прокрутки (распорка: sticky ограничен content-box родителя, padding не подходит);
@@ -10,18 +12,21 @@
 .spacer {
   display: none;
 }
-:global(.js) .spacer {
-  display: block;
-  height: calc(var(--values-count) * var(--values-step));
-}
 .stage {
   position: sticky;
   top: 0;
 }
 
-/* слой с фонами выше сцены на --values-shift и едет вверх (параллакс считает скрипт) */
-:global(.js) .bgs {
-  bottom: calc(-1 * var(--values-shift));
+@media (min-width: 768px) {
+  :global(.js) .spacer {
+    display: block;
+    height: calc(var(--values-count) * var(--values-step));
+  }
+
+  /* слой с фонами выше сцены на --values-shift и едет вверх (параллакс считает скрипт) */
+  :global(.js) .bgs {
+    bottom: calc(-1 * var(--values-shift));
+  }
 }
 
 /* новое фото проявляется поверх старого сразу, старое гаснет под ним через 600 ms */

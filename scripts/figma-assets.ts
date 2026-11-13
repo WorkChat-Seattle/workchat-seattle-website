@@ -12,6 +12,9 @@
  *  - publish — false: только оригинал (контуры уже встроены в код, см. glyphs.ts);
  *  - currentColor — в копии для сайта заменить цвета на currentColor (только svg);
  *  - fill — выгрузить не рендер узла, а исходную картинку-заливку узла (без текста поверх; масштаб не используется);
+ *  - avatarColor — цветная версия аватара (эллипс с заливкой-фото и обводкой-кольцом): исходное фото БЕЗ фильтра
+ *    saturation из Figma (exposure запекается), обрезка как в узле, маска-эллипс, кольцо из stroke узла поверх;
+ *    нужна для hover «ч/б → цвет» (animations.md, п. 9); задаётся вместе с fill: true;
  *  - keepIds — svg_include_id=true: у каждого <path> id по имени слоя Figma; в SVGO
  *    отключены mergePaths и cleanupIds (нужно для анимации частей, напр. точек логотипа).
  */
@@ -25,6 +28,7 @@ export type FigmaAsset = {
   currentColor?: boolean;
   keepIds?: boolean;
   fill?: boolean;
+  avatarColor?: boolean;
 };
 
 export const figmaAssets: FigmaAsset[] = [
@@ -222,4 +226,19 @@ figmaAssets.push(
   { nodeId: "1047:7035", name: "volunteer-photo-4-desktop", format: "jpg", scale: 2, dir: "volunteer" },
   { nodeId: "1240:15808", name: "volunteer-photo-4-tablet", format: "jpg", scale: 2, dir: "volunteer" },
   { nodeId: "1145:11840", name: "volunteer-photo-4-mobile", format: "jpg", scale: 2, dir: "volunteer", fill: true },
+);
+
+// Home, find-mentor: цветные версии аватаров для hover (animations.md, п. 9). Только те, что в макете чёрно-белые
+// (saturation −1): Avatar02, 04, 05, 07, 08. Avatar03 в макете цветной — отдельной версии не нужно. Для mobile не нужны (нет hover).
+figmaAssets.push(
+  { nodeId: "1003:3514", name: "avatar-d02-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1003:3512", name: "avatar-d04-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1003:3511", name: "avatar-d05-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1003:3510", name: "avatar-d07-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1003:3509", name: "avatar-d08-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1203:14471", name: "avatar-t02-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1203:14469", name: "avatar-t04-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1203:14468", name: "avatar-t05-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1203:14467", name: "avatar-t07-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
+  { nodeId: "1203:14466", name: "avatar-t08-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
 );

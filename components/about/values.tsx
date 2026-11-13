@@ -51,6 +51,8 @@ export function Values({ title, items }: { title: string; items: (ValueItem & Va
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const panels = useRef<(HTMLParagraphElement | null)[]>([]);
   const prev = useRef(0);
+  // закрепление: с 768, без prefers-reduced-motion и только с JS (класс js на <html>); на телефоне — нажатием
+  const [pin, setPin] = useState(false);
   const pinned = useRef(false);
   const leavingTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -84,15 +86,22 @@ export function Values({ title, items }: { title: string; items: (ValueItem & Va
 
   useEffect(() => () => clearTimeout(leavingTimer.current), []);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
+    const sync = () => setPin(mq.matches && document.documentElement.classList.contains("js"));
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   // закрепление: ценность по прокрутке + параллакс фона
   useEffect(() => {
     const root = rootRef.current;
     const stage = stageRef.current;
     const layer = bgsRef.current;
     if (!root || !stage || !layer) return;
-    const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
-    pinned.current = motion.matches && document.documentElement.classList.contains("js");
-    if (!pinned.current) return;
+    pinned.current = pin;
+    if (!pin) return;
 
     const shift = cssNumber("--values-shift", 100);
     let unsubscribe: (() => void) | undefined;
@@ -138,8 +147,10 @@ export function Values({ title, items }: { title: string; items: (ValueItem & Va
       io.disconnect();
       unsubscribe?.();
       layer.style.willChange = "";
+      layer.style.transform = "";
+      stage.style.top = "";
     };
-  }, [count]);
+  }, [count, pin]);
 
   /** Выбор ценности: при закреплении — плавная прокрутка к её шагу, иначе — мгновенная смена. */
   const select = (i: number, focus = false) => {
