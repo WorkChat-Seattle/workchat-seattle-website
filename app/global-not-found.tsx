@@ -9,10 +9,11 @@ import "./globals.css";
 
 // Страница 404 для всего сайта (experimental.globalNotFound): работает и для несуществующих адресов,
 // и для notFound() внутри страниц. У неё нет параметров маршрута — язык берётся из пути (proxy.ts).
-export const metadata: Metadata = {
-  title: "404 — WorkChat Seattle",
-  robots: { index: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const path = (await headers()).get("x-pathname") ?? "/";
+  const t = await getDictionary(/^\/ru(\/|$)/.test(path) ? "ru" : "en");
+  return { title: { absolute: t["seo.notFound.title"] }, robots: { index: false } };
+}
 
 export default async function GlobalNotFound() {
   const path = (await headers()).get("x-pathname") ?? "/";

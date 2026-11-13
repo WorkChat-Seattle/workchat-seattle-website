@@ -33,8 +33,8 @@ const nextConfig: NextConfig = {
       // afterFiles: файлы из public и служебные маршруты (api, _next) не затрагиваются
       afterFiles: [
         { source: "/", destination: "/en" },
-        // всё, что не начинается с /ru, — английская версия; /api (динамические маршруты проверяются после afterFiles) не трогаем
-        { source: "/:path((?!ru(?:/|$)|api(?:/|$)).+)", destination: "/en/:path" },
+        // всё, что не начинается с /ru, — английская версия; /api и /og (картинки превью; динамические маршруты проверяются после afterFiles) не трогаем
+        { source: "/:path((?!ru(?:/|$)|api(?:/|$)|og(?:/|$)).+)", destination: "/en/:path" },
       ],
     };
   },

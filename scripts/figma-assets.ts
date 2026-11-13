@@ -248,3 +248,9 @@ figmaAssets.push(
   { nodeId: "1510:28488", name: "map-inkspire-print-studio", format: "png", scale: 1, dir: "events" },
   { nodeId: "1562:19208", name: "map-19015-n-creek-pkwy", format: "png", scale: 1, dir: "events" },
 );
+
+// Превью для соцсетей (docs/social-previews.md): общие картинки 1200×630, EN и RU. Подключаются в lib/seo.ts.
+figmaAssets.push(
+  { nodeId: "1481:11920", name: "og-default", format: "png", scale: 1, dir: "og" },
+  { nodeId: "1789:17200", name: "og-default-ru", format: "png", scale: 1, dir: "og" },
+);

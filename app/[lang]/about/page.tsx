@@ -1,3 +1,4 @@
+import { staticPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AboutHero } from "@/components/about/hero";
@@ -17,8 +18,11 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-// Заглушка: title / description — вкладка SEO таблицы (шаг 10).
-export const metadata: Metadata = { title: "About Us — WorkChat Seattle" };
+export async function generateMetadata({ params }: PageProps<"/[lang]/about">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  return staticPageMetadata(lang, await getDictionary(lang), "about", "/about");
+}
 
 /** About (Figma: 390 `1113:11016`, 768 `1240:14904`, 1440 `1003:3944`): миссия → ценности → история → команда → FAQ → подписка → «Как помочь». */
 export default async function Page({ params }: PageProps<"/[lang]/about">) {

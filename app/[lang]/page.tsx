@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CardEvent } from "@/components/events/card-event";
 import { GetInvolved } from "@/components/sections/get-involved";
@@ -11,8 +12,15 @@ import { ResourceHub } from "@/components/home/resource-hub";
 import { WhatWeDo } from "@/components/home/what-we-do";
 import { SHOW_RESOURCE_HUB } from "@/lib/constants";
 import { featuredEvent } from "@/lib/events";
+import { staticPageMetadata } from "@/lib/seo";
 import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+
+export async function generateMetadata({ params }: PageProps<"/[lang]">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  return staticPageMetadata(lang, await getDictionary(lang), "home", "/");
+}
 
 // ISR: Featured меняется, когда событие заканчивается (до часа задержки)
 export const revalidate = 3600;

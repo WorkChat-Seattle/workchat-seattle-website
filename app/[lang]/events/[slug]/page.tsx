@@ -11,6 +11,9 @@ import { GetInvolved } from "@/components/sections/get-involved";
 import { Subscribe } from "@/components/sections/subscribe";
 import { ButtonLink } from "@/components/ui/button";
 import { events } from "@/data/events";
+import { eventJsonLd } from "@/lib/json-ld";
+import { fillTemplate, pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
 import { eventMapImage } from "@/lib/event-maps";
 import { hasLocale, locales, localePath } from "@/i18n/config";
 import { getDictionary, type TextKey } from "@/i18n/dictionaries";
@@ -37,8 +40,16 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/events/[sl
   const { lang, slug } = await params;
   const event = getEvent(slug);
   if (!hasLocale(lang) || !event) return {};
-  // Заглушка: настоящие title / description / превью — шаг 10.
-  return { title: `${eventTitle(event, lang)} — WorkChat Seattle`, description: eventShort(event, lang) };
+  const t = await getDictionary(lang);
+  return pageMetadata({
+    lang,
+    t,
+    path: `/events/${slug}`,
+    title: fillTemplate(t["seo.event.title"], { title: eventTitle(event, lang) }),
+    description: eventShort(event, lang),
+    image: `/og/event/${lang}/${slug}/image.png`,
+    imageAlt: eventTitle(event, lang),
+  });
 }
 
 /**
@@ -69,6 +80,7 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
 
   return (
     <>
+      <JsonLd data={eventJsonLd(event, lang)} />
       <article className="mt-10 md:mt-15 md:px-10 xl:mx-auto xl:max-w-300 xl:px-0">
         <div data-reveal="now" className="flex flex-col gap-10 bg-bg-card-neutral px-5 py-10 md:p-10 xl:gap-15 xl:px-10 xl:py-20">
           <div className="flex flex-col gap-5 md:flex-row md:gap-10">

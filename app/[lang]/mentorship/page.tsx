@@ -1,3 +1,4 @@
+import { staticPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MentorForm } from "@/components/forms/mentor-form";
@@ -17,8 +18,11 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-// Заглушка: title / description — вкладка SEO таблицы (шаг 10).
-export const metadata: Metadata = { title: "Mentorship — WorkChat Seattle" };
+export async function generateMetadata({ params }: PageProps<"/[lang]/mentorship">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  return staticPageMetadata(lang, await getDictionary(lang), "mentorship", "/mentorship");
+}
 
 /**
  * Mentorship (Figma: 390 `1135:11286`, 768 `1240:15215`, 1440 `1003:4997`): hero → менторы → форма «Стать ментором» → FAQ →

@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { fontVariables } from "../fonts";
 import { SiteChrome } from "@/components/layout/site-chrome";
+import { JsonLd } from "@/components/seo/json-ld";
 import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { organizationGraph } from "@/lib/json-ld";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
-// Заглушка: настоящие title / description — вкладка SEO таблицы (шаг 10).
+// metadataBase — адрес сайта для всех абсолютных ссылок в метаданных; title / description / превью — у каждой страницы (lib/seo.ts)
 export const metadata: Metadata = {
-  title: "WorkChat Seattle",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_NAME,
 };
 
 export function generateStaticParams() {
@@ -36,6 +40,7 @@ export default async function RootLayout({
         />
       </head>
       <body>
+        <JsonLd data={organizationGraph(t)} />
         <SiteChrome lang={lang} t={t}>
           {children}
         </SiteChrome>

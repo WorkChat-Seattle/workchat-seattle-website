@@ -6,7 +6,10 @@ import { Subscribe } from "@/components/sections/subscribe";
 import { ButtonLink } from "@/components/ui/button";
 import { hasLocale, locales, localePath } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { allMentors, getMentor, mentorBio, mentorRole } from "@/lib/mentors";
+import { JsonLd } from "@/components/seo/json-ld";
+import { mentorJsonLd } from "@/lib/json-ld";
+import { clip, fillTemplate, pageMetadata } from "@/lib/seo";
+import { allMentors, getMentor, mentorBio } from "@/lib/mentors";
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => allMentors().map((m) => ({ lang, slug: m.slug })));
@@ -16,8 +19,14 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/mentors/[s
   const { lang, slug } = await params;
   const mentor = getMentor(slug);
   if (!hasLocale(lang) || !mentor) return {};
-  // Заглушка: настоящие title / description / превью и JSON-LD ProfilePage — шаг 10.
-  return { title: `${mentor.name} — WorkChat Seattle`, description: `${mentorRole(mentor)}. ${mentorBio(mentor, lang)}`.slice(0, 200) };
+  const t = await getDictionary(lang);
+  return pageMetadata({
+    lang,
+    t,
+    path: `/mentors/${slug}`,
+    title: fillTemplate(t["seo.mentor.title"], { name: mentor.name }),
+    description: clip(mentorBio(mentor, lang)),
+  });
 }
 
 /**
@@ -34,6 +43,7 @@ export default async function Page({ params }: PageProps<"/[lang]/mentors/[slug]
 
   return (
     <>
+      <JsonLd data={mentorJsonLd(mentor, lang)} />
       <section className="mx-auto mt-10 max-w-300 px-5 md:mt-15 md:px-10 xl:px-0">
         <MentorProfile mentor={mentor} lang={lang} t={t} />
         <div data-reveal className="mt-10 flex flex-col md:items-center xl:mt-20">

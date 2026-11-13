@@ -1,3 +1,4 @@
+import { staticPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PastEvents, type PastEventView } from "@/components/events/past-events";
@@ -15,8 +16,11 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-// Заглушка: title / description — вкладка SEO таблицы (шаг 10).
-export const metadata: Metadata = { title: "Events — WorkChat Seattle" };
+export async function generateMetadata({ params }: PageProps<"/[lang]/events">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  return staticPageMetadata(lang, await getDictionary(lang), "events", "/events");
+}
 
 /**
  * Events (Figma: 390 `1145:12534`, 768 `1240:16472`, 1440 `1003:4174`; нет предстоящих — `1582:26100` / `1582:26137` / `1582:24736`):
