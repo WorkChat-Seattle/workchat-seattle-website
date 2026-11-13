@@ -376,7 +376,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 Только локально (`.env.local`, не в Vercel и не в git): `FIGMA_TOKEN` — для скрипта выгрузки картинок.
 Сейчас в `.env.local` стоят **тестовые ключи Cloudflare Turnstile** (`NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA`, `TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA`; всегда пропускают); для запуска заменить настоящими и задать обе переменные в Vercel.
 
-## Статус на 13.11 (обновлено в конце сессии «формы»)
+## Статус на 13.11 (обновлено в конце сессии «cookies и карта», шаг 9)
 Работа идёт по «Порядку работы» (раздел «Правила вёрстки», п. 2). Всё ниже закоммичено и отправлено в `origin/main`; сборка и lint проходят. Новая сессия: прочитать этот раздел, затем «Открытые вопросы».
 
 ### Что готово
@@ -395,7 +395,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - Токены и id баз — `.env.local` (`FIGMA_TOKEN`, `NOTION_TOKEN`, пять `NOTION_DS_*`); файл не открывать и не выводить.
 
 ### Остановились здесь — начинать отсюда
-Шаг 8 (формы) закончен: Mentorship, Volunteer, Suggest an event работают от клиента до Notion; письма Resend — код готов, отправка выключена флагом (см. «Открытые вопросы»). Дальше **шаг 9 — cookies и карта** (cookie-consent.md; «Cookie Settings» в футере пока кнопка без действия), затем 10 (SEO, превью, JSON-LD), 11 (проверка; вживую посмотреть движение и включить reduced motion в системе; формы — проверить на реальных ключах Turnstile и с письмами).
+Шаг 9 (cookies и карта) закончен — см. «Cookies и карта — как устроено» ниже; дальше **шаг 10 (SEO, превью, JSON-LD)**, затем 11 (проверка). Шаг 8 (формы) закончен: Mentorship, Volunteer, Suggest an event работают от клиента до Notion; письма Resend — код готов, отправка выключена флагом (см. «Открытые вопросы»). Дальше шаги 10 и 11 (проверка; вживую посмотреть движение и включить reduced motion в системе; формы — проверить на реальных ключах Turnstile и с письмами).
 
 ### Формы — как устроено (сессия 13.11, шаг 8)
 - **Данные и проверка** — `data/forms.ts`: списки вариантов (темы, время, формат, «чем помочь» с короткими значениями Notion), лимиты, `parseForm(kind, raw)` — один и тот же код на клиенте (подсветка полей) и на сервере. Обязательны: имя, email, выпадающие списки, согласие; необязательны: LinkedIn (ментор, волонтёр), Event link (Suggest), Notes (Volunteer). Тексты ошибок: `form.required`, `form.invalidEmail|invalidUrl|tooLong` (в таблице, вкладка «Общее»).
@@ -405,6 +405,13 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - **`next.config.ts`:** rewrite на `/en/…` исключает `/api` (динамический `app/api/forms/[form]` проверяется после `afterFiles`, иначе отдавал 404).
 - **Проверено** (headless Chrome по DevTools, 1440 и 390, EN и RU-ссылка): пустая отправка и фокус на первом поле, лимит 5 тем, «Other» с текстовым полем, listbox с клавиатуры, Esc, «Sending…», окна success / error (fetch подменён), Tab не выходит из окна, фокус после закрытия, данные сохраняются после ошибки; API: 404 на неизвестную форму, 422, honeypot, 403 без токена, запись в три базы Notion. Не проверено: реальные Turnstile-ключи, отправка писем, Safari / мобильные устройства вживую.
 - **Тестовые записи в Notion** — в имени «TEST» (у Suggest заголовок по домену, «TEST» в Submitted by); удаляет Юлия вручную.
+
+### Cookies и карта — как устроено (сессия 13.11, шаг 9)
+- **Выбор** — `lib/consent.ts` (клиентский): cookie `wc_consent` (`{v, t, analytics, embedded}`, 12 месяцев, `CONSENT_VERSION` = 1 — при смене списка сервисов поднять), хранилище на `useSyncExternalStore` (`useConsent()`, `saveConsent()`, `openCookieSettings()`). Без выбора Analytics и Embedded включены; GPC — выключены и баннера нет; явный выбор сильнее GPC (так работает «Show map»).
+- **Баннер и окно** — `components/consent/`: `consent-manager.tsx` (в `SiteChrome`: баннер notice до первого выбора, открытие окна по событию `wc:cookie-settings`, возврат фокуса на кнопку-открывашку), `cookie-settings.tsx` (тот же `Dialog`, что у форм; переключатели — `role="switch"`, строка целиком — область нажатия), `toggle.tsx`, `cookie-settings-button.tsx` (футер), `labels.ts` (подмножество словаря `cookie.*`). Hotjar не подключён: категории session replay и баннера with-replay в коде нет — добавить вместе с подключением (+ тексты в таблицу, переписать текст баннера).
+- **GA4** — `analytics.tsx` (Consent Mode v2): скрипт грузится только при включённой Analytics, `ad_*` denied; выключение ставит `ga-disable-<ID>` и удаляет `_ga*`. Без `NEXT_PUBLIC_GA_ID` ничего не делает.
+- **Карта** — `components/events/event-map.tsx` в блоке Location страницы события: из HTML — статичная картинка (`lib/event-maps.ts`, ключ — Place name; `map-inkspire-print-studio.png`, `map-19015-n-creek-pkwy.png` из Figma, список скрипта картинок), после загрузки при включённом Embedded content и наличии ключа — интерактивная Google Maps (JS API, адрес ищет Geocoder, маркер), при выключенном — заглушка «The map is provided by Google…» + «Show map». Без ключа — только картинка. Для нового места: кадр `map / …` в Figma, строка в `figma-assets.ts` и `lib/event-maps.ts`.
+- **Проверено** (headless Chrome, 1440 и 390, EN и RU): баннер, «Sure!»/окно/Save пишут cookie и скрывают баннер, заглушка карты и «Show map», окно на mobile. Не проверено: настоящий GA4 и Google Maps (нет ключей), GPC, Esc и ловушка фокуса в окне настроек вживую.
 
 ### Анимации — как устроено (сессия 13.11)
 - **Общее:** класс `js` на `<html>` ставит inline-скрипт в `<head>` `app/[lang]/layout.tsx` (только без reduced motion); без него ничего не скрывается и не закрепляется. Один общий обработчик прокрутки на rAF — `lib/scroll-loop.ts` (`subscribeScroll`, `cssNumber`); числа берутся из токенов `@theme` в `globals.css`.
@@ -454,12 +461,12 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - **Volunteer (mobile):** видны фото и 3 роли, остальное — кнопка «More ways to contribute» (`volunteer.roles.more`).
 - **Logo:** слои wordmark / bubble / dot-1…3, у точек классы `logo-dot logo-dot-1…3` для анимации «печатает…» (animations.md, п. 5, — на проходе анимаций).
 - **Значки time и language** в Figma — заготовки («будут перерисованы»); после перерисовки перевыгрузить и обновить `components/ui/glyphs.ts`.
-- **«Cookie Settings»** в футере пока кнопка без действия (шаг 9).
 - **CSS-модули** (`*.module.css`) — только для раскладки-«рисунка» с координатами из Figma (коллажи Community, аватары Find mentor, сетка ролей Volunteer); правило Turbopack для Tailwind ограничено `globals.css`.
 - **Окружение:** не использовать широкий `pkill`; dev-сервер убивать по порту (`lsof -ti tcp:<порт>`); Chrome headless для скриншотов; `gh` и `brew` не установлены, push идёт по https. Коммитить и пушить законченный блок самостоятельно, если сборка и lint проходят (решено 12.11).
 
 ## Открытые вопросы
 Решить по ходу вёрстки; без решения — не верстать соответствующую часть.
+- **GA4 и Google Maps (шаг 9, заглушки до запуска):** задать `NEXT_PUBLIC_GA_ID` (ID потока GA4) и `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` (Maps JavaScript API + Geocoding API, ограничить по домену workchatseattle.org) в Vercel и `.env.local`. Пока ключей нет: GA не грузится, карта — статичная картинка без заглушки. После ключей проверить вживую: GA (Realtime, выключение через окно), интерактивную карту на всех трёх адресах, `wc_consent`, GPC.
 - **Токен Figma** для скрипта картинок — Юлия создаёт в Figma (Settings → Security → Personal access tokens, только чтение) и кладёт в `.env.local` перед выгрузкой картинок Home.
 - **Аккаунты и ключи** (нужны к этапу форм и запуска): проект Vercel и домен; интеграция Notion (internal) с доступом к Mentor cards, Volunteers, Event suggestions, Event listings, Speakers; Resend и подтверждение домена в DNS; Cloudflare Turnstile; ключ Google Maps JS API; GA4 — заведён ли и какой ID.
 - **Дата в Privacy Policy** («Effective date: November 6, 2026») — обновить в Google Doc и Figma, если запуск сдвинется.

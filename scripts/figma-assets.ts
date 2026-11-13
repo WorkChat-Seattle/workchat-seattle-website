@@ -242,3 +242,9 @@ figmaAssets.push(
   { nodeId: "1203:14467", name: "avatar-t07-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
   { nodeId: "1203:14466", name: "avatar-t08-color", format: "png", scale: 2, dir: "home", fill: true, avatarColor: true },
 );
+
+// Карты событий (cookie-consent.md): статичная картинка для состояния consent, 704×704 (2× для 350), PNG 1×.
+figmaAssets.push(
+  { nodeId: "1510:28488", name: "map-inkspire-print-studio", format: "png", scale: 1, dir: "events" },
+  { nodeId: "1562:19208", name: "map-19015-n-creek-pkwy", format: "png", scale: 1, dir: "events" },
+);

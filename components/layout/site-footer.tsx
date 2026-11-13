@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CookieSettingsButton } from "@/components/consent/cookie-settings-button";
 import { ButtonLink } from "@/components/ui/button";
 import { ButtonSocial } from "@/components/ui/button-social";
 import { Logo } from "@/components/ui/logo";
-import { MenuAction, MenuButton } from "@/components/ui/menu-button";
+import { MenuButton } from "@/components/ui/menu-button";
 import { type Locale, localePath } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { DONATE_URL, SITE_NAME, FACEBOOK_URL, LINKEDIN_URL, PRIVACY_PATH } from "@/lib/constants";
@@ -18,7 +19,7 @@ import hug from "@/public/images/footer/footer-hug.svg";
  *   (legal 231, nav 161, actions 150) через 139;
  * - tablet: 4 колонки по 172 (legal — две), фото 768×320 под текстом;
  * - mobile: legal, ниже nav слева и actions справа (по низу), фото 390×320 под текстом.
- * «Cookie Settings» — кнопка, откроет окно настроек на шаге 9.
+ * «Cookie Settings» — кнопка, открывает окно настроек cookies.
  */
 export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
   return (
@@ -62,7 +63,7 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
                     <MenuButton href={PRIVACY_PATH}>{t["footer.privacy"]}</MenuButton>
                   </li>
                   <li className="flex">
-                    <MenuAction>{t["footer.cookieSettings"]}</MenuAction>
+                    <CookieSettingsButton>{t["footer.cookieSettings"]}</CookieSettingsButton>
                   </li>
                 </ul>
               </nav>

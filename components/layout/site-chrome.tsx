@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { Analytics } from "@/components/consent/analytics";
+import { ConsentManager } from "@/components/consent/consent-manager";
+import { consentLabels } from "@/components/consent/labels";
 import { RevealController } from "./reveal-controller";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
@@ -48,6 +51,8 @@ export function SiteChrome({
       <main id="main">{children}</main>
       <SiteFooter lang={lang} t={t} />
       <RevealController />
+      <ConsentManager lang={lang} labels={consentLabels(t)} />
+      <Analytics />
     </>
   );
 }

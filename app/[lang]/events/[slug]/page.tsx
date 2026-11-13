@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EventDescription } from "@/components/events/event-description";
 import { EventDetail } from "@/components/events/event-detail";
+import { EventMap } from "@/components/events/event-map";
 import { EventImage } from "@/components/events/event-image";
 import { RegisterButton } from "@/components/events/register-button";
 import { ShareButton } from "@/components/events/share-button";
@@ -10,6 +11,7 @@ import { GetInvolved } from "@/components/sections/get-involved";
 import { Subscribe } from "@/components/sections/subscribe";
 import { ButtonLink } from "@/components/ui/button";
 import { events } from "@/data/events";
+import { eventMapImage } from "@/lib/event-maps";
 import { hasLocale, locales, localePath } from "@/i18n/config";
 import { getDictionary, type TextKey } from "@/i18n/dictionaries";
 import {
@@ -43,7 +45,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/events/[sl
  * Страница события (Figma: How AI… — 390 `1145:12238`, 768 `1240:16177`, 1440 `1003:5145`; остальные — docs/event-pages-sizes.md).
  * Карточка bg/card-neutral: фото → название, кнопки и детали → Details → Speakers → Location → кнопки → «Back to all events».
  * Онлайн-событие — без Location, без спикеров (только с Consent received, их фильтрует sync) — без Speakers.
- * Карта — шаг 9: пока адрес и ссылка «Открыть в Google Maps».
+ * Location: адрес, ссылка «Открыть в Google Maps» и карта (`EventMap`: интерактивная Google Maps или статичная картинка + «Show map»).
  */
 export default async function Page({ params }: PageProps<"/[lang]/events/[slug]">) {
   const { lang, slug } = await params;
@@ -129,19 +131,30 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
                 <h2 data-reveal id="event-location" className={sectionTitle}>
                   {t["eventPage.location"]}
                 </h2>
-                <div data-reveal className="mt-5 flex flex-col gap-5 md:w-66 xl:mt-10 xl:w-75">
-                  {event.placeName ? <p className="text-feature text-text-body">{event.placeName}</p> : null}
-                  {event.address ? <p className="text-body whitespace-pre-line text-text-body">{event.address}</p> : null}
-                  {event.mapsLink ? (
-                    <a
-                      href={event.mapsLink}
-                      className="text-body w-fit text-text-body underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {t["eventPage.openMap"]}
-                      <span className="sr-only"> {t["a11y.newTab"]}</span>
-                    </a>
+                <div data-reveal className="mt-5 flex flex-col gap-5 md:flex-row md:gap-10 xl:mt-10 xl:gap-0">
+                  <div className="flex flex-col gap-5 md:w-66 xl:w-75">
+                    {event.placeName ? <p className="text-feature text-text-body">{event.placeName}</p> : null}
+                    {event.address ? <p className="text-body whitespace-pre-line text-text-body">{event.address}</p> : null}
+                    {event.mapsLink ? (
+                      <a
+                        href={event.mapsLink}
+                        className="text-body w-fit text-text-body underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t["eventPage.openMap"]}
+                        <span className="sr-only"> {t["a11y.newTab"]}</span>
+                      </a>
+                    ) : null}
+                  </div>
+                  {event.address ? (
+                    <EventMap
+                      image={eventMapImage(event.placeName)}
+                      address={event.address}
+                      name={event.placeName ?? event.address}
+                      lang={lang}
+                      labels={{ text: t["map.consent.text"], button: t["map.consent.button"] }}
+                    />
                   ) : null}
                 </div>
               </section>
