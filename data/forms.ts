@@ -139,7 +139,7 @@ export function parseForm<K extends FormKind>(kind: K, raw: unknown): Result<K> 
     };
     need("name", v.name, LIMITS.short);
     email("email", v.email);
-    v.linkedin = link("linkedin", v.linkedin, true);
+    v.linkedin = link("linkedin", v.linkedin, false);
     if (topics.length < 1) errors.topics = "required";
     else if (topics.length > MAX_TOPICS) errors.topics = "max";
     if (topics.includes(OTHER_TOPIC)) need("otherTopic", v.otherTopic, LIMITS.short);
@@ -159,7 +159,7 @@ export function parseForm<K extends FormKind>(kind: K, raw: unknown): Result<K> 
     };
     need("name", v.name, LIMITS.short);
     email("email", v.email);
-    v.linkedin = link("linkedin", v.linkedin, true);
+    v.linkedin = link("linkedin", v.linkedin, false);
     if (v.help.length < 1) errors.help = "required";
     if (!(TIME_OPTIONS as readonly string[]).includes(v.time)) errors.time = "required";
     if (v.notes.length > LIMITS.long) errors.notes = "max";
