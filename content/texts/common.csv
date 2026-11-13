@@ -47,12 +47,17 @@ form.name,Формы: поле,Your full name,Ваше имя и фамилия,
 form.email,Формы: поле,Your email,Ваш email,Вычитано,
 form.linkedin,Формы: поле,Link to your LinkedIn profile,Ссылка на профиль в LinkedIn,Вычитано,
 form.required,Формы: ошибка под полем,This field is required,Обязательное поле,Вычитано,
+form.invalidEmail,Формы: ошибка под полем email,Please enter a valid email address,"Пожалуйста, проверьте адрес email",Вычитано,RU — черновик Claude (13.11)
+form.invalidUrl,"Формы: ошибка под полем-ссылкой (LinkedIn, Event link)",Please enter a valid link,"Пожалуйста, проверьте ссылку",Вычитано,RU — черновик Claude (13.11)
+form.tooLong,"Формы: ошибка, если текст длиннее лимита",This text is too long,Текст слишком длинный,Вычитано,RU — черновик Claude (13.11)
+form.otherTopic,"Форма ментора: ошибка под полем «Other», если оно пустое",Please tell us more,"Пожалуйста, напишите тему",Вычитано,RU — черновик Claude (13.11)
 form.selectedCount,"Формы: закрытый список, когда выбрано много",{n} selected,Выбрано: {n},Вычитано,{n} — число
 modal.success.title,Окно после отправки формы,Thank You!,Спасибо!,Вычитано,
 modal.success.mentorVolunteer,Окно успеха: формы ментора и волонтёра,We’ve received your information and will get back to you within 3 business days with the next steps.,"Мы получили ваши данные и свяжемся с вами в течение 3 рабочих дней, чтобы рассказать о следующих шагах.",Вычитано,
 modal.success.suggestEvent,Окно успеха: Suggest an event,We’ve received your suggestion. Our team will review it and may reach out to you by email.,Мы получили ваше предложение. Команда его рассмотрит и при необходимости напишет вам.,Вычитано,
 modal.error.title,Окно ошибки отправки,Something went wrong,Что-то пошло не так,Вычитано,
 modal.error.text,Окно ошибки отправки,"We couldn’t send your form. Please try again in a few minutes. If the problem continues, email us at workchatseattle@gmail.com.","Не получилось отправить форму. Попробуйте ещё раз через несколько минут. Если ошибка повторится, напишите нам на workchatseattle@gmail.com.",Вычитано,Адрес — ссылка mailto:
+modal.error.suggestEvent,Окно ошибки отправки: Suggest an event,"We couldn’t send your suggestion. Please try again in a few minutes. If the problem continues, email us at workchatseattle@gmail.com.","Не получилось отправить ваше предложение. Попробуйте ещё раз через несколько минут. Если ошибка повторится, напишите нам на workchatseattle@gmail.com.",Вычитано,Адрес — ссылка mailto:. RU — черновик Claude (13.11)
 cookie.banner.title,Cookie-баннер,"Cookies, anyone?",Мы используем cookie,Вычитано,
 cookie.banner.text,Cookie-баннер,"We use cookies to keep the site working, see what’s helpful, and show event maps. You can change this anytime in Cookie Settings.","Так сайт работает корректно, а вам удобнее им пользоваться. Изменить выбор можно в любой момент в настройках cookie.",Вычитано,
 cookie.banner.accept,Cookie-баннер: кнопка,Sure!,Хорошо!,Вычитано,
