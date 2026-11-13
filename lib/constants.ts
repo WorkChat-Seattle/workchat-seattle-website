@@ -16,3 +16,9 @@ export const PRIVACY_LINK_TEXT = { en: "Privacy Policy", ru: "Политики �
  * При возврате решить, куда ведут кнопки карточек (data/resources.ts).
  */
 export const SHOW_RESOURCE_HUB = false;
+
+/**
+ * Кнопка «Suggest an event» (Events: под Upcoming и в пустом состоянии) скрыта до шага 8: окно с формой ещё не сделано,
+ * а кнопка без действия хуже её отсутствия. Включить вместе с окном.
+ */
+export const SHOW_SUGGEST_EVENT = false;

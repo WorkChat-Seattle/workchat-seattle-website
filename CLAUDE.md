@@ -285,7 +285,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 ### События
 Логика — dynamic-content.md и decisions-2026-11-05.md:
 - Прошло ли событие — по времени окончания в `America/Los_Angeles`. Upcoming — ближайшие сверху, Past — последние сверху, у Past фильтр по тегам.
-- **Featured на Home:** ближайшее предстоящее, если нет — последнее прошедшее. Кнопки «Details» (dark) → `/events/[slug]` и «See all events» (outlined) → `/events`.
+- **Featured на Home:** ближайшее предстоящее; если предстоящих нет — блока нет (решено 12.11, заменяет «последнее прошедшее»; docs/decisions-2026-11-05.md, п. 5, устарел в этой части). Кнопки «Details» (dark) → `/events/[slug]` и «See all events» (outlined) → `/events`.
 - **Пустой Upcoming:** блок empty-state + кнопка «Suggest an event».
 - **Past Events:** кнопка карточки → `/events/[slug]`; «Video recording» — внешняя ссылка из Recording link (только если есть). «Show more» — `<button>`, по 10 событий; показывать, только если прошедших больше 10; после подгрузки фокус на первую новую карточку.
 - **Event page:** онлайн-событие — без блока Location; без спикеров — без Speakers. Счётчика участников («N people going») и аватаров участников нет — убраны из макета (проверено 11.11 на всех 20 кадрах; аватары на странице — только фото спикеров). У прошедшего события обе Register — `<button disabled>Registration closed</button>`, Share активна; клиентский компонент переключает Register в момент окончания.
@@ -375,13 +375,13 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 `NEXT_PUBLIC_SITE_URL` (= https://workchatseattle.org), `NOTION_TOKEN`, `NOTION_DS_EVENT_LISTINGS`, `NOTION_DS_SPEAKERS`, `NOTION_DS_MENTOR_CARDS`, `NOTION_DS_VOLUNTEERS`, `NOTION_DS_EVENT_SUGGESTIONS`, `RESEND_API_KEY`, `FORMS_TO_EMAIL` (= workchatseattle@gmail.com), `FORMS_FROM_EMAIL` (адрес на подтверждённом домене, например forms@workchatseattle.org), `TURNSTILE_SECRET_KEY` + `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` (ограничить по домену), `NEXT_PUBLIC_GA_ID`.
 Только локально (`.env.local`, не в Vercel и не в git): `FIGMA_TOKEN` — для скрипта выгрузки картинок.
 
-## Статус на 12.11
+## Статус на 12.11 (обновлено в конце сессии «события»)
 Работа идёт по «Порядку работы» (раздел «Правила вёрстки», п. 2). Всё ниже закоммичено и отправлено в `origin/main`; сборка и lint проходят. Новая сессия: прочитать этот раздел, затем «Открытые вопросы».
 
 ### Что готово
 - **Шаги 1–4.** Проект, токены, шрифт, типографика; словари EN/RU из CSV и маршрутизация (`/`, `/ru`); базовые компоненты (`components/ui/`); header с мобильным меню, footer, Subscribe (Zeffy), Get Involved (`components/layout/`, `components/sections/`).
 - **Шаг 5 (страницы, статика, без анимаций):** Home (hero, what-we-do, numbers, community, find mentor, subscribe, testimonials со слайдером, get-involved; **без Featured**, Resource Hub скрыт флагом), 404, Privacy Policy, About, Mentorship, Volunteer. Формы везде пока только заголовок и подпись (шаг 8).
-- **Шаг 6 (начат):** данные событий из Notion (`npm run sync:events` → `data/events.ts`) и логика времени/формата (`lib/events.ts`). Страниц событий ещё нет.
+- **Шаг 6 (события готовы, менторы — нет):** данные из Notion (5 событий, спикеры с Consent received, все обложки и фото на месте), `/events` (Upcoming, пустое состояние, Past с фильтром по тегам и «Show more»), Featured на Home, `/events/[slug]` (спикеры, Register с клиентским переключением, Share, Recording link, RU с запасным EN). Компоненты — `components/events/`.
 
 ### Команды
 - `npm run texts` — скачать тексты из опубликованной Google-таблицы в `content/texts/*.csv` и пересобрать словари (`npm run texts -- home` — одна вкладка; Google обновляет публикацию с задержкой). `npm run texts:build` — только словари.
@@ -392,19 +392,17 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - Токены и id баз — `.env.local` (`FIGMA_TOKEN`, `NOTION_TOKEN`, пять `NOTION_DS_*`); файл не открывать и не выводить.
 
 ### Остановились здесь — начинать отсюда
-**Events, Featured на Home, `/events/[slug]`** (шаг 6). Уже есть: `data/events.ts`, `lib/events.ts` (`upcomingEvents`, `pastEvents`, `featuredEvent`, `getEvent`, `formatDate`, `formatTime`, `isPast`), иконки `Icon` (date, location, time, language), `Tag`, `CardTag`, `Avatar`, `ResponsiveImage`, `FaqItem`. Осталось:
-1. `/events` — Upcoming (card-event `1145:12510`, desktop 1200×555: карточка + фото 600), пустое состояние (кадры `1582:24736` и др., «Suggest an event» — окно шаг 8, пока кнопка-заглушка без действия или скрыта), Past (card-event-past `1145:12533`, 1200×300, теги через разделитель, «Video recording» только при Recording link) с фильтром по тегам (клиентский, компонент `tag`), «Show more» по 10 (кнопка только при > 10, фокус на первую новую карточку).
-2. Featured на Home (card-featured-event `1084:10416`, в Figma Home — `1047:6842`): ближайшее предстоящее, иначе последнее прошедшее; кнопки «Details» (dark) и «See all events» (outlined); место между community и find mentor / resource hub — сверить с кадрами Home (отступы 160 / 120 / 80), заглушку не писать.
-3. `/events/[slug]` (кадры `1003:5145` и остальные из `docs/event-pages-sizes.md`): ISR `revalidate = 3600`, generateStaticParams из данных; онлайн — без Location, без спикеров — без Speakers; у прошедшего обе Register — `<button disabled>Registration closed</button>`; клиентский компонент переключает Register в момент окончания; Share; карта — шаг 9 (пока блок адреса без карты). Несуществующий slug → `notFound()` (глобальная 404 уже работает).
-4. Затем — менторы (карточки на Mentorship, «View all mentors», Mentor info `/mentors/[slug]`, данные Notion `NOTION_DS_MENTOR_CARDS` и Volunteers), по аналогии с `sync:events`; **блок «Meet our mentors» на Mentorship скрыт, пока данных нет, заглушку не делать; отступы вокруг него сверить в шаге 6**.
-5. Дальше по порядку: шаг 7 (анимации), 8 (формы), 9 (cookies и карта), 10 (SEO, превью), 11 (проверка).
+**Менторы** (шаг 6, продолжение): данные Notion `NOTION_DS_MENTOR_CARDS` и Volunteers по аналогии с `sync:events`; карточки на Mentorship, «View all mentors» (только при > видимых), Mentor info `/mentors/[slug]`. Блок «Meet our mentors» скрыт, пока данных нет; отступы вокруг него сверить. Затем шаги 7 (анимации), 8 (формы, в т.ч. окно «Suggest an event» — кнопку включить флагом `SHOW_SUGGEST_EVENT`), 9 (cookies и карта на странице события: сейчас там адрес и ссылка «Open in Google Maps»), 10 (SEO, превью, JSON-LD Event — должность и компания спикеров уже в данных), 11 (проверка).
 
-### Что ждём от Юлии в Notion
-- **#IAmRemarkable Workshop** сейчас Draft — перевести в Ready / Published, иначе Upcoming пуст, а Featured показывает последнее прошедшее.
-- **Consent received** у спикеров (Margarita Kostikova, Natalia Vasileva, Elena Perfilyeva, Natalya Masyago, Liudmila Gishman) — без него спикер не публикуется; фото спикеров и менторов.
-- **Cover photo** у событий: оригиналы лежат в `design-assets/notion-upload/` (Юлия загружает сама); у Натальи Васильевой фото 379×379 — нужен оригинал от 800 px.
-- Правило публикации (подтверждено): на сайт идут только Ready и Published, Draft — нет; спикеры и менторы — только с Consent received.
-- После обновления Notion — `npm run sync:events`.
+### События — решения этой сессии (12.11)
+- **Featured:** нет предстоящих — блок не показывается. Остальное — как раньше. ISR 3600 на `/`, `/events`, `/events/[slug]`.
+- **Место на карточках:** очное — «Город, ШТ» из последней строки Address; онлайн — Place name из Notion, иначе «Online» (`format.Online`). Площадка и адрес целиком — в блоке Location страницы.
+- **Время и язык по таблице:** «6:30 PM - 8:30 PM» / «18:30–20:30» без «PT»; язык — «In Russian» / «На русском» (в Figma было «Russian»).
+- **Фильтр Past:** только теги, которые есть у прошедших событий (не все 10 из Figma); порядок — `TAG_ORDER` в `lib/events.ts`. Повторное нажатие снимает фильтр.
+- **Suggest an event** скрыта флагом `SHOW_SUGGEST_EVENT` (`lib/constants.ts`) до окна формы — и под Upcoming, и в пустом состоянии.
+- **Event page:** кнопка «Video recording» (если есть ссылка) — в верхней группе кнопок; у предстоящего события без Registration link кнопки Register нет; у прошедшего — всегда неактивная. Спикер: LinkedIn-кнопка, сайт — текстовая ссылка под именем; должность и компания в макете не показаны.
+- **Новые тексты** лежат временно в `i18n/pending-texts.ts` (RU — черновик). Ключи: `eventPage.location`, `eventPage.openMap`, `eventPage.shareCopied`, `a11y.speakerLinkedin` (с `{name}`). Когда они появятся в таблице и будет `npm run texts`, файл и его подключение в `i18n/dictionaries.ts` удалить.
+- **Обложки:** Career longevity — 1024×559 (мало для 2×), у Natalia Vasileva фото 379×379; #IAmRemarkable — PNG 3200×2560 (раньше был нечётким из-за апскейла — проверить на глаз).
 
 ### Договорённости этой сессии (которых не было выше)
 - **Шапка:** sticky оставляем; сверить с animations.md, п. 6, на проходе анимаций. Активный пункт меню (`aria-current="page"`) — подчёркивание видно всегда, у выбранного языка EN/RU линии нет; зазор в EN | RU — 8 px; «Resource Hub» в шапке не учитывать (шапка из трёх пунктов).

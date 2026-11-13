@@ -218,6 +218,19 @@
   }
 }
 
+/* Название события на карточках Upcoming / Featured и на странице события: 28 → 44 → 56 (Figma: mobile/h3, tablet/h2, desktop/h2) */
+@utility text-event-title {
+  font-size: 28px;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  @media (width >= theme(--breakpoint-md)) {
+    font-size: 44px;
+  }
+  @media (width >= theme(--breakpoint-xl)) {
+    font-size: 56px;
+  }
+}
+
 @utility text-numbers {
   font-size: 36px;
   line-height: 0.9;
@@ -334,8 +347,10 @@
      как в тексте. */
   :lang(en) .text-h1,
   :lang(en) .text-h2,
+  :lang(en) .text-event-title,
   .text-h1:lang(en),
-  .text-h2:lang(en) {
+  .text-h2:lang(en),
+  .text-event-title:lang(en) {
     text-transform: capitalize;
   }
 }

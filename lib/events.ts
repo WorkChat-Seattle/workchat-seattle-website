@@ -1,4 +1,4 @@
-import { events, type EventItem } from "@/data/events";
+import { events, type Block, type EventItem, type Speaker } from "@/data/events";
 
 /** Часовой пояс сайта: прошло ли событие, считается в нём, а не в UTC сервера (docs/dynamic-content.md). */
 export const SITE_TZ = "America/Los_Angeles";
@@ -21,9 +21,8 @@ export const upcomingEvents = (now: Date = new Date()): EventItem[] =>
 export const pastEvents = (now: Date = new Date()): EventItem[] =>
   events.filter((e) => isPast(e, now)).sort((a, b) => b.start.localeCompare(a.start));
 
-/** Featured на Home: ближайшее предстоящее, если нет — последнее прошедшее. */
-export const featuredEvent = (now: Date = new Date()): EventItem | null =>
-  upcomingEvents(now)[0] ?? pastEvents(now)[0] ?? null;
+/** Featured на Home: ближайшее предстоящее. Если предстоящих нет — null, блок не показывается (решено 12.11, заменяет «последнее прошедшее»). */
+export const featuredEvent = (now: Date = new Date()): EventItem | null => upcomingEvents(now)[0] ?? null;
 
 export const getEvent = (slug: string): EventItem | undefined => events.find((e) => e.slug === slug);
 
@@ -42,7 +41,7 @@ export function formatDate(iso: string, lang: Loc): string {
   return `${wd.charAt(0).toUpperCase()}${wd.slice(1)}, ${rest.replace(/\s*г\.$/, "")}`;
 }
 
-/** Время: EN «6:30 PM – 8:30 PM PT», RU «18:30 – 20:30» (24 часа). */
+/** Время: EN «6:30 PM - 8:30 PM», RU «18:30–20:30» (24 часа, короткое тире без пробелов) — вкладка «Event page», eventPage.time. */
 export function formatTime(startIso: string, endIso: string | null, lang: Loc): string {
   const f = (iso: string) =>
     new Intl.DateTimeFormat(lang === "en" ? "en-US" : "ru-RU", {
@@ -51,6 +50,43 @@ export function formatTime(startIso: string, endIso: string | null, lang: Loc): 
       hour12: lang === "en",
       timeZone: SITE_TZ,
     }).format(new Date(iso));
-  const range = endIso ? `${f(startIso)} – ${f(endIso)}` : f(startIso);
-  return lang === "en" ? `${range} PT` : range;
+  if (!endIso) return f(startIso);
+  return lang === "en" ? `${f(startIso)} - ${f(endIso)}` : `${f(startIso)}–${f(endIso)}`;
+}
+
+/** Порядок тегов в фильтре — как в Figma (docs/dynamic-content.md, «Поля баз»); неизвестные теги идут в конце. */
+export const TAG_ORDER = [
+  "Career Growth",
+  "Family&Career",
+  "Goal setting",
+  "Hands-on AI",
+  "Industry Insights",
+  "Job Search",
+  "Networking",
+  "Personal Brand",
+  "Personal Finance",
+  "Well-Being",
+];
+
+/** Поля с запасным английским: если RU-поле пустое — показываем EN (ru-version.md). */
+export const eventTitle = (e: EventItem, lang: Loc): string => (lang === "ru" && e.titleRu) || e.title;
+export const eventShort = (e: EventItem, lang: Loc): string => (lang === "ru" && e.shortRu) || e.short;
+export const eventDescription = (e: EventItem, lang: Loc): Block[] =>
+  lang === "ru" && e.descriptionRu.length ? e.descriptionRu : e.description;
+export const speakerBio = (s: Speaker, lang: Loc): string => (lang === "ru" && s.bioRu) || s.bio;
+
+/** Город и штат из последней строки адреса: «Redmond, WA 98052» → «Redmond, WA». */
+export function cityOf(address: string | null): string | null {
+  const last = address?.split("\n").map((l) => l.trim()).filter(Boolean).pop();
+  const m = last?.match(/^(.+?,\s*[A-Z]{2})\b/);
+  return m ? m[1] : (last ?? null);
+}
+
+/**
+ * Подпись места на карточках и в деталях: очное — «Город, ШТ» из адреса; онлайн — Place name из Notion
+ * («Online live webinar»), а если его нет — «Online» / «Онлайн» (format.Online).
+ */
+export function locationLabel(e: EventItem, onlineLabel: string): string {
+  if (e.format === "Online" || !e.address) return e.placeName ?? onlineLabel;
+  return cityOf(e.address) ?? e.placeName ?? onlineLabel;
 }
