@@ -167,6 +167,12 @@
   --duration-mentor-avatar: 350ms;
   --duration-mentor-text: 250ms;
   --duration-mentor-hover: 400ms;
+  --duration-mentor-ring-step: 70ms;
+  --delay-mentor-title: 450ms;
+  --delay-mentor-text: 500ms;
+  --delay-mentor-buttons: 550ms;
+  --mentor-rise: 16px;
+  --mentor-avatar-hover-scale: 1.07;
 
   /* 10. Отзывы (слайдер) */
   --ease-slider: cubic-bezier(0.4, 0, 0.2, 1);
@@ -388,6 +394,101 @@
   .btn,
   .btn::before {
     transition: none;
+  }
+}
+
+/* Find your mentor (animations.md, п. 9; эталон — workchat-v2, .mentorship). Один раз, когда видно 20% секции
+   (RevealController ставит data-in на [data-in-view]). Без .js (нет JS или reduced motion) всё на месте. */
+.js [data-in-view]:not([data-in]) :is(.fm-ring, .fm-avatar, .fm-rise) {
+  opacity: 0;
+}
+[data-in-view][data-in] .fm-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fm-ring var(--duration-mentor-ring) ease-out var(--ring-delay, 0ms) backwards;
+}
+.fm-ring-inner {
+  --ring-delay: 0ms;
+}
+.fm-ring-middle {
+  --ring-delay: var(--duration-mentor-ring-step);
+}
+.fm-ring-outer {
+  --ring-delay: calc(var(--duration-mentor-ring-step) * 2);
+}
+[data-in-view][data-in] .fm-avatar {
+  animation:
+    fm-avatar var(--duration-mentor-avatar) ease-out var(--appear-delay) backwards,
+    fm-float var(--float-dur) ease-in-out calc(var(--appear-delay) + var(--duration-mentor-avatar) + var(--float-offset)) infinite alternate;
+}
+.fm-avatar img {
+  transition: transform var(--duration-mentor-hover) ease-out;
+}
+@media (hover: hover) {
+  .fm-avatar:hover img {
+    transform: scale(var(--mentor-avatar-hover-scale));
+  }
+}
+[data-in-view][data-in] .fm-rise {
+  animation: fm-rise var(--duration-mentor-text) ease-out var(--rise-delay) backwards;
+}
+.fm-rise-title {
+  --rise-delay: var(--delay-mentor-title);
+}
+.fm-rise-text {
+  --rise-delay: var(--delay-mentor-text);
+}
+.fm-rise-buttons {
+  --rise-delay: var(--delay-mentor-buttons);
+}
+@keyframes fm-ring {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes fm-avatar {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes fm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--mentor-rise));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fm-float {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 calc(var(--float-amp) * -1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-in-view] :is(.fm-ring, .fm-avatar, .fm-rise) {
+    animation: none !important;
+    opacity: 1;
+  }
+  .fm-avatar img {
+    transition: none;
+  }
+  .fm-avatar:hover img {
+    transform: none;
   }
 }
 

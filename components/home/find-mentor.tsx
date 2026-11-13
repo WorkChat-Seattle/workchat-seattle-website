@@ -2,8 +2,6 @@ import Image, { type StaticImageData } from "next/image";
 import { ButtonLink } from "@/components/ui/button";
 import { type Locale, localePath } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import bgDesktop from "@/public/images/home/find-mentor-bg-desktop.svg";
-import bgTablet from "@/public/images/home/find-mentor-bg-tablet.svg";
 import d02 from "@/public/images/home/avatar-d02.png";
 import d03 from "@/public/images/home/avatar-d03.png";
 import d04 from "@/public/images/home/avatar-d04.png";
@@ -45,6 +43,17 @@ const desktop: [string, StaticImageData][] = [
   ["d02", d02],
 ];
 
+// Появление и «плавание» аватаров — значения из workchat-v2 (.mentorship__avatar--NN), по порядку списка:
+// задержка появления, амплитуда (px, вверх), период, сдвиг по времени. animations.md, п. 9.
+const motion = [
+  { delay: 400, amp: 10, dur: 8, offset: 0 },
+  { delay: 460, amp: 17, dur: 6.5, offset: 1.2 },
+  { delay: 520, amp: 16, dur: 7.5, offset: 2.4 },
+  { delay: 580, amp: 19, dur: 6, offset: 0.6 },
+  { delay: 640, amp: 10, dur: 10, offset: 3 },
+  { delay: 700, amp: 13, dur: 9, offset: 1.8 },
+];
+
 function Avatars({
   items,
   className,
@@ -54,12 +63,62 @@ function Avatars({
 }) {
   return (
     <div aria-hidden="true" className={className}>
-      {items.map(([name, img]) => (
-        <div key={name} className={`${s.avatar} ${s[name]}`}>
-          <Image src={img} alt="" fill sizes="210px" />
-        </div>
-      ))}
+      {items.map(([name, img], i) => {
+        const m = motion[i % motion.length];
+        return (
+          <div
+            key={name}
+            className={`fm-avatar ${s.avatar} ${s[name]}`}
+            style={
+              {
+                "--appear-delay": `${m.delay}ms`,
+                "--float-amp": `${m.amp}px`,
+                "--float-dur": `${m.dur}s`,
+                "--float-offset": `${m.offset}s`,
+              } as React.CSSProperties
+            }
+          >
+            <Image src={img} alt="" fill sizes="210px" />
+          </div>
+        );
+      })}
     </div>
+  );
+}
+
+/** Кольца и градиенты фона (содержимое SVG из макета, inline — чтобы кольца анимировались по отдельности). */
+function RingsSvg({
+  id,
+  className,
+  w,
+  h,
+  rings,
+  gradients,
+}: {
+  id: string;
+  className: string;
+  w: number;
+  h: number;
+  rings: [string, number, number, number, string][];
+  gradients: [number, number][];
+}) {
+  return (
+    <svg aria-hidden="true" viewBox={`0 0 ${w} ${h}`} className={`absolute inset-0 size-full ${className}`}>
+      {rings.map(([cls, cx, cy, r, fill]) => (
+        <circle key={cls} className={`fm-ring ${cls}`} cx={cx} cy={cy} r={r} style={{ fill }} />
+      ))}
+      <defs>
+        {gradients.map(([from, to], i) => (
+          <linearGradient key={i} id={`${id}-${i}`} x1={w / 2} x2={w / 2} y1={from} y2={to} gradientUnits="userSpaceOnUse">
+            <stop style={{ stopColor: "var(--neutral-600)", stopOpacity: 0 }} />
+            <stop offset="1" style={{ stopColor: "var(--neutral-600)" }} />
+          </linearGradient>
+        ))}
+      </defs>
+      {gradients.map(([from, to], i) => (
+        <rect key={i} x="0" y={Math.min(from, to)} width={w} height={Math.abs(to - from)} fill={`url(#${id}-${i})`} />
+      ))}
+    </svg>
   );
 }
 
@@ -67,7 +126,7 @@ function Avatars({
  * Find your mentor (Figma: find-mentor `1003:3502`; tablet `1203:14458`, mobile `1110:10741`).
  * Фон — три кольца (bg/card-muted, neutral, light) с градиентами сверху и снизу: на desktop и tablet
  * готовый SVG из макета, на mobile — те же кольца в CSS (в Figma там отдельные слои). Холст: 1440×1200,
- * 768×688, 750 высотой. Аватары декоративные, их «плавание» — на проходе анимаций (animations.md, п. 9).
+ * 768×688, 750 высотой. Аватары декоративные. Анимация (animations.md, п. 9) — классы `fm-*` в globals.css; фон — inline-SVG (кольца анимируются по отдельности).
  * Текст и кнопки на холсте: desktop от (420, 496), tablet от (212, 228), mobile от (20, 245).
  * Секция идёт сразу после Resource Hub и перед Subscribe, без отступов. `spaced` — когда Resource Hub скрыт
  * (SHOW_RESOURCE_HUB): отступ сверху как у любой секции (80 / 120 / 160), иначе блок слипнется с предыдущим.
@@ -76,33 +135,42 @@ export function FindMentor({ lang, t, spaced = false }: { lang: Locale; t: Dicti
   return (
     <section
       aria-labelledby="find-mentor-title"
+      data-in-view
       className={`flex justify-center overflow-x-clip ${spaced ? "mt-20 md:mt-30 xl:mt-40" : ""}`}
     >
       {/* холст фиксированной ширины по центру: на 1280–1439 лишнее по бокам обрезается поровну */}
       <div className="relative h-187.5 w-full shrink-0 md:h-172 md:w-192 xl:h-300 xl:w-360">
         {/* mobile: кольца и градиенты в CSS */}
         <div aria-hidden="true" className="absolute inset-0 md:hidden">
-          <div className="absolute top-0 left-1/2 size-187.5 -translate-x-1/2 rounded-full bg-bg-card-muted" />
-          <div className="absolute top-16.75 left-1/2 size-152.5 -translate-x-1/2 rounded-full bg-bg-card-neutral" />
-          <div className="absolute top-34.5 left-1/2 size-117.25 -translate-x-1/2 rounded-full bg-bg-card-light" />
+          <div className="fm-ring fm-ring-outer absolute top-0 left-1/2 size-187.5 -translate-x-1/2 rounded-full bg-bg-card-muted" />
+          <div className="fm-ring fm-ring-middle absolute top-16.75 left-1/2 size-152.5 -translate-x-1/2 rounded-full bg-bg-card-neutral" />
+          <div className="fm-ring fm-ring-inner absolute top-34.5 left-1/2 size-117.25 -translate-x-1/2 rounded-full bg-bg-card-light" />
           <div className="absolute inset-x-0 top-10 h-10 bg-gradient-neutral-top" />
           <div className="absolute inset-x-0 top-177.5 h-10 bg-gradient-bottom-neutral" />
         </div>
-        <Image
-          src={bgTablet}
-          alt=""
-          aria-hidden="true"
-          unoptimized
-          fill
+        <RingsSvg
+          id="fm-t"
           className="hidden md:block xl:hidden"
+          w={768}
+          h={688}
+          rings={[
+            ["fm-ring-outer", 384, 344, 344, "var(--neutral-500)"],
+            ["fm-ring-middle", 383.713, 341.42, 279.5, "var(--neutral-400)"],
+            ["fm-ring-inner", 383.427, 341.133, 215, "var(--neutral-200)"],
+          ]}
+          gradients={[[89, 9], [605, 685]]}
         />
-        <Image
-          src={bgDesktop}
-          alt=""
-          aria-hidden="true"
-          unoptimized
-          fill
+        <RingsSvg
+          id="fm-d"
           className="hidden xl:block"
+          w={1440}
+          h={1200}
+          rings={[
+            ["fm-ring-outer", 731, 600, 600, "var(--neutral-500)"],
+            ["fm-ring-middle", 730.5, 595.5, 487.5, "var(--neutral-400)"],
+            ["fm-ring-inner", 730, 595, 375, "var(--neutral-200)"],
+          ]}
+          gradients={[[150, 0], [1050, 1200]]}
         />
 
         <Avatars items={mobile} className="md:hidden" />
@@ -110,13 +178,13 @@ export function FindMentor({ lang, t, spaced = false }: { lang: Locale; t: Dicti
         <Avatars items={desktop} className="hidden xl:block" />
 
         <div className={`${s.copy} flex flex-col`}>
-          <h2 id="find-mentor-title" className="text-h2 text-text-heading">
+          <h2 id="find-mentor-title" className="fm-rise fm-rise-title text-h2 text-text-heading">
             {t["home.findMentor.title"]}
           </h2>
-          <p className="text-body mt-5 text-text-body">
+          <p className="fm-rise fm-rise-text text-body mt-5 text-text-body">
             {t["home.findMentor.text"]}
           </p>
-          <div className="mt-10 flex flex-col gap-2.5 md:flex-row md:self-start">
+          <div className="fm-rise fm-rise-buttons mt-10 flex flex-col gap-2.5 md:flex-row md:self-start">
             <ButtonLink option="dark" href={localePath(lang, "/mentorship")}>
               {t["home.findMentor.browse"]}
             </ButtonLink>

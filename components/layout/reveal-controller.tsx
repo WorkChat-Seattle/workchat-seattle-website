@@ -12,6 +12,8 @@ import { useEffect } from "react";
  *    `data-reveal-grid="one-row"` — все карточки одной строкой (What we do, Resource Hub, команда).
  * Соседи в одной строке одной секции идут с шагом 100 ms (`--reveal-delay`).
  *
+ *  - `data-in-view` — секция с собственной анимацией (Find your mentor): один раз при видимых 20% получает `data-in`,
+ *    дальше всё делает CSS.
  * Скрытие до появления — только CSS `.js …` (класс `js` ставит скрипт в <head>, если нет
  * prefers-reduced-motion), поэтому без JS и при reduced motion всё видно сразу.
  * Состояние: нет атрибута `data-revealed` — скрыт; `in` — идёт переход; `done` — стили сняты,
@@ -117,6 +119,20 @@ export function RevealController() {
       }
     }
     cleanups.push(() => rowObserver.disconnect());
+
+    // секции с собственной анимацией: data-in при 20% (Find your mentor, animations.md, п. 9)
+    const inView = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          (entry.target as HTMLElement).dataset.in = "true";
+          inView.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2 },
+    );
+    document.querySelectorAll<HTMLElement>("[data-in-view]:not([data-in])").forEach((el) => inView.observe(el));
+    cleanups.push(() => inView.disconnect());
 
     return () => cleanups.forEach((fn) => fn());
   }, [pathname]);
