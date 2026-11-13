@@ -84,13 +84,28 @@ export function TestimonialSlider({
 }) {
   const track = useRef<HTMLUListElement>(null);
   const [index, setIndex] = useState(0);
+  // лента едет: уходящая и приходящая карточки — opacity 0.4 + blur(3px) (animations.md, п. 10)
+  const [moving, setMoving] = useState(false);
+  // высота ленты плавно подстраивается под активную карточку
+  const [height, setHeight] = useState<number>();
   const multiple = items.length > 1 && !!labels;
 
   const go = (i: number) => {
     const el = track.current;
     const slide = el?.children[i] as HTMLElement | undefined;
-    if (el && slide) el.scrollTo({ left: slide.offsetLeft - el.offsetLeft, behavior: "smooth" });
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (el && slide) el.scrollTo({ left: slide.offsetLeft - el.offsetLeft, behavior: reduce ? "instant" : "smooth" });
   };
+
+  useEffect(() => {
+    const slide = track.current?.children[index] as HTMLElement | undefined;
+    if (!slide || items.length < 2) return;
+    const measure = () => setHeight(slide.offsetHeight);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(slide);
+    return () => ro.disconnect();
+  }, [index, items.length]);
 
   useEffect(() => {
     const el = track.current;
@@ -108,8 +123,18 @@ export function TestimonialSlider({
       });
       setIndex(best);
     };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
+    let timer: ReturnType<typeof setTimeout>;
+    const onScrollMoving = () => {
+      onScroll();
+      setMoving(true);
+      clearTimeout(timer);
+      timer = setTimeout(() => setMoving(false), 120);
+    };
+    el.addEventListener("scroll", onScrollMoving, { passive: true });
+    return () => {
+      clearTimeout(timer);
+      el.removeEventListener("scroll", onScrollMoving);
+    };
   }, [items.length]);
 
   return (
@@ -122,7 +147,7 @@ export function TestimonialSlider({
             <div aria-hidden="true" className="h-full w-37.5 bg-bg-card-muted" />
           )}
         </div>
-        <ul ref={track} className={`${s.track} -mr-5 min-w-0 flex-1 pr-5 md:-mr-10 md:pr-10 xl:mr-0 xl:pr-0`}>
+        <ul ref={track} data-moving={moving || undefined} style={height ? { height } : undefined} className={`${s.track} -mr-5 min-w-0 flex-1 pr-5 md:-mr-10 md:pr-10 xl:mr-0 xl:pr-0`}>
           {items.map((item, i) => (
             <li key={item.id} className={s.slide} inert={items.length > 1 && i !== index}>
               <Card item={item} readMore={readMore} />
