@@ -40,8 +40,9 @@ const isSection = (path: string, base: string) => path === base || path.startsWi
  * шапкой: тот же бургер превращается в крестик. Фокус не покидает шапку и меню,
  * прокрутка страницы заблокирована, закрытие — Esc, повторное нажатие, переход по ссылке
  * или рост окна до 1280; после закрытия фокус на бургере.
- * Если позже на шапку добавится backdrop-filter (animations.md, п. 6), размытие делать
- * на отдельном слое-подложке, иначе fixed-меню станет «приклеено» к шапке.
+ * При прокрутке > 16 px (--header-scroll-threshold) шапка получает `data-scrolled`:
+ * стекло bg/glass + blur 12 (animations.md, п. 6). Размытие — на отдельном слое-подложке,
+ * а не на самой шапке: backdrop-filter у предка «приклеил» бы fixed-меню к шапке.
  */
 export function SiteHeader({
   lang,
@@ -62,6 +63,16 @@ export function SiteHeader({
   const menuId = useId();
   const rootRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue("--header-scroll-threshold");
+    const threshold = Number.parseFloat(raw) || 16;
+    const update = () => setScrolled(window.scrollY > threshold);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   const items = [
     { href: "/about", label: labels.about, current: isSection(path, "/about") },
@@ -118,7 +129,8 @@ export function SiteHeader({
   }, [open]);
 
   return (
-    <header ref={rootRef} className="sticky top-0 z-50">
+    <header ref={rootRef} data-scrolled={scrolled || undefined} className="sticky top-0 z-50">
+      <div aria-hidden="true" className="header-glass pointer-events-none absolute inset-0 -z-20" />
       <div className="mx-auto flex max-w-300 items-center justify-between px-5 pt-5 md:px-10 xl:px-0 xl:pb-5">
         <Link href={localePath(lang, "/")} aria-label={SITE_NAME} className="shrink-0">
           <Logo title={SITE_NAME} />

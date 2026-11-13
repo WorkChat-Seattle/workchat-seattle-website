@@ -317,6 +317,22 @@
   font-weight: 700;
 }
 
+/* Подложка шапки (animations.md, п. 6): прозрачная наверху, после прокрутки — стекло.
+   Без поддержки backdrop-filter — почти непрозрачный фон. */
+.header-glass {
+  background-color: transparent;
+}
+header[data-scrolled] .header-glass {
+  background-color: var(--color-bg-glass);
+  -webkit-backdrop-filter: blur(var(--header-blur));
+  backdrop-filter: blur(var(--header-blur));
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  header[data-scrolled] .header-glass {
+    background-color: var(--neutral-600);
+  }
+}
+
 /* ==========================================================================
    База
    ========================================================================== */

@@ -8,8 +8,8 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "reac
  * У пункта nav с aria-current="page" подчёркивание видно всегда, на всех размерах
  * (animations.md, п. 3; решение Юлии 12.11, в Figma линии нет). У выбранного
  * языка EN / RU (variant="language") линии нет.
- * Подчёркивание рисуется отдельной линией (scaleX), чтобы анимацию из
- * animations.md (п. 3) можно было добавить одним transition.
+ * Подчёркивание — отдельная линия, scaleX 300 ms ease-out: растёт слева, уходит вправо
+ * (animations.md, п. 3). Линия 1px — по Figma, а не рукописная underline-hover.svg из v2.
  * Область нажатия на mobile ≥ 44: вертикальные отступы 11.
  * `size="large"` — ссылки открытого мобильного меню (Figma: mobile/menu-link, Regular 28).
  */
@@ -27,8 +27,8 @@ type Common = {
 function styles({ variant = "nav", size = "default", tone = "default", className }: Pick<Common, "variant" | "size" | "tone" | "className">) {
   const line =
     variant === "nav"
-      ? "scale-x-0 group-aria-[current=page]:scale-x-100 group-hover:scale-x-100 group-focus-visible:scale-x-100"
-      : "scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100";
+      ? "scale-x-0 group-aria-[current=page]:scale-x-100 group-hover:scale-x-100 group-focus-visible:scale-x-100 group-aria-[current=page]:origin-left group-hover:origin-left group-focus-visible:origin-left"
+      : "scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100 group-hover:origin-left group-focus-visible:origin-left";
   const bold =
     variant === "language"
       ? "aria-[current=true]:text-button-selected"
@@ -48,7 +48,8 @@ function styles({ variant = "nav", size = "default", tone = "default", className
       .filter(Boolean)
       .join(" "),
     label: `whitespace-nowrap ${trimAlways ? trimmed : `xl:h-2.75 xl:leading-2.75`}`,
-    line: `block h-px w-full origin-left bg-current -mb-px ${line}`,
+    // растёт слева, уходит вправо (animations.md, п. 3): origin — справа в покое, слева при наведении
+    line: `block h-px w-full origin-right bg-current -mb-px transition-transform duration-(--duration-link) ease-link motion-reduce:transition-none ${line}`,
   };
 }
 
