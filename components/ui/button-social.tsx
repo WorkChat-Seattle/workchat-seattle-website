@@ -10,7 +10,7 @@ const paths: Record<Network, string> = {
 
 /**
  * Круглая кнопка-ссылка на соцсеть (Figma: button-social `1003:8087`, 50×50).
- * Default: тёмный круг, светлый глиф. Hover: белый круг, тёмный глиф.
+ * Default: тёмный круг, светлый глиф. Hover: белый круг, тёмный глиф и увеличение scale(1.2) за 350 ms (как в v2).
  * Открывается в новой вкладке; `label` — подпись для скринридера (a11y.linkedin / a11y.facebook), к ней добавляется `newTabLabel` (a11y.newTab).
  */
 export function ButtonSocial({
@@ -33,7 +33,7 @@ export function ButtonSocial({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${label} ${newTabLabel}`}
-      className={["group inline-flex shrink-0 rounded-full", className].filter(Boolean).join(" ")}
+      className={["group inline-flex shrink-0 rounded-full transition-transform duration-(--duration-card-scale) ease-card motion-reduce:transition-none motion-safe:hover:scale-(--round-scale) motion-safe:focus-visible:scale-(--round-scale)", className].filter(Boolean).join(" ")}
       {...rest}
     >
       <svg className="size-12.5" viewBox="0 0 50 50" aria-hidden="true">

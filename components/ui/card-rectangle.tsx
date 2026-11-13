@@ -1,4 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
+import { CardLinkOverlay } from "./card-link-overlay";
 import { MenuButton } from "./menu-button";
 
 export type CardRectangleOption = "neutral" | "dark-neutral" | "image";
@@ -16,7 +17,7 @@ const option: Record<CardRectangleOption, string> = {
  * desktop 600×400, padding 60, текст→текст 20; tablet 344×380 и mobile 350×410: padding 40 / 20 по бокам,
  * сверху 40, снизу 29 + кнопка 49. Высоты минимальные (русский текст длиннее).
  * option=image: фото-фон `image`, тёмная подложка overlay/blur-light с размытием 17, текст белый.
- * Ссылка растянута на всю карточку. Без `href` показывается только подпись (адресов пока нет).
+ * Вся карточка кликабельна (CardLinkOverlay). Без `href` показывается только подпись (адресов пока нет).
  */
 export function CardRectangle({
   option: opt = "neutral",
@@ -66,7 +67,7 @@ export function CardRectangle({
           <MenuButton
             href={href}
             tone={tone}
-            className="after:absolute after:inset-0 focus-visible:outline-none"
+            className="focus-visible:outline-none"
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
             {linkLabel}
@@ -80,6 +81,7 @@ export function CardRectangle({
           </span>
         )}
       </div>
+      {href ? <CardLinkOverlay href={href} /> : null}
     </div>
   );
 }

@@ -15,7 +15,7 @@ export function MentorFormSection({ t, children }: { t: Dictionary; children?: R
       className="mt-20 scroll-mt-22 md:mt-30 xl:mx-auto xl:mt-40 xl:max-w-300"
     >
       <div className="bg-bg-card-neutral px-5 py-20 md:px-10 md:py-30 xl:px-75">
-        <div className="flex flex-col gap-5 md:pl-43 xl:max-w-125 xl:pl-0">
+        <div className="flex flex-col gap-5 md:pl-43 xl:max-w-150 xl:pl-0">
           <h2 data-reveal id="mentor-form-title" className="text-h2 whitespace-pre-line text-text-heading">
             {t["mentorship.form.title"]}
           </h2>

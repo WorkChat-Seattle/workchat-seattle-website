@@ -1,9 +1,10 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ButtonVertical } from "@/components/ui/button-vertical";
 import { quoteMarkPath } from "@/components/ui/glyphs";
+import { RingPhoto } from "@/components/ui/ring-photo";
 import { PaginationDot } from "@/components/ui/pagination-dot";
 import s from "./testimonials.module.css";
 
@@ -23,17 +24,8 @@ function Card({ item, readMore }: { item: TestimonialItem; readMore: string }) {
   const [expanded, setExpanded] = useState(false);
   return (
     <article className="relative flex h-full flex-col gap-5 bg-bg-card-neutral p-5 md:min-h-152.5 md:flex-row md:gap-16 md:p-10 xl:min-h-129.5 xl:gap-8 xl:pt-20 xl:pr-10 xl:pb-10 xl:pl-10">
-      {/* фото на весь круг, кольцо 20 (decor/card-outline, 90% белого) поверх — как обводка внутри круга в Figma */}
-      <div className="relative size-72.5 shrink-0 overflow-hidden rounded-full md:size-60 xl:size-93.75">
-        <Image
-          src={item.photo}
-          alt=""
-          fill
-          sizes="(min-width: 1280px) 375px, (min-width: 768px) 240px, 290px"
-          className="object-cover"
-        />
-        <span aria-hidden="true" className="absolute inset-0 rounded-full border-20 border-decor-card-outline" />
-      </div>
+      {/* фото на весь круг под кольцом 20 (decor/card-outline, 90% белого) — как обводка внутри круга в Figma */}
+      <RingPhoto src={item.photo} width={375} ring="border-20" className="size-72.5 md:size-60 xl:size-93.75" />
       <svg
         aria-hidden="true"
         viewBox="0 0 60 40"
@@ -84,18 +76,88 @@ export function TestimonialSlider({
 }) {
   const track = useRef<HTMLUListElement>(null);
   const [index, setIndex] = useState(0);
-  // лента едет: уходящая и приходящая карточки — opacity 0.4 + blur(3px) (animations.md, п. 10)
-  const [moving, setMoving] = useState(false);
+  // карточки, которые сейчас размыты (opacity 0.4 + blur 3px, animations.md, п. 10): уходящая и приходящая, как в v2
+  const [dim, setDim] = useState<number[]>([]);
+  // быстрый возврат резкости после свайпа пальцем
+  const [swiping, setSwiping] = useState(false);
   // высота ленты плавно подстраивается под активную карточку
   const [height, setHeight] = useState<number>();
+  const busy = useRef(false);
   const multiple = items.length > 1 && !!labels;
+  const count = items.length;
 
-  const go = (i: number) => {
+  const slideAt = (i: number) => track.current?.children[i] as HTMLElement | undefined;
+  const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const leftOf = (slide: HTMLElement) => slide.offsetLeft - (track.current as HTMLElement).offsetLeft;
+
+  // Ждём, пока прокрутка дойдёт до `left` (или 1,5 с): scrollend есть не во всех браузерах
+  const settle = (left: number) =>
+    new Promise<void>((resolve) => {
+      const el = track.current as HTMLElement;
+      const start = performance.now();
+      let still = 0;
+      const tick = () => {
+        still = Math.abs(el.scrollLeft - left) < 1.5 ? still + 1 : 0;
+        if (still >= 3 || performance.now() - start > 1500) resolve();
+        else requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+
+  /**
+   * Переход к карточке `target`. По кругу в обе стороны: с последней вперёд — к первой, с первой назад — к последней.
+   * Для этого нужная карточка на время перехода переставляется (CSS `order`) за последнюю / перед первой, лента едет к ней,
+   * затем порядок возвращается и прокрутка мгновенно ставится на ту же карточку — глаз перестановки не видит.
+   */
+  const go = async (target: number) => {
     const el = track.current;
-    const slide = el?.children[i] as HTMLElement | undefined;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (el && slide) el.scrollTo({ left: slide.offsetLeft - el.offsetLeft, behavior: reduce ? "instant" : "smooth" });
+    const from = index;
+    if (!el || busy.current || target === from || target < 0 || target >= count) return;
+    const from_ = slideAt(from);
+    const to = slideAt(target);
+    if (!from_ || !to) return;
+
+    if (reduceMotion()) {
+      el.scrollTo({ left: leftOf(to), behavior: "instant" });
+      setIndex(target);
+      return;
+    }
+
+    busy.current = true;
+    const wrapForward = from === count - 1 && target === 0;
+    const wrapBack = from === 0 && target === count - 1;
+    const between: number[] = [];
+    if (wrapForward || wrapBack) between.push(from, target);
+    else for (let k = Math.min(from, target); k <= Math.max(from, target); k++) between.push(k);
+
+    // приходящая карточка ждёт уже размытой и проявляется по пути; уходящая (и промежуточные) остаются размытыми
+    setDim(between);
+    setIndex(target);
+    let destination: number;
+    if (wrapForward) {
+      to.style.order = "1";
+      destination = leftOf(to);
+    } else if (wrapBack) {
+      const before = from_.offsetLeft;
+      to.style.order = "-1";
+      el.scrollTo({ left: el.scrollLeft + (from_.offsetLeft - before), behavior: "instant" });
+      destination = leftOf(to);
+    } else {
+      destination = leftOf(to);
+    }
+    await new Promise((r) => requestAnimationFrame(() => r(null)));
+    setDim(between.filter((k) => k !== target));
+    el.scrollTo({ left: destination, behavior: "smooth" });
+    await settle(destination);
+    if (wrapForward || wrapBack) {
+      to.style.order = "";
+      el.scrollTo({ left: leftOf(to), behavior: "instant" });
+    }
+    setDim([]);
+    busy.current = false;
   };
+
+  const step = (dir: 1 | -1) => void go((index + dir + count) % count);
 
   useEffect(() => {
     const slide = track.current?.children[index] as HTMLElement | undefined;
@@ -107,10 +169,14 @@ export function TestimonialSlider({
     return () => ro.disconnect();
   }, [index, items.length]);
 
+  // Прокрутка пальцем / колесом: активная карточка — ближайшая к краю; пока лента едет — все карточки размыты, после остановки
+  // резкость возвращается за 250 мс. Переходы кнопками (go) ведут себя сами.
   useEffect(() => {
     const el = track.current;
     if (!el || items.length < 2) return;
+    let timer: ReturnType<typeof setTimeout>;
     const onScroll = () => {
+      if (busy.current) return;
       const slides = Array.from(el.children) as HTMLElement[];
       let best = 0;
       let bestDist = Infinity;
@@ -122,41 +188,52 @@ export function TestimonialSlider({
         }
       });
       setIndex(best);
-    };
-    let timer: ReturnType<typeof setTimeout>;
-    const onScrollMoving = () => {
-      onScroll();
-      setMoving(true);
+      setSwiping(true);
+      setDim(slides.map((_, i) => i));
       clearTimeout(timer);
-      timer = setTimeout(() => setMoving(false), 120);
+      timer = setTimeout(() => {
+        setDim([]);
+        setSwiping(false);
+      }, 100);
     };
-    el.addEventListener("scroll", onScrollMoving, { passive: true });
+    el.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       clearTimeout(timer);
-      el.removeEventListener("scroll", onScrollMoving);
+      el.removeEventListener("scroll", onScroll);
     };
   }, [items.length]);
 
   return (
-    <div>
+    <div
+      onKeyDown={(e) => {
+        if (!multiple) return;
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          step(-1);
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          step(1);
+        }
+      }}
+    >
       <div className="flex items-stretch">
         <div className="hidden xl:block">
           {multiple ? (
-            <ButtonVertical direction="left" label={labels.prev} onClick={() => go(Math.max(0, index - 1))} />
+            <ButtonVertical direction="left" label={labels.prev} onClick={() => step(-1)} />
           ) : (
             <div aria-hidden="true" className="h-full w-37.5 bg-bg-card-muted" />
           )}
         </div>
-        <ul ref={track} data-moving={moving || undefined} style={height ? { height } : undefined} className={`${s.track} -mr-5 min-w-0 flex-1 pr-5 md:-mr-10 md:pr-10 xl:mr-0 xl:pr-0`}>
+        <ul ref={track} data-swiping={swiping || undefined} style={height ? { height } : undefined} className={`${s.track} -mr-5 min-w-0 flex-1 pr-5 md:-mr-10 md:pr-10 xl:mr-0 xl:pr-0`}>
           {items.map((item, i) => (
-            <li key={item.id} className={s.slide} inert={items.length > 1 && i !== index}>
+            <li key={item.id} data-dim={dim.includes(i) || undefined} className={s.slide} inert={items.length > 1 && i !== index}>
               <Card item={item} readMore={readMore} />
             </li>
           ))}
         </ul>
         <div className="hidden xl:block">
           {multiple ? (
-            <ButtonVertical direction="right" label={labels.next} onClick={() => go(Math.min(items.length - 1, index + 1))} />
+            <ButtonVertical direction="right" label={labels.next} onClick={() => step(1)} />
           ) : (
             <div aria-hidden="true" className="h-full w-37.5 bg-bg-card-muted" />
           )}
@@ -165,7 +242,7 @@ export function TestimonialSlider({
       {multiple ? (
         <div className="mt-5 flex justify-center gap-2 xl:hidden">
           {items.map((item, i) => (
-            <PaginationDot key={item.id} active={i === index} label={labels.slideN.replace("{n}", String(i + 1)).replace("{total}", String(items.length))} onClick={() => go(i)} />
+            <PaginationDot key={item.id} active={i === index} label={labels.slideN.replace("{n}", String(i + 1)).replace("{total}", String(items.length))} onClick={() => void go(i)} />
           ))}
         </div>
       ) : null}

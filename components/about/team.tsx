@@ -15,7 +15,7 @@ const tone = { neutral: "bg-bg-card-neutral", muted: "bg-bg-card-muted", light: 
  * оверлей с био — секция Overlays `1633:28076`).
  * desktop: цитата слева (x=0, ширина 269) и три карточки 300×(450 + текст) от x=300; tablet / mobile: заголовок, цитата и
  * лента карточек (виден край следующей, точки-индикатор под лентой).
- * Био (два абзаца) всегда в HTML, до открытия визуально скрыто. Оверлей: на устройствах с мышью — по hover и фокусу,
+ * Био (два абзаца) всегда в HTML, до открытия визуально скрыто (плашка за нижним краем фото и выезжает снизу, translateY, 400 ms). Оверлей: на устройствах с мышью — по hover и фокусу,
  * на планшетах и телефонах — по нажатию на фото (`<button aria-expanded aria-controls>`); открыт один, закрытие —
  * повторное нажатие, другая карточка или Esc.
  */
@@ -106,7 +106,7 @@ export function Team({
                       />
                       <div
                         id={`bio-${m.id}`}
-                        className={`pointer-events-none absolute inset-0 overflow-hidden bg-overlay-team-bio p-5 text-text-white group-has-focus-visible:opacity-100 xl:group-hover:opacity-100 ${isOpen ? "opacity-100" : "opacity-0"}`}
+                        className={`pointer-events-none absolute inset-0 overflow-hidden bg-overlay-team-bio p-5 text-text-white transition-transform duration-(--duration-team-bio) ease-card motion-reduce:transition-none group-has-focus-visible:translate-y-0 xl:group-hover:translate-y-0 ${isOpen ? "translate-y-0" : "translate-y-full"}`}
                       >
                         <p className="text-body whitespace-pre-line">{m.bio}</p>
                       </div>

@@ -42,7 +42,7 @@ export function ZeffyEmbed() {
   }, []);
 
   return (
-    <div className="min-h-54.5 bg-bg-page px-5 py-10 md:px-10 xl:px-37.5">
+    <div className="zeffy-embed min-h-54.5 bg-bg-page px-5 py-10 md:px-10 xl:px-37.5">
       <div ref={ref} data-zeffy-embed data-form-url={FORM_URL} />
     </div>
   );

@@ -17,5 +17,5 @@ export const mentorBio = (m: Mentor, lang: Locale): string => (lang === "ru" && 
 export const mentorRole = (m: Mentor): string => [m.position, m.company].filter(Boolean).join(" @ ");
 
 /** Значения Industry / Expertise: перевод из словаря (`expertise.<значение>`, `industry.<значение>`), иначе — как в Notion. */
-export const mentorTags = (t: Dictionary, kind: "expertise" | "industry", values: string[]): string =>
-  values.map((v) => t[`${kind}.${v}` as TextKey] ?? v).join(", ");
+export const mentorTags = (t: Dictionary, kind: "expertise" | "industry", values: string[]): string[] =>
+  values.map((v) => t[`${kind}.${v}` as TextKey] ?? v);

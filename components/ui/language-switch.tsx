@@ -35,7 +35,8 @@ export function LanguageSwitch({
       >
         EN
       </MenuButton>
-      <span aria-hidden="true" className="h-2.75 w-px bg-text-body" />
+      {/* кнопка = текст 11 + зазор 4 + линия 1 − 1: центр коробки на 2px ниже центра букв, поэтому палочку поднимаем на 2px */}
+      <span aria-hidden="true" className="h-2.75 w-px -translate-y-0.5 bg-text-body" />
       <MenuButton
         href={localePath("ru", path)}
         variant="language"

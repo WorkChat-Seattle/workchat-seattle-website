@@ -206,7 +206,7 @@ export function FindMentor({ lang, t, spaced = false }: { lang: Locale; t: Dicti
         <Avatars items={desktop} className="hidden xl:block" />
 
         <div className={`${s.copy} flex flex-col`}>
-          <h2 id="find-mentor-title" className="fm-rise fm-rise-title text-h2 text-text-heading">
+          <h2 id="find-mentor-title" className="fm-rise fm-rise-title text-h2 text-text-heading xl:whitespace-nowrap">
             {t["home.findMentor.title"]}
           </h2>
           <p className="fm-rise fm-rise-text text-body mt-5 text-text-body">

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { RingPhoto } from "@/components/ui/ring-photo";
 import { ButtonSocial } from "@/components/ui/button-social";
 import { ButtonLink } from "@/components/ui/button";
 import type { Mentor } from "@/data/mentors";
@@ -19,9 +19,14 @@ export function MentorProfile({ mentor, lang, t }: { mentor: Mentor; lang: Local
   return (
     <div data-reveal="now" className="grid gap-5 bg-bg-card-neutral p-5 md:grid-cols-[auto_1fr] md:gap-x-23 md:p-10 xl:gap-x-9 xl:py-20 xl:pr-37.5 xl:pl-10">
       {mentor.photo ? (
-        <span className="relative block aspect-square w-full self-start overflow-hidden rounded-full border-11 border-decor-card-outline md:w-53 xl:row-span-3 xl:w-93.75 xl:border-15">
-          <Image src={mentor.photo} alt={mentor.name} fill sizes="(min-width: 1280px) 375px, (min-width: 768px) 212px, 310px" className="object-cover" priority />
-        </span>
+        <RingPhoto
+          src={mentor.photo}
+          alt={mentor.name}
+          width={375}
+          ring="border-11 xl:border-15"
+          priority
+          className="w-full self-start md:w-53 xl:row-span-3 xl:w-93.75"
+        />
       ) : null}
       <div className="flex flex-col gap-5 pt-5 md:col-start-2 md:pt-0 xl:mt-5.5">
         <h1 className="text-h2 text-text-heading">{mentor.name}</h1>
@@ -33,20 +38,20 @@ export function MentorProfile({ mentor, lang, t }: { mentor: Mentor; lang: Local
       <p className="text-body whitespace-pre-line text-text-body md:col-span-2 xl:col-span-1 xl:col-start-2">
         {mentorBio(mentor, lang)}
       </p>
-      {expertise || industry || mentor.email ? (
+      {expertise.length || industry.length || mentor.email ? (
         <div className="flex flex-col gap-5 md:col-span-2 xl:col-span-1 xl:col-start-2 xl:mt-5 xl:gap-10">
-          {expertise || industry ? (
+          {expertise.length || industry.length ? (
             <dl className="text-body flex flex-col gap-2.5 text-text-body xl:flex-row xl:gap-35">
-              {expertise ? (
+              {expertise.length ? (
                 <div className="flex gap-1">
                   <dt className="text-body-bold-accent shrink-0">{t["mentor.expertise"]}</dt>
-                  <dd>{expertise}</dd>
+                  <dd className="flex flex-col">{expertise.map((v) => <span key={v}>{v}</span>)}</dd>
                 </div>
               ) : null}
-              {industry ? (
+              {industry.length ? (
                 <div className="flex gap-1">
                   <dt className="text-body-bold-accent shrink-0">{t["mentor.industry"]}</dt>
-                  <dd>{industry}</dd>
+                  <dd className="flex flex-col">{industry.map((v) => <span key={v}>{v}</span>)}</dd>
                 </div>
               ) : null}
             </dl>

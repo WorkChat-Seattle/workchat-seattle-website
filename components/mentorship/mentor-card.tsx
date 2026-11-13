@@ -33,7 +33,7 @@ export function MentorCard({
       <div className="flex flex-col gap-5 xl:flex-1">
         <div className="grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-5 md:gap-x-6 md:gap-y-2">
           {mentor.photo ? (
-            <Avatar src={mentor.photo} sizes="90px" className="size-16 md:row-span-2 md:size-22.5" />
+            <Avatar src={mentor.photo} size={90} className="size-16 md:row-span-2 md:size-22.5" />
           ) : null}
           <h3 className="text-feature text-text-heading md:self-end">{mentor.name}</h3>
           <p className="text-body col-span-2 text-text-body md:col-span-1 md:self-start">{mentorRole(mentor)}</p>

@@ -150,7 +150,11 @@ export function SelectField({
       onKeyDown={onKeyDown}
       onBlur={(e) => {
         // Фокус ушёл на другой элемент вне списка (Tab) — закрываем. Клик по пустому месту панели даёт relatedTarget = null — не закрываем.
-        if (open && e.relatedTarget && !rootRef.current?.contains(e.relatedTarget as Node)) setOpen(false);
+        // Клик по тексту варианта переводит фокус на ближайший фокусируемый предок — <form tabindex="-1"> (фокус после отправки):
+        // предки списка тоже не считаем «уходом», иначе панель закрывается раньше, чем клик дойдёт до чекбокса.
+        const to = e.relatedTarget as Node | null;
+        const root = rootRef.current;
+        if (open && to && root && !root.contains(to) && !to.contains(root)) setOpen(false);
       }}
     >
       <span id={labelId} className="sr-only">

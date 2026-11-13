@@ -26,7 +26,7 @@ export function SpeakerCard({ speaker, lang, t }: { speaker: Speaker; lang: Loca
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 md:gap-2.5">
           {speaker.photo ? (
-            <Avatar src={speaker.photo} sizes="97px" className="size-16 md:size-24" />
+            <Avatar src={speaker.photo} size={97} className="size-16 md:size-24" />
           ) : null}
           <div className="flex flex-col gap-2">
             <h3 className="text-feature text-text-heading">{speaker.name}</h3>

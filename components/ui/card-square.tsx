@@ -1,3 +1,4 @@
+import { CardLinkOverlay } from "./card-link-overlay";
 import { MenuButton } from "./menu-button";
 
 export type CardSquareOption = "neutral" | "dark-neutral";
@@ -12,7 +13,7 @@ const option: Record<CardSquareOption, string> = {
 /**
  * Карточка-ссылка (Figma: card-square `1003:8038`, button=true).
  * desktop 300×300, padding 36; tablet 344×344, padding 40 / снизу 29 + кнопка 49; mobile 350×288.
- * Высоты — минимальные (русский текст длиннее). Ссылка растянута на всю карточку (::after),
+ * Высоты — минимальные (русский текст длиннее). Вся карточка кликабельна (CardLinkOverlay),
  * подпись у скринридера — только текст ссылки; hover — на всю карточку.
  * Для внешней ссылки передайте `newTabLabel` (a11y.newTab).
  */
@@ -51,12 +52,13 @@ export function CardSquare({
       </div>
       <MenuButton
         href={href}
-        className="self-start transition-transform duration-(--duration-card-scale) ease-card motion-safe:group-hover/card:scale-(--card-scale) motion-reduce:transition-none after:absolute after:inset-0 focus-visible:outline-none"
+        className="self-start transition-transform duration-(--duration-card-scale) ease-card motion-safe:group-hover/card:scale-(--card-scale) motion-reduce:transition-none focus-visible:outline-none"
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {linkLabel}
         {external && newTabLabel ? <span className="sr-only"> {newTabLabel}</span> : null}
       </MenuButton>
+      <CardLinkOverlay href={href} />
     </div>
   );
 }

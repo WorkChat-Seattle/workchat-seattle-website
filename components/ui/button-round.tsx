@@ -11,13 +11,19 @@ export type Direction = "left" | "right";
 export function RoundArrow({
   direction = "right",
   className = "size-15",
+  zoom = false,
 }: {
   direction?: Direction;
   className?: string;
+  /** Как стрелки слайдера в v2: на hover круг увеличивается (scale 1.2, 350 ms), цвет не меняется. Увеличение делает родитель (ButtonVertical); здесь — только цвет. Родитель — с классом `group`. */
+  zoom?: boolean;
 }) {
   return (
     <svg
-      className={`${className} ${direction === "left" ? "-scale-x-100" : ""}`}
+      className={[
+        className,
+        direction === "left" ? "-scale-x-100" : "",
+      ].join(" ")}
       viewBox="0 0 60 60"
       aria-hidden="true"
     >
@@ -25,11 +31,11 @@ export function RoundArrow({
         cx="30"
         cy="30"
         r="30"
-        className="fill-button-white group-hover:fill-button-dark group-focus-visible:fill-button-dark"
+        className={zoom ? "fill-button-white" : "fill-button-white group-hover:fill-button-dark group-focus-visible:fill-button-dark"}
       />
       <path
         d={arrowRightPath}
-        className="fill-decor-icon group-hover:fill-icon-glyph group-hover:opacity-90 group-focus-visible:fill-icon-glyph"
+        className={zoom ? "fill-decor-icon" : "fill-decor-icon group-hover:fill-icon-glyph group-hover:opacity-90 group-focus-visible:fill-icon-glyph"}
       />
     </svg>
   );

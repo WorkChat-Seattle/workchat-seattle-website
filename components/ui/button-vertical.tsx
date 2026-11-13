@@ -27,7 +27,10 @@ export function ButtonVertical({
         .join(" ")}
       {...rest}
     >
-      <RoundArrow direction={direction} />
+      {/* увеличение — на обёртке: у левой стрелки на самом svg уже стоит отражение (-scale-x-100) */}
+      <span className="flex transition-transform duration-(--duration-card-scale) ease-card motion-reduce:transition-none motion-safe:group-hover:scale-(--round-scale) motion-safe:group-focus-visible:scale-(--round-scale)">
+        <RoundArrow direction={direction} zoom />
+      </span>
     </button>
   );
 }

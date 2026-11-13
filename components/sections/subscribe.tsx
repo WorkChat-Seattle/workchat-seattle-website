@@ -32,13 +32,13 @@ export function Subscribe({ lang, t }: { lang: Locale; t: Dictionary }) {
             <h2 data-reveal id="subscribe-title" className="text-h2 text-text-heading">
               {t["home.subscribe.title"]}
             </h2>
-            <p data-reveal className="text-body max-w-139.25 text-text-body">{t["home.subscribe.text"]}</p>
+            <p data-reveal className="text-body text-text-body xl:max-w-150">{t["home.subscribe.text"]}</p>
           </div>
           <div data-reveal className="flex flex-col gap-3">
             <ZeffyEmbed />
-            <p className="text-body px-5 text-text-muted md:px-10 xl:pl-37.5">
+            <p className="text-body px-5 text-text-muted md:px-10 xl:max-w-150 xl:pl-37.5">
               {linkPhrase(t["home.subscribe.note"], PRIVACY_LINK_TEXT[lang], (phrase) => (
-                <Link href={PRIVACY_PATH} className="underline">
+                <Link href={PRIVACY_PATH} className="underline xl:no-underline xl:text-link">
                   {phrase}
                 </Link>
               ))}

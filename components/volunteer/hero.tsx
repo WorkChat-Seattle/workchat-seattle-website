@@ -12,7 +12,12 @@ export function VolunteerHero({ t }: { t: Dictionary }) {
         <div className="flex flex-col gap-5 xl:max-w-150">
           <h1 data-reveal="now" className="text-h2 text-text-heading xl:mb-5">{t["volunteer.hero.title"]}</h1>
           <p data-reveal="now" className="text-h3 text-text-heading">{t["volunteer.hero.lead"]}</p>
-          <p data-reveal="now" className="text-body whitespace-pre-line text-text-body">{t["volunteer.hero.text"]}</p>
+          {/* два абзаца в ячейке таблицы разделены переводом строки: показываем отдельными <p> с отступом 20 */}
+          <div data-reveal="now" className="text-body flex flex-col gap-5 text-text-body">
+            {t["volunteer.hero.text"].split(/\n+/).map((para) => (
+              <p key={para}>{para}</p>
+            ))}
+          </div>
         </div>
       </div>
     </section>

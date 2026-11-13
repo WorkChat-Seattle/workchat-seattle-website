@@ -145,6 +145,9 @@
   --duration-card-bg: 300ms;
   --duration-card-scale: 350ms;
   --card-scale: 1.02;
+  --duration-team-bio: 400ms; /* плашка био выезжает снизу и уезжает обратно (Our Team); в v2 нет, длительность и кривая — как у карточек */
+  --zeffy-inset: 24px; /* внутренний отступ формы Zeffy слева и справа (измерено по заголовку «Stay connected»): компенсируем на desktop */
+  --round-scale: 1.2; /* круглые кнопки: стрелки слайдера и соцсети — scale(1.2) за 350 ms (v2: .vbtn .round-btn, .social-btn) */
 
   /* 5. Логотип: «печатает…» */
   --duration-logo-dot: 1200ms;
@@ -258,6 +261,28 @@
   font-weight: 500;
   @media (width >= theme(--breakpoint-xl)) {
     font-size: 16px;
+  }
+}
+
+/*
+ * Текстовая ссылка внутри абзаца (Privacy Policy в формах и под Subscribe): как «Volunteer with us» — Medium, без линии в покое,
+ * на hover полоска 1px бежит слева направо, при уходе курсора уезжает вправо (animations.md, п. 3). Линия — фон, чтобы ссылка
+ * могла переноситься на другую строку. Применяется на desktop (xl:text-link), ниже — подчёркивание.
+ */
+@utility text-link {
+  font-weight: 500;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: 0 1px;
+  transition: background-size var(--duration-link) var(--ease-link);
+  &:hover,
+  &:focus-visible {
+    background-position: left bottom;
+    background-size: 100% 1px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 }
 
@@ -504,12 +529,14 @@
 }
 
 /* Логотип «печатает…» (animations.md, п. 5): точки прыгают по очереди, пока логотип под курсором */
+/* Как в v2 (styles.css, logo-typing): подъём — первые 60% цикла (пик на 30%), остальное точка стоит */
 @keyframes logo-typing {
   0%,
+  60%,
   100% {
     transform: translateY(0);
   }
-  50% {
+  30% {
     transform: translateY(var(--logo-dot-lift));
   }
 }
@@ -579,5 +606,23 @@ header[data-scrolled] .header-glass {
   .text-h2:lang(en),
   .text-event-title:lang(en) {
     text-transform: capitalize;
+  }
+}
+
+/*
+ * Форма Zeffy (components/sections/zeffy-embed.tsx). Скрипт Zeffy сам красит наш блок inline-стилями: белый фон, скругление 16px,
+ * ширина не больше 600 — отсюда белая рамка вокруг формы. Перекрываем: фон прозрачный, углы прямые. На desktop блок шире
+ * на внутренний отступ iframe с каждой стороны, и заголовок «Stay connected» с полями встают по левой линии текста секции.
+ * Что внутри iframe (шрифт, отступ), на нашей стороне не меняется.
+ */
+.zeffy-embed [data-zeffy-embed] {
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+@media (width >= theme(--breakpoint-xl)) {
+  .zeffy-embed [data-zeffy-embed] {
+    width: auto !important;
+    max-width: none !important;
+    margin-inline: calc(var(--zeffy-inset) * -1) !important;
   }
 }

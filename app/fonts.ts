@@ -9,6 +9,9 @@ import localFont from "next/font/local";
  * файлы, символы которых реально есть на странице (на EN — только latin,
  * на RU — cyrillic). Семейства склеены в --font-sans в globals.css.
  *
+ * Запасных шрифтов внутри переменных нет (fallback: []): иначе первая же переменная заканчивается на
+ * system-ui, и кириллица берётся из системного шрифта, не доходя до подмножества cyrillic. Запасные — в --font-sans.
+ *
  * Опции next/font должны быть литералами (статический анализ), поэтому
  * повторы не вынесены в помощники.
  */
@@ -21,7 +24,7 @@ const latin = localFont({
   variable: "--font-gs-latin",
   display: "swap",
   preload: true,
-  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  fallback: [],
   adjustFontFallback: false,
   declarations: [
     {
@@ -40,7 +43,7 @@ const latinExt = localFont({
   variable: "--font-gs-latin-ext",
   display: "swap",
   preload: false,
-  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  fallback: [],
   adjustFontFallback: false,
   declarations: [
     {
@@ -59,7 +62,7 @@ const cyrillic = localFont({
   variable: "--font-gs-cyrillic",
   display: "swap",
   preload: false,
-  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  fallback: [],
   adjustFontFallback: false,
   declarations: [
     {
@@ -78,7 +81,7 @@ const cyrillicExt = localFont({
   variable: "--font-gs-cyrillic-ext",
   display: "swap",
   preload: false,
-  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  fallback: [],
   adjustFontFallback: false,
   declarations: [
     {

@@ -28,10 +28,10 @@ export function Honeypot({ value, onChange }: { value: string; onChange: (v: str
   );
 }
 
-/** Текст согласия: «Privacy Policy» внутри фразы — подчёркнутая ссылка на английскую страницу (внутри `<label>` чекбокса). */
+/** Текст согласия: «Privacy Policy» внутри фразы — ссылка на английскую страницу (на desktop — текстовая ссылка сайта text-link, ниже — подчёркнутая) (внутри `<label>` чекбокса). */
 export function consentText(text: string, phrase: string) {
   return linkPhrase(text, phrase, (p) => (
-    <Link href={PRIVACY_PATH} className="underline" target="_blank" rel="noopener">
+    <Link href={PRIVACY_PATH} className="underline xl:no-underline xl:text-link" target="_blank" rel="noopener">
       {p}
     </Link>
   ));

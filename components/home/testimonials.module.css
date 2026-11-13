@@ -23,16 +23,20 @@
     opacity var(--duration-slider) var(--ease-slider),
     filter var(--duration-slider) var(--ease-slider);
 }
-.track[data-moving] .slide {
+.slide[data-dim] {
   opacity: 0.4;
   filter: blur(3px);
+}
+/* после свайпа резкость возвращается быстро (250 мс), а не за полную длительность перехода */
+.track[data-swiping] .slide:not([data-dim]) {
+  transition-duration: 250ms;
 }
 @media (prefers-reduced-motion: reduce) {
   .track,
   .slide {
     transition: none;
   }
-  .track[data-moving] .slide {
+  .slide[data-dim] {
     opacity: 1;
     filter: none;
   }
