@@ -1,0 +1,79 @@
+/*
+ * Our Values (About) — закреплённый блок (animations.md, п. 11; эталон — workchat-v2: .about-values в styles.css
+ * и assets/js/about-values.js). Разрешённое исключение (правило 4 в CLAUDE.md): сложные состояния — в CSS-модуле,
+ * внутри только токены (--values-*, --ease-values-*, --duration-values-*, задаются в globals.css).
+ * Закрепление включается классом .js на <html> (его нет без JS и при prefers-reduced-motion).
+ */
+
+/* секция выше сцены на count × шаг прокрутки (распорка: sticky ограничен content-box родителя, padding не подходит);
+   сцена (.stage) закреплена */
+.spacer {
+  display: none;
+}
+:global(.js) .spacer {
+  display: block;
+  height: calc(var(--values-count) * var(--values-step));
+}
+.stage {
+  position: sticky;
+  top: 0;
+}
+
+/* слой с фонами выше сцены на --values-shift и едет вверх (параллакс считает скрипт) */
+:global(.js) .bgs {
+  bottom: calc(-1 * var(--values-shift));
+}
+
+/* новое фото проявляется поверх старого сразу, старое гаснет под ним через 600 ms */
+.bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 0;
+  transition: opacity var(--duration-values-out) var(--ease-values-out) var(--duration-values-out);
+}
+.bgLeaving {
+  opacity: 1;
+  z-index: 1;
+}
+.bgActive {
+  opacity: 1;
+  z-index: 2;
+  transition-delay: 0ms;
+}
+
+/* текст: каждое слово в своей маске, слова уезжают / приезжают вверх-вниз */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform var(--duration-values-out) var(--ease-values-out)
+    calc(var(--i, 0) * var(--duration-values-word-step));
+}
+/* новый текст приезжает через 600 ms, когда старый уже ушёл */
+.isActive .word > span {
+  transform: none;
+  transition-delay: calc(var(--duration-values-out) + var(--i, 0) * var(--duration-values-word-step));
+}
+.isUp .word > span {
+  transform: translateY(-110%);
+}
+.fromBelow .word > span {
+  transform: translateY(110%);
+  transition: none;
+}
+.fromAbove .word > span {
+  transform: translateY(-110%);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg,
+  .word > span {
+    transition: none !important;
+  }
+}
