@@ -380,7 +380,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 
 ### Что готово
 - **Шаги 1–4.** Проект, токены, шрифт, типографика; словари EN/RU из CSV и маршрутизация (`/`, `/ru`); базовые компоненты (`components/ui/`); header с мобильным меню, footer, Subscribe (Zeffy), Get Involved (`components/layout/`, `components/sections/`).
-- **Шаг 5 (страницы, статика, без анимаций):** Home (hero, what-we-do, numbers, community, find mentor, subscribe, testimonials со слайдером, get-involved; **без Featured**, Resource Hub скрыт флагом), 404, Privacy Policy, About, Mentorship, Volunteer. Формы везде пока только заголовок и подпись (шаг 8).
+- **Шаг 5 (страницы, статика, без анимаций):** Home (hero, what-we-do, numbers, community, find mentor, subscribe, testimonials со слайдером, get-involved; Featured добавлен в шаге 6, Resource Hub скрыт флагом), 404, Privacy Policy, About, Mentorship, Volunteer. Формы везде пока только заголовок и подпись (шаг 8).
 - **Шаг 6 (события готовы, менторы — нет):** данные из Notion (5 событий, спикеры с Consent received, все обложки и фото на месте), `/events` (Upcoming, пустое состояние, Past с фильтром по тегам и «Show more»), Featured на Home, `/events/[slug]` (спикеры, Register с клиентским переключением, Share, Recording link, RU с запасным EN). Компоненты — `components/events/`.
 
 ### Команды
@@ -397,12 +397,12 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 ### События — решения этой сессии (12.11)
 - **Featured:** по decisions п. 5 (предстоящее, иначе последнее прошедшее). ISR 3600 на `/`, `/events`, `/events/[slug]`.
 - **Место на карточках:** очное — «Город, ШТ» из последней строки Address; онлайн — Place name из Notion, иначе «Online» (`format.Online`). Площадка и адрес целиком — в блоке Location страницы.
-- **Время и язык:** «6:30 PM - 8:30 PM PT» (EN, PT добавляет код) / «18:30–20:30»; язык — «In Russian» / «На русском» (в Figma было «Russian»).
+- **Время и язык:** «6:30 PM - 8:30 PM PT» / «18:30–20:30 PT» (PT добавляет код); язык — «In Russian» / «На русском» (в Figma было «Russian»).
 - **Фильтр Past:** только теги, которые есть у прошедших событий (не все 10 из Figma); порядок — `TAG_ORDER` в `lib/events.ts`. Повторное нажатие снимает фильтр.
 - **Suggest an event** скрыта флагом `SHOW_SUGGEST_EVENT` (`lib/constants.ts`) до окна формы — и под Upcoming, и в пустом состоянии.
 - **Event page:** кнопка «Video recording» (если есть ссылка) — в верхней группе кнопок; у предстоящего события без Registration link кнопки Register нет; у прошедшего — всегда неактивная. Спикер: LinkedIn-кнопка, сайт — текстовая ссылка под именем; должность и компания в макете не показаны.
-- **Новые тексты** лежат временно в `i18n/pending-texts.ts` (RU — черновик). Ключи: `eventPage.location`, `eventPage.openMap`, `eventPage.shareCopied`, `a11y.speakerLinkedin` (с `{name}`). Когда они появятся в таблице и будет `npm run texts`, файл и его подключение в `i18n/dictionaries.ts` удалить.
-- **Обложки:** Career longevity — 1024×559 (мало для 2×), у Natalia Vasileva фото 379×379; #IAmRemarkable — PNG 3200×2560 (раньше был нечётким из-за апскейла — проверить на глаз).
+- **Новые тексты:** ключи `eventPage.location`, `eventPage.openMap`, `eventPage.shareCopied`, `a11y.speakerLinkedin` уже в таблице (`npm run texts` 12.11), `i18n/pending-texts.ts` удалён.
+- **Обложки:** Career longevity — 1024×559 (мало для 2×), у Natalia Vasileva фото 379×379; #IAmRemarkable — JPG 1402×1122 из Notion (с 12.11; старый PNG 3200×2560 удалён).
 
 ### Договорённости этой сессии (которых не было выше)
 - **Шапка:** sticky оставляем; сверить с animations.md, п. 6, на проходе анимаций. Активный пункт меню (`aria-current="page"`) — подчёркивание видно всегда, у выбранного языка EN/RU линии нет; зазор в EN | RU — 8 px; «Resource Hub» в шапке не учитывать (шапка из трёх пунктов).

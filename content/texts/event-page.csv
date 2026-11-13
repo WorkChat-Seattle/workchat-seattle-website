@@ -8,3 +8,6 @@ eventPage.details,Заголовок блока с описанием,Details,О
 eventPage.speakers,Заголовок блока спикеров,Speakers,Спикеры,Вычитано,
 eventPage.back,Ссылка внизу,Back to all events,Все мероприятия,Вычитано,
 —,Карта и заглушка карты,—,—,Не переводить здесь,Вкладка «Общее»: map.consent.*
+eventPage.location,Заголовок блока с адресом,Location,Место проведения,Вычитано,
+eventPage.openMap,Ссылка под адресом,Open in Google Maps,Открыть в Google Maps,Вычитано,Пока вместо карты (карта — шаг 9)
+eventPage.shareCopied,Кнопка Share после копирования ссылки,Link copied,Ссылка скопирована,Вычитано,

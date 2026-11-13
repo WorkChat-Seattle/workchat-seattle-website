@@ -765,7 +765,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-iamremarkable-workshop.png",
+    "cover": "/images/events/cover-iamremarkable-workshop.jpg",
     "speakers": [
       {
         "id": "liudmila-gishman",

@@ -42,7 +42,7 @@ export function formatDate(iso: string, lang: Loc): string {
   return `${wd.charAt(0).toUpperCase()}${wd.slice(1)}, ${rest.replace(/\s*г\.$/, "")}`;
 }
 
-/** Время: EN «6:30 PM - 8:30 PM PT», RU «18:30–20:30» (24 часа, короткое тире без пробелов) — вкладка «Event page», eventPage.time. */
+/** Время: EN «6:30 PM - 8:30 PM PT», RU «18:30–20:30 PT» (24 часа, короткое тире без пробелов) — вкладка «Event page», eventPage.time. */
 export function formatTime(startIso: string, endIso: string | null, lang: Loc): string {
   const f = (iso: string) =>
     new Intl.DateTimeFormat(lang === "en" ? "en-US" : "ru-RU", {
@@ -52,7 +52,7 @@ export function formatTime(startIso: string, endIso: string | null, lang: Loc): 
       timeZone: SITE_TZ,
     }).format(new Date(iso));
   const range = endIso ? (lang === "en" ? `${f(startIso)} - ${f(endIso)}` : `${f(startIso)}–${f(endIso)}`) : f(startIso);
-  return lang === "en" ? `${range} PT` : range;
+  return `${range} PT`;
 }
 
 /** Порядок тегов в фильтре — как в Figma (docs/dynamic-content.md, «Поля баз»); неизвестные теги идут в конце. */
