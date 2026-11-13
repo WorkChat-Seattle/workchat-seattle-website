@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import type { AnchorHTMLAttributes, ComponentProps } from "react";
 
 export type ButtonOption = "dark" | "white" | "outlined";
 
@@ -26,7 +26,7 @@ export function Button({
   className,
   type = "button",
   ...rest
-}: Props & ButtonHTMLAttributes<HTMLButtonElement>) {
+}: Props & ComponentProps<"button">) {
   return <button type={type} className={classes(option, className)} {...rest} />;
 }
 

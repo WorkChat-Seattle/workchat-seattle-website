@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon-error">
+<rect width="64" height="64" rx="32" fill="#A63D33"/>
+<path id="cross" d="M22 22L32 32M32 32L42 42M32 32L42 22M32 32L22 42" stroke-width="3" stroke-linejoin="round" stroke="white"/>
+</g>
+</svg>

@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon-success">
+<rect width="64" height="64" rx="32" fill="#0D5A3B"/>
+<path id="check" d="M20 32.5L28 40.5L44 23.5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
+</g>
+</svg>

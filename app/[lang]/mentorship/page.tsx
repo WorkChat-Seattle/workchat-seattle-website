@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { MentorForm } from "@/components/forms/mentor-form";
+import { formLabels } from "@/components/forms/labels";
 import { MentorsSection } from "@/components/mentorship/mentors-section";
 import { MentorFormSection } from "@/components/mentorship/mentor-form-section";
 import { MentorshipHero } from "@/components/mentorship/hero";
@@ -20,7 +22,7 @@ export const metadata: Metadata = { title: "Mentorship — WorkChat Seattle" };
 
 /**
  * Mentorship (Figma: 390 `1135:11286`, 768 `1240:15215`, 1440 `1003:4997`): hero → менторы → форма «Стать ментором» → FAQ →
- * программы → подписка → «Как помочь». «Meet our mentors» — из data/mentors.ts (нет менторов — секции нет); форма — шаг 8.
+ * программы → подписка → «Как помочь». «Meet our mentors» — из data/mentors.ts (нет менторов — секции нет); форма — `components/forms/mentor-form.tsx`.
  */
 export default async function Page({ params }: PageProps<"/[lang]/mentorship">) {
   const { lang } = await params;
@@ -31,7 +33,9 @@ export default async function Page({ params }: PageProps<"/[lang]/mentorship">) 
     <>
       <MentorshipHero t={t} />
       <MentorsSection lang={lang} t={t} />
-      <MentorFormSection t={t} />
+      <MentorFormSection t={t}>
+        <MentorForm lang={lang} labels={formLabels(t)} />
+      </MentorFormSection>
       <FaqSection t={t} prefix="mentorship.faq" ids={mentorshipFaq} />
       <Programs t={t} />
       <div className="mt-20 md:mt-30 xl:mt-40">

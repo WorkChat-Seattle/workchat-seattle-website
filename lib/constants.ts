@@ -17,8 +17,15 @@ export const PRIVACY_LINK_TEXT = { en: "Privacy Policy", ru: "Политики �
  */
 export const SHOW_RESOURCE_HUB = false;
 
+/** Кнопка «Suggest an event» (Events: под Upcoming и в пустом состоянии) открывает окно с формой (включена 13.11, шаг 8). */
+export const SHOW_SUGGEST_EVENT = true;
+
 /**
- * Кнопка «Suggest an event» (Events: под Upcoming и в пустом состоянии) скрыта до шага 8: окно с формой ещё не сделано,
- * а кнопка без действия хуже её отсутствия. Включить вместе с окном.
+ * Письма с заявками через Resend (docs/forms-to-notion.md, «Поток отправки»). Код готов, отправка выключена, пока нет домена
+ * в Resend (FORMS_FROM_EMAIL) и ключа RESEND_API_KEY. Пока false: заявка записана в Notion = успех, письмо не пытаемся слать
+ * и ошибкой это не считаем. К запуску: подтвердить домен в DNS, задать RESEND_API_KEY и FORMS_FROM_EMAIL в Vercel, поставить true.
  */
-export const SHOW_SUGGEST_EVENT = false;
+export const SEND_FORM_EMAILS = false;
+
+/** Почта команды для заявок и в текстах ошибок (docs/forms-to-notion.md). Берётся из env, запасное значение — тот же адрес. */
+export const FORMS_TO_EMAIL = process.env.FORMS_TO_EMAIL ?? "workchatseattle@gmail.com";
