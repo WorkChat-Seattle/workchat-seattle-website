@@ -150,7 +150,8 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
                   {event.address ? (
                     <EventMap
                       image={eventMapImage(event.placeName)}
-                      address={event.address}
+                      lat={event.lat}
+                      lng={event.lng}
                       name={event.placeName ?? event.address}
                       lang={lang}
                       labels={{ text: t["map.consent.text"], button: t["map.consent.button"] }}

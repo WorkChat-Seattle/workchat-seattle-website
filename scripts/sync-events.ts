@@ -7,6 +7,9 @@
  * с галочкой Consent received (без согласия спикер не публикуется — событие остаётся без него), собирает описание из тела
  * страницы (абзацы, маркированные списки, жирный, курсив, ссылки; всё после первого разделителя — служебное, пропускается),
  * скачивает Cover photo и фото спикеров в public/images/events/ (ссылки Notion временные). Сводка в конце: что пропущено и чего не хватает.
+ * Координаты (lat, lng) для карты считаются здесь, а не в браузере: сначала берутся прежние из data/events.ts (если адрес тот же),
+ * затем Google Geocoding API (ключ GOOGLE_MAPS_SERVER_KEY в .env.local — серверный, без ограничения по referrer, в Vercel не нужен),
+ * при его отсутствии — Nominatim (OpenStreetMap, без ключа). Не нашлись — lat / lng = null, карта в браузере не рисуется.
  * Результат — data/events.ts (коммитится, правится только этим скриптом). Токен и id баз — .env.local (NOTION_TOKEN, NOTION_DS_*).
  */
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -116,6 +119,31 @@ async function download(fileProp: Props | undefined, name: string): Promise<stri
   return `/images/events/${file}`;
 }
 
+type Coords = { lat: number; lng: number };
+
+async function geocode(address: string): Promise<Coords | null> {
+  const q = address.replace(/\s*\n\s*/g, ", ");
+  const key = process.env.GOOGLE_MAPS_SERVER_KEY;
+  if (key) {
+    const r = (await (await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(q)}&key=${key}`)).json()) as {
+      results?: { geometry: { location: { lat: number; lng: number } } }[];
+    };
+    const l = r.results?.[0]?.geometry.location;
+    return l ? { lat: l.lat, lng: l.lng } : null;
+  }
+  // Nominatim не знает «suite / ste»: пробуем адрес как есть, затем без номера офиса
+  const plain = q.replace(/,?\s*(suite|ste\.?|unit|#)\s*[\w-]+(\s*\([^)]*\))?/gi, "");
+  for (const variant of [q, plain]) {
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(variant)}`, {
+      headers: { "User-Agent": "workchat-seattle-sync" },
+    });
+    const r = (await res.json()) as { lat: string; lon: string }[];
+    if (r[0]) return { lat: +r[0].lat, lng: +r[0].lon };
+    await new Promise((ok) => setTimeout(ok, 1100)); // лимит Nominatim — 1 запрос в секунду
+  }
+  return null;
+}
+
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 async function main() {
@@ -125,6 +153,15 @@ async function main() {
   });
   const skipped = (await queryAll(EVENTS_DS!, { filter: { property: "Status", status: { equals: "Draft" } } })).map((p) => text(p.properties.Title));
   if (skipped.length) report.push(`Пропущены (Draft): ${skipped.join("; ")}`);
+
+  // прежние координаты: тот же адрес — не геокодируем заново
+  const prev = new Map<string, Coords>();
+  try {
+    const old = (await import(join(root, "data/events.ts"))) as { events: { address: string | null; lat?: number | null; lng?: number | null }[] };
+    for (const e of old.events) if (e.address && e.lat != null && e.lng != null) prev.set(e.address, { lat: e.lat, lng: e.lng });
+  } catch {
+    // файла ещё нет
+  }
 
   const speakerCache = new Map<string, Page>();
   const events = [];
@@ -167,6 +204,12 @@ async function main() {
     const cover = await download(pr["Cover photo"], `cover-${slug}`);
     if (!cover) report.push(`  ${title}: нет Cover photo`);
     const format = sel(pr.Format) as "In person" | "Online" | "Hybrid" | "";
+    const address = text(pr.Address) || null;
+    let coords: Coords | null = null;
+    if (address && format !== "Online") {
+      coords = prev.get(address) ?? (await geocode(address));
+      if (!coords) report.push(`Нет координат (адрес не найден): ${title} — ${address.replace(/\n/g, ", ")}`);
+    }
     events.push({
       slug,
       title,
@@ -176,7 +219,9 @@ async function main() {
       language: sel(pr.Language),
       format,
       placeName: text(pr["Place name"]) || null,
-      address: text(pr.Address) || null,
+      address,
+      lat: coords?.lat ?? null,
+      lng: coords?.lng ?? null,
       mapsLink: url(pr["Google Maps link"]) || null,
       registrationLink: url(pr["Registration link"]) || null,
       recordingLink: url(pr["Recording link"]) || null,
@@ -218,6 +263,9 @@ export type EventItem = {
   format: "In person" | "Online" | "Hybrid" | "";
   placeName: string | null;
   address: string | null;
+  /** Координаты адреса для карты (считаются при sync, см. scripts/sync-events.ts). */
+  lat: number | null;
+  lng: number | null;
   mapsLink: string | null;
   registrationLink: string | null;
   recordingLink: string | null;

@@ -25,6 +25,9 @@ export type EventItem = {
   format: "In person" | "Online" | "Hybrid" | "";
   placeName: string | null;
   address: string | null;
+  /** Координаты адреса для карты (считаются при sync, см. scripts/sync-events.ts). */
+  lat: number | null;
+  lng: number | null;
   mapsLink: string | null;
   registrationLink: string | null;
   recordingLink: string | null;
@@ -48,6 +51,8 @@ export const events: EventItem[] = [
     "format": "Online",
     "placeName": null,
     "address": null,
+    "lat": null,
+    "lng": null,
     "mapsLink": null,
     "registrationLink": null,
     "recordingLink": "https://www.facebook.com/share/v/18t97DM18F/",
@@ -209,6 +214,8 @@ export const events: EventItem[] = [
     "format": "In person",
     "placeName": "Plaza at North Creek",
     "address": "19015 N Creek Pkwy, Ste 105\nBothell, WA 98011",
+    "lat": 47.7654183,
+    "lng": -122.1856664,
     "mapsLink": "https://www.google.com/maps/search/?api=1&query=19015+N+Creek+Pkwy+Ste+105+Bothell+WA+98011",
     "registrationLink": null,
     "recordingLink": null,
@@ -290,6 +297,8 @@ export const events: EventItem[] = [
     "format": "In person",
     "placeName": "Inkspire Print Studio",
     "address": "8275 166th Ave NE, suite 101 (1st floor)\nRedmond, WA 98052",
+    "lat": 47.6764855,
+    "lng": -122.1194204,
     "mapsLink": "https://www.google.com/maps/search/?api=1&query=Inkspire+Print+Studio+8275+166th+Ave+NE+Redmond+WA+98052",
     "registrationLink": null,
     "recordingLink": null,
@@ -457,6 +466,8 @@ export const events: EventItem[] = [
     "format": "In person",
     "placeName": "Inkspire Print Studio",
     "address": "8275 166th Ave NE, suite 101 (1st floor)\nRedmond, WA 98052",
+    "lat": 47.6764855,
+    "lng": -122.1194204,
     "mapsLink": "https://www.google.com/maps/search/?api=1&query=Inkspire+Print+Studio+8275+166th+Ave+NE+Redmond+WA+98052",
     "registrationLink": "https://www.zeffy.com/ticketing/from-qa-automation-to-ai-engineer",
     "recordingLink": null,
@@ -679,6 +690,8 @@ export const events: EventItem[] = [
     "format": "Online",
     "placeName": null,
     "address": null,
+    "lat": null,
+    "lng": null,
     "mapsLink": null,
     "registrationLink": "https://www.zeffy.com/ticketing/iamremarkable-workshop",
     "recordingLink": null,
