@@ -36,6 +36,7 @@ export function SelectField({
   max,
   error,
   countText,
+  requiredText,
 }: {
   id: string;
   /** Вопрос: плейсхолдер закрытого поля и имя для скринридера. */
@@ -49,6 +50,8 @@ export function SelectField({
   error?: string;
   /** Подпись «N selected». */
   countText: (n: number) => string;
+  /** a11y.required («required» / «обязательное поле»): скрытое слово в доступном имени обязательного списка (звёздочка в подписи — aria-hidden). */
+  requiredText?: string;
 }) {
   const { text: labelText, required } = parseRequired(label);
   const [open, setOpen] = useState(false);
@@ -60,6 +63,7 @@ export function SelectField({
   const panelId = `${id}-panel`;
   const hintId = `${id}-hint`;
   const labelId = `${id}-q`;
+  const reqId = `${id}-req`;
   const valueId = `${id}-val`;
   const errorId = `${id}-error`;
 
@@ -161,7 +165,12 @@ export function SelectField({
       <span id={labelId} className="sr-only">
         {labelText}
       </span>
-      {/* aria-required формально не входит в роль button (ARIA 1.2), но так решили: скринридеры, которые его читают, объявят обязательность */}
+      {required && requiredText ? (
+        <span id={reqId} className="sr-only">
+          {requiredText}
+        </span>
+      ) : null}
+      {/* aria-invalid на button: в ARIA 1.2 он помечен устаревшим как глобальный, но скринридеры его читают; eslint-плагин на нём ругается */}
       {/* eslint-disable-next-line jsx-a11y/role-supports-aria-props */}
       <button
         ref={buttonRef}
@@ -169,9 +178,9 @@ export function SelectField({
         type="button"
         aria-haspopup={mode === "single" ? "listbox" : "true"}
         aria-expanded={open}
-        aria-required={required || undefined}
+        aria-invalid={error ? true : undefined}
         aria-controls={panelId}
-        aria-labelledby={filled ? `${labelId} ${valueId}` : labelId}
+        aria-labelledby={[labelId, required && requiredText ? reqId : "", filled ? valueId : ""].filter(Boolean).join(" ")}
         aria-describedby={[open ? hintId : "", error ? errorId : ""].filter(Boolean).join(" ") || undefined}
         onClick={() => (open ? close(false) : openList())}
         className={[

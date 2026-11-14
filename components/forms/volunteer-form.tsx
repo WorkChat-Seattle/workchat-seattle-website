@@ -111,6 +111,7 @@ export function VolunteerForm({ lang, labels: l }: { lang: Locale; labels: Label
           <TextField id="volunteer-email" name="email" type="email" autoComplete="email" label={l["form.email"]} value={v.email} onChange={(x) => set("email", x)} error={errors.email} />
           <TextField id="volunteer-linkedin" name="linkedin" type="url" autoComplete="url" label={l["form.linkedin"]} value={v.linkedin} onChange={(x) => set("linkedin", x)} error={errors.linkedin} />
           <SelectField
+            requiredText={l["a11y.required"]}
             id="volunteer-help"
             mode="multi"
             label={l["volunteer.form.help.label"]}
@@ -122,6 +123,7 @@ export function VolunteerForm({ lang, labels: l }: { lang: Locale; labels: Label
             countText={count}
           />
           <SelectField
+            requiredText={l["a11y.required"]}
             id="volunteer-time"
             mode="single"
             label={l["mentorship.form.time.label"]}

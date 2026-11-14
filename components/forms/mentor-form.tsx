@@ -96,6 +96,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
           <TextField id="mentor-email" name="email" type="email" autoComplete="email" label={l["form.email"]} value={v.email} onChange={(x) => set("email", x)} error={errors.email} />
           <TextField id="mentor-linkedin" name="linkedin" type="url" autoComplete="url" label={l["form.linkedin"]} value={v.linkedin} onChange={(x) => set("linkedin", x)} error={errors.linkedin} />
           <SelectField
+            requiredText={l["a11y.required"]}
             id="mentor-topics"
             mode="multi"
             label={l["mentorship.form.topics.label"]}
@@ -111,6 +112,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
             <TextField id="mentor-otherTopic" name="otherTopic" label={`${l["topic.Other"]} ${l["form.otherTopic"]}`} value={v.otherTopic} onChange={(x) => set("otherTopic", x)} error={errors.otherTopic} />
           ) : null}
           <SelectField
+            requiredText={l["a11y.required"]}
             id="mentor-time"
             mode="single"
             label={l["mentorship.form.time.label"]}
@@ -122,6 +124,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
             countText={count}
           />
           <SelectField
+            requiredText={l["a11y.required"]}
             id="mentor-meet"
             mode="multi"
             label={l["mentorship.form.meet.label"]}
