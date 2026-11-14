@@ -137,7 +137,7 @@ export function SiteHeader({
   return (
     <header ref={rootRef} data-scrolled={scrolled || undefined} className="sticky top-0 z-50">
       <div aria-hidden="true" className="header-glass pointer-events-none absolute inset-0 -z-20" />
-      <div className="mx-auto flex max-w-300 items-center justify-between px-5 pt-5 md:px-10 xl:px-0 xl:pb-5">
+      <div className="mx-auto flex max-w-300 items-center justify-between px-5 pt-5 md:px-10 xl:px-0 xl:pt-4 xl:pb-4">
         <Link href={localePath(lang, "/")} aria-label={SITE_NAME} className="shrink-0">
           <Logo title={SITE_NAME} />
         </Link>
