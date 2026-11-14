@@ -9,7 +9,7 @@ import { mentorBio, mentorRole } from "@/lib/mentors";
 /**
  * Карточка ментора (Figma: card-mentor `1010:1323`, option neutral | dark-neutral × size). Отступы 36 / 40 / 20 (снизу 56),
  * внутри: аватар 90 (mobile 64) + имя (feature) и должность, био, внизу LinkedIn / Facebook и «View profile» (264; mobile — на всю ширину).
- * Desktop — высота от 472, подвал прижат к низу; tablet / mobile — подвал через 40. Фон: neutral → muted (`tone`).
+ * Desktop — высота от 472, подвал прижат к низу, от био не ближе 40 (gap-10 + flex-1; карточки ряда одной высоты); tablet / mobile — подвал через 40. Фон: neutral → muted (`tone`).
  * Только те кнопки соцсетей, ссылки на которые есть в Notion.
  */
 export function MentorCard({
@@ -26,7 +26,7 @@ export function MentorCard({
   return (
     <article
       className={[
-        "flex w-full flex-col gap-10 px-5 pt-5 pb-14 md:p-10 xl:min-h-118 xl:gap-5 xl:p-9",
+        "flex w-full flex-col gap-10 px-5 pt-5 pb-14 md:p-10 xl:min-h-118 xl:p-9",
         tone === "muted" ? "bg-bg-card-muted" : "bg-bg-card-neutral",
       ].join(" ")}
     >
