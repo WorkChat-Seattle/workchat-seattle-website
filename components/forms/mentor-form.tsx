@@ -5,7 +5,6 @@ import {
   MAX_TOPICS,
   MEET_OPTIONS,
   MENTOR_TOPICS,
-  OTHER_TOPIC,
   TIME_OPTIONS,
   parseForm,
 } from "@/data/forms";
@@ -24,7 +23,7 @@ import { Turnstile, type TurnstileHandle } from "./turnstile";
  * Отправка → /api/forms/mentor → Notion (Mentor cards + Volunteers). После успеха форма очищается, фокус — на начало формы.
  */
 export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }) {
-  const [v, setV] = useState({ name: "", email: "", linkedin: "", topics: [] as string[], otherTopic: "", time: [] as string[], meet: [] as string[] });
+  const [v, setV] = useState({ name: "", email: "", linkedin: "", topics: [] as string[], time: [] as string[], meet: [] as string[] });
   const [consent, setConsent] = useState(false);
   const [trap, setTrap] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -48,7 +47,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
     if (!consent) found.consent = l["form.required"];
     if (Object.keys(found).length) {
       setErrors(found);
-      const first = ["name", "email", "linkedin", "topics", "otherTopic", "time", "meet", "consent"].find((k) => found[k]);
+      const first = ["name", "email", "linkedin", "topics", "time", "meet", "consent"].find((k) => found[k]);
       document.getElementById(`mentor-${first}`)?.focus();
       return;
     }
@@ -59,7 +58,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
     turnstile.current?.reset();
     setSending(false);
     if (res.ok) {
-      setV({ name: "", email: "", linkedin: "", topics: [], otherTopic: "", time: [], meet: [] });
+      setV({ name: "", email: "", linkedin: "", topics: [], time: [], meet: [] });
       setConsent(false);
     }
     setResult(res.ok ? "success" : "error");
@@ -76,7 +75,6 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
     });
   };
 
-  const hasOther = v.topics.includes(OTHER_TOPIC);
   const count = (n: number) => l["form.selectedCount"].replace("{n}", String(n));
 
   return (
@@ -108,9 +106,6 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
             error={errors.topics}
             countText={count}
           />
-          {hasOther ? (
-            <TextField id="mentor-otherTopic" name="otherTopic" label={`${l["topic.Other"]} ${l["form.otherTopic"]}`} value={v.otherTopic} onChange={(x) => set("otherTopic", x)} error={errors.otherTopic} />
-          ) : null}
           <SelectField
             requiredText={l["a11y.required"]}
             id="mentor-time"

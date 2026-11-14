@@ -7,7 +7,7 @@
 export type FormKind = "mentor" | "volunteer" | "suggest-event";
 export const FORM_KINDS: readonly FormKind[] = ["mentor", "volunteer", "suggest-event"];
 
-/** Темы ментора (Mentor cards → Mentoring topics). Ключ = название в Notion = ключ словаря `topic.<ключ>`. 1–5, «Other» тоже считается. */
+/** Темы ментора (Mentor cards → Mentoring topics). Ключ = название в Notion = ключ словаря `topic.<ключ>`. 1–5 (вариант «Other» с текстовым полем убран 14.11). */
 export const MENTOR_TOPICS = [
   "Understanding the U.S. job market and workplace culture",
   "Translating international experience into a U.S. career",
@@ -23,10 +23,8 @@ export const MENTOR_TOPICS = [
   "Leadership and people management",
   "Developing skills in my professional field",
   "Starting or growing a business",
-  "Other",
 ] as const;
 export const MAX_TOPICS = 5;
-export const OTHER_TOPIC = "Other";
 
 /** Время в месяц (Mentor cards и Volunteers → Time per month). Ключ словаря `time.<ключ>`. */
 export const TIME_OPTIONS = [
@@ -59,7 +57,6 @@ export type MentorInput = {
   email: string;
   linkedin: string;
   topics: string[];
-  otherTopic: string;
   time: string;
   meet: string[];
 };
@@ -133,7 +130,6 @@ export function parseForm<K extends FormKind>(kind: K, raw: unknown): Result<K> 
       email: str(o.email).toLowerCase(),
       linkedin: str(o.linkedin),
       topics,
-      otherTopic: topics.includes(OTHER_TOPIC) ? str(o.otherTopic) : "",
       time: str(o.time),
       meet,
     };
@@ -142,7 +138,6 @@ export function parseForm<K extends FormKind>(kind: K, raw: unknown): Result<K> 
     v.linkedin = link("linkedin", v.linkedin, false);
     if (topics.length < 1) errors.topics = "required";
     else if (topics.length > MAX_TOPICS) errors.topics = "max";
-    if (topics.includes(OTHER_TOPIC)) need("otherTopic", v.otherTopic, LIMITS.short);
     if (!(TIME_OPTIONS as readonly string[]).includes(v.time)) errors.time = "required";
     if (meet.length < 1) errors.meet = "required";
     return Object.keys(errors).length ? { ok: false, errors } : ({ ok: true, value: v } as Result<K>);

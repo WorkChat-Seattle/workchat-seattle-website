@@ -32,8 +32,8 @@
 ### Форма ментора: «Which topics would you feel comfortable mentoring someone on?» * — чекбоксы, от 1 до 5
 - Подсказка: «Select up to five areas where you can offer the most relevant guidance.»
 - При 5 выбранных остальные варианты неактивны (`aria-disabled`).
-- Варианты: 1. Understanding the U.S. job market and workplace culture · 2. Translating international experience into a U.S. career · 3. Choosing a career direction · 4. Changing careers or industries · 5. Returning to work after a career break · 6. Job-search strategy · 7. Resume / LinkedIn / Portfolio feedback · 8. Networking and professional relationships · 9. Interview preparation · 10. Communication and self-advocacy at work · 11. Career advancement and promotion · 12. Leadership and people management · 13. Developing skills in my professional field · 14. Starting or growing a business · 15. Other: ___ (при выборе — текстовое поле, обязательное; «Other» считается в лимит 5).
-- Notion: Mentor cards → **Mentoring topics** (multi-select, названия = варианты формы) + **Other topic** (текст). Старое поле **Expertise** (Software Engineering, AI Engineering, Career switch…) — теги специализации для карточки на сайте, ставит команда; форма его не заполняет.
+- Варианты: 1. Understanding the U.S. job market and workplace culture · 2. Translating international experience into a U.S. career · 3. Choosing a career direction · 4. Changing careers or industries · 5. Returning to work after a career break · 6. Job-search strategy · 7. Resume / LinkedIn / Portfolio feedback · 8. Networking and professional relationships · 9. Interview preparation · 10. Communication and self-advocacy at work · 11. Career advancement and promotion · 12. Leadership and people management · 13. Developing skills in my professional field · 14. Starting or growing a business
+- Notion: Mentor cards → **Mentoring topics** (multi-select, названия = варианты формы) (вариант «Other» и поле **Other topic** из формы убраны 14.11; поле в Notion можно оставить для старых записей). Старое поле **Expertise** (Software Engineering, AI Engineering, Career switch…) — теги специализации для карточки на сайте, ставит команда; форма его не заполняет.
 
 ### Формы ментора и Volunteer: «How much time would you like to commit per month?» * — один вариант (одинаково в обеих формах)
 - Подсказка: «Include time for meetings and any preparation.»
@@ -88,7 +88,7 @@
 ### Become a mentor → Mentor cards + Volunteers
 **Mentor cards** (`collection://84fe6e56-5aa7-4bf0-ae3b-c6479eed6c25`), новая страница:
 - Name ← Your full name; Email ← Your email; LinkedIn ← Link to your LinkedIn profile
-- **Mentoring topics** (multi-select) ← Which topics…? (1–5); **Other topic** ← текст «Other: ___»
+- **Mentoring topics** (multi-select) ← Which topics…? (1–5)
 - **Time per month** (select) ← How much time would you like to commit per month?
 - **Meeting format** (multi-select) ← How would you prefer to meet?
 - Source = Website form; Status = Draft; Consent received — пусто (ставит команда после согласия на публикацию, включая email)

@@ -50,7 +50,7 @@ topic.Career advancement and promotion,Тема 11,Career advancement and promot
 topic.Leadership and people management,Тема 12,Leadership and people management,Лидерство и управление людьми,Вычитано,
 topic.Developing skills in my professional field,Тема 13,Developing skills in my professional field,Развитие профессиональных навыков,Вычитано,
 topic.Starting or growing a business,Тема 14,Starting or growing a business,Запуск или развитие бизнеса,Вычитано,
-topic.Other,Тема 15 (с текстовым полем),Other:,Другое:,Вычитано,Текст из поля идёт в Notion в Other topic как есть
+—,Тема 15 «Other» — УДАЛЕНА 14.11,—,—,Не переводить здесь,14.11: вариант «Other:» (Другое:) с текстовым полем убран из списка тем. Вместо него — поле mentorship.form.notes в конце формы. В списке теперь 14 тем.
 mentorship.form.time.label,Форма: время в месяц,How much time would you like to commit per month? *,Сколько времени в месяц вы готовы уделять? *,Вычитано,То же поле в форме Volunteer. 14.11: добавлена * — обязательное поле (неразрывный пробел перед *)
 mentorship.form.time.hint,Форма: подсказка,Include time for meetings and any preparation.,Учитывайте время на встречи и подготовку.,Вычитано,
 time.Up to 1 hour,Время: вариант 1,Up to 1 hour,До 1 часа,Вычитано,Ключ = значение в Notion (Time per month)
@@ -62,6 +62,7 @@ mentorship.form.meet.label,Форма: формат встреч,How would you p
 mentorship.form.meet.hint,Форма: подсказка,Select all that apply.,Можно выбрать несколько вариантов.,Вычитано,Та же подсказка в форме Volunteer
 meet.Online,Формат встреч: вариант 1,Online,Онлайн,Вычитано,Ключ = значение в Notion (Meeting format)
 meet.In person in the Seattle area,Формат встреч: вариант 2,In person in the Seattle area,Вживую (Сиэтл / Eastside),Вычитано,
+mentorship.form.notes,Форма: поле (необязательное),Anything else you’d like us to know?,Что ещё нам стоит о вас знать?,Итог,"Добавлено 14.11 вместо варианта «Other» в списке тем. Тот же текст, что volunteer.form.notes; многострочное поле как в форме Volunteer"
 mentorship.form.consent,Форма: согласие,"I understand that WorkChat Seattle will use my responses to review my mentorship form, as described in its Privacy Policy.","Я понимаю, что WorkChat Seattle использует мои ответы для рассмотрения анкеты ментора в соответствии с Политикой конфиденциальности.",Вычитано,«Политике конфиденциальности» — ссылка на /privacy-policy
 mentorship.form.submit,Форма: кнопка,Submit,Отправить заявку,Вычитано,Решено 10.11: длинная подпись заменена на «Submit»
 mentorship.faq.title,FAQ: заголовок,Frequently Asked Questions,Частые вопросы,Вычитано,Источник EN-текста — Google Doc «FAQ Mentorship»
