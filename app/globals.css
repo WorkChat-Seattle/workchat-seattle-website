@@ -161,6 +161,7 @@
   /* 7. Параллакс (≥1280) */
   --parallax-shift: 60px;
   --parallax-shift-community: 120px;
+  --parallax-shift-volunteer: 80px; /* Volunteer roles: максимум подъёма столбцов (= зазор до вводного текста) */
   --parallax-gain-community: 400; /* скорость 0.25 → 100 px на краях видимого диапазона */
 
   /* 8. Numbers: путь колонок от выровненного положения (v2: 200 и 200 + 150) */

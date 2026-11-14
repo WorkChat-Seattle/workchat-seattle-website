@@ -22,7 +22,7 @@ export function VolunteerRoles({ t }: { t: Dictionary }) {
   return (
     <section
       aria-label={t["volunteer.hero.title"]}
-      className="mx-auto mt-20 max-w-300 px-5 md:mt-10 md:px-10 xl:mt-40 xl:px-0"
+      className="mx-auto mt-20 max-w-300 px-5 md:mt-10 md:px-10 xl:mt-20 xl:px-0"
     >
       <RolesGrid tiles={tiles} moreLabel={t["volunteer.roles.more"]} />
     </section>

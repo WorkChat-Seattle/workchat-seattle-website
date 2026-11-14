@@ -166,9 +166,10 @@ export function ParallaxColumns({ className, children }: { className?: string; c
 }
 
 /**
- * Volunteer roles: четыре столбца карточек плывут по вертикали с разной скоростью (как фото Community, п. 7):
- * у каждой карточки внутри есть `data-parallax-speed`, смещение = norm × speed × `--parallax-gain-community`, не больше
- * `--parallax-shift-community`. norm: +1 — секция только что показалась снизу, 0 — по центру (там выровнено как в макете), −1 — ушла вверх.
+ * Volunteer roles: четыре столбца карточек плывут по вертикали с разной скоростью (как фото Community, п. 7).
+ * В начале страницы смещение 0 — карточки стоят ровно по макету (80 px от вводного текста); дальше столбец уезжает вверх
+ * на `прокрутка / (высота секции / 2 + высота экрана / 2) × speed × --parallax-gain-community`, не больше
+ * `--parallax-shift-volunteer` (80 px — не больше зазора до текста). У каждой карточки внутри `data-parallax-speed`.
  * Двигаем свойством `translate`, а не `transform`: transform занят появлением при прокрутке (data-reveal-grid).
  * Обёртка `display: contents` — на раскладку не влияет; опорная секция — ближайшая <section>.
  */
@@ -180,14 +181,12 @@ export function ParallaxTiles({ children }: { children: ReactNode }) {
     () => ref.current?.closest("section") ?? null,
     (el) => {
       const section = el.closest("section")!;
-      const max = cssNumber("--parallax-shift-community", 120);
+      const max = cssNumber("--parallax-shift-volunteer", 80);
       const gain = cssNumber("--parallax-gain-community", 400);
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const norm = (rect.top + rect.height / 2 - vh / 2) / (rect.height / 2 + vh / 2);
+      const norm = window.scrollY / (section.offsetHeight / 2 + window.innerHeight / 2);
       tiles(el).forEach((tile) => {
         const speed = Number(tile.dataset.parallaxSpeed);
-        const y = Math.max(-max, Math.min(max, norm * speed * gain));
+        const y = Math.max(-max, Math.min(0, -norm * speed * gain));
         tile.style.translate = `0 ${y.toFixed(1)}px`;
       });
     },
