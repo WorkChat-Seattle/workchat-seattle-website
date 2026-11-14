@@ -19,11 +19,11 @@ export type TestimonialItem = {
 /** Подписи из словаря; `slideN` — шаблон с {n} и {total} (a11y.slideN). */
 export type SliderLabels = { prev: string; next: string; slideN: string };
 
-/** Карточка отзыва (Figma: card-testimonial `1084:10455`, tablet 640×610, mobile 330×723, desktop 900×558, padding 80/40/80/40). */
+/** Карточка отзыва (Figma: card-testimonial `1084:10455`, tablet 640×610, mobile 330×723, desktop 900×535 (min-height: фото 375 + 80 + 80), padding 80/40/0/40, items-start; растёт, только если текст не помещается). */
 function Card({ item, readMore }: { item: TestimonialItem; readMore: string }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <article className="relative flex h-full flex-col gap-5 bg-bg-card-neutral p-5 md:min-h-152.5 md:flex-row md:gap-16 md:p-10 xl:min-h-139.5 xl:gap-8 xl:px-10 xl:py-20">
+    <article className="relative flex h-full flex-col gap-5 bg-bg-card-neutral p-5 md:min-h-152.5 md:flex-row md:gap-16 md:p-10 xl:min-h-133.75 xl:items-start xl:gap-8 xl:px-10 xl:pt-20 xl:pb-0">
       {/* фото на весь круг под кольцом 20 (decor/card-outline, 90% белого) — как обводка внутри круга в Figma */}
       <RingPhoto src={item.photo} width={375} ring="border-20" className="size-72.5 md:size-60 xl:size-93.75" />
       <svg
