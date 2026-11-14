@@ -99,7 +99,7 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
               {/* ниже xl «contents»: детали (order 2) и «Video recording» (order 4, под кнопками Register / Share, зазор 10) идут в общей колонке;
                   на desktop — правая колонка: детали сверху, «Video recording» 150 внизу на линии низа кнопок слева */}
               <div className="contents xl:flex xl:flex-col xl:justify-between">
-                <div className="order-2 mt-5 flex flex-col gap-5 xl:mt-0">
+                <div className="order-2 mt-5 flex flex-col gap-4 xl:mt-0">
                   <EventDetail type="date">{formatDate(event.start, lang)}</EventDetail>
                   <EventDetail type="time">{formatTime(event.start, event.end, lang)}</EventDetail>
                   <EventDetail type="location">{locationLabel(event, t["format.Online"])}</EventDetail>

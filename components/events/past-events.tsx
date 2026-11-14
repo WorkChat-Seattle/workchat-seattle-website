@@ -105,7 +105,7 @@ export function PastEvents({
                 </ButtonLink>
               </div>
               <div className="contents xl:flex xl:w-65 xl:flex-col xl:justify-between xl:border-l xl:border-border-divider xl:pl-5">
-                <div className="order-2 mt-10 flex flex-col gap-5 md:mt-5 xl:mt-0">
+                <div className="order-2 mt-10 flex flex-col gap-4 md:mt-5 xl:mt-0">
                   <EventDetail type="date">{e.date}</EventDetail>
                   <EventDetail type="location">{e.place}</EventDetail>
                 </div>

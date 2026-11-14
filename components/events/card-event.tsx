@@ -46,7 +46,7 @@ export function CardEvent({
           <h2 className="text-event-title text-text-heading xl:max-w-118.25">{eventTitle(event, lang)}</h2>
           <p className="text-body text-text-body xl:max-w-93.5">{eventShort(event, lang)}</p>
         </div>
-        <div className="flex flex-col gap-5 md:flex-row xl:flex-1">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-5 xl:flex-1">
           <EventDetail type="date">{formatDate(event.start, lang)}</EventDetail>
           <EventDetail type="location">{locationLabel(event, t["format.Online"])}</EventDetail>
         </div>
