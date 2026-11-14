@@ -147,10 +147,11 @@
   --card-scale: 1.02;
   --duration-team-bio: 400ms; /* плашка био выезжает снизу и уезжает обратно (Our Team); в v2 нет, длительность и кривая — как у карточек */
   --zeffy-inset: 24px; /* внутренний отступ формы Zeffy слева и справа (измерено по заголовку «Stay connected»): компенсируем на desktop */
-  --round-scale: 1.2; /* круглые кнопки: стрелки слайдера и соцсети — scale(1.2) за 350 ms (v2: .vbtn .round-btn, .social-btn) */
+  --social-scale: 1.1; /* соцкнопки: на hover только scale(1.1), цвет не меняется (макет 14.11) */
+  --round-scale: 1.2; /* круглые кнопки: стрелки слайдера — scale(1.2) за 350 ms (v2: .vbtn .round-btn) */
 
   /* 5. Логотип: «печатает…» */
-  --duration-logo-dot: 1200ms;
+  --duration-logo-dot: 900ms; /* было 1200 ms; на 25% быстрее (14.11) */
   --logo-dot-lift: -3px;
 
   /* 6. Шапка при прокрутке */
@@ -194,6 +195,7 @@
   /* 12. FAQ */
   --ease-faq: ease-out;
   --duration-faq: 350ms;
+  --duration-faq-hover: 300ms; /* смена цвета строки при hover, в обе стороны */
 }
 
 /* ==========================================================================
@@ -300,10 +302,14 @@
   text-transform: uppercase;
 }
 
+/* feature: 20 на mobile и tablet (mobile/feature, tablet/feature), 18 на desktop */
 @utility text-feature {
   font-size: 20px;
   line-height: 1;
   font-weight: 500;
+  @media (width >= theme(--breakpoint-xl)) {
+    font-size: 18px;
+  }
 }
 
 @utility text-body-bold-accent {
@@ -547,11 +553,11 @@
   }
   a:hover .logo-dot-2,
   a:focus-visible .logo-dot-2 {
-    animation-delay: 0.15s;
+    animation-delay: 0.1125s;
   }
   a:hover .logo-dot-3,
   a:focus-visible .logo-dot-3 {
-    animation-delay: 0.3s;
+    animation-delay: 0.225s;
   }
 }
 

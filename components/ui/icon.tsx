@@ -21,7 +21,7 @@ const glyphs: Record<IconType, string> = {
  */
 export function Icon({
   type,
-  className = "size-5",
+  className = "size-5 shrink-0",
 }: {
   type: IconType;
   className?: string;

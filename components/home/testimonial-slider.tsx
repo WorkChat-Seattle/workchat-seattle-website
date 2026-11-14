@@ -19,11 +19,11 @@ export type TestimonialItem = {
 /** Подписи из словаря; `slideN` — шаблон с {n} и {total} (a11y.slideN). */
 export type SliderLabels = { prev: string; next: string; slideN: string };
 
-/** Карточка отзыва (Figma: card-testimonial `1084:10455`, tablet 640×610, mobile 330×723, desktop 900×518). */
+/** Карточка отзыва (Figma: card-testimonial `1084:10455`, tablet 640×610, mobile 330×723, desktop 900×558, padding 80/40/80/40). */
 function Card({ item, readMore }: { item: TestimonialItem; readMore: string }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <article className="relative flex h-full flex-col gap-5 bg-bg-card-neutral p-5 md:min-h-152.5 md:flex-row md:gap-16 md:p-10 xl:min-h-129.5 xl:gap-8 xl:pt-20 xl:pr-10 xl:pb-10 xl:pl-10">
+    <article className="relative flex h-full flex-col gap-5 bg-bg-card-neutral p-5 md:min-h-152.5 md:flex-row md:gap-16 md:p-10 xl:min-h-139.5 xl:gap-8 xl:px-10 xl:py-20">
       {/* фото на весь круг под кольцом 20 (decor/card-outline, 90% белого) — как обводка внутри круга в Figma */}
       <RingPhoto src={item.photo} width={375} ring="border-20" className="size-72.5 md:size-60 xl:size-93.75" />
       <svg
@@ -33,7 +33,7 @@ function Card({ item, readMore }: { item: TestimonialItem; readMore: string }) {
       >
         <path d={quoteMarkPath} />
       </svg>
-      <div className="flex min-w-0 flex-col gap-5 md:w-64 md:flex-none xl:w-97.5">
+      <div className="flex min-w-0 flex-col gap-5 md:w-64 md:flex-none xl:w-auto xl:flex-1">
         <h3 className="text-h3 text-text-body">{item.lead}</h3>
         <p
           className={`text-body whitespace-pre-line text-text-body ${expanded ? "" : "max-md:line-clamp-4"}`}

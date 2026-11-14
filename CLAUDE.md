@@ -69,7 +69,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 |---|---|---|---|---|---|
 | < 768 | 390 | 20 | резиновый | 80 | 20 |
 | 768–1279 | 768 | 40 | резиновый, 4 колонки (172 при 768, без зазоров; направляющие 40/212/384/556/728) | 120 | 20 |
-| ≥ 1280 | 1440 / 1920 | авто | `max-width: 1200px`, по центру | 160 | 40 |
+| ≥ 1280 | 1440 / 1920 | авто | `max-width: 1200px`, по центру | 160 | 20 (с 14.11, было 40) |
 
 - **Desktop:** контейнер 1200, на 1440 поля по 120, на 1920 — по 360. Полноширинные фоны секций, subscribe и footer идут на всю ширину окна, контент внутри них — в контейнере 1200.
 - **Tablet (по макету 768):**
@@ -192,7 +192,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 Общие для всех брейкпоинтов:
 - body — Regular 16 / 130%;
 - caption — 16 / 110%, −3%, UPPERCASE;
-- feature — Medium 20 / 100%;
+- feature — Medium 100%: 18 на desktop (≥1280), 20 на tablet и mobile (в Figma mobile/feature и tablet/feature);
 - body-bold-accent — Bold 16 / 130%;
 - body-italic-accent — Bold Italic 16 / 100%;
 - button-selected — Bold 16, −2% (активный пункт меню).

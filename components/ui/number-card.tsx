@@ -8,7 +8,7 @@ const option: Record<NumberCardOption, string> = {
 
 /**
  * Карточка с цифрой (Figma: number-card `1075:3170`, option light | neutral | muted — три близких тона).
- * desktop 300×210, padding 36; tablet 172×172 и mobile 175×175, padding 20. Число — стиль numbers,
+ * desktop 300×210, padding 36; tablet 172×172 и mobile 175×175, padding 20. Число — стиль numbers, не переносится (пробел внутри — неразрывный),
  * подпись — caption (капслок); подпись прижата к низу.
  */
 export function NumberCard({
@@ -32,7 +32,7 @@ export function NumberCard({
         .filter(Boolean)
         .join(" ")}
     >
-      <p className="text-numbers text-text-heading">{value}</p>
+      <p className="text-numbers whitespace-nowrap text-text-heading">{value.replace(/ /g, "\u00A0")}</p>
       <p className="text-caption text-text-body">{label}</p>
     </div>
   );

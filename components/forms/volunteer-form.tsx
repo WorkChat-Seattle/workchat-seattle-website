@@ -3,7 +3,7 @@
 import { type FormEvent, useRef, useState } from "react";
 import { HELP_OPTIONS, MENTOR_LINK_PHRASE, TIME_OPTIONS, LIMITS, parseForm } from "@/data/forms";
 import { type Locale, localePath } from "@/i18n/config";
-import { PRIVACY_LINK_TEXT } from "@/lib/constants";
+import { PRIVACY_LINK_CONSENT } from "@/lib/constants";
 import { linkPhrase } from "@/lib/rich";
 import { Checkbox } from "./checkbox";
 import { MessageDialog } from "./dialog";
@@ -146,7 +146,7 @@ export function VolunteerForm({ lang, labels: l }: { lang: Locale; labels: Label
             invalid={!!errors.consent}
             describedBy={errors.consent ? "volunteer-consent-error" : undefined}
           >
-            {consentText(l["volunteer.form.consent"], PRIVACY_LINK_TEXT[lang])}
+            {consentText(l["volunteer.form.consent"], PRIVACY_LINK_CONSENT[lang])}
           </Checkbox>
           <FieldError id="volunteer-consent-error">{errors.consent}</FieldError>
         </div>

@@ -10,7 +10,8 @@ const paths: Record<Network, string> = {
 
 /**
  * Круглая кнопка-ссылка на соцсеть (Figma: button-social `1003:8087`, 50×50).
- * Default: тёмный круг, светлый глиф. Hover: белый круг, тёмный глиф и увеличение scale(1.2) за 350 ms (как в v2).
+ * Тёмный круг, светлый глиф. Hover / focus: цвета не меняются (в макете hover = default), только увеличение scale(1.1)
+ * за 350 ms (`--social-scale`); при prefers-reduced-motion — без анимации.
  * Открывается в новой вкладке; `label` — подпись для скринридера (a11y.linkedin / a11y.facebook), к ней добавляется `newTabLabel` (a11y.newTab).
  */
 export function ButtonSocial({
@@ -33,7 +34,7 @@ export function ButtonSocial({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${label} ${newTabLabel}`}
-      className={["group inline-flex shrink-0 rounded-full transition-transform duration-(--duration-card-scale) ease-card motion-reduce:transition-none motion-safe:hover:scale-(--round-scale) motion-safe:focus-visible:scale-(--round-scale)", className].filter(Boolean).join(" ")}
+      className={["inline-flex shrink-0 rounded-full transition-transform duration-(--duration-card-scale) ease-card motion-reduce:transition-none motion-safe:hover:scale-(--social-scale) motion-safe:focus-visible:scale-(--social-scale)", className].filter(Boolean).join(" ")}
       {...rest}
     >
       <svg className="size-12.5" viewBox="0 0 50 50" aria-hidden="true">
@@ -41,11 +42,11 @@ export function ButtonSocial({
           cx="25"
           cy="25"
           r="25"
-          className="fill-button-dark group-hover:fill-button-white group-focus-visible:fill-button-white"
+          className="fill-button-dark"
         />
         <path
           d={paths[network]}
-          className="fill-button-text-light group-hover:fill-button-dark group-focus-visible:fill-button-dark"
+          className="fill-button-text-light"
         />
       </svg>
     </a>

@@ -4,7 +4,7 @@ import { type FormEvent, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { parseForm, LIMITS } from "@/data/forms";
 import type { Locale } from "@/i18n/config";
-import { PRIVACY_LINK_TEXT } from "@/lib/constants";
+import { PRIVACY_LINK_CONSENT } from "@/lib/constants";
 import { Checkbox } from "./checkbox";
 import { Dialog, MessageDialog } from "./dialog";
 import { type Labels, Honeypot, SubmitButton, consentText, errorTexts, postForm } from "./form-parts";
@@ -109,7 +109,7 @@ export function SuggestEvent({ lang, labels: l, buttonClassName }: { lang: Local
                 invalid={!!errors.consent}
                 describedBy={errors.consent ? "suggest-consent-error" : undefined}
               >
-                {consentText(l["events.suggest.consent"], PRIVACY_LINK_TEXT[lang])}
+                {consentText(l["events.suggest.consent"], PRIVACY_LINK_CONSENT[lang])}
               </Checkbox>
               <FieldError id="suggest-consent-error">{errors.consent}</FieldError>
             </div>

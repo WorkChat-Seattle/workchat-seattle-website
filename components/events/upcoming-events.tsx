@@ -27,7 +27,7 @@ export function UpcomingEvents({ events, lang, t }: { events: EventItem[]; lang:
           ))}
         </ul>
       ) : (
-        <div className="mt-10 flex flex-col gap-5 md:pl-43 xl:max-w-150 xl:gap-10 xl:pl-75">
+        <div className="mt-10 flex flex-col gap-5 md:pl-43 xl:max-w-150 xl:pl-75">
           <p data-reveal="now" className="text-h3 text-text-heading">{t["events.empty.lead"]}</p>
           <p data-reveal="now" className="text-body text-text-body">{t["events.empty.text"]}</p>
         </div>

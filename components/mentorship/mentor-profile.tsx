@@ -39,7 +39,7 @@ export function MentorProfile({ mentor, lang, t }: { mentor: Mentor; lang: Local
         {mentorBio(mentor, lang)}
       </p>
       {expertise.length || industry.length || mentor.email ? (
-        <div className="flex flex-col gap-5 md:col-span-2 xl:col-span-1 xl:col-start-2 xl:mt-5 xl:gap-10">
+        <div className="flex flex-col gap-5 md:col-span-2 xl:col-span-1 xl:col-start-2 xl:gap-10">
           {expertise.length || industry.length ? (
             <dl className="text-body flex flex-col gap-2.5 text-text-body xl:flex-row xl:gap-35">
               {expertise.length ? (

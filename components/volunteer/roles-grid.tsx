@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ParallaxTiles } from "@/components/ui/parallax";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import type { Photo } from "@/data/volunteer";
 import s from "./roles.module.css";
@@ -11,6 +12,17 @@ const tone = { neutral: "bg-bg-card-neutral", dark: "bg-bg-card-dark" } as const
 export type TileView =
   | { kind: "photo"; id: string; images: Photo["images"] }
   | { kind: "role"; id: string; tone: "neutral" | "dark"; title: string; text: string };
+
+/**
+ * Скорость параллакса по столбцам desktop (animations.md, п. 13): столбец определяется порядком в roles.module.css
+ * (1: photo1, speak, resources; 2: events, photo2, connect; 3: programs, operations, photo3; 4: photo4, mentor, stories).
+ */
+const columnSpeed: Record<string, number> = {
+  photo1: 0.12, speak: 0.12, resources: 0.12,
+  events: 0.3, photo2: 0.3, connect: 0.3,
+  programs: 0.18, operations: 0.18, photo3: 0.18,
+  photo4: 0.24, mentor: 0.24, stories: 0.24,
+};
 
 /** Сколько плиток видно на mobile до нажатия кнопки: фото, Share what you know, Bring events to life, Keep things running. */
 const VISIBLE_ON_MOBILE = 4;
@@ -30,6 +42,7 @@ export function RolesGrid({ tiles, moreLabel }: { tiles: TileView[]; moreLabel: 
 
   return (
     <>
+      <ParallaxTiles>
       <ul data-reveal-grid className={`${s.grid} flex flex-col`}>
         {tiles.map((tile, i) => {
           const hidden = !expanded && i >= VISIBLE_ON_MOBILE ? "max-md:hidden" : "";
@@ -40,6 +53,7 @@ export function RolesGrid({ tiles, moreLabel }: { tiles: TileView[]; moreLabel: 
               id={`vol-${tile.id}`}
               ref={ref}
               tabIndex={-1}
+              data-parallax-speed={columnSpeed[tile.id]}
               className={`${s.tile} ${s[tile.id]} relative h-60 md:aspect-square md:h-auto xl:aspect-auto ${hidden}`}
             >
               <ResponsiveImage
@@ -55,6 +69,7 @@ export function RolesGrid({ tiles, moreLabel }: { tiles: TileView[]; moreLabel: 
               id={`vol-${tile.id}`}
               ref={ref}
               tabIndex={-1}
+              data-parallax-speed={columnSpeed[tile.id]}
               className={`${s.tile} ${s[tile.id]} flex flex-col justify-between gap-4 px-5 py-10 md:min-h-86 md:p-10 xl:min-h-0 xl:p-9 ${tone[tile.tone]} ${hidden}`}
             >
               <h2 className="text-h3 text-text-heading">{tile.title}</h2>
@@ -63,6 +78,7 @@ export function RolesGrid({ tiles, moreLabel }: { tiles: TileView[]; moreLabel: 
           );
         })}
       </ul>
+      </ParallaxTiles>
       {!expanded ? (
         <Button
           option="outlined"

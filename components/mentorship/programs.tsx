@@ -5,7 +5,7 @@ import type { Dictionary, TextKey } from "@/i18n/dictionaries";
 
 /**
  * Программы (Figma: programs `1088:1740`; tablet `1240:15266`, mobile `1135:11606`; card-program `1013:1367`).
- * Заголовок: desktop от x=300, tablet со 2-й колонки; заголовок → текст 40 / 20 / 20; до карточек 40. Карточка bg/card-neutral:
+ * Заголовок: desktop от x=300, tablet со 2-й колонки; заголовок → текст 20; до карточек 40. Карточка bg/card-neutral:
  * desktop 1200×300 (логотип 220 в белом квадрате, текст и кнопка 316, справа колонка цены 260 с линией слева),
  * tablet — логотип 172, справа тема и описание, под ними цена и кнопка 316; mobile — логотип в белой плашке 120 сверху, ниже
  * тема, описание, цена, кнопка на всю ширину. Зазор между карточками 10 / 20 / 20. Кнопки — внешние ссылки (новая вкладка).
@@ -21,7 +21,7 @@ export function Programs({ t }: { t: Dictionary }) {
         <h2 data-reveal id="programs-title" className="text-h2 text-text-heading">
           {t["mentorship.programs.title"]}
         </h2>
-        <p data-reveal className="text-body mt-5 text-text-body xl:mt-10 xl:max-w-150">{t["mentorship.programs.text"]}</p>
+        <p data-reveal className="text-body mt-5 text-text-body xl:max-w-150">{t["mentorship.programs.text"]}</p>
       </div>
       <ul data-reveal-grid className="mt-10 flex flex-col gap-5 xl:gap-2.5">
         {programs.map((p) => {
@@ -44,7 +44,7 @@ export function Programs({ t }: { t: Dictionary }) {
                   <p className="text-caption text-text-heading">{t[`mentorship.programs.${p.id}.tags` as TextKey]}</p>
                   <p className="text-body text-text-body xl:max-w-137.75">{t[`mentorship.programs.${p.id}.text` as TextKey]}</p>
                 </div>
-                <div className="flex flex-col justify-end xl:absolute xl:top-0 xl:right-0 xl:h-full xl:w-65 xl:border-l xl:border-border-divider xl:pl-5">
+                <div className="flex flex-col justify-end xl:absolute xl:top-0 xl:right-0 xl:h-full xl:w-65 xl:border-l xl:border-border-divider xl:gap-1 xl:pl-5">
                   <p className="text-h3 text-text-body">{priceHead}</p>
                   {priceRest.length ? <p className="text-body text-text-body">{priceRest.join("\n")}</p> : null}
                 </div>

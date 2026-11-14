@@ -10,7 +10,7 @@ import {
   parseForm,
 } from "@/data/forms";
 import type { Locale } from "@/i18n/config";
-import { PRIVACY_LINK_TEXT } from "@/lib/constants";
+import { PRIVACY_LINK_CONSENT } from "@/lib/constants";
 import { Checkbox } from "./checkbox";
 import { MessageDialog } from "./dialog";
 import { type Labels, Honeypot, SubmitButton, consentText, errorTexts, postForm } from "./form-parts";
@@ -145,7 +145,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
             invalid={!!errors.consent}
             describedBy={errors.consent ? "mentor-consent-error" : undefined}
           >
-            {consentText(l["mentorship.form.consent"], PRIVACY_LINK_TEXT[lang])}
+            {consentText(l["mentorship.form.consent"], PRIVACY_LINK_CONSENT[lang])}
           </Checkbox>
           <FieldError id="mentor-consent-error">{errors.consent}</FieldError>
         </div>

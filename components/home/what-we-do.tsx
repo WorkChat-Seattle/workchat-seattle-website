@@ -28,7 +28,7 @@ export function WhatWeDo({ lang, t }: { lang: Locale; t: Dictionary }) {
       aria-labelledby="what-we-do-title"
       className="mx-auto mt-20 max-w-300 px-5 md:mt-30 md:px-10 xl:mt-40 xl:px-0"
     >
-      <div className="flex flex-col gap-5 md:pl-43 xl:gap-10 xl:pl-75">
+      <div className="flex flex-col gap-5 md:pl-43 xl:pl-75">
         <h2 data-reveal id="what-we-do-title" className="text-h2 text-text-heading">
           {t["home.whatWeDo.title"]}
         </h2>

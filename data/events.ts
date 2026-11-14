@@ -44,7 +44,7 @@ export const events: EventItem[] = [
   {
     "slug": "career-longevity-navigating-stress",
     "title": "Career Longevity: Navigating Stress in the Corporate World",
-    "titleRu": "Карьерное долголетие: как справляться со стрессом",
+    "titleRu": "Карьерное долголетие и стресс",
     "start": "2026-07-08T18:30:00.000-07:00",
     "end": "2026-07-08T20:00:00.000-07:00",
     "language": "English",
@@ -60,7 +60,7 @@ export const events: EventItem[] = [
       "Well-Being"
     ],
     "short": "A one-hour webinar on managing workplace stress and preventing burnout. Identify your key stressors and discover strategies to protect your energy.",
-    "shortRu": "Часовой вебинар о том, как справляться со стрессом на работе и не доводить себя до выгорания. Определите свои главные стрессоры и узнайте, как беречь свою энергию.",
+    "shortRu": "Часовой вебинар о том, как справляться со стрессом на работе и не доводить себя до выгорания.",
     "description": [
       {
         "type": "p",
@@ -223,7 +223,7 @@ export const events: EventItem[] = [
       "Networking"
     ],
     "short": "Join us for an in-person meetup focused on work, careers, and professional growth.",
-    "shortRu": "Приходите на живую встречу с уклоном на работу, карьеру и профессиональное развитие.",
+    "shortRu": "Приходите на живую встречу с уклоном в работу, карьеру и профессиональное развитие.",
     "description": [
       {
         "type": "p",
@@ -271,7 +271,7 @@ export const events: EventItem[] = [
         "type": "p",
         "runs": [
           {
-            "text": "Приходите на живую встречу с уклоном на работу, карьеру и профессиональное развитие. Хочется поговорить о том, чем вы занимаетесь, обменяться опытом, познакомиться с интересными историями и, возможно, обсудить новые возможности."
+            "text": "Приходите на живую встречу с уклоном в работу, карьеру и профессиональное развитие. Хочется поговорить о том, чем вы занимаетесь, обменяться опытом, познакомиться с интересными историями и, возможно, обсудить новые возможности."
           }
         ]
       },
@@ -290,7 +290,7 @@ export const events: EventItem[] = [
   {
     "slug": "how-ai-is-changing-professions-and-recruiting",
     "title": "How AI Is Changing Professions and Recruiting",
-    "titleRu": "Как AI меняет профессии и что происходит в рекрутинге?",
+    "titleRu": "Как AI меняет профессии и рекрутинг?",
     "start": "2026-09-26T10:30:00.000-07:00",
     "end": "2026-09-26T12:00:00.000-07:00",
     "language": "Russian",
@@ -625,7 +625,7 @@ export const events: EventItem[] = [
         "type": "p",
         "runs": [
           {
-            "text": "К встрече также присоединится Natalya Masyago.\nНаталья только что сменила роль: из химика и программного менеджера в биотехе стала AI Builder в медтехе (healthcare tech)."
+            "text": "К встрече также присоединится Наталья Масяго. Наталья только что сменила роль: из химика и программного менеджера в биотехе стала AI Builder в медтехе (healthcare tech)."
           }
         ]
       },
@@ -642,14 +642,6 @@ export const events: EventItem[] = [
         "runs": [
           {
             "text": "Присоединяйтесь, чтобы узнать:\n• как проходил переход из QA Automation в AI Engineer\n• чем на самом деле занимается AI Engineer\n• какие навыки из QA помогают в AI\n• с чего начать, если вы тоже думаете о переходе."
-          }
-        ]
-      },
-      {
-        "type": "p",
-        "runs": [
-          {
-            "text": "Пишите ваши вопросы для встречи по ссылке https://forms.gle/YsAktfUS5y2cxUwJ7"
           }
         ]
       }

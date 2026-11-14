@@ -19,7 +19,7 @@ export function PrivacyPolicy() {
       <div className={column}>
         <div className="xl:max-w-150">
           <h1 data-reveal="now" className="text-h2 text-text-heading">{title}</h1>
-          <div data-reveal="now" className="mt-5 xl:mt-10">
+          <div data-reveal="now" className="mt-5">
             <p className="text-caption text-text-body">{effectiveDate}</p>
             <p className="text-body mt-5 text-text-body">{intro}</p>
           </div>
@@ -41,7 +41,7 @@ export function PrivacyPolicy() {
       <div data-reveal className={`${column} mt-10`}>
         <div className="xl:max-w-150">
           <h2 className="text-h3 text-text-heading">{contact.title}</h2>
-          <div className="mt-5 flex flex-col gap-5 text-body text-text-body xl:mt-10">
+          <div className="mt-5 flex flex-col gap-5 text-body text-text-body">
             {contact.body.map((p, i) => (
               <p key={i} className="whitespace-pre-line">
                 {autoLink(p)}

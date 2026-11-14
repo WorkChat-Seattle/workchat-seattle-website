@@ -4,7 +4,7 @@ import { RolesGrid, type TileView } from "./roles-grid";
 
 /**
  * Роли волонтёров (Figma: volunteer-roles `1088:1733`; tablet `1240:15711`, mobile `1145:11795`). Тексты собираются на сервере,
- * сетка и кнопка «More ways to contribute» (mobile) — клиентский `RolesGrid`. Отступ сверху 160 / 40 / 80
+ * сетка и кнопка «More ways to contribute» (mobile) — клиентский `RolesGrid`. Отступ сверху 80 / 40 / 80
  * (на tablet 40 — внутренний отступ блока в макете), на mobile кнопка под сеткой через 20.
  */
 export function VolunteerRoles({ t }: { t: Dictionary }) {

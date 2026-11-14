@@ -10,6 +10,9 @@ export const SITE_NAME = "WorkChat Seattle";
 /** Текст ссылки на Privacy Policy внутри фраз (подпись Subscribe, согласия): так он записан в таблице текстов. */
 export const PRIVACY_LINK_TEXT = { en: "Privacy Policy", ru: "Политики конфиденциальности" } as const;
 
+/** То же в чекбоксах согласия в формах: по-русски там творительный падеж («в соответствии с Политикой конфиденциальности»). */
+export const PRIVACY_LINK_CONSENT = { en: "Privacy Policy", ru: "Политикой конфиденциальности" } as const;
+
 /**
  * Resource Hub на Home временно скрыт (12.11): контент не готов. Код, картинки и тексты на месте;
  * при false секция не рендерится вообще (в HTML от неё ничего нет, ни в EN, ни в RU).
