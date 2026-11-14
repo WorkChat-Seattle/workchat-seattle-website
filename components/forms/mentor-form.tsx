@@ -15,7 +15,7 @@ import { Checkbox } from "./checkbox";
 import { MessageDialog } from "./dialog";
 import { type Labels, Honeypot, SubmitButton, consentText, errorTexts, postForm } from "./form-parts";
 import { SelectField } from "./select-field";
-import { FieldError, TextField } from "./text-field";
+import { FieldError, TextField, RequiredNote } from "./text-field";
 import { Turnstile, type TurnstileHandle } from "./turnstile";
 
 /**
@@ -91,6 +91,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
       >
         <Honeypot value={trap} onChange={setTrap} />
         <div className="flex flex-col gap-2.5">
+          <RequiredNote>{l["form.requiredNote"]}</RequiredNote>
           <TextField id="mentor-name" name="name" autoComplete="name" label={l["form.name"]} value={v.name} onChange={(x) => set("name", x)} error={errors.name} />
           <TextField id="mentor-email" name="email" type="email" autoComplete="email" label={l["form.email"]} value={v.email} onChange={(x) => set("email", x)} error={errors.email} />
           <TextField id="mentor-linkedin" name="linkedin" type="url" autoComplete="url" label={l["form.linkedin"]} value={v.linkedin} onChange={(x) => set("linkedin", x)} error={errors.linkedin} />
@@ -143,6 +144,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
               if (x) setErrors((e) => ({ ...e, consent: "" }));
             }}
             invalid={!!errors.consent}
+            required
             describedBy={errors.consent ? "mentor-consent-error" : undefined}
           >
             {consentText(l["mentorship.form.consent"], PRIVACY_LINK_CONSENT[lang])}

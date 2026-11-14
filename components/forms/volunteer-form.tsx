@@ -9,7 +9,7 @@ import { Checkbox } from "./checkbox";
 import { MessageDialog } from "./dialog";
 import { type Labels, Honeypot, SubmitButton, consentText, errorTexts, postForm } from "./form-parts";
 import { SelectField } from "./select-field";
-import { FieldError, TextArea, TextField } from "./text-field";
+import { FieldError, TextArea, TextField, RequiredNote } from "./text-field";
 import { Turnstile, type TurnstileHandle } from "./turnstile";
 
 const EMPTY = { name: "", email: "", linkedin: "", help: [] as string[], time: [] as string[], notes: "" };
@@ -106,6 +106,7 @@ export function VolunteerForm({ lang, labels: l }: { lang: Locale; labels: Label
       >
         <Honeypot value={trap} onChange={setTrap} />
         <div className="flex flex-col gap-2.5">
+          <RequiredNote>{l["form.requiredNote"]}</RequiredNote>
           <TextField id="volunteer-name" name="name" autoComplete="name" label={l["form.name"]} value={v.name} onChange={(x) => set("name", x)} error={errors.name} />
           <TextField id="volunteer-email" name="email" type="email" autoComplete="email" label={l["form.email"]} value={v.email} onChange={(x) => set("email", x)} error={errors.email} />
           <TextField id="volunteer-linkedin" name="linkedin" type="url" autoComplete="url" label={l["form.linkedin"]} value={v.linkedin} onChange={(x) => set("linkedin", x)} error={errors.linkedin} />
@@ -144,6 +145,7 @@ export function VolunteerForm({ lang, labels: l }: { lang: Locale; labels: Label
               if (x) setErrors((e) => ({ ...e, consent: "" }));
             }}
             invalid={!!errors.consent}
+            required
             describedBy={errors.consent ? "volunteer-consent-error" : undefined}
           >
             {consentText(l["volunteer.form.consent"], PRIVACY_LINK_CONSENT[lang])}

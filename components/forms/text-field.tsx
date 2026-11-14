@@ -16,8 +16,40 @@ export function FieldError({ id, children }: { id: string; children?: string }) 
 type Common = { id: string; label: string; error?: string };
 
 /**
+ * Обязательность берётся из подписи в таблице текстов: у обязательных полей она заканчивается « *» (неразрывный пробел + звёздочка).
+ * Возвращает подпись без звёздочки (для скринридера) и признак обязательности (`required` + `aria-required`).
+ */
+export function parseRequired(label: string): { text: string; required: boolean } {
+  const m = label.match(/^([\s\S]*?)[\s\u00A0]*\*\s*$/);
+  return m ? { text: m[1], required: true } : { text: label, required: false };
+}
+
+/** Видимая подпись-плейсхолдер: звёздочка в `aria-hidden` — скринридеру хватает атрибута `required`. */
+export function PlaceholderText({ label }: { label: string }) {
+  const { text, required } = parseRequired(label);
+  return (
+    <>
+      {text}
+      {required ? <span aria-hidden="true">{"\u00A0*"}</span> : null}
+    </>
+  );
+}
+
+/** Строка перед полями формы («* Fields marked with an asterisk are required»): ведущая звёздочка скрыта от скринридеров. */
+export function RequiredNote({ children }: { children: string }) {
+  const star = children.startsWith("*");
+  return (
+    <p className="text-body text-text-muted">
+      {star ? <span aria-hidden="true">*</span> : null}
+      {star ? children.slice(1) : children}
+    </p>
+  );
+}
+
+/**
  * Текстовое поле (Figma: form-field type=text `1017:1449`, option=white): высота 48, отступ 16, плейсхолдер = вопрос.
- * Видимая подпись — плейсхолдер, для скринридера — `<label class="sr-only">` с тем же текстом.
+ * Видимая подпись — наш плейсхолдер (`aria-hidden`), для скринридера — `<label class="sr-only">` с тем же текстом без звёздочки;
+ * обязательное поле (подпись заканчивается « *») получает `required` и `aria-required="true"`.
  * Состояния: hover / focus — обводка border/input-hover / input-focus, error — status/error + текст ниже.
  */
 export function TextField({
@@ -28,21 +60,35 @@ export function TextField({
   onChange,
   ...rest
 }: Common & { value: string; onChange: (v: string) => void } & Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "id">) {
+  const { text, required } = parseRequired(label);
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="sr-only">
-        {label}
+        {text}
       </label>
-      <input
-        id={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={label}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? `${id}-error` : undefined}
-        className={`${field} h-12`}
-        {...rest}
-      />
+      <div className="relative">
+        {/* плейсхолдер рисуем сами (placeholder=" " нужен для :placeholder-shown): так звёздочка может быть aria-hidden */}
+        <input
+          id={id}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder=" "
+          required={required || undefined}
+          aria-required={required || undefined}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
+          className={`${field} peer h-12`}
+          {...rest}
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-4 left-4.25 flex items-center text-body text-text-placeholder peer-not-placeholder-shown:hidden"
+        >
+          <span className="truncate">
+            <PlaceholderText label={label} />
+          </span>
+        </span>
+      </div>
       <FieldError id={`${id}-error`}>{error}</FieldError>
     </div>
   );
@@ -57,21 +103,32 @@ export function TextArea({
   onChange,
   maxLength,
 }: Common & { value: string; onChange: (v: string) => void; maxLength?: number }) {
+  const { text, required } = parseRequired(label);
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="sr-only">
-        {label}
+        {text}
       </label>
-      <textarea
-        id={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={label}
-        maxLength={maxLength}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? `${id}-error` : undefined}
-        className={`${field} block min-h-30 resize-y py-3`}
-      />
+      <div className="relative">
+        <textarea
+          id={id}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder=" "
+          maxLength={maxLength}
+          required={required || undefined}
+          aria-required={required || undefined}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
+          className={`${field} peer block min-h-30 resize-y py-3`}
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute top-3.25 right-4 left-4.25 text-body text-text-placeholder peer-not-placeholder-shown:hidden"
+        >
+          <PlaceholderText label={label} />
+        </span>
+      </div>
       <FieldError id={`${id}-error`}>{error}</FieldError>
     </div>
   );

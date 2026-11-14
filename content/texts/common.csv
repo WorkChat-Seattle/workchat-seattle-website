@@ -43,10 +43,11 @@ btn.submit,Кнопка отправки форм,Submit,Отправить,Вы
 btn.sending,Кнопка во время отправки,Sending…,Отправляем…,Вычитано,
 btn.viewProfile,Карточка ментора,View profile,Посмотреть профиль,Вычитано,
 btn.getConnected,Профиль ментора (email),Get connected,Связаться,Вычитано,
-form.name,Формы: поле,Your full name,Ваше имя и фамилия,Вычитано,
-form.email,Формы: поле,Your email,Ваш email,Вычитано,
+form.name,Формы: поле (обязательное),Your full name *,Ваше имя и фамилия *,Вычитано,14.11: добавлена * — обязательное поле (неразрывный пробел перед *)
+form.email,Формы: поле (обязательное),Your email *,Ваш email *,Вычитано,14.11: добавлена * — обязательное поле (неразрывный пробел перед *)
 form.linkedin,Формы: поле,Link to your LinkedIn profile,Ссылка на профиль в LinkedIn,Вычитано,
 form.required,Формы: ошибка под полем,This field is required,Обязательное поле,Вычитано,
+form.requiredNote,Формы: строка перед полями (все формы),* Fields marked with an asterisk are required,"* Звёздочкой обозначены поля, обязательные для заполнения",Итог,"Добавлено 14.11. Ставится над первым полем каждой формы (Mentorship, Volunteer, Suggest an event)"
 form.invalidEmail,Формы: ошибка под полем email,Please enter a valid email address,"Пожалуйста, проверьте адрес email",Вычитано,RU — черновик Claude (13.11)
 form.invalidUrl,"Формы: ошибка под полем-ссылкой (LinkedIn, Event link)",Please enter a valid link,"Пожалуйста, проверьте ссылку",Вычитано,RU — черновик Claude (13.11)
 form.tooLong,"Формы: ошибка, если текст длиннее лимита",This text is too long,Текст слишком длинный,Вычитано,RU — черновик Claude (13.11)

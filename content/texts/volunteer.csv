@@ -23,7 +23,7 @@ volunteer.roles.stories.text,Роли: текст,"Write social posts, create vi
 volunteer.roles.more,Роли: кнопка на mobile (раскрывает остальные роли),More ways to contribute,Ещё способы помочь,Вычитано,EN — из макета (Volunteer / Mobile); RU — черновик Claude
 volunteer.form.title,Форма: заголовок,Volunteer at WorkChat Seattle,Волонтёрьте с WorkChat Seattle,Вычитано,
 volunteer.form.text,Форма: подзаголовок,Let’s explore what we can do together!,"Расскажите немного о себе, и мы вместе найдём, где ваша помощь будет нужнее всего.",Вычитано,"Поля имя / email / LinkedIn — вкладка «Общее», form.*"
-volunteer.form.help.label,Форма: список «Чем помочь»,How would you like to help?,Чем вы хотели бы помочь?,Вычитано,Подсказка — mentorship.form.meet.hint («Можно выбрать несколько вариантов.»)
+volunteer.form.help.label,Форма: список «Чем помочь»,How would you like to help? *,Чем вы хотели бы помочь? *,Вычитано,Подсказка — mentorship.form.meet.hint («Можно выбрать несколько вариантов.»). 14.11: добавлена * — обязательное поле (неразрывный пробел перед *)
 help.Speaker,Вариант 1,Speaking or leading workshops,Готова быть спикером: мне есть что рассказать,Вычитано,Ключ = короткое значение в Notion (Volunteers → Skills)
 help.Mentor,Вариант 2 (со ссылкой),Mentorship – please also fill out the mentor form,"Менторство — пожалуйста, заполните также форму ментора",Вычитано,"Ссылка на словах «заполните также форму ментора» → /ru/mentorship#mentor-form, в новой вкладке"
 help.Events,Вариант 3,Running and hosting events,Организация мероприятий,Вычитано,

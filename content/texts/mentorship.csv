@@ -34,7 +34,7 @@ mentorship.form.title,Форма ментора: заголовок,"Become a me
 at WorkChat Seattle","Станьте ментором
 в WorkChat Seattle",Вычитано,
 mentorship.form.text,Форма ментора: текст,"Join WorkChat Seattle as a mentor and help women in our community move toward their professional goals. Please tell us about your background, the topics you would like to help with, and your availability, and we’ll reach out to you with the next steps.","Станьте ментором в WorkChat Seattle и помогайте нашим участницам развиваться профессионально. Расскажите о своём опыте, о темах, с которыми хотели бы помогать, и о том, сколько у вас есть времени, — и мы свяжемся с вами, чтобы рассказать о следующих шагах.",Вычитано,"Поля имя / email / LinkedIn — вкладка «Общее», form.*"
-mentorship.form.topics.label,Форма: список тем,Which topics would you feel comfortable mentoring someone on?,С какими темами вы готовы помогать как ментор?,Вычитано,
+mentorship.form.topics.label,Форма: список тем,Which topics would you feel comfortable mentoring someone on? *,С какими темами вы готовы помогать как ментор? *,Вычитано,14.11: добавлена * — обязательное поле (неразрывный пробел перед *)
 mentorship.form.topics.hint,Форма: подсказка в открытом списке,Select up to five areas where you can offer the most relevant guidance.,"Выберите до пяти тем, в которых ваш опыт наиболее полезен.",Вычитано,
 topic.Understanding the U.S. job market and workplace culture,Тема 1,Understanding the U.S. job market and workplace culture,Американский рынок труда и негласные правила,Вычитано,Ключ = значение в Notion (Mentoring topics): в Notion всегда пишем английское значение
 topic.Translating international experience into a U.S. career,Тема 2,Translating international experience into a U.S. career,Применение опыта из других стран,Вычитано,
@@ -51,14 +51,14 @@ topic.Leadership and people management,Тема 12,Leadership and people managem
 topic.Developing skills in my professional field,Тема 13,Developing skills in my professional field,Развитие профессиональных навыков,Вычитано,
 topic.Starting or growing a business,Тема 14,Starting or growing a business,Запуск или развитие бизнеса,Вычитано,
 topic.Other,Тема 15 (с текстовым полем),Other:,Другое:,Вычитано,Текст из поля идёт в Notion в Other topic как есть
-mentorship.form.time.label,Форма: время в месяц,How much time would you like to commit per month?,Сколько времени в месяц вы готовы уделять?,Вычитано,То же поле в форме Volunteer
+mentorship.form.time.label,Форма: время в месяц,How much time would you like to commit per month? *,Сколько времени в месяц вы готовы уделять? *,Вычитано,То же поле в форме Volunteer. 14.11: добавлена * — обязательное поле (неразрывный пробел перед *)
 mentorship.form.time.hint,Форма: подсказка,Include time for meetings and any preparation.,Учитывайте время на встречи и подготовку.,Вычитано,
 time.Up to 1 hour,Время: вариант 1,Up to 1 hour,До 1 часа,Вычитано,Ключ = значение в Notion (Time per month)
 time.About 2 hours,Время: вариант 2,About 2 hours,Около 2 часов,Вычитано,
 time.About 3–4 hours,Время: вариант 3,About 3–4 hours,Около 3–4 часов,Вычитано,
 time.More than 4 hours,Время: вариант 4,More than 4 hours,Больше 4 часов,Вычитано,
 time.I’d like to discuss this first,Время: вариант 5,I’d like to discuss this first,Хочу сначала обсудить,Вычитано,
-mentorship.form.meet.label,Форма: формат встреч,How would you prefer to meet?,Как вам удобнее встречаться?,Вычитано,
+mentorship.form.meet.label,Форма: формат встреч,How would you prefer to meet? *,Как вам удобнее встречаться? *,Вычитано,14.11: добавлена * — обязательное поле (неразрывный пробел перед *)
 mentorship.form.meet.hint,Форма: подсказка,Select all that apply.,Можно выбрать несколько вариантов.,Вычитано,Та же подсказка в форме Volunteer
 meet.Online,Формат встреч: вариант 1,Online,Онлайн,Вычитано,Ключ = значение в Notion (Meeting format)
 meet.In person in the Seattle area,Формат встреч: вариант 2,In person in the Seattle area,Вживую (Сиэтл / Eastside),Вычитано,

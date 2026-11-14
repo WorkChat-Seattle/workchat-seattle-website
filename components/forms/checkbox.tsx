@@ -15,6 +15,7 @@ export function Checkbox({
   onChange,
   ariaDisabled,
   invalid,
+  required,
   describedBy,
   className,
   children,
@@ -25,6 +26,8 @@ export function Checkbox({
   onChange: (next: boolean) => void;
   ariaDisabled?: boolean;
   invalid?: boolean;
+  /** Обязательный (согласие): `required` + `aria-required`. */
+  required?: boolean;
   describedBy?: string;
   className?: string;
   children: ReactNode;
@@ -47,6 +50,8 @@ export function Checkbox({
           type="checkbox"
           checked={isChecked}
           aria-disabled={ariaDisabled || undefined}
+          required={required || undefined}
+          aria-required={required || undefined}
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
           onChange={(e) => {

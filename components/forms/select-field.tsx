@@ -4,7 +4,7 @@ import Image from "next/image";
 import { type KeyboardEvent, type ReactNode, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import chevron from "@/public/images/forms/chevron-down.svg";
 import { Checkbox } from "./checkbox";
-import { FieldError } from "./text-field";
+import { FieldError, PlaceholderText, parseRequired } from "./text-field";
 
 export type SelectOption = {
   value: string;
@@ -50,6 +50,7 @@ export function SelectField({
   /** Подпись «N selected». */
   countText: (n: number) => string;
 }) {
+  const { text: labelText, required } = parseRequired(label);
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -158,14 +159,17 @@ export function SelectField({
       }}
     >
       <span id={labelId} className="sr-only">
-        {label}
+        {labelText}
       </span>
+      {/* aria-required формально не входит в роль button (ARIA 1.2), но так решили: скринридеры, которые его читают, объявят обязательность */}
+      {/* eslint-disable-next-line jsx-a11y/role-supports-aria-props */}
       <button
         ref={buttonRef}
         id={id}
         type="button"
         aria-haspopup={mode === "single" ? "listbox" : "true"}
         aria-expanded={open}
+        aria-required={required || undefined}
         aria-controls={panelId}
         aria-labelledby={filled ? `${labelId} ${valueId}` : labelId}
         aria-describedby={[open ? hintId : "", error ? errorId : ""].filter(Boolean).join(" ") || undefined}
@@ -185,7 +189,9 @@ export function SelectField({
               {mode === "multi" && collapsed ? countText(selected.length) : joined}
             </span>
           ) : (
-            <span className="text-text-placeholder">{label}</span>
+            <span className="text-text-placeholder">
+              <PlaceholderText label={label} />
+            </span>
           )}
           <span ref={measureRef} aria-hidden="true" className="pointer-events-none invisible absolute top-0 left-0 w-full break-words">
             {joined}

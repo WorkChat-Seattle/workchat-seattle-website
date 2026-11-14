@@ -8,7 +8,7 @@ import { PRIVACY_LINK_CONSENT } from "@/lib/constants";
 import { Checkbox } from "./checkbox";
 import { Dialog, MessageDialog } from "./dialog";
 import { type Labels, Honeypot, SubmitButton, consentText, errorTexts, postForm } from "./form-parts";
-import { FieldError, TextArea, TextField } from "./text-field";
+import { FieldError, TextArea, TextField, RequiredNote } from "./text-field";
 import { Turnstile, type TurnstileHandle } from "./turnstile";
 
 const EMPTY = { link: "", about: "", name: "", email: "" };
@@ -92,6 +92,7 @@ export function SuggestEvent({ lang, labels: l, buttonClassName }: { lang: Local
               <p className="text-body text-text-body">{l["events.suggest.text"]}</p>
             </div>
             <div className="flex flex-col gap-2.5">
+              <RequiredNote>{l["form.requiredNote"]}</RequiredNote>
               <TextField id="suggest-link" name="link" type="url" autoComplete="off" label={l["events.suggest.link"]} value={v.link} onChange={(x) => set("link", x)} error={errors.link} />
               <TextArea id="suggest-about" label={l["events.suggest.about"]} value={v.about} onChange={(x) => set("about", x)} maxLength={LIMITS.long} error={errors.about} />
               <TextField id="suggest-name" name="name" autoComplete="name" label={l["events.suggest.name"]} value={v.name} onChange={(x) => set("name", x)} error={errors.name} />
@@ -107,6 +108,7 @@ export function SuggestEvent({ lang, labels: l, buttonClassName }: { lang: Local
                   if (x) setErrors((e) => ({ ...e, consent: "" }));
                 }}
                 invalid={!!errors.consent}
+                required
                 describedBy={errors.consent ? "suggest-consent-error" : undefined}
               >
                 {consentText(l["events.suggest.consent"], PRIVACY_LINK_CONSENT[lang])}
