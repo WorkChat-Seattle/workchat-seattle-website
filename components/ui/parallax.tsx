@@ -167,9 +167,9 @@ export function ParallaxColumns({ className, children }: { className?: string; c
 
 /**
  * Volunteer roles: четыре столбца карточек плывут по вертикали с разной скоростью (как фото Community, п. 7).
- * В начале страницы смещение 0 — карточки стоят ровно по макету (80 px от вводного текста); дальше столбец уезжает вверх
+ * В начале страницы смещение 0 — карточки стоят ровно по макету (120 px от вводного текста); дальше столбец уезжает вверх
  * на `прокрутка / (высота секции / 2 + высота экрана / 2) × speed × --parallax-gain-community`, не больше
- * `--parallax-shift-volunteer` (80 px — не больше зазора до текста). У каждой карточки внутри `data-parallax-speed`.
+ * `--parallax-shift-volunteer` (80 px — меньше зазора до текста). У каждой карточки внутри `data-parallax-speed`.
  * Двигаем свойством `translate`, а не `transform`: transform занят появлением при прокрутке (data-reveal-grid).
  * Обёртка `display: contents` — на раскладку не влияет; опорная секция — ближайшая <section>.
  */

@@ -4,7 +4,7 @@ import { RolesGrid, type TileView } from "./roles-grid";
 
 /**
  * Роли волонтёров (Figma: volunteer-roles `1088:1733`; tablet `1240:15711`, mobile `1145:11795`). Тексты собираются на сервере,
- * сетка и кнопка «More ways to contribute» (mobile) — клиентский `RolesGrid`. Отступ сверху 80 / 40 / 80
+ * сетка и кнопка «More ways to contribute» (mobile) — клиентский `RolesGrid`. Отступ сверху 120 / 40 / 80
  * (на tablet 40 — внутренний отступ блока в макете), на mobile кнопка под сеткой через 20.
  */
 export function VolunteerRoles({ t }: { t: Dictionary }) {
@@ -22,7 +22,7 @@ export function VolunteerRoles({ t }: { t: Dictionary }) {
   return (
     <section
       aria-label={t["volunteer.hero.title"]}
-      className="mx-auto mt-20 max-w-300 px-5 md:mt-10 md:px-10 xl:mt-20 xl:px-0"
+      className="mx-auto mt-20 max-w-300 px-5 md:mt-10 md:px-10 xl:mt-30 xl:px-0"
     >
       <RolesGrid tiles={tiles} moreLabel={t["volunteer.roles.more"]} />
     </section>
