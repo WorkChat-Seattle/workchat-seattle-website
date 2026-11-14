@@ -101,6 +101,7 @@ export async function saveMentor(i: MentorInput): Promise<Saved> {
     Status: { status: { name: "Draft" } },
   };
   if (i.linkedin) props.LinkedIn = { url: i.linkedin };
+  if (i.notes) props.Notes = rich(i.notes);
   if (existing) props.Volunteer = { relation: [{ id: existing.id }] };
   const card = await createPage("NOTION_DS_MENTOR_CARDS", props);
 

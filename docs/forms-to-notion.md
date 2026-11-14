@@ -33,7 +33,7 @@
 - Подсказка: «Select up to five areas where you can offer the most relevant guidance.»
 - При 5 выбранных остальные варианты неактивны (`aria-disabled`).
 - Варианты: 1. Understanding the U.S. job market and workplace culture · 2. Translating international experience into a U.S. career · 3. Choosing a career direction · 4. Changing careers or industries · 5. Returning to work after a career break · 6. Job-search strategy · 7. Resume / LinkedIn / Portfolio feedback · 8. Networking and professional relationships · 9. Interview preparation · 10. Communication and self-advocacy at work · 11. Career advancement and promotion · 12. Leadership and people management · 13. Developing skills in my professional field · 14. Starting or growing a business
-- Notion: Mentor cards → **Mentoring topics** (multi-select, названия = варианты формы) (вариант «Other» и поле **Other topic** из формы убраны 14.11; поле в Notion можно оставить для старых записей). Старое поле **Expertise** (Software Engineering, AI Engineering, Career switch…) — теги специализации для карточки на сайте, ставит команда; форма его не заполняет.
+- Notion: Mentor cards → **Mentoring topics** (multi-select, названия = варианты формы) (14 вариантов; «Other» и поле **Other topic** убраны 14.11 — в Notion их нет, в коде не должно быть, иначе API создаст «Other» заново). Старое поле **Expertise** (Software Engineering, AI Engineering, Career switch…) — теги специализации для карточки на сайте, ставит команда; форма его не заполняет.
 
 ### Формы ментора и Volunteer: «How much time would you like to commit per month?» * — один вариант (одинаково в обеих формах)
 - Подсказка: «Include time for meetings and any preparation.»
@@ -91,6 +91,7 @@
 - **Mentoring topics** (multi-select) ← Which topics…? (1–5)
 - **Time per month** (select) ← How much time would you like to commit per month?
 - **Meeting format** (multi-select) ← How would you prefer to meet?
+- **Notes** (text, с 14.11) ← Anything else you’d like us to know? (необязательное; пусто — не заполнять; в Volunteers не копируется; попадает в письмо)
 - Source = Website form; Status = Draft; Consent received — пусто (ставит команда после согласия на публикацию, включая email)
 - Volunteer ← связь с записью в Volunteers (ниже)
 
@@ -118,6 +119,7 @@
 ## Поля, добавленные в Notion
 - 05.11 — Mentor cards: Email, Time per month, Meeting format, Source. Volunteers: Status, Source, Time per month, Notes. Новая таблица Event suggestions.
 - 06.11 — Mentor cards: Mentoring topics, Other topic; Meeting format → multi-select; описание Email обновлено. Volunteers: Skills приведены к форме Volunteer (см. таблицу). Time per month в обеих таблицах — 5 общих вариантов.
+- 14.11 — Mentor cards: добавлено Notes (текст); удалены поле Other topic и вариант Other в Mentoring topics.
 
 ## Переменные окружения (Vercel)
 `NOTION_TOKEN`, `NOTION_DS_MENTOR_CARDS`, `NOTION_DS_VOLUNTEERS`, `NOTION_DS_EVENT_SUGGESTIONS`, `RESEND_API_KEY` (или другой сервис), `FORMS_TO_EMAIL` (= workchatseattle@gmail.com), `FORMS_FROM_EMAIL`, `TURNSTILE_SECRET_KEY` (+ публичный site key).

@@ -59,6 +59,7 @@ export type MentorInput = {
   topics: string[];
   time: string;
   meet: string[];
+  notes: string;
 };
 export type VolunteerInput = {
   name: string;
@@ -132,6 +133,7 @@ export function parseForm<K extends FormKind>(kind: K, raw: unknown): Result<K> 
       topics,
       time: str(o.time),
       meet,
+      notes: str(o.notes),
     };
     need("name", v.name, LIMITS.short);
     email("email", v.email);
@@ -140,6 +142,7 @@ export function parseForm<K extends FormKind>(kind: K, raw: unknown): Result<K> 
     else if (topics.length > MAX_TOPICS) errors.topics = "max";
     if (!(TIME_OPTIONS as readonly string[]).includes(v.time)) errors.time = "required";
     if (meet.length < 1) errors.meet = "required";
+    if (v.notes.length > LIMITS.long) errors.notes = "max";
     return Object.keys(errors).length ? { ok: false, errors } : ({ ok: true, value: v } as Result<K>);
   }
 

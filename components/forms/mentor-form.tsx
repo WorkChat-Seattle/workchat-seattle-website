@@ -2,6 +2,7 @@
 
 import { type FormEvent, useRef, useState } from "react";
 import {
+  LIMITS,
   MAX_TOPICS,
   MEET_OPTIONS,
   MENTOR_TOPICS,
@@ -14,16 +15,16 @@ import { Checkbox } from "./checkbox";
 import { MessageDialog } from "./dialog";
 import { type Labels, Honeypot, SubmitButton, consentText, errorTexts, postForm } from "./form-parts";
 import { SelectField } from "./select-field";
-import { FieldError, TextField, RequiredNote } from "./text-field";
+import { FieldError, TextArea, TextField, RequiredNote } from "./text-field";
 import { Turnstile, type TurnstileHandle } from "./turnstile";
 
 /**
- * Форма «Become a mentor» (Mentorship, id="mentor-form"; Figma: mentor-form `1088:1738`): имя, email, LinkedIn, темы (1–5, «Other» —
- * с текстовым полем), время в месяц, формат встреч, согласие. Поля на всю ширину; на tablet согласие и кнопка — со 2-й колонки.
+ * Форма «Become a mentor» (Mentorship, id="mentor-form"; Figma: mentor-form `1088:1738`): имя, email, LinkedIn, темы (1–5), время в месяц,
+ * формат встреч, необязательное «Anything else…» (→ Mentor cards → Notes), согласие. Поля на всю ширину; на tablet согласие и кнопка — со 2-й колонки.
  * Отправка → /api/forms/mentor → Notion (Mentor cards + Volunteers). После успеха форма очищается, фокус — на начало формы.
  */
 export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }) {
-  const [v, setV] = useState({ name: "", email: "", linkedin: "", topics: [] as string[], time: [] as string[], meet: [] as string[] });
+  const [v, setV] = useState({ name: "", email: "", linkedin: "", topics: [] as string[], time: [] as string[], meet: [] as string[], notes: "" });
   const [consent, setConsent] = useState(false);
   const [trap, setTrap] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -47,7 +48,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
     if (!consent) found.consent = l["form.required"];
     if (Object.keys(found).length) {
       setErrors(found);
-      const first = ["name", "email", "linkedin", "topics", "time", "meet", "consent"].find((k) => found[k]);
+      const first = ["name", "email", "linkedin", "topics", "time", "meet", "notes", "consent"].find((k) => found[k]);
       document.getElementById(`mentor-${first}`)?.focus();
       return;
     }
@@ -58,7 +59,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
     turnstile.current?.reset();
     setSending(false);
     if (res.ok) {
-      setV({ name: "", email: "", linkedin: "", topics: [], time: [], meet: [] });
+      setV({ name: "", email: "", linkedin: "", topics: [], time: [], meet: [], notes: "" });
       setConsent(false);
     }
     setResult(res.ok ? "success" : "error");
@@ -130,6 +131,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
             error={errors.meet}
             countText={count}
           />
+          <TextArea id="mentor-notes" label={l["mentorship.form.notes"]} value={v.notes} onChange={(x) => set("notes", x)} maxLength={LIMITS.long} error={errors.notes} />
         </div>
 
         <div className="flex flex-col gap-2 md:pl-43 xl:pl-0">
