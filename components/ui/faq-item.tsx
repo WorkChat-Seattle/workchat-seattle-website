@@ -27,7 +27,7 @@ function FaqToggle({ open }: { open: boolean }) {
  * border/divider. Hover (мышь) — вся строка (вопрос и раскрытый ответ) bg/inverse, текст text/inverse; слева отступа нет — текст стоит по направляющей. Ответ отступает слева на 150 (desktop)
  * и 172 (tablet), на mobile — на всю ширину; он всегда есть в HTML, закрытый — `inert` и высотой 0.
  * Каждая строка открывается независимо. Смена цвета при hover плавная в обе стороны (`--duration-faq-hover`, 300 ms; transition — на базовом состоянии). Раскрытие плавное (animations.md, п. 12): высота ответа 0fr → 1fr + opacity, 350 ms ease-out;
- * у открытой строки вопрос ниже на 5 (padding-top 40 → 45, desktop / tablet).
+ * у открытой строки вопрос ниже на 5 (padding-top 40 → 45, desktop / tablet); padding-top и padding-bottom кнопки анимируются с той же длительностью и кривой, что и высота ответа.
  * Отступы строки: 40 (desktop, tablet) и 24 (mobile); вопрос→ответ 20.
  */
 export function FaqItem({
@@ -49,7 +49,7 @@ export function FaqItem({
           aria-expanded={open}
           aria-controls={`${id}-answer`}
           onClick={() => setOpen((v) => !v)}
-          className={`flex w-full items-start justify-between gap-5 py-6 text-left text-text-heading group-hover/faq:text-text-inverse transition-[padding-top,color] duration-(--duration-faq) ease-faq [transition-duration:var(--duration-faq),var(--duration-faq-hover)] motion-reduce:transition-none md:items-center md:py-10 ${open ? "pb-5 md:pt-11.25 md:pb-5" : ""}`}
+          className={`flex w-full items-start justify-between gap-5 py-6 text-left text-text-heading group-hover/faq:text-text-inverse transition-[padding-top,padding-bottom,color] ease-faq [transition-duration:var(--duration-faq),var(--duration-faq),var(--duration-faq-hover)] motion-reduce:transition-none md:items-center md:py-10 ${open ? "pb-5 md:pt-11.25 md:pb-5" : ""}`}
         >
           <span className="min-w-0 flex-1">{question}</span>
           <FaqToggle open={open} />

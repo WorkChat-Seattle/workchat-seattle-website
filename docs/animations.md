@@ -78,7 +78,7 @@
 
 ### 12. FAQ (About, Mentorship; разделы Privacy Policy)
 - Ответ раскрывается по высоте вместе с проявлением: `grid-template-rows: 0fr → 1fr` + `opacity 0 → 1`, **350 ms ease-out**; внутренний блок `min-height: 0; overflow: hidden`.
-- У открытого пункта вопрос опускается на 5 px (`padding-top` 40 → 45, **350 ms ease-out**), ответ — на 20 px ниже вопроса.
+- У открытого пункта вопрос опускается на 5 px (`padding-top` 40 → 45, **350 ms ease-out**), ответ — на 20 px ниже вопроса. `padding-bottom` вопроса (20 ↔ 40 на tablet / desktop, 20 ↔ 24 на mobile) анимируется теми же 350 ms ease-out — иначе при сворачивании строка прыгает на ~20 px.
 - **Hover (14.11):** смена цвета строки (фон → `bg/inverse`, текст и крестик → `text/inverse`) плавная **в обе стороны**, **300 ms ease-out** (`--duration-faq-hover`); transition стоит на базовом состоянии, а не только на `:hover`.
 - Разметка — кнопка с `aria-expanded` (не `<details>`, чтобы анимировать высоту); закрытый ответ — `inert`, но текст в HTML. Первый раздел Privacy Policy открыт при загрузке (privacy-policy.md).
 
