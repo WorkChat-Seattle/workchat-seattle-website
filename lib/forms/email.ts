@@ -18,7 +18,13 @@ const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ").trim();
 export async function sendFormEmail(kind: FormKind, value: object, notionUrl: string | null): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
   const from = process.env.FORMS_FROM_EMAIL;
-  if (!SEND_FORM_EMAILS || !key || !from) return false;
+  if (!SEND_FORM_EMAILS) return false;
+  if (!key || !from) {
+    // отправка включена, но не настроена — пропуск не должен быть молчаливым
+    const missing = [!key && "RESEND_API_KEY", !from && "FORMS_FROM_EMAIL"].filter(Boolean).join(", ");
+    console.warn(`[forms] email skipped: SEND_FORM_EMAILS is true but ${missing} is not set`);
+    return false;
+  }
 
   const v = value as Record<string, unknown>;
   const name = typeof v.name === "string" ? v.name : "";

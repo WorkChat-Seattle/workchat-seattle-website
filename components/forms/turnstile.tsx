@@ -69,7 +69,11 @@ export function Turnstile({ lang, handle }: { lang: string; handle: Ref<Turnstil
       language: lang,
       callback: (t: string) => settle(t),
       "expired-callback": () => settle(null),
-      "error-callback": () => settle(null),
+      "error-callback": (code?: unknown) => {
+        console.warn(`[turnstile] error ${String(code ?? "")} — check allowed domains and the site key of the widget`);
+        settle(null);
+        return true;
+      },
     });
   };
 
