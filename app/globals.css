@@ -157,13 +157,6 @@
   /* 6. Шапка при прокрутке */
   --header-scroll-threshold: 16px;
   --header-blur: 12px;
-  /* Высота шапки: запасное значение до гидрации (mobile / tablet 65 = 10 + 45 + 10; desktop 80 = 16 + 48 + 16);
-     после загрузки site-header.tsx записывает на <html> реальную высоту (ResizeObserver). Под неё закрепляется Our Values. */
-  --header-height: 65px;
-
-  @media (width >= theme(--breakpoint-xl)) {
-    --header-height: 80px;
-  }
 
   /* 7. Параллакс (≥1280) */
   --parallax-shift: 60px;
@@ -204,6 +197,18 @@
   --ease-faq: ease-out;
   --duration-faq: 350ms;
   --duration-faq-hover: 300ms; /* смена цвета строки при hover, в обе стороны */
+}
+
+/* Высота шапки — не токен темы (меняется скриптом), поэтому вне @theme. */
+:root {
+  /* Высота шапки: запасное значение до гидрации (mobile / tablet 65 = 10 + 45 + 10; desktop 80 = 16 + 48 + 16);
+     после загрузки site-header.tsx записывает на <html> реальную высоту (ResizeObserver). Под неё закрепляется Our Values. */
+  --header-height: 65px;
+}
+@media (width >= theme(--breakpoint-xl)) {
+  :root {
+    --header-height: 80px;
+  }
 }
 
 /* ==========================================================================
