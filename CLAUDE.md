@@ -14,6 +14,8 @@
 - **social-previews.md** — картинки-превью (Open Graph), включая og-event (решено 11.11).
 - **seo-ai-visibility.md** — robots, sitemap, метаданные, JSON-LD, проверка.
 - **animations.md** — анимации: появление при прокрутке, кнопки, ссылки, карточки, логотип, шапка, параллакс, Numbers, Find your mentor, слайдер отзывов, Our Values (закреплённый блок), FAQ. Эталон — тестовая версия, репозиторий **julia-seas/workchat-v2** на GitHub (Home — `index.html`; About — `about.html`, `assets/js/about-values.js`; общие скрипты — `assets/js/site.js`; стили — `styles.css`). Параметры переносим как есть.
+- **after-launch-updates.md** — правки после запуска: ветка → PR → Vercel Preview → merge, источники правок, откат, возможная GitHub Action.
+- **handoff.md** — задания из чата проекта. По просьбе «прочитай handoff» выполнить **последнее** задание из этого файла и кратко дописать итог (что сделано, что решить) в раздел «Ответ» под ним.
 - **figma-adaptive-handoff.md** — как устроен файл Figma (для работы в Figma, не для вёрстки).
 
 ## Стек
@@ -489,6 +491,18 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - **Значки time и language** в Figma — заготовки («будут перерисованы»); после перерисовки перевыгрузить и обновить `components/ui/glyphs.ts`.
 - **CSS-модули** (`*.module.css`) — только для раскладки-«рисунка» с координатами из Figma (коллажи Community, аватары Find mentor, сетка ролей Volunteer); правило Turbopack для Tailwind ограничено `globals.css`.
 - **Окружение:** не использовать широкий `pkill`; dev-сервер убивать по порту (`lsof -ti tcp:<порт>`); Chrome headless для скриншотов; `gh` и `brew` не установлены, push идёт по https. Коммитить и пушить законченный блок самостоятельно, если сборка и lint проходят (решено 12.11).
+
+## После запуска
+Применять с момента подключения домена на Vercel. До этого действует прежняя договорённость (коммитить и пушить законченный блок в `main` самостоятельно). Подробности и схема — `docs/after-launch-updates.md`.
+- **Не пушить в `main` напрямую.** Каждая правка идёт в отдельной ветке: pull request → Vercel Preview → Юлия проверяет → merge.
+- **Перед PR** должны проходить сборка и lint.
+- **Источники правок:**
+  - события, спикеры, менторы — Notion (`npm run sync:events`, `npm run sync:mentors`);
+  - тексты — Google-таблица (`npm run texts`);
+  - Privacy Policy — Google Doc (`npm run privacy:build`);
+  - дизайн — Figma.
+- **Если что-то сломалось:** Vercel → Deployments → Instant Rollback, затем исправление отдельным PR.
+- **Напомнить Юлии на шаге 11:** включить защиту ветки `main` на GitHub и решить, нужна ли GitHub Action для автоматической синхронизации Notion и таблицы текстов.
 
 ## Открытые вопросы
 Решить по ходу вёрстки; без решения — не верстать соответствующую часть.
