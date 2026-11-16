@@ -48,7 +48,7 @@ function Card({ item, readMore }: { item: TestimonialItem; readMore: string }) {
             aria-expanded={false}
             aria-controls={`testimonial-${item.id}-text`}
             onClick={() => setExpanded(true)}
-            className="self-start py-2.75 text-button text-text-body md:hidden"
+            className="self-start py-2.75 text-button text-text-body underline-offset-4 md:hidden [@media(hover:none)]:underline"
           >
             {readMore}
           </button>
@@ -80,8 +80,6 @@ export function TestimonialSlider({
   const [dim, setDim] = useState<number[]>([]);
   // быстрый возврат резкости после свайпа пальцем
   const [swiping, setSwiping] = useState(false);
-  // высота ленты плавно подстраивается под активную карточку
-  const [height, setHeight] = useState<number>();
   const busy = useRef(false);
   const multiple = items.length > 1 && !!labels;
   const count = items.length;
@@ -159,15 +157,27 @@ export function TestimonialSlider({
 
   const step = (dir: 1 | -1) => void go((index + dir + count) % count);
 
-  useEffect(() => {
-    const slide = track.current?.children[index] as HTMLElement | undefined;
-    if (!slide || items.length < 2) return;
-    const measure = () => setHeight(slide.offsetHeight);
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(slide);
-    return () => ro.disconnect();
-  }, [index, items.length]);
+  // Свайп пальцем = нажатие стрелки: та же анимация (размытие, по кругу). Нативную горизонтальную прокрутку
+  // отключает `touch-action: pan-y` (testimonials.module.css). Используем touch-события, а не pointer: в iOS Safari
+  // pointer-события при жесте могут оборваться (pointercancel), и свайп не срабатывал. Если браузер всё же прокрутил
+  // ленту сам (touch-action не поддержан), второй раз не листаем.
+  const swipeStart = useRef<{ x: number; y: number; scroll: number } | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    swipeStart.current = multiple && e.touches.length === 1 && t ? { x: t.clientX, y: t.clientY, scroll: track.current?.scrollLeft ?? 0 } : null;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const start = swipeStart.current;
+    const t = e.changedTouches[0];
+    swipeStart.current = null;
+    const el = track.current;
+    if (!start || !t || !el || busy.current) return;
+    // лента сдвинулась сама за время жеста — не листаем второй раз (у последней карточки scrollLeft упирается в край, поэтому сравниваем с началом жеста)
+    if (Math.abs(el.scrollLeft - start.scroll) > 2) return;
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+  };
 
   // Прокрутка пальцем / колесом: активная карточка — ближайшая к краю; пока лента едет — все карточки размыты, после остановки
   // резкость возвращается за 250 мс. Переходы кнопками (go) ведут себя сами.
@@ -224,7 +234,7 @@ export function TestimonialSlider({
             <div aria-hidden="true" className="h-full w-37.5 bg-bg-card-muted" />
           )}
         </div>
-        <ul ref={track} data-swiping={swiping || undefined} style={height ? { height } : undefined} className={`${s.track} -mr-5 min-w-0 flex-1 pr-5 md:-mr-10 md:pr-10 xl:mr-0 xl:pr-0`}>
+        <ul ref={track} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} onTouchCancel={() => (swipeStart.current = null)} data-swiping={swiping || undefined} className={`${s.track} -mr-5 min-w-0 flex-1 pr-5 md:-mr-10 md:pr-10 xl:mr-0 xl:pr-0`}>
           {items.map((item, i) => (
             <li key={item.id} data-dim={dim.includes(i) || undefined} className={s.slide} inert={items.length > 1 && i !== index}>
               <Card item={item} readMore={readMore} />

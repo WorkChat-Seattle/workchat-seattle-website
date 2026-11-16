@@ -27,7 +27,7 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   // от встраивания нашего сайта в чужие страницы (наши iframe — Zeffy, Turnstile — этого не касается)
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
   { key: "Content-Security-Policy-Report-Only", value: csp },
 ];
 
@@ -37,6 +37,8 @@ const securityHeaders = [
  * Без автоопределения языка и без редиректов по языку браузера.
  */
 const nextConfig: NextConfig = {
+  // dev по локальной сети (телефон): иначе /_next/* с чужого адреса блокируется
+  allowedDevOrigins: ["192.168.1.54"],
   experimental: {
     // 404 для корневого layout с динамическим сегментом [lang] (app/global-not-found.tsx)
     globalNotFound: true,

@@ -37,7 +37,7 @@ export function Checkbox({
       htmlFor={id}
       className={[
         "flex items-start gap-5 text-body text-text-body",
-        ariaDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
+        ariaDisabled ? "cursor-default opacity-50" : "cursor-pointer",
         className,
       ]
         .filter(Boolean)

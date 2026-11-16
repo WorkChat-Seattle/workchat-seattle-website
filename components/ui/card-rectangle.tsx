@@ -66,6 +66,7 @@ export function CardRectangle({
         {href ? (
           <MenuButton
             href={href}
+            touchUnderline
             tone={tone}
             className="focus-visible:outline-none"
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}

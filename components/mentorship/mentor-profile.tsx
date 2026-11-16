@@ -17,7 +17,7 @@ export function MentorProfile({ mentor, lang, t }: { mentor: Mentor; lang: Local
   const expertise = mentorTags(t, "expertise", mentor.expertise);
   const industry = mentorTags(t, "industry", mentor.industry);
   return (
-    <div data-reveal="now" className="grid gap-5 bg-bg-card-neutral p-5 md:grid-cols-[auto_1fr] md:gap-x-23 md:p-10 xl:gap-x-9 xl:py-20 xl:pr-37.5 xl:pl-10">
+    <div data-reveal="now" className="grid gap-5 bg-bg-card-neutral px-5 pt-5 pb-10 md:grid-cols-[auto_1fr] md:gap-x-23 md:p-10 xl:gap-x-9 xl:py-20 xl:pr-37.5 xl:pl-10">
       {mentor.photo ? (
         <RingPhoto
           src={mentor.photo}

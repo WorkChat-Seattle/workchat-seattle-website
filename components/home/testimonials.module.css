@@ -11,12 +11,16 @@
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
-/* Слайдер (animations.md, п. 10): высота подстраивается под активную карточку; пока лента едет —
+/* Слайдер (animations.md, п. 10): высота ленты — по самой высокой карточке; пока лента едет —
    карточки opacity 0.4 + blur(3px). Длительность и кривая — токены --duration-slider / --ease-slider. */
+/* все карточки — по высоте самой высокой (stretch, без фиксированной высоты: русские тексты длиннее) */
 .track {
-  align-items: flex-start;
+  align-items: stretch;
   overflow-y: hidden;
-  transition: height var(--duration-slider) var(--ease-slider);
+}
+/* свайп обрабатывает скрипт (как стрелки); пальцем по горизонтали лента не прокручивается сама */
+.track {
+  touch-action: pan-y;
 }
 .slide {
   transition:
@@ -32,7 +36,6 @@
   transition-duration: 250ms;
 }
 @media (prefers-reduced-motion: reduce) {
-  .track,
   .slide {
     transition: none;
   }

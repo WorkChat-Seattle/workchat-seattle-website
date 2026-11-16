@@ -173,7 +173,7 @@ export function FindMentor({ lang, t, spaced = false }: { lang: Locale; t: Dicti
           <div className="fm-ring fm-ring-outer absolute top-0 left-1/2 size-187.5 -translate-x-1/2 rounded-full bg-bg-card-muted" />
           <div className="fm-ring fm-ring-middle absolute top-16.75 left-1/2 size-152.5 -translate-x-1/2 rounded-full bg-bg-card-neutral" />
           <div className="fm-ring fm-ring-inner absolute top-34.5 left-1/2 size-117.25 -translate-x-1/2 rounded-full bg-bg-card-light" />
-          <div className="absolute inset-x-0 top-10 h-10 bg-gradient-neutral-top" />
+          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-neutral-top" />
           <div className="absolute inset-x-0 top-177.5 h-10 bg-gradient-bottom-neutral" />
         </div>
         <RingsSvg

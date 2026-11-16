@@ -25,6 +25,12 @@ function Words({ text }: { text: string }) {
   );
 }
 
+/** Верх закреплённой сцены: нижняя граница шапки (--header-height); если сцена выше окна без шапки — виден её низ. */
+function stickyTop(stageH: number): number {
+  const header = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 0;
+  return header + Math.min(0, window.innerHeight - header - stageH);
+}
+
 /**
  * Our Values (Figma: values `1113:10994` — 15 вариантов: размер × активная ценность).
  * Один компонент с вкладками: ARIA tabs (`tablist` / `tab` + `aria-selected` / `tabpanel`), стрелки ↑ / ↓ (и ← / →),
@@ -51,7 +57,7 @@ export function Values({ title, items }: { title: string; items: (ValueItem & Va
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const panels = useRef<(HTMLParagraphElement | null)[]>([]);
   const prev = useRef(0);
-  // закрепление: с 768, без prefers-reduced-motion и только с JS (класс js на <html>); на телефоне — нажатием
+  // закрепление: на всех размерах, без prefers-reduced-motion и только с JS (класс js на <html>)
   const [pin, setPin] = useState(false);
   const pinned = useRef(false);
   const leavingTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -87,7 +93,7 @@ export function Values({ title, items }: { title: string; items: (ValueItem & Va
   useEffect(() => () => clearTimeout(leavingTimer.current), []);
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
+    const mq = window.matchMedia("(prefers-reduced-motion: no-preference)");
     const sync = () => setPin(mq.matches && document.documentElement.classList.contains("js"));
     sync();
     mq.addEventListener("change", sync);
@@ -109,8 +115,8 @@ export function Values({ title, items }: { title: string; items: (ValueItem & Va
     const update = () => {
       const rect = root.getBoundingClientRect();
       const stageH = stage.offsetHeight;
-      // на низком окне виден низ блока
-      const top = Math.min(0, window.innerHeight - stageH);
+      // сцена закреплена под шапкой; на низком окне виден низ блока
+      const top = stickyTop(stageH);
       stage.style.top = `${top}px`;
       const pin = root.offsetHeight - stageH;
       const step = pin / count;
@@ -159,7 +165,7 @@ export function Values({ title, items }: { title: string; items: (ValueItem & Va
     const root = rootRef.current;
     const stage = stageRef.current;
     if (pinned.current && root && stage) {
-      const top = Math.min(0, window.innerHeight - stage.offsetHeight);
+      const top = stickyTop(stage.offsetHeight);
       const step = (root.offsetHeight - stage.offsetHeight) / count;
       window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - top + next * step + 2, behavior: "smooth" });
     } else {

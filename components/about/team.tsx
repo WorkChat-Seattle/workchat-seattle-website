@@ -70,7 +70,7 @@ export function Team({
             {title}
           </h2>
           <QuoteAccent className="w-79 md:w-129 xl:hidden">
-            <span className="whitespace-pre-line">{quote}</span>
+            <span>{quote}</span>
           </QuoteAccent>
         </div>
 

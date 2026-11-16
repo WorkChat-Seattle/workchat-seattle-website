@@ -27,11 +27,11 @@ export function MentorshipHero({ t }: { t: Dictionary }) {
         <div data-reveal="now" className="relative aspect-square md:aspect-auto md:h-115 xl:h-150 xl:w-150 xl:shrink-0">
           <ResponsiveImage mobile={mobile} tablet={tablet} desktop={desktop} sizes="(min-width: 1280px) 600px, 100vw" />
         </div>
-        <ul data-reveal="now" className="flex flex-col gap-5 bg-bg-card-muted px-5 py-10 md:p-10 xl:gap-6 xl:h-150 xl:w-150 xl:justify-center xl:py-0 xl:pl-10">
+        <ul data-reveal="now" className="flex flex-col gap-6 bg-bg-card-muted px-5 py-10 md:p-10 xl:h-150 xl:w-150 xl:justify-center xl:py-0 xl:pl-10">
           {goals.map((g, i) => (
             <li
               key={g}
-              className={`flex flex-col gap-5 xl:gap-3 ${i < goals.length - 1 ? "border-b border-border-divider pb-5 xl:pb-6" : ""} xl:max-w-130`}
+              className={`flex flex-col gap-3 ${i < goals.length - 1 ? "border-b border-border-divider pb-6" : ""} xl:max-w-130`}
             >
               <h2 className="text-h3 text-text-heading">{t[`mentorship.goals.${g}.title` as TextKey]}</h2>
               <p className="text-body text-text-body">{t[`mentorship.goals.${g}.text` as TextKey]}</p>

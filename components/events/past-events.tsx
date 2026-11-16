@@ -81,8 +81,8 @@ export function PastEvents({
       ) : null}
       <ul ref={listRef} className="mt-10 flex flex-col gap-5 xl:gap-2.5">
         {shown.map((e) => (
-          <li key={e.slug} className="flex flex-col bg-bg-card-neutral p-5 md:flex-row md:gap-10 md:p-10 xl:min-h-75">
-            <div className="relative mb-5 h-50 w-full shrink-0 md:mb-0 md:size-66 xl:size-55">
+          <li key={e.slug} className="flex flex-col bg-bg-card-neutral px-5 pt-5 pb-10 md:flex-row md:gap-10 md:p-10 xl:min-h-75">
+            <div className="relative mb-10 h-50 w-full shrink-0 md:mb-0 md:size-66 xl:size-55">
               <EventImage src={e.cover} sizes="(min-width: 1280px) 220px, (min-width: 768px) 264px, 350px" />
             </div>
             <div className="flex flex-1 flex-col xl:flex-row xl:gap-10">

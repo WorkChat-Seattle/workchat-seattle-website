@@ -81,15 +81,16 @@ export function Community({ t }: { t: Dictionary }) {
         </div>
 
         <div className={`${s.copy} flex flex-col px-5 md:px-10 md:pl-53 xl:p-0`}>
-          <h2 id="community-title" className="text-h2 text-text-heading">
+          <h2 data-reveal id="community-title" className="reveal-below-xl text-h2 text-text-heading">
             {t["home.community.title"]}
           </h2>
-          <p className="text-body mt-5 max-w-114.75 text-text-body">{t["home.community.text"]}</p>
+          <p data-reveal className="reveal-below-xl text-body mt-5 max-w-114.75 text-text-body">{t["home.community.text"]}</p>
           <ButtonLink
+            data-reveal
             option="dark"
             href={FACEBOOK_URL}
             newTabLabel={t["a11y.newTab"]}
-            className="mt-10 w-full md:w-fit"
+            className="reveal-below-xl mt-10 w-full md:w-fit"
           >
             {t["home.community.button"]}
           </ButtonLink>

@@ -71,6 +71,21 @@ export function SiteHeader({
   const burgerRef = useRef<HTMLButtonElement>(null);
   const [scrolled, setScrolled] = useState(false);
 
+  // реальная высота шапки → --header-height на <html> (под неё закрепляются блоки, например Our Values)
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const root = document.documentElement;
+    const measure = () => root.style.setProperty("--header-height", `${el.getBoundingClientRect().height}px`);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      root.style.removeProperty("--header-height");
+    };
+  }, []);
+
   useEffect(() => {
     const raw = getComputedStyle(document.documentElement).getPropertyValue("--header-scroll-threshold");
     const threshold = Number.parseFloat(raw) || 16;
@@ -137,7 +152,7 @@ export function SiteHeader({
   return (
     <header ref={rootRef} data-scrolled={scrolled || undefined} className="sticky top-0 z-50">
       <div aria-hidden="true" className="header-glass pointer-events-none absolute inset-0 -z-20" />
-      <div className="mx-auto flex max-w-300 items-center justify-between px-5 pt-5 md:px-10 xl:px-0 xl:pt-4 xl:pb-4">
+      <div className="mx-auto flex max-w-300 items-center justify-between px-5 py-2.5 md:px-10 xl:px-0 xl:py-4">
         <Link href={localePath(lang, "/")} aria-label={SITE_NAME} className="shrink-0">
           <Logo title={SITE_NAME} />
         </Link>

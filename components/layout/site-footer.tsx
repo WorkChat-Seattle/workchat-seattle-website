@@ -47,8 +47,8 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
               <p className="text-body whitespace-pre-line text-text-body">{t["footer.copyright"]}</p>
             </div>
 
-            <div className="flex flex-col justify-between gap-10 md:gap-5 xl:w-40.25">
-              <nav aria-label={t["a11y.navFooter"]}>
+            <div className="contents md:flex md:flex-col md:justify-between md:gap-5 xl:w-40.25">
+              <nav className="max-md:col-start-1 max-md:row-start-2" aria-label={t["a11y.navFooter"]}>
                 <ul className="flex flex-col gap-1.5 xl:gap-5">
                   <li className="flex">
                     <MenuButton href={localePath(lang, "/about")}>{t["nav.about"]}</MenuButton>
@@ -67,13 +67,13 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
                   </li>
                 </ul>
               </nav>
-              <div className="flex gap-2.5">
+              <div className="flex gap-2.5 max-md:col-start-1 max-md:row-start-3 max-md:self-end">
                 <ButtonSocial network="linkedin" href={LINKEDIN_URL} label={t["a11y.linkedin"]} newTabLabel={t["a11y.newTab"]} />
                 <ButtonSocial network="facebook" href={FACEBOOK_URL} label={t["a11y.facebook"]} newTabLabel={t["a11y.newTab"]} />
               </div>
             </div>
 
-            <div className="flex flex-col justify-between gap-5 self-end md:self-stretch xl:w-37.5">
+            <div className="col-start-2 row-start-3 -mt-5 flex flex-col justify-between gap-5 self-start md:col-auto md:row-auto md:mt-0 md:self-stretch xl:w-37.5">
               <div className="flex flex-col gap-5">
                 <ButtonLink option="white" href={localePath(lang, "/volunteer")} className="w-full">
                   {t["nav.volunteer"]}

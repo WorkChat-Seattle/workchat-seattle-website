@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 /**
  * Появление блоков при прокрутке (animations.md, п. 1).
@@ -28,8 +28,18 @@ const num = (name: string, fallback: number) => {
 export function RevealController() {
   const pathname = usePathname();
 
+  // При переключении EN / RU Next пересоздаёт <html> (корневой layout с сегментом [lang]): новый элемент без класса `js`,
+  // а скрипт из <head> заново не выполняется. Возвращаем класс до отрисовки (layout effect), иначе на новой странице
+  // блоки не анимировались бы. Только с движением и когда страница ещё не снимала флаг сама (data-hydrated).
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    if (root.classList.contains("js") || root.hasAttribute("data-hydrated")) return;
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) root.classList.add("js");
+  }, [pathname]);
+
   useEffect(() => {
     const root = document.documentElement;
+    root.setAttribute("data-hydrated", "");
     if (!root.classList.contains("js") || !("IntersectionObserver" in window)) {
       root.classList.remove("js");
       return;

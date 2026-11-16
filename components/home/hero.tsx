@@ -23,7 +23,8 @@ export function Hero({ t }: { t: Dictionary }) {
       <div data-reveal="now" className="relative mt-10 h-135 overflow-hidden md:mt-15 md:h-110 xl:h-162.5">
         {/* ≥1280: слой выше рамки на 60 px (--parallax-shift) — запас, по которому фото едет вниз */}
         <ParallaxDrift basis="page" className="absolute inset-0 xl:-top-15">
-          <ResponsiveImage mobile={mobile} tablet={tablet} desktop={desktop} priority />
+          {/* object-top: на промежуточных ширинах рамка шире кадра файла, и центрированная обрезка срезала верх (лицо); теперь режется низ */}
+          <ResponsiveImage mobile={mobile} tablet={tablet} desktop={desktop} priority className="object-cover object-top xl:object-center" />
         </ParallaxDrift>
       </div>
     </section>

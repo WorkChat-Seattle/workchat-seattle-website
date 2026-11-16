@@ -20,11 +20,13 @@ type Common = {
   /** white — на тёмной фото-карточке (text/white). */
   tone?: "default" | "white";
   current?: boolean;
+  /** Текстовая ссылка-кнопка в карточке: на устройствах без hover подчёркнута всегда (на тач-экранах наведения нет). */
+  touchUnderline?: boolean;
   className?: string;
   children: ReactNode;
 };
 
-function styles({ variant = "nav", size = "default", tone = "default", className }: Pick<Common, "variant" | "size" | "tone" | "className">) {
+function styles({ variant = "nav", size = "default", tone = "default", touchUnderline = false, className }: Pick<Common, "variant" | "size" | "tone" | "className" | "touchUnderline">) {
   const line =
     variant === "nav"
       ? "scale-x-0 group-aria-[current=page]:scale-x-100 group-hover:scale-x-100 group-focus-visible:scale-x-100 group-hover/card:scale-x-100 group-aria-[current=page]:origin-left group-hover:origin-left group-hover/card:origin-left group-focus-visible:origin-left"
@@ -49,7 +51,7 @@ function styles({ variant = "nav", size = "default", tone = "default", className
       .join(" "),
     label: `whitespace-nowrap ${trimAlways ? trimmed : `xl:h-2.75 xl:leading-2.75`}`,
     // растёт слева, уходит вправо (animations.md, п. 3): origin — справа в покое, слева при наведении
-    line: `block h-px w-full origin-right bg-current -mb-px transition-transform duration-(--duration-link) ease-link motion-reduce:transition-none ${line}`,
+    line: `block h-px w-full origin-right bg-current -mb-px transition-transform duration-(--duration-link) ease-link motion-reduce:transition-none ${line}${touchUnderline ? " [@media(hover:none)]:scale-x-100" : ""}`,
   };
 }
 
@@ -71,11 +73,12 @@ export function MenuButton({
   variant = "nav",
   size = "default",
   tone = "default",
+  touchUnderline = false,
   className,
   children,
   ...rest
 }: { href: string } & Common & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "children" | "className">) {
-  const s = styles({ variant, size, tone, className });
+  const s = styles({ variant, size, tone, touchUnderline, className });
   return (
     <Link href={href} aria-current={ariaCurrent(current, variant)} className={s.root} {...rest}>
       <Inner label={s.label} line={s.line}>{children}</Inner>

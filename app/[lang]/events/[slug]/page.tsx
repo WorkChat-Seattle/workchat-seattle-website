@@ -83,7 +83,7 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
       <JsonLd data={eventJsonLd(event, lang)} />
       <article className="mt-10 md:mt-15 md:px-10 xl:mx-auto xl:max-w-300 xl:px-0">
         <div data-reveal="now" className="flex flex-col gap-10 bg-bg-card-neutral px-5 py-10 md:p-10 xl:gap-15 xl:px-10 xl:py-20">
-          <div className="flex flex-col gap-5 md:flex-row md:gap-10">
+          <div className="flex flex-col gap-10 md:flex-row">
             <div className="relative aspect-square w-full shrink-0 md:size-66 xl:size-55">
               <EventImage src={event.cover} sizes="(min-width: 1280px) 220px, (min-width: 768px) 264px, 350px" priority />
             </div>

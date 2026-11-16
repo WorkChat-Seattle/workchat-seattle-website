@@ -41,7 +41,7 @@ export function CardEvent({
           <EventImage src={event.cover} sizes="(min-width: 1280px) 600px, (min-width: 768px) 688px, 350px" priority={priority} />
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-10 p-5 md:p-10 xl:py-20 xl:pr-10 xl:pl-20">
+      <div className="flex flex-1 flex-col gap-10 px-5 py-10 md:p-10 xl:py-20 xl:pr-10 xl:pl-20">
         <div className="flex flex-col gap-5">
           {featured ? <p className="text-caption text-text-body">{t["home.featured.label"]}</p> : null}
           <h2 className="text-event-title text-text-heading">{eventTitle(event, lang)}</h2>
