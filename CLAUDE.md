@@ -186,7 +186,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 | Стиль | desktop (≥1280) | tablet | mobile |
 |---|---|---|---|
 | h1 | 80 / 90%, −2% | 56 | 36 |
-| h2 | 56 / 90%, −3% | 44 | 32 |
+| h2 | 56 / 90%, −3% | 46 | 34 |
 | h3 | 30 / 90%, −3% | 28 | 28 |
 | numbers | 65 / 90%, −3% | 36 | 36 |
 | button | Medium 16 / auto | Medium 18 | Medium 18 |
