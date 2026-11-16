@@ -26,18 +26,15 @@
 ## 1. Базовый URL
 - Переменная окружения `NEXT_PUBLIC_SITE_URL=https://workchatseattle.org` (без `/` в конце). В корневом layout `metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL)`.
 - Основной адрес — `https://workchatseattle.org`. `www.workchatseattle.org` и адрес `*.vercel.app` боевого проекта — постоянный редирект 308 на основной (Vercel → Settings → Domains).
-- На превью-деплоях (`VERCEL_ENV !== 'production'`) индексация запрещена: robots.ts отдаёт `Disallow: /`. Заодно проверить, что Vercel добавляет на превью заголовок `X-Robots-Tag: noindex`.
+- **Индексация (решено 16.11) — по адресу, а не по `VERCEL_ENV`:** разрешена только когда сайт открыт на `workchatseattle.org` (`isIndexableHost` в `lib/seo.ts`). На `*.vercel.app`, `www`, localhost: `robots.ts` (динамический, смотрит `X-Forwarded-Host` / `Host`) отдаёт `Disallow: /`, а `proxy.ts` добавляет к страницам `X-Robots-Tag: noindex, nofollow`.
 
 ## 2. robots.txt — `app/robots.ts`
 Пускаем всех ботов, включая ботов для обучения моделей (решение 11.11).
 
 ```ts
-import type { MetadataRoute } from 'next';
-
-const SITE = process.env.NEXT_PUBLIC_SITE_URL!;
-
-export default function robots(): MetadataRoute.Robots {
-  if (process.env.VERCEL_ENV !== 'production') {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const h = await headers();
+  if (!isIndexableHost(h.get('x-forwarded-host') ?? h.get('host'))) {
     return { rules: [{ userAgent: '*', disallow: '/' }] };
   }
   return {

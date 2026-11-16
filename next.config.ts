@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 /**
- * Content-Security-Policy-Report-Only (13.11): пока только сообщает о нарушениях в консоль браузера, ничего не блокирует.
- * Боевой заголовок включим после проверки на превью-деплое (в консоли не должно быть «[Report Only] …»).
+ * Content-Security-Policy (боевой с 16.11; до этого с 13.11 был Report-Only). Проход Home, событие, форма, окно cookies
+ * на `next start` — нарушений нет. Карту (Google Maps) не проверяли: нет ключа — при подключении перепроверить.
  * Статические страницы без nonce → 'unsafe-inline' для скриптов (inline-скрипт класса js, JSON-LD, служебные скрипты Next).
  * Источники: Zeffy (форма Subscribe, iframe), GA4 / Tag Manager, Google Maps JS API, Cloudflare Turnstile.
  * Картинки Notion на сайте не подгружаются: sync:events / sync:mentors копируют их в public/images.
@@ -28,7 +28,7 @@ const securityHeaders = [
   // от встраивания нашего сайта в чужие страницы (наши iframe — Zeffy, Turnstile — этого не касается)
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-  { key: "Content-Security-Policy-Report-Only", value: csp },
+  { key: "Content-Security-Policy", value: csp },
 ];
 
 /**

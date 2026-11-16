@@ -9,8 +9,12 @@ export const SITE_NAME = "WorkChat Seattle";
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 
-/** Боевой деплой: только на нём индексация разрешена (robots.ts). */
-export const isProduction = process.env.VERCEL_ENV === "production";
+/** Единственный адрес, на котором индексация разрешена (robots.ts, proxy.ts); *.vercel.app, www, localhost — закрыты. */
+export const INDEXABLE_HOST = "workchatseattle.org";
+
+/** Значение заголовка Host / X-Forwarded-Host → можно ли индексировать сайт, открытый по этому адресу. */
+export const isIndexableHost = (host: string | null | undefined): boolean =>
+  (host ?? "").split(",")[0].trim().toLowerCase().replace(/:\d+$/, "") === INDEXABLE_HOST;
 
 /** Абсолютный адрес страницы: path — без языкового префикса. */
 export const absoluteUrl = (lang: Locale, path = "/"): string => `${SITE_URL}${localePath(lang, path)}`.replace(/\/$/, "") || SITE_URL;

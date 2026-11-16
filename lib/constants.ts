@@ -24,11 +24,11 @@ export const SHOW_RESOURCE_HUB = false;
 export const SHOW_SUGGEST_EVENT = true;
 
 /**
- * Письма с заявками через Resend (docs/forms-to-notion.md, «Поток отправки»). Код готов, отправка выключена, пока нет домена
- * в Resend (FORMS_FROM_EMAIL) и ключа RESEND_API_KEY. Пока false: заявка записана в Notion = успех, письмо не пытаемся слать
- * и ошибкой это не считаем. К запуску: подтвердить домен в DNS, задать RESEND_API_KEY и FORMS_FROM_EMAIL в Vercel, поставить true.
+ * Письма с заявками через Resend (docs/forms-to-notion.md, «Поток отправки»). Включены с 16.11. Пока FORMS_FROM_EMAIL —
+ * тестовый onboarding@resend.dev, Resend доставляет только на workchatseattle@gmail.com. К запуску: подтвердить домен
+ * в DNS и заменить FORMS_FROM_EMAIL (локально и в Vercel). Письмо не ушло — это не ошибка заявки: запись в Notion = успех.
  */
-export const SEND_FORM_EMAILS = false;
+export const SEND_FORM_EMAILS = true;
 
 /** Почта команды для заявок и в текстах ошибок (docs/forms-to-notion.md). Берётся из env, запасное значение — тот же адрес. */
 export const FORMS_TO_EMAIL = process.env.FORMS_TO_EMAIL ?? "workchatseattle@gmail.com";
