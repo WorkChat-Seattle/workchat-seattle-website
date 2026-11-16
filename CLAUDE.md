@@ -390,6 +390,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 ### Команды
 - `npm run texts` — скачать тексты из опубликованной Google-таблицы в `content/texts/*.csv` и пересобрать словари (`npm run texts -- home` — одна вкладка; Google обновляет публикацию с задержкой). `npm run texts:build` — только словари.
 - `npm run export:figma` — картинки из Figma по `scripts/figma-assets.ts` (`-- имя1 имя2` — выборочно; передавать имена списком, не через `$names` в zsh). Поле `fill: true` — исходная заливка узла (для скрытых и обрезанных узлов, с запеканием exposure / saturation и STRETCH-обрезки).
+- `npm run favicon:build` — favicon из `design-assets/favicon/` (выгрузка `npm run export:figma -- favicon-16 favicon-32 favicon-32-dark favicon-48 apple-icon-180 icon-192 icon-512`, секция Figma «Favicon» `1474:27269`) → `app/favicon.ico` (16/32/48), `app/icon.svg` (в тёмной теме браузера — светлая), `app/apple-icon.png` (180). icon-192 / icon-512 выгружены на будущее (manifest не подключён).
 - `npm run privacy:build` — `content/texts/privacy-policy.md` → `data/privacy-policy.ts`.
 - `npm run sync:events` — Notion → `data/events.ts` и фото в `public/images/events/`.
 - `npm run sync:mentors` — Notion (Mentor cards: Ready/Published + Consent received, порядок Order) → `data/mentors.ts` и фото в `public/images/mentors/`; в конце сводка, чего не хватает (размер фото, Bio RU, LinkedIn…).

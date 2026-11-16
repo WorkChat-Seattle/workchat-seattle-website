@@ -9,6 +9,7 @@
     "lint": "eslint",
     "texts:build": "tsx scripts/build-texts.ts",
     "export:figma": "tsx scripts/export-figma.ts",
+    "favicon:build": "tsx scripts/build-favicon.ts",
     "texts": "tsx scripts/fetch-texts.ts",
     "privacy:build": "tsx scripts/build-privacy.ts",
     "sync:events": "tsx --env-file=.env.local scripts/sync-events.ts",
