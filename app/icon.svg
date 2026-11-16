@@ -2,8 +2,8 @@
 <path d="M16.001 16H0V0H16.001V16Z" fill="#323232"/>
 <path d="M0 0H14V5C14 7.76142 11.7614 10 9 10H0V0Z" fill="white"/>
 <ellipse cx="2.50014" cy="4.5" rx="1.50014" ry="1.5" fill="#323232"/>
-<ellipse cx="6.00009" cy="4.4408" rx="1.00009" ry="1" fill="#323232"/>
-<ellipse cx="9.00009" cy="4.4408" rx="1.00009" ry="1" fill="#323232"/>
+<ellipse cx="6.50009" cy="4.4408" rx="1.00009" ry="1" fill="#323232"/>
+<ellipse cx="10.0001" cy="4.4408" rx="1.00009" ry="1" fill="#323232"/>
 <path d="M10 10V14L4 10H10Z" fill="white"/>
 <rect x="7" y="8" width="3" height="2" fill="white"/>
 </svg>
