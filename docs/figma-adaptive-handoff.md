@@ -2,7 +2,9 @@
 
 Вставьте ссылку на этот документ (или его текст) в начало нового чата.
 
-> Примечание (11.11.2026): это документ про устройство файла Figma, а не про вёрстку. Разделы «Осталось сделать в Figma» и «Тексты» устарели — всё решено (см. CLAUDE.md и дополнения). «28 people going» и аватары участников из макета убраны.
+> Примечание (11.11.2026): это документ про устройство файла Figma, а не про вёрстку. Разделы «Осталось сделать в Figma» и «Тексты» устарели — всё решено (см. CLAUDE.md и дополнения), поэтому из документа убраны. «28 people going» и аватары участников из макета убраны.
+>
+> Объединено 16.11.2026: копия из чата проекта (правки Figma от 15.11) + версия из репозитория (примечание от 11.11).
 
 ## Файл
 - Figma fileKey: `PRALafbEv1Nz9J0GRcw7sa`, страница **Claude** (`1003:3470`), секция **Components** (`1003:7995`).
@@ -36,7 +38,7 @@
   - card-featured-event (688, фото сверху), subscribe (768), card-testimonial (640, текст от центральной направляющей), get-involved (сетка 2×2), footer (колонки по направляющим);
   - **values** (768, табы 344 слева, описание от x=384, отступы 120/40). С 23.10 у набора `values` 15 вариантов: `size` × `active = community|support|growth|empowerment|learning`; вкладки — экземпляры `value-tab` (label + state default/active, высота по содержимому, в mobile/tablet переопределён стиль h3); свойство `description` удалено — описание задаётся в каждом варианте. Высоты одинаковые внутри размера: desktop 800, tablet 605, mobile 558 (у mobile minHeight 558, sizing AUTO). У каждой вкладки своё фоновое фото (перенесено из кадров Values `1283:23596/23606/23616/23626`): в desktop — с кадрированием и фильтрами как в кадре, в mobile/tablet — Fill с теми же фильтрами. Набор стоит внизу секции Components (y=11277, 2718×4200, wrap auto-layout: строка на вкладку, колонки desktop/mobile/tablet). Скрипты: code.values-variants.js, code.values-layout.js;
   - **faq-item** (688, collapsed/hover/expanded; ответ от x=212, ширина 516);
-  - **list-item** (608, divider on/off, низ 40);
+  - **list-item** (608, divider on/off, низ 24; с 15.11 заголовок→текст 12, как на десктопе);
   - **card-mentor** (688, neutral / dark-neutral, раскладка как на десктопе, отступы 40);
   - **card-program** (688: логотип 172×172 слева, справа теги, описание, цена, кнопка);
   - **card-speaker** (608, раскладка как на десктопе, отступы 40);
@@ -56,7 +58,7 @@
 - Секция **Form states** (`1442:18556`, x=-9919, y≈22782): для Mentorship, Volunteer, Subscribe, Suggest an event × 390/768/1440 × sending/success/error. Sending — форма с заполненными полями и кнопкой «Sending…»; success/error — экран 1440×900 / 768×1024 / 390×844: форма по центру, затемнение (клон scrim `1381:14135`, overlay/hover-dark), modal-message по центру (на 390 — во весь экран). Скрипт code.modal-message.js пересобирает всё целиком.
 - card-image — один компонент без вариантов, на планшете экземпляр растягивается до 344×344 (картинка — заливка самого экземпляра).
 - Шапка на планшете — мобильная (бургер), открытое меню — mobile-menu size=tablet.
-- menu-button: `size=mobile` (стиль mobile/button 18, невидимые отступы 11 → область нажатия 49).
+- menu-button: `size=mobile` (стиль mobile/button 18, невидимые отступы 11 → область нажатия 49). С 15.11 текстовые ссылки на mobile/tablet (Read more, Volunteer with us, See all events и т.п.) подчёркнуты — подчёркивание задано в экземплярах; ссылки в футере и mobile-menu без подчёркивания.
 - Только desktop/mobile: quote-accent, card-team-member (без size).
 - У mobile-вариантов list-item, card-mentor, card-program и у card-square тексты не привязаны к свойствам (тексты в экземплярах — ручные правки). Для планшетных экземпляров данные берутся из десктопных экземпляров.
 
@@ -64,15 +66,16 @@
 | | desktop / 1920 | tablet | mobile |
 |---|---|---|---|
 | h1 | 80 | 56 | 36 |
-| h2 | 56 | 44 | 32 |
+| h2 | 56 | 46 | 34 |
 | h3 | 30 | 28 | 28 |
 | numbers | 65 | 36 | 36 |
 | ссылки (button) | 16 | 18 | 18 |
-body / caption / feature общие.
+body / caption / feature общие. (h2 tablet/mobile увеличены на 2 px 15.11.)
 
 ## Правила отступов
 - **Desktop 1440:** поля 120, контент 1200, между секциями 160, заголовок→текст 40.
 - **1920:** раскладка и вертикальные размеры как на 1440. Контент 1200 по центру (поля 360): всё содержимое сдвигается на +240. Полноширинные блоки (hero-фоны, values, subscribe, footer, фоны секций) растягиваются до 1920; у экземпляров с auto-layout боковые отступы +240 (footer 360/360, values 360/360).
+- **Шапка (mobile и tablet):** рамка header с отступами 10 сверху и снизу (высота 65), логотип и бургер по центру по вертикали (с 15.11; раньше было 20/0).
 - **Tablet 768:**
   - сетка 4 колонки, поле 40, колонка 172 (направляющие 40/212/384/556/728);
   - отдельные заголовки и тексты — от 2-й направляющей (x=212);
@@ -82,6 +85,10 @@ body / caption / feature общие.
   - перед футером 0 (футер сразу после get-involved, как на Home / 768);
   - внутри карточек 688 с отступами 40 — две колонки: 80…344 (264) и 384…688 (304), промежуток 40.
 - **Mobile 390:** поля 20, между секциями 80, заголовок→текст 20, текст→контент 40, внутри карточек 20, кнопки друг под другом через 10, области нажатия ≥44. Get-involved и footer идут встык (как на tablet).
+  - Внутри карточек 20 по бокам; с 15.11 сверху (перед заголовком/меткой) и снизу (после последней кнопки) 40 у card-featured-event, card-event, card-event-past (фото→текст 40), mentor-profile (низ 40).
+  - Страница ивента (все Event page … / Mobile): картинка→заголовок 40 (заголовок и детали обёрнуты в рамку text с промежутком 20).
+  - Список list-item (Mentorship, mobile и tablet): заголовок→текст 12, до разделителя 24, после разделителя 24 (benefits-list gap 24) — как на десктопе.
+  - Футер mobile: кнопки Volunteer/Donate начинаются на 20 ниже строки Cookie Settings (actions paddingTop 278).
 
 ## Как устроены страницы 1920
 - Клон десктопной страницы 1440 → ширина 1920 (resizeWithoutConstraints).
@@ -127,7 +134,7 @@ body / caption / feature общие.
 - Облачный доступ к Figma не умеет менять тексты (нет шрифта Google Sans), даже клонировать или перемещать узлы с текстом. Свойства рамок без перерасчёта текстов (sizing, padding, minHeight, размер набора вариантов, x/y экземпляров) облако менять может. Читать (тексты, структуру, размеры) облако может.
 - Всё, что касается текстов, делает локальный плагин «Claude helper (WorkChat)» в ~/Documents/figma-claude-plugin на Mac (Plugins → Development).
 - Claude перезаписывает code.js под задачу. Базовый скрипт (зум к узлам из shared data claude/view) лежит в code.view.js.bak.
-- Скрипты страниц лежат в code.about768-*.js, code.mentorship768-*.js, code.volunteer768-*.js, code.mentorinfo768-*.js, code.eventpage768-*.js, code.events768-*.js, code.about1920-build.js, code.mentorship1920-build.js, code.volunteer1920-build.js, code.mentorinfo1920-build.js, code.eventpage1920-build.js, code.events1920-build.js; их можно брать за основу. Самые полные helpers — в code.events768-build.js: makeVariant, replaceInst с рекурсивным copyOv (тексты и картинки сопоставляются по вложенным экземплярам), wrap.
+- Скрипты страниц лежат в code.about768-*.js, code.mentorship768-*.js, code.volunteer768-*.js, code.mentorinfo768-*.js, code.eventpage768-*.js, code.events768-*.js, code.about1920-build.js, code.mentorship1920-build.js, code.volunteer1920-build.js, code.mentorinfo1920-build.js, code.eventpage1920-build.js, code.events1920-build.js; их можно брать за основу. Самые полные helpers — в code.events768-build.js: makeVariant, replaceInst с рекурсивным copyOv (тексты и картинки сопоставляются по вложенным экземплярам), wrap. Правки 15.11: code.mobile-fixes-1115.js, code.mobile-links-underline-1115.js, code.readmore-underline-1115.js.
 - Плагин записывает отчёт (ошибки, координаты, размеры текстов, переполнение) в `figma.root` shared plugin data `claude/report`. Облачный use_figma читает его — так проверяем результат без скриншотов.
 - Запуск: фоновое нажатие меню (app_menu) НЕ срабатывает — нужен обычный клик по строке меню Figma: Plugins → Development → Claude helper (WorkChat) (нужно разрешение на полноэкранное управление; после запуска его можно сразу отпустить).
 - Особенности API плагина (documentAccess: dynamic-page):
@@ -143,4 +150,10 @@ body / caption / feature общие.
   - после смены ширины тексты нужно пересчитывать;
   - текст FILL внутри HUG-рамки схлопывается, а текст с авторазмером по ширине вылезает за колонку — переводить в FILL + HEIGHT;
   - картинки при смене пропорций переводить в режим Fill;
-  - фото hero на десктопе отражено по горизонтали.
+  - фото hero на десктопе отражено по горизонтали;
+  - textDecoration, заданный в главном компоненте menu-button, не доходит до экземпляров с ручной правкой текста — ставить в экземплярах.
+
+## Сделано
+- Состояния отправки форм (02.11 переделаны): Sending — кнопка disabled «Sending…»; Success и Error — одно модальное окно `modal-message` поверх затемнённого экрана для всех форм (Mentorship, Volunteer, Subscribe, Suggest an event). См. «Компоненты» и секцию Form states.
+- Экран мобильного меню (mobile-menu, mobile и tablet) и переключатель EN/RU в нём; иконка бургера с состояниями closed/open.
+- 15.11 — правки мобильной версии по ревью сайта: центрирование шапки, h2 +2, подчёркнутые текстовые ссылки, отступы в карточках ивентов/ментора, list-item, футер, страница ивента (см. «Правила отступов»).
