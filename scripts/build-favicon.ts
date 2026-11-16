@@ -4,7 +4,7 @@
  *
  * Собирает (Next.js подключает файлы из app/ сам, <link> вручную не нужен):
  *  - app/favicon.ico  — PNG 16, 32, 48 внутри одного ICO (старые браузеры, Google в выдаче);
- *  - app/icon.svg     — тёмная иконка; в тёмной теме браузера — светлая (как favicon-32-dark);
+ *  - app/icon.svg     — кадр favicon (1969:16474) как есть;
  *  - app/apple-icon.png — 180×180 на фоне bg/page (экран «Домой» на iPhone).
  * Без зависимостей: ICO с PNG внутри — заголовок + каталог + PNG как есть.
  */
@@ -18,6 +18,11 @@ const out = (f: string) => join(root, "app", f);
 // --- favicon.ico ---
 const sizes = [16, 32, 48];
 const pngs = sizes.map((s) => readFileSync(src(`favicon-${s}.png`)));
+// В ICO браузеры и Next.js принимают только PNG с альфа-каналом (RGBA, color type 6 в IHDR).
+// Кадр без прозрачных пикселей Figma может отдать как RGB — тогда пересохранить в RGBA.
+pngs.forEach((png, i) => {
+  if (png[25] !== 6) throw new Error(`favicon-${sizes[i]}.png: нужен PNG RGBA (сейчас color type ${png[25]}) — пересохраните с альфа-каналом`);
+});
 const header = Buffer.alloc(6);
 header.writeUInt16LE(0, 0); // reserved
 header.writeUInt16LE(1, 2); // type: icon
@@ -39,18 +44,9 @@ pngs.forEach((png, i) => {
 });
 writeFileSync(out("favicon.ico"), Buffer.concat([header, dir, ...pngs]));
 
-// --- icon.svg: цвет из favicon-32 (тёмный) и favicon-32-dark (светлый) ---
-const light = readFileSync(src("favicon-32.svg"), "utf8");
-const darkFill = readFileSync(src("favicon-32-dark.svg"), "utf8").match(/fill="(#[0-9a-fA-F]{6})"/g)?.pop()?.slice(6, -1);
-const lightFill = light.match(/fill="(#[0-9a-fA-F]{6})"/g)?.pop()?.slice(6, -1);
-if (!lightFill || !darkFill) throw new Error("favicon-32(.dark).svg: не найден цвет заливки");
-const svg = light
+// --- icon.svg: кадр favicon как есть (свой тёмный фон — виден в светлой и тёмной теме) ---
+const svg = readFileSync(src("favicon-16.svg"), "utf8")
   .replace(/<g clip-path="[^"]*">|<\/g>|<defs>[\s\S]*?<\/defs>/g, "")
-  .replace(new RegExp(`fill="${lightFill}"`, "g"), 'class="mark"')
-  .replace(
-    /(<svg[^>]*>)/,
-    `$1\n<style>.mark{fill:${lightFill}}@media (prefers-color-scheme:dark){.mark{fill:${darkFill}}}</style>`,
-  )
   .replace(/\n\s*\n/g, "\n");
 writeFileSync(out("icon.svg"), svg);
 

@@ -259,11 +259,11 @@ figmaAssets.push(
 // файлы для сайта (app/favicon.ico, app/icon.svg, app/apple-icon.png) собирает
 // `npm run favicon:build` (scripts/build-favicon.ts).
 figmaAssets.push(
-  { nodeId: "1476:11919", name: "favicon-32", format: "svg", scale: 1, dir: "favicon", publish: false },
-  { nodeId: "1476:11942", name: "favicon-32-dark", format: "svg", scale: 1, dir: "favicon", publish: false },
-  { nodeId: "1476:11919", name: "favicon-32", format: "png", scale: 1, dir: "favicon", publish: false },
-  { nodeId: "1474:27258", name: "favicon-16", format: "png", scale: 1, dir: "favicon", publish: false },
-  { nodeId: "1476:11930", name: "favicon-48", format: "png", scale: 1, dir: "favicon", publish: false },
+  // favicon — кадр 1969:16474 (16×16, тёмный квадрат с белым «облачком»; подходит и к светлой, и к тёмной вкладке)
+  { nodeId: "1969:16474", name: "favicon-16", format: "svg", scale: 1, dir: "favicon", publish: false },
+  { nodeId: "1969:16474", name: "favicon-16", format: "png", scale: 1, dir: "favicon", publish: false },
+  { nodeId: "1969:16474", name: "favicon-32", format: "png", scale: 2, dir: "favicon", publish: false },
+  { nodeId: "1969:16474", name: "favicon-48", format: "png", scale: 3, dir: "favicon", publish: false },
   { nodeId: "1476:11953", name: "apple-icon-180", format: "png", scale: 1, dir: "favicon", publish: false },
   { nodeId: "1476:11964", name: "icon-192", format: "png", scale: 1, dir: "favicon", publish: false },
   { nodeId: "1476:11975", name: "icon-512", format: "png", scale: 1, dir: "favicon", publish: false },
