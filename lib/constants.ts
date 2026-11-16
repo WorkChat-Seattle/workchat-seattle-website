@@ -30,6 +30,12 @@ export const SHOW_SUGGEST_EVENT = true;
  */
 export const SEND_FORM_EMAILS = true;
 
+/**
+ * Письмо-благодарность отправителю формы (docs/forms-to-notion.md, «Письмо-благодарность»). Выключено, пока не подтверждён домен
+ * в Resend: с тестового onboarding@resend.dev письмо уйдёт только на workchatseattle@gmail.com.
+ */
+export const SEND_CONFIRMATION_EMAILS = false;
+
 /** Почта команды для заявок и в текстах ошибок (docs/forms-to-notion.md). Берётся из env, запасное значение — тот же адрес. */
 export const FORMS_TO_EMAIL = process.env.FORMS_TO_EMAIL ?? "workchatseattle@gmail.com";
 

@@ -55,7 +55,7 @@ export function MentorForm({ lang, labels: l }: { lang: Locale; labels: Labels }
     setErrors({});
     setSending(true);
     const token = (await turnstile.current?.getToken()) ?? null;
-    const res = await postForm("mentor", payload, token, trap);
+    const res = await postForm("mentor", payload, token, trap, lang);
     turnstile.current?.reset();
     setSending(false);
     if (res.ok) {

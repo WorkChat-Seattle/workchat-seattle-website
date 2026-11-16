@@ -50,7 +50,7 @@ export function SuggestEvent({ lang, labels: l, buttonClassName }: { lang: Local
     setErrors({});
     setSending(true);
     const token = (await turnstile.current?.getToken()) ?? null;
-    const res = await postForm("suggest-event", v, token, trap);
+    const res = await postForm("suggest-event", v, token, trap, lang);
     turnstile.current?.reset();
     setSending(false);
     if (res.ok) {

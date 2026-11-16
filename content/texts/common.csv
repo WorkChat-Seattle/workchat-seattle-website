@@ -103,3 +103,12 @@ language.English,Язык мероприятия (Notion → Language),In Englis
 language.Russian,Язык мероприятия,In Russian,На русском,Вычитано,
 language.English & Russian,Язык мероприятия,In English & Russian,На английском и русском,Вычитано,
 date.format,Даты на всём сайте,"Wednesday, 11/18/2026","Среда, 18 ноября 2026",Вычитано,Пример формата; даты форматируются автоматически по языку
+email.thanks.subject,Письмо-благодарность отправителю формы: тема,Thank you for reaching out to WorkChat Seattle,"WorkChat Seattle — спасибо, мы всё получили!",Вычитано,"Письмо уходит после отправки форм Mentor, Volunteer, Suggest an event; язык — по странице, с которой отправлена форма"
+email.thanks.greeting,Письмо-благодарность: обращение,"Hi {name},","Здравствуйте, {name}!",Вычитано,{name} — имя из формы
+email.thanks.mentor,Письмо-благодарность: форма Become a mentor,Thank you for your interest in becoming a mentor with WorkChat Seattle! We’ve received your information and will get back to you within 3 business days with the next steps.,"Мы получили вашу заявку — спасибо за вашу готовность стать ментором WorkChat Seattle и делиться своим опытом! Многим очень важна поддержка человека, который уже прошёл похожий путь. В ближайшие три рабочих дня мы напишем о следующих шагах.",Вычитано,
+email.thanks.volunteer,Письмо-благодарность: форма Volunteer,Thank you for your interest in volunteering with WorkChat Seattle! We’ve received your information and will get back to you within 3 business days with the next steps.,"Мы получили вашу заявку — спасибо за вашу готовность стать волонтёром WorkChat Seattle! Все наши мероприятия и инициативы происходят только благодаря тем, кто приходит помочь. В ближайшие три рабочих дня мы напишем о следующих шагах.",Вычитано,
+email.thanks.suggestEvent,Письмо-благодарность: форма Suggest an event,Thank you for suggesting an event! Our team will review your idea and may reach out to you by email.,"Спасибо за предложенное мероприятие! Мы рассмотрим ваше предложение, и если нужно будет что-то уточнить, напишем вам.",Вычитано,
+email.thanks.reply,Письмо-благодарность: перед подписью,"If you have any questions in the meantime, just reply to this email.",Если у вас есть любые вопросы — просто ответьте на это письмо.,Вычитано,
+email.thanks.signature,Письмо-благодарность: подпись,"Warm regards,
+The WorkChat Seattle team","Хорошего дня!
+Команда WorkChat Seattle",Вычитано,Две строки (перенос внутри ячейки)

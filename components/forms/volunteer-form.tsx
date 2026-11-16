@@ -51,7 +51,7 @@ export function VolunteerForm({ lang, labels: l }: { lang: Locale; labels: Label
     setErrors({});
     setSending(true);
     const token = (await turnstile.current?.getToken()) ?? null;
-    const res = await postForm("volunteer", payload, token, trap);
+    const res = await postForm("volunteer", payload, token, trap, lang);
     turnstile.current?.reset();
     setSending(false);
     if (res.ok) {

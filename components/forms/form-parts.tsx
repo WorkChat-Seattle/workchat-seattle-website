@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { FieldErrors, FormKind } from "@/data/forms";
+import type { Locale } from "@/i18n/config";
 import { PRIVACY_PATH } from "@/lib/constants";
 import { linkPhrase } from "@/lib/rich";
 
@@ -49,12 +50,12 @@ export function SubmitButton({ sending, label, sendingLabel, className, ref }: {
 export type SendResult = { ok: true } | { ok: false; reason: "network" | "turnstile" | "server" | "invalid" };
 
 /** Отправка на /api/forms/{kind}. Любая ошибка сети или сервера — `ok: false` (в окне покажем «Something went wrong»). */
-export async function postForm(kind: FormKind, payload: object, token: string | null, honeypot: string): Promise<SendResult> {
+export async function postForm(kind: FormKind, payload: object, token: string | null, honeypot: string, lang: Locale): Promise<SendResult> {
   try {
     const res = await fetch(`/api/forms/${kind}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...payload, turnstileToken: token, website: honeypot }),
+      body: JSON.stringify({ ...payload, turnstileToken: token, website: honeypot, lang }),
     });
     if (res.ok) return { ok: true };
     const body = (await res.json().catch(() => ({}))) as { error?: string };

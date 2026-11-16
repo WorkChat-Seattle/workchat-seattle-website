@@ -1,5 +1,6 @@
 import { FORM_KINDS, type FormKind, parseForm } from "@/data/forms";
-import { sendFormEmail } from "@/lib/forms/email";
+import { hasLocale } from "@/i18n/config";
+import { sendConfirmationEmail, sendFormEmail } from "@/lib/forms/email";
 import { saveMentor, saveSuggestion, saveVolunteer } from "@/lib/forms/notion";
 import { verifyTurnstile } from "@/lib/forms/turnstile";
 
@@ -58,6 +59,14 @@ export async function POST(request: Request, ctx: RouteContext<"/api/forms/[form
   } catch (e) {
     console.error(`[forms] ${kind}: письмо не отправлено`, e);
     if (!notionUrl) return json({ ok: false, error: "server" }, 502);
+  }
+
+  // Благодарность отправителю: язык — со страницы формы (проверяем), ошибка не ломает форму.
+  const lang = typeof body.lang === "string" && hasLocale(body.lang) ? body.lang : "en";
+  try {
+    await sendConfirmationEmail(kind, parsed.value, lang);
+  } catch (e) {
+    console.warn(`[forms] ${kind}: письмо-благодарность не отправлено`, e);
   }
   return json({ ok: true });
 }
