@@ -46,11 +46,13 @@ export async function GET(_req: Request, { params }: { params: Promise<{ lang: s
 
   const title = lang === "en" ? titleCase(eventTitle(event, lang)) : eventTitle(event, lang);
   const description = eventShort(event, lang);
+  const time = formatTime(event.start, event.end, lang);
   const place = event.format === "Online" || !event.address ? (event.placeName ?? t["format.Online"]) : (event.placeName ?? cityOf(event.address) ?? t["format.Online"]);
 
-  // 430 = от верха 140 до низа 570; детали 3×30 + 2×12 = 114; отступы 20 и 40
+  // 430 = от верха 140 до низа 570; детали 3×30 + 2×12 = 114 (без строки времени — 2×30 + 12 = 72); отступы 20 и 40
+  const details = time ? 114 : 72;
   const height = (titleSize: number, descSize: number) =>
-    lines(title, titleSize) * titleSize * 0.9 + 20 + lines(description, descSize) * descSize * 1.3 + 40 + 114;
+    lines(title, titleSize) * titleSize * 0.9 + 20 + lines(description, descSize) * descSize * 1.3 + 40 + details;
   let titleSize = 56;
   let descSize = 22;
   if (height(titleSize, descSize) > 430) titleSize = 44;
@@ -72,7 +74,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ lang: s
             <div style={{ marginTop: 20, fontSize: descSize, lineHeight: 1.3, color: "#4a4a4a" }}>{description}</div>
             <div style={{ marginTop: 40, display: "flex", flexDirection: "column", gap: 12 }}>
               <Row path={datePath} text={formatDate(event.start, lang)} />
-              <Row path={timePath} text={formatTime(event.start, event.end, lang)} />
+              {time ? <Row path={timePath} text={time} /> : null}
               <Row path={locationPath} text={place} />
             </div>
           </div>

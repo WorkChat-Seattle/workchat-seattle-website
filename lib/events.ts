@@ -3,12 +3,34 @@ import { events, type Block, type EventItem, type Speaker } from "@/data/events"
 /** Часовой пояс сайта: прошло ли событие, считается в нём, а не в UTC сервера (docs/dynamic-content.md). */
 export const SITE_TZ = "America/Los_Angeles";
 
-/** Момент окончания события; если окончания нет — конец дня начала (берём 23:59:59 даты начала в поясе из ISO). */
+/** Только дата, без времени («2019-08-09»): так Notion отдаёт события, у которых в Date не включено время. */
+export const isDateOnly = (iso: string): boolean => /^\d{4}-\d{2}-\d{2}$/.test(iso);
+
+/** Смещение пояса сайта в этот день, вида «-08:00» / «-07:00» (зимнее и летнее время). */
+function siteOffset(day: string): string {
+  const name = new Intl.DateTimeFormat("en-US", { timeZone: SITE_TZ, timeZoneName: "longOffset" })
+    .formatToParts(new Date(`${day}T12:00:00Z`))
+    .find((p) => p.type === "timeZoneName")?.value;
+  const m = name?.match(/GMT([+-]\d{2}:\d{2})/);
+  return m ? m[1] : "Z";
+}
+
+/** День (YYYY-MM-DD) в поясе сайта: для даты без времени — она сама, для момента со временем — день в Сиэтле. */
+function siteDay(iso: string): string {
+  if (isDateOnly(iso)) return iso;
+  return new Intl.DateTimeFormat("en-CA", { timeZone: SITE_TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(iso));
+}
+
+/** 23:59:59 этого дня в поясе сайта. */
+const siteEndOfDay = (day: string): Date => new Date(`${day}T23:59:59${siteOffset(day)}`);
+
+/**
+ * Момент окончания события. Окончание со временем — как есть; окончание без времени — конец этого дня в Сиэтле;
+ * окончания нет — конец дня начала в Сиэтле (и для начала со временем, и для начала без времени).
+ */
 export function eventEnd(e: EventItem): Date {
-  if (e.end) return new Date(e.end);
-  // дата начала вида 2026-11-18T18:30:00.000-08:00 → конец того же дня с тем же смещением
-  const m = e.start.match(/^(\d{4}-\d{2}-\d{2}).*?([+-]\d{2}:\d{2}|Z)$/);
-  return m ? new Date(`${m[1]}T23:59:59${m[2] === "Z" ? "Z" : m[2]}`) : new Date(e.start);
+  if (e.end) return isDateOnly(e.end) ? siteEndOfDay(e.end) : new Date(e.end);
+  return siteEndOfDay(siteDay(e.start));
 }
 
 export const isPast = (e: EventItem, now: Date = new Date()): boolean => eventEnd(e).getTime() <= now.getTime();
@@ -31,19 +53,27 @@ type Loc = "en" | "ru";
 
 /** Дата: EN «Wednesday, 11/18/2026», RU «Среда, 18 ноября 2026» — в поясе сайта (вкладка «Общее», date.format). */
 export function formatDate(iso: string, lang: Loc): string {
-  const d = new Date(iso);
+  // дата без времени — календарный день как есть (полдень UTC, без пересчёта в пояс: иначе «2019-08-09» стала бы 8 августа)
+  const dateOnly = isDateOnly(iso);
+  const d = dateOnly ? new Date(`${iso}T12:00:00Z`) : new Date(iso);
+  const timeZone = dateOnly ? "UTC" : SITE_TZ;
   if (lang === "en") {
-    const wd = new Intl.DateTimeFormat("en-US", { weekday: "long", timeZone: SITE_TZ }).format(d);
-    const rest = new Intl.DateTimeFormat("en-US", { month: "2-digit", day: "2-digit", year: "numeric", timeZone: SITE_TZ }).format(d);
+    const wd = new Intl.DateTimeFormat("en-US", { weekday: "long", timeZone }).format(d);
+    const rest = new Intl.DateTimeFormat("en-US", { month: "2-digit", day: "2-digit", year: "numeric", timeZone }).format(d);
     return `${wd}, ${rest}`;
   }
-  const wd = new Intl.DateTimeFormat("ru-RU", { weekday: "long", timeZone: SITE_TZ }).format(d);
-  const rest = new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", year: "numeric", timeZone: SITE_TZ }).format(d);
+  const wd = new Intl.DateTimeFormat("ru-RU", { weekday: "long", timeZone }).format(d);
+  const rest = new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", year: "numeric", timeZone }).format(d);
   return `${wd.charAt(0).toUpperCase()}${wd.slice(1)}, ${rest.replace(/\s*г\.$/, "")}`;
 }
 
-/** Время: EN «6:30 PM - 8:30 PM PT», RU «18:30–20:30 PT» (24 часа, короткое тире без пробелов) — вкладка «Event page», eventPage.time. */
-export function formatTime(startIso: string, endIso: string | null, lang: Loc): string {
+/**
+ * Время: EN «6:30 PM - 8:30 PM PT», RU «18:30–20:30 PT» (24 часа, короткое тире без пробелов) — вкладка «Event page», eventPage.time.
+ * Начало без времени — null (строку времени не показываем); окончание без времени или в другой день — показываем только начало.
+ */
+export function formatTime(startIso: string, endIso: string | null, lang: Loc): string | null {
+  if (isDateOnly(startIso)) return null;
+  if (endIso && (isDateOnly(endIso) || siteDay(endIso) !== siteDay(startIso))) endIso = null;
   const f = (iso: string) =>
     new Intl.DateTimeFormat(lang === "en" ? "en-US" : "ru-RU", {
       hour: lang === "en" ? "numeric" : "2-digit",

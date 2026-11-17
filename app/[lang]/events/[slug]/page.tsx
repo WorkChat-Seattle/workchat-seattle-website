@@ -66,6 +66,7 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
   const t = await getDictionary(lang);
 
   const closed = isPast(event);
+  const time = formatTime(event.start, event.end, lang);
   const title = eventTitle(event, lang);
   const hasPlace = event.format !== "Online" && Boolean(event.placeName || event.address);
   const register = {
@@ -101,7 +102,7 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
               <div className="contents xl:flex xl:flex-col xl:justify-between">
                 <div className="order-2 mt-5 flex flex-col gap-4 xl:mt-0">
                   <EventDetail type="date">{formatDate(event.start, lang)}</EventDetail>
-                  <EventDetail type="time">{formatTime(event.start, event.end, lang)}</EventDetail>
+                  {time ? <EventDetail type="time">{time}</EventDetail> : null}
                   <EventDetail type="location">{locationLabel(event, t["format.Online"])}</EventDetail>
                   <EventDetail type="language">{language}</EventDetail>
                 </div>
