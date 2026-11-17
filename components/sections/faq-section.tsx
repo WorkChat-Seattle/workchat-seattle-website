@@ -29,7 +29,7 @@ export function FaqSection({
       <div className="mt-10 border-t border-border-divider xl:mt-15 xl:ml-37.5 xl:w-225">
         {ids.map((id, i) => (
           <FaqItem key={id} question={t[`${prefix}.${id}.q` as TextKey]} defaultOpen={i === 0}>
-            <p className="whitespace-pre-line xl:max-w-150">{autoLink(t[`${prefix}.${id}.a` as TextKey])}</p>
+            <p className="whitespace-pre-line xl:max-w-150">{autoLink(t[`${prefix}.${id}.a` as TextKey], undefined, t["a11y.newTab"])}</p>
           </FaqItem>
         ))}
       </div>

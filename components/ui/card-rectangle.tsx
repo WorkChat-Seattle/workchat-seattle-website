@@ -69,7 +69,6 @@ export function CardRectangle({
             touchUnderline
             tone={tone}
             className="focus-visible:outline-none"
-            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
             {linkLabel}
             {external && newTabLabel ? <span className="sr-only"> {newTabLabel}</span> : null}

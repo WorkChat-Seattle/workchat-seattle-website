@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SmartLink } from "./smart-link";
 import type { AnchorHTMLAttributes, ComponentProps } from "react";
 
 export type ButtonOption = "dark" | "white" | "outlined";
@@ -30,7 +30,7 @@ export function Button({
   return <button type={type} className={classes(option, className)} {...rest} />;
 }
 
-/** Кнопка-ссылка: тот же вид, но `<a href>` (переходы — только ссылками). Внешняя — обычный `<a>`. */
+/** Кнопка-ссылка: тот же вид, но `<a href>` (переходы — только ссылками). target / rel по адресу ставит SmartLink (lib/links.ts). */
 export function ButtonLink({
   option = "dark",
   className,
@@ -41,27 +41,12 @@ export function ButtonLink({
 }: Props &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
     href: string;
-    /** a11y.newTab: пометка для скринридера у внешней ссылки (она открывается в новой вкладке). */
+    /** a11y.newTab: пометка для скринридера у внешней ссылки (она открывается в новой вкладке); у mailto не добавляется. */
     newTabLabel?: string;
   }) {
-  const cls = classes(option, className);
-  const external = /^(https?:|mailto:|tel:)/.test(href);
-  if (external) {
-    return (
-      <a
-        href={href}
-        className={cls}
-        {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        {...rest}
-      >
-        {children}
-        {href.startsWith("http") && newTabLabel ? <span className="sr-only"> {newTabLabel}</span> : null}
-      </a>
-    );
-  }
   return (
-    <Link href={href} className={cls} {...rest}>
+    <SmartLink href={href} newTabLabel={newTabLabel} className={classes(option, className)} {...rest}>
       {children}
-    </Link>
+    </SmartLink>
   );
 }

@@ -54,7 +54,6 @@ export function CardSquare({
         href={href}
         touchUnderline
         className="self-start transition-transform duration-(--duration-card-scale) ease-card motion-safe:group-hover/card:scale-(--card-scale) motion-reduce:transition-none focus-visible:outline-none"
-        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {linkLabel}
         {external && newTabLabel ? <span className="sr-only"> {newTabLabel}</span> : null}

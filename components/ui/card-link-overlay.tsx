@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SmartLink } from "./smart-link";
 
 /**
  * Невидимая ссылка на всю карточку (карточки card-square / card-rectangle). Настоящая ссылка с подписью остаётся внутри карточки
@@ -8,11 +8,5 @@ import Link from "next/link";
  * Карточка должна быть `relative`.
  */
 export function CardLinkOverlay({ href }: { href: string }) {
-  const external = /^https?:/.test(href);
-  const common = { "aria-hidden": true as const, tabIndex: -1, className: "absolute inset-0 z-10" };
-  return external ? (
-    <a href={href} target="_blank" rel="noopener noreferrer" {...common} />
-  ) : (
-    <Link href={href} {...common} />
-  );
+  return <SmartLink href={href} aria-hidden tabIndex={-1} className="absolute inset-0 z-10" />;
 }

@@ -10,6 +10,7 @@ import { SpeakerCard } from "@/components/events/speaker-card";
 import { GetInvolved } from "@/components/sections/get-involved";
 import { Subscribe } from "@/components/sections/subscribe";
 import { ButtonLink } from "@/components/ui/button";
+import { SmartLink } from "@/components/ui/smart-link";
 import { events } from "@/data/events";
 import { eventJsonLd } from "@/lib/json-ld";
 import { fillTemplate, pageMetadata } from "@/lib/seo";
@@ -126,7 +127,7 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
                 {t["eventPage.details"]}
               </h2>
               <div data-reveal className="mt-5">
-                <EventDescription blocks={eventDescription(event, lang)} />
+                <EventDescription blocks={eventDescription(event, lang)} newTabLabel={t["a11y.newTab"]} />
               </div>
             </section>
 
@@ -153,15 +154,9 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
                     {event.placeName ? <p className="text-feature text-text-body">{event.placeName}</p> : null}
                     {event.address ? <p className="text-body whitespace-pre-line text-text-body">{event.address}</p> : null}
                     {event.mapsLink ? (
-                      <a
-                        href={event.mapsLink}
-                        className="text-body w-fit text-text-body underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <SmartLink href={event.mapsLink} className="text-body w-fit text-text-body underline" newTabLabel={t["a11y.newTab"]}>
                         {t["eventPage.openMap"]}
-                        <span className="sr-only"> {t["a11y.newTab"]}</span>
-                      </a>
+                      </SmartLink>
                     ) : null}
                   </div>
                   {event.address ? (
