@@ -13,7 +13,7 @@
 - **privacy-policy.md** — страница Privacy Policy.
 - **social-previews.md** — картинки-превью (Open Graph), включая og-event (решено 11.11).
 - **seo-ai-visibility.md** — robots, sitemap, метаданные, JSON-LD, проверка.
-- **animations.md** — анимации: появление при прокрутке, кнопки, ссылки, карточки, логотип, шапка, параллакс, Numbers, Find your mentor, слайдер отзывов, Our Values (закреплённый блок), FAQ. Эталон — тестовая версия, репозиторий **julia-seas/workchat-v2** на GitHub (Home — `index.html`; About — `about.html`, `assets/js/about-values.js`; общие скрипты — `assets/js/site.js`; стили — `styles.css`). Параметры переносим как есть.
+- **animations.md** — анимации: появление при прокрутке, кнопки, ссылки, карточки, логотип, шапка, параллакс, Numbers, Find your mentor, слайдер отзывов, Our Values (закреплённый блок), FAQ. Эталон — тестовая версия, репозиторий **WorkChat-Seattle/workchat-animations-reference** на GitHub (бывший `julia-seas/workchat-v2`) (Home — `index.html`; About — `about.html`, `assets/js/about-values.js`; общие скрипты — `assets/js/site.js`; стили — `styles.css`). Параметры переносим как есть.
 - **after-launch-updates.md** — правки после запуска: ветка → PR → Vercel Preview → merge, источники правок, откат, возможная GitHub Action.
 - **handoff.md** — задания из чата проекта. По просьбе «прочитай handoff» выполнить **последнее** задание из этого файла и кратко дописать итог (что сделано, что решить) в раздел «Ответ» под ним.
 - **figma-adaptive-handoff.md** — как устроен файл Figma (для работы в Figma, не для вёрстки).

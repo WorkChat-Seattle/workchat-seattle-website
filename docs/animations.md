@@ -1,7 +1,7 @@
 # WorkChat Seattle — анимации (дополнение к CLAUDE.md)
 
 11.11.2026. Анимации Юлия настроила во второй тестовой версии сайта и переносим их в новый сайт **с теми же параметрами**. Исходник — эталон: при сомнении открыть код и повторить поведение.
-- Репозиторий **julia-seas/workchat-v2** на GitHub (коммит `947eadc` от 11.11 — добавлена страница About):
+- Репозиторий **WorkChat-Seattle/workchat-animations-reference** на GitHub (до 16.11 — `julia-seas/workchat-v2`; в комментариях кода он по-прежнему назван «workchat-v2») (коммит `947eadc` от 11.11 — добавлена страница About):
   - **Home** — `index.html`, `styles.css`;
   - **About** (Our Values, FAQ, появление блоков About) — `about.html`, `assets/js/about-values.js`, `styles.css` (разделы `about: values`, `faq`);
   - общие скрипты (появление при прокрутке, шапка, переключатель языка, параллакс) — `assets/js/site.js`.
