@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { externalProps } from "@/lib/links";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 
 /**
@@ -80,7 +81,7 @@ export function MenuButton({
 }: { href: string } & Common & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "children" | "className">) {
   const s = styles({ variant, size, tone, touchUnderline, className });
   return (
-    <Link href={href} aria-current={ariaCurrent(current, variant)} className={s.root} {...rest}>
+    <Link href={href} aria-current={ariaCurrent(current, variant)} className={s.root} {...externalProps(href)} {...rest}>
       <Inner label={s.label} line={s.line}>{children}</Inner>
     </Link>
   );

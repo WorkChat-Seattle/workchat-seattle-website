@@ -207,7 +207,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
   - button `1003:8012` (option dark/white/outlined; state default/hover; у dark есть state=disabled — opacity 50%, подписи «Sending…» и «Registration closed»);
   - button-round `1003:8025`;
   - button-vertical `1048:1439`;
-  - button-social `1003:8087` (linkedin/facebook);
+  - button-social `1003:8087` (`logo = linkedin | facebook | email`; значок конверта — узел `1986:16437`, глиф `emailPath` в `glyphs.ts`, в круге по центру со смещением 16 / 17.8). linkedin / facebook — внешние ссылки в новой вкладке, подпись + `a11y.newTab`; email — `<a href="mailto:{FORMS_TO_EMAIL}" target="_blank" rel="noopener noreferrer">` (с 17.11: веб-почта, например Gmail, открывается в новой вкладке, сайт остаётся), но без `a11y.newTab` — при почте в приложении вкладка не откроется; подпись `a11y.emailUs`;
   - menu-button `1003:7999`;
   - Language `1003:8105`;
   - logo `1048:1421`;
@@ -227,7 +227,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 - **Раскладка:**
   - header `1084:10369`;
   - mobile-menu `1298:12443` (mobile `1297:66`, tablet `1298:12421`);
-  - footer `1110:10554` (в нём ссылки Privacy Policy и «Cookie Settings» — `<button>`, открывает окно настроек cookies);
+  - footer `1110:10554` (в нём ссылки Privacy Policy и «Cookie Settings» — `<button>`, открывает окно настроек cookies). Соцкнопки: email → LinkedIn → Facebook на всех размерах. Desktop — три в ряд в столбце меню, промежуток 10. **Tablet:** соцкнопки в левом столбце под копирайтом (отступ 60, промежуток 10), в среднем столбце только меню, hug справа внизу — его низ совпадает с низом соцкнопок, высота светлой части по содержимому. **Mobile:** соцкнопки слева, промежуток 5, низ совпадает с низом Donate; Volunteer / Donate — правая колонка (175 на 390, на 360 — 145; зазор до соцкнопок не меньше 15; на mobile у них боковой отступ 8, чтобы «Волонтёрство» помещалось в одну строку). В коде два набора кнопок (`FooterSocials`), лишний скрыт `display: none`;
   - subscribe `1084:10472` — только state=default: наш заголовок и подпись + iframe Zeffy (см. «Subscribe»). Варианты sending / success / error устарели, не верстать;
   - get-involved `1084:10523` (+ get-involved/mobile `1084:10473`).
 - **Карточки:**
@@ -358,6 +358,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
    11. проверка (п. 3 и seo-ai-visibility.md, п. 8).
 3. На каждой странице сверять 390, 768, 1440 и 1920 со скриншотами кадров и промежуточные ширины 360, 430, 1024, 1280 — на обоих языках.
 4. Семантическая разметка: один h1 на страницу, `<nav>`, `<main>`, `<footer>`, `<button>` для действий, `<a href>` для переходов (без переходов через `onClick`), `<label>` у полей, `lang` у `<html>` (`en` / `ru`), skip link. FAQ и разделы Privacy Policy — кнопка с `aria-expanded` (не `<details>`, чтобы анимировать высоту); ответы в HTML и в свёрнутом виде (закрытый — `inert`).
+   **Внешние ссылки (решено 17.11).** Внешние http(s)-ссылки (не наш домен) и все `mailto:` открываются в новой вкладке — `target="_blank" rel="noopener noreferrer"`; внутренние (`/…`, `/ru/…`, якоря, наш домен) — в той же. Правило в одном месте: `lib/links.ts` (`externalProps`, `isExternalHttp`, `needsNewTabLabel`) и компонент `components/ui/smart-link.tsx` (`SmartLink`: внутренний адрес — `next/link`, внешний — `<a>` с атрибутами). Через него уже работают `ButtonLink`, `CardLinkOverlay`, `autoLink` (тексты, FAQ, Privacy Policy, окно ошибки форм), ссылки спикера, карты и описания события; `ButtonSocial` и `MenuButton` берут `externalProps(href)`. **Новую ссылку на адрес из данных или текста не писать голым `<a target=…>` и не ставить `target` руками — только через `SmartLink` / `externalProps`.** Подпись для скринридера: у внешних http(s) — `a11y.newTab`, у `mailto:` — без него (при почте в приложении вкладка не откроется). Исключения — внутренние ссылки, которые открываются в новой вкладке намеренно, чтобы не потерять введённые данные или контекст: Privacy Policy из согласия в формах и cookie-окна, «mentor form» из формы Volunteer (у них свой `target`).
 5. Состояния из вариантов (hover, focus, active, error, expanded, disabled) реализовать все. Focus виден с клавиатуры. Все анимации выключаются при `prefers-reduced-motion: reduce`.
 6. **Картинки** (все проверены и одобрены 06.11 — брать из Figma как есть):
    - **выгрузка — скриптом, а не по одной** (решено 11.11): `npm run export:figma` (`scripts/export-figma.ts`) через Figma REST API (`GET /v1/images/:file_key`). Список картинок — в `scripts/figma-assets.ts`: `{ nodeId, name, format: 'jpg' | 'png' | 'svg', scale, dir }`. Узлы рендерятся как в макете — с обрезкой и фильтрами (ч/б и затемнение у фото Our Values и т. п.), CSS-фильтрами не повторять. Фото — **JPG 2×** (кадр 1440 → 2880 px по ширине; PNG — только там, где нужна прозрачность); логотип и иконки — SVG, затем SVGO. Оригиналы — в `design-assets/` (вне `public`, в git), файлы для сайта — копии с осмысленными именами в `public/images/`. Повторный запуск перезаписывает файлы: заменили картинку в Figma — одна команда. Список пополняется постранично (начать с Home). Токен — `FIGMA_TOKEN` (личный токен Юлии, только чтение `file_content:read`) в `.env.local`; `.env.local` — в `.gitignore`, в Vercel токен не нужен. Запросы к API — пачками по нескольку узлов, при ответе 429 подождать и повторить. Для разовой картинки можно и `download_assets` из Figma MCP, но затем добавить её в список скрипта;
@@ -493,7 +494,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - **Logo:** слои wordmark / bubble / dot-1…3, у точек классы `logo-dot logo-dot-1…3` для анимации «печатает…» (animations.md, п. 5, — на проходе анимаций).
 - **Значки time и language** — окончательные (решено 17.11): перерисовывать не нужно.
 - **CSS-модули** (`*.module.css`) — только для раскладки-«рисунка» с координатами из Figma (коллажи Community, аватары Find mentor, сетка ролей Volunteer); правило Turbopack для Tailwind ограничено `globals.css`.
-- **Окружение:** не использовать широкий `pkill`; dev-сервер убивать по порту (`lsof -ti tcp:<порт>`); Chrome headless для скриншотов; `gh` и `brew` не установлены, push идёт по https. Коммитить и пушить законченный блок самостоятельно, если сборка и lint проходят (решено 12.11).
+- **Окружение:** не использовать широкий `pkill`; dev-сервер убивать по порту (`lsof -ti tcp:<порт>`); Chrome headless для скриншотов; `brew` не установлен; `gh` установлен и авторизован (17.11, аккаунт workchat-seattle-admin, права ADMIN; PR — `gh pr create`), push идёт по https. Коммитить и пушить законченный блок самостоятельно, если сборка и lint проходят (решено 12.11).
 
 ## После запуска
 Применять с момента подключения домена на Vercel. До этого действует прежняя договорённость (коммитить и пушить законченный блок в `main` самостоятельно). Подробности и схема — `docs/after-launch-updates.md`.
@@ -505,7 +506,9 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
   - Privacy Policy — Google Doc (`npm run privacy:build`);
   - дизайн — Figma.
 - **Если что-то сломалось:** Vercel → Deployments → Instant Rollback, затем исправление отдельным PR.
-- **Защита ветки `main` (решено 16.11).** Репозиторий приватный (запрос к GitHub API без авторизации отдаёт 404; `gh` не установлен); план GitHub Юлии не подтверждён. На GitHub Free у приватного репозитория защита веток недоступна — тогда правило «только через PR» держится на этой договорённости, и Claude Code её соблюдает. Если план Pro/Team (или репозиторий станет публичным): Settings → Branches (или Rules) → правило для `main`, требовать pull request и **применять к администраторам** (Юлия — владелец, Claude Code пушит от её имени, по умолчанию правила на админов не действуют).
+- **Защита ветки `main` (включена 17.11, ruleset `protect-main`, id 27497348).** Репозиторий WorkChat-Seattle/workchat-seattle-website публичный (проверено 17.11), секретам в git не место; история проверена, секретов нет. Правила: нельзя удалять `main` и делать force-push; изменения только через pull request (одобрений не требуется); перед merge должна пройти проверка `Vercel`; исключений для администраторов нет (bypass пуст), то есть прямой push в `main` отклоняется и для Claude Code. Без подписей коммитов, без линейной истории, без GitHub Action.
+- **Merge — только Юлия.** Claude Code сам pull request не мержит (ни `gh pr merge`, ни кнопкой), только после проверки Preview самой Юлией. Даже на просьбу «выложи» / «задеплой» сначала уточнить, мержить ли.
+- **Правило для `main` не отключать и не менять** (ruleset, bypass, проверки) без прямой просьбы Юлии, в том числе для срочной правки.
 - **GitHub Action для синхронизации — пока не делаем.** Синхронизацию Notion и таблицы текстов запускает Claude Code по просьбе Юлии. Вернуться, когда события начнёт заводить кто-то из команды без Юлии: тогда Action с запуском по кнопке (`workflow_dispatch`), коммит сразу в `main` (скрипты меняют только файлы данных), секреты — в GitHub Secrets.
 
 ## Открытые вопросы

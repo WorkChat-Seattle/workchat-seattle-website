@@ -1,5 +1,6 @@
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonSocial } from "@/components/ui/button-social";
+import { SmartLink } from "@/components/ui/smart-link";
 import type { Speaker } from "@/data/events";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -31,10 +32,9 @@ export function SpeakerCard({ speaker, lang, t }: { speaker: Speaker; lang: Loca
           <div className="flex flex-col gap-2">
             <h3 className="text-feature text-text-heading">{speaker.name}</h3>
             {host ? (
-              <a href={speaker.website!} className="text-body underline" target="_blank" rel="noopener noreferrer">
+              <SmartLink href={speaker.website!} className="text-body underline" newTabLabel={t["a11y.newTab"]}>
                 {host}
-                <span className="sr-only"> {t["a11y.newTab"]}</span>
-              </a>
+              </SmartLink>
             ) : null}
           </div>
         </div>

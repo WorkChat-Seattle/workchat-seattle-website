@@ -50,6 +50,7 @@ export const figmaAssets: FigmaAsset[] = [
   { nodeId: "1003:8091", name: "social-default-facebook", format: "svg", scale: 1, dir: "ui", publish: false },
   { nodeId: "1003:8094", name: "social-hover-facebook", format: "svg", scale: 1, dir: "ui", publish: false },
   { nodeId: "1003:8097", name: "social-hover-linkedin", format: "svg", scale: 1, dir: "ui", publish: false },
+  { nodeId: "1986:16437", name: "social-glyph-email", format: "svg", scale: 1, dir: "ui", publish: false },
 ];
 
 // Шапка и мобильное меню: своих картинок нет — логотип, бургер и иконки уже в коде.

@@ -1,6 +1,10 @@
 import { FaqItem } from "@/components/ui/faq-item";
 import { privacyPolicy } from "@/data/privacy-policy";
+import en from "@/i18n/dictionaries/en.json";
 import { autoLink } from "@/lib/rich";
+
+// Privacy Policy только на английском
+const newTab = en["a11y.newTab"];
 
 /**
  * Privacy Policy (Figma: кадры `1457:23154` mobile, `1457:23047` tablet, `1457:22619` desktop).
@@ -31,7 +35,7 @@ export function PrivacyPolicy() {
           <FaqItem key={s.id} question={s.title} defaultOpen={i === 0}>
             {s.body.map((p, j) => (
               <p key={j} className="whitespace-pre-line xl:max-w-150">
-                {autoLink(p)}
+                {autoLink(p, undefined, newTab)}
               </p>
             ))}
           </FaqItem>
@@ -44,7 +48,7 @@ export function PrivacyPolicy() {
           <div className="mt-5 flex flex-col gap-5 text-body text-text-body">
             {contact.body.map((p, i) => (
               <p key={i} className="whitespace-pre-line">
-                {autoLink(p)}
+                {autoLink(p, undefined, newTab)}
               </p>
             ))}
           </div>
