@@ -11,9 +11,10 @@ a11y.openMenu,"Мобильная шапка, кнопка меню (для ск
 a11y.closeMenu,"Мобильное меню, крестик (для скринридера)",Close menu,Закрыть меню,Вычитано,Не видно на экране
 a11y.skipToContent,Первая ссылка страницы (видна при Tab),Skip to main content,Перейти к основному содержанию,Вычитано,
 a11y.newTab,"Пометка у ссылок, открывающихся в новой вкладке",(opens in a new tab),(откроется в новой вкладке),Вычитано,Не видно на экране
-a11y.required,Формы: пометка обязательного поля для скринридера (выпадающие списки),required,обязательное поле,Итог,Добавлено 14.11. Не видно на экране; добавляется к названию выпадающего списка через aria-labelledby (вместо aria-required у кнопки-триггера)
+a11y.required,Формы: пометка обязательного поля для скринридера (выпадающие списки),required,обязательное поле,Вычитано,Добавлено 14.11. Не видно на экране; добавляется к названию выпадающего списка через aria-labelledby (вместо aria-required у кнопки-триггера)
 a11y.navMain,Шапка: подпись меню (<nav>) для скринридера,Main,Основное меню,Вычитано,Не видно на экране
 a11y.navFooter,Футер: подпись меню (<nav>) для скринридера,Footer,Меню в подвале,Вычитано,Не видно на экране
+a11y.emailUs,"Футер: кнопка email (конверт, mailto), подпись для скринридера",Email us,Написать нам,Вычитано,"Не видно на экране; ссылка mailto, a11y.newTab не добавляется"
 a11y.linkedin,"Футер: кнопка LinkedIn, подпись для скринридера",WorkChat Seattle on LinkedIn,WorkChat Seattle в LinkedIn,Вычитано,Не видно на экране; к подписи добавляется a11y.newTab
 a11y.facebook,"Футер: кнопка Facebook, подпись для скринридера",WorkChat Seattle on Facebook,WorkChat Seattle в Facebook,Вычитано,Не видно на экране; к подписи добавляется a11y.newTab
 a11y.prevSlide,"Слайдер отзывов: стрелка назад, подпись для скринридера",Previous story,Предыдущий отзыв,Вычитано,Не видно на экране
@@ -48,7 +49,7 @@ form.name,Формы: поле (обязательное),Your full name *,Ва
 form.email,Формы: поле (обязательное),Your email *,Ваш email *,Вычитано,14.11: добавлена * — обязательное поле (неразрывный пробел перед *)
 form.linkedin,Формы: поле,Link to your LinkedIn profile,Ссылка на профиль в LinkedIn,Вычитано,
 form.required,Формы: ошибка под полем,This field is required,Обязательное поле,Вычитано,
-form.requiredNote,Формы: строка перед полями (все формы),* Fields marked with an asterisk are required,"* Звёздочкой обозначены поля, обязательные для заполнения",Итог,"Добавлено 14.11. Ставится над первым полем каждой формы (Mentorship, Volunteer, Suggest an event)"
+form.requiredNote,Формы: строка перед полями (все формы),* Fields marked with an asterisk are required,"* Звёздочкой обозначены поля, обязательные для заполнения",Вычитано,"Добавлено 14.11. Ставится над первым полем каждой формы (Mentorship, Volunteer, Suggest an event)"
 form.invalidEmail,Формы: ошибка под полем email,Please enter a valid email address,"Пожалуйста, проверьте адрес email",Вычитано,RU — черновик Claude (13.11)
 form.invalidUrl,"Формы: ошибка под полем-ссылкой (LinkedIn, Event link)",Please enter a valid link,"Пожалуйста, проверьте ссылку",Вычитано,RU — черновик Claude (13.11)
 form.tooLong,"Формы: ошибка, если текст длиннее лимита",This text is too long,Текст слишком длинный,Вычитано,RU — черновик Claude (13.11)

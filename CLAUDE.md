@@ -207,7 +207,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
   - button `1003:8012` (option dark/white/outlined; state default/hover; у dark есть state=disabled — opacity 50%, подписи «Sending…» и «Registration closed»);
   - button-round `1003:8025`;
   - button-vertical `1048:1439`;
-  - button-social `1003:8087` (linkedin/facebook);
+  - button-social `1003:8087` (`logo = linkedin | facebook | email`; значок конверта — узел `1986:16437`, глиф `emailPath` в `glyphs.ts`, в круге по центру со смещением 16 / 17.8). linkedin / facebook — внешние ссылки в новой вкладке, подпись + `a11y.newTab`; email — `<a href="mailto:{FORMS_TO_EMAIL}">` без `target` и без `a11y.newTab`, подпись `a11y.emailUs`;
   - menu-button `1003:7999`;
   - Language `1003:8105`;
   - logo `1048:1421`;
@@ -227,7 +227,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 - **Раскладка:**
   - header `1084:10369`;
   - mobile-menu `1298:12443` (mobile `1297:66`, tablet `1298:12421`);
-  - footer `1110:10554` (в нём ссылки Privacy Policy и «Cookie Settings» — `<button>`, открывает окно настроек cookies);
+  - footer `1110:10554` (в нём ссылки Privacy Policy и «Cookie Settings» — `<button>`, открывает окно настроек cookies). Соцкнопки: email → LinkedIn → Facebook на всех размерах. Desktop — три в ряд в столбце меню, промежуток 10. **Tablet:** соцкнопки в левом столбце под копирайтом (отступ 60, промежуток 10), в среднем столбце только меню, hug справа внизу — его низ совпадает с низом соцкнопок, высота светлой части по содержимому. **Mobile:** соцкнопки слева, промежуток 5, низ совпадает с низом Donate; Volunteer / Donate — правая колонка (175 на 390, на 360 — 160, чтобы кнопки не налезли на соцкнопки). В коде два набора кнопок (`FooterSocials`), лишний скрыт `display: none`;
   - subscribe `1084:10472` — только state=default: наш заголовок и подпись + iframe Zeffy (см. «Subscribe»). Варианты sending / success / error устарели, не верстать;
   - get-involved `1084:10523` (+ get-involved/mobile `1084:10473`).
 - **Карточки:**

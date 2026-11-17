@@ -7,7 +7,7 @@ import { Logo } from "@/components/ui/logo";
 import { MenuButton } from "@/components/ui/menu-button";
 import { type Locale, localePath } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { DONATE_URL, SITE_NAME, FACEBOOK_URL, LINKEDIN_URL, PRIVACY_PATH } from "@/lib/constants";
+import { DONATE_URL, FORMS_TO_EMAIL, SITE_NAME, FACEBOOK_URL, LINKEDIN_URL, PRIVACY_PATH } from "@/lib/constants";
 import photoDesktop from "@/public/images/footer/footer-photo-desktop.jpg";
 import photoMobile from "@/public/images/footer/footer-photo-mobile.jpg";
 import photoTablet from "@/public/images/footer/footer-photo-tablet.jpg";
@@ -17,8 +17,10 @@ import hug from "@/public/images/footer/footer-hug.svg";
  * Футер (Figma: footer `1110:10554`; desktop `1048:1461`, tablet `1203:14232`, mobile `1110:10528`).
  * - desktop: фон на всю ширину, контейнер 1200: фото 300×427 (на 40 выше фона), отступ 80, три колонки
  *   (legal 231, nav 161, actions 150) через 139;
- * - tablet: 4 колонки по 172 (legal — две), фото 768×320 под текстом;
- * - mobile: legal, ниже nav слева и actions справа (по низу), фото 390×320 под текстом.
+ * - tablet: 4 колонки по 172 (legal — две), соцкнопки в левом столбце под копирайтом (отступ 60, промежуток 10),
+ *   меню в среднем, actions справа, hug внизу — низ совпадает с низом соцкнопок; фото 768×320 под текстом;
+ * - mobile: legal, ниже nav слева и actions справа (по низу), соцкнопки (промежуток 5) слева по низу Donate, фото 390×320.
+ * Кнопка email — первая; на desktop соцкнопки в столбце меню, на mobile / tablet — отдельный элемент сетки (второй набор скрыт `display: none`).
  * «Cookie Settings» — кнопка, открывает окно настроек cookies.
  */
 export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
@@ -36,7 +38,7 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
           </div>
 
           <div className="grid grid-cols-2 gap-y-10 px-5 py-10 md:grid-cols-4 md:gap-y-0 md:px-10 md:pt-10 md:pb-20 xl:flex xl:gap-x-34.75 xl:self-start xl:p-0 xl:pt-20">
-            <div className="col-span-2 flex flex-col gap-5 xl:w-57.75">
+            <div className="col-span-2 flex flex-col gap-5 md:col-start-1 md:row-start-1 xl:w-57.75">
               <Link href={localePath(lang, "/")} aria-label={SITE_NAME} className="self-start">
                 <Logo title={SITE_NAME} />
               </Link>
@@ -47,7 +49,7 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
               <p className="text-body whitespace-pre-line text-text-body">{t["footer.copyright"]}</p>
             </div>
 
-            <div className="contents md:flex md:flex-col md:justify-between md:gap-5 xl:w-40.25">
+            <div className="contents md:col-start-3 md:row-span-2 md:row-start-1 md:flex md:flex-col md:justify-between md:gap-5 xl:w-40.25">
               <nav className="max-md:col-start-1 max-md:row-start-2" aria-label={t["a11y.navFooter"]}>
                 <ul className="flex flex-col gap-1.5 xl:gap-5">
                   <li className="flex">
@@ -67,13 +69,16 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
                   </li>
                 </ul>
               </nav>
-              <div className="flex gap-2.5 max-md:col-start-1 max-md:row-start-3 max-md:self-end">
-                <ButtonSocial network="linkedin" href={LINKEDIN_URL} label={t["a11y.linkedin"]} newTabLabel={t["a11y.newTab"]} />
-                <ButtonSocial network="facebook" href={FACEBOOK_URL} label={t["a11y.facebook"]} newTabLabel={t["a11y.newTab"]} />
+              <div className="hidden gap-2.5 xl:flex">
+                <FooterSocials t={t} />
               </div>
             </div>
 
-            <div className="col-start-2 row-start-3 -mt-5 flex flex-col justify-between gap-5 self-start md:col-auto md:row-auto md:mt-0 md:self-stretch xl:w-37.5">
+            <div className="flex gap-1.25 max-md:col-start-1 max-md:row-start-3 max-md:self-end md:col-span-2 md:col-start-1 md:row-start-2 md:mt-15 md:gap-2.5 xl:hidden">
+              <FooterSocials t={t} />
+            </div>
+
+            <div className="col-start-2 row-start-3 -mt-5 flex flex-col justify-between gap-5 self-start md:col-start-4 md:row-span-2 md:row-start-1 md:mt-0 md:self-stretch xl:w-37.5">
               <div className="flex flex-col gap-5">
                 <ButtonLink option="white" href={localePath(lang, "/volunteer")} className="w-full">
                   {t["nav.volunteer"]}
@@ -101,5 +106,15 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
       />
       <Image src={photoMobile} alt="" sizes="100vw" className="block h-80 w-full object-cover md:hidden" />
     </footer>
+  );
+}
+
+function FooterSocials({ t }: { t: Dictionary }) {
+  return (
+    <>
+      <ButtonSocial network="email" href={`mailto:${FORMS_TO_EMAIL}`} label={t["a11y.emailUs"]} />
+      <ButtonSocial network="linkedin" href={LINKEDIN_URL} label={t["a11y.linkedin"]} newTabLabel={t["a11y.newTab"]} />
+      <ButtonSocial network="facebook" href={FACEBOOK_URL} label={t["a11y.facebook"]} newTabLabel={t["a11y.newTab"]} />
+    </>
   );
 }
