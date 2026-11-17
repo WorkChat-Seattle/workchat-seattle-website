@@ -207,7 +207,7 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
   - button `1003:8012` (option dark/white/outlined; state default/hover; у dark есть state=disabled — opacity 50%, подписи «Sending…» и «Registration closed»);
   - button-round `1003:8025`;
   - button-vertical `1048:1439`;
-  - button-social `1003:8087` (`logo = linkedin | facebook | email`; значок конверта — узел `1986:16437`, глиф `emailPath` в `glyphs.ts`, в круге по центру со смещением 16 / 17.8). linkedin / facebook — внешние ссылки в новой вкладке, подпись + `a11y.newTab`; email — `<a href="mailto:{FORMS_TO_EMAIL}">` без `target` и без `a11y.newTab`, подпись `a11y.emailUs`;
+  - button-social `1003:8087` (`logo = linkedin | facebook | email`; значок конверта — узел `1986:16437`, глиф `emailPath` в `glyphs.ts`, в круге по центру со смещением 16 / 17.8). linkedin / facebook — внешние ссылки в новой вкладке, подпись + `a11y.newTab`; email — `<a href="mailto:{FORMS_TO_EMAIL}" target="_blank" rel="noopener noreferrer">` (с 17.11: веб-почта, например Gmail, открывается в новой вкладке, сайт остаётся), но без `a11y.newTab` — при почте в приложении вкладка не откроется; подпись `a11y.emailUs`;
   - menu-button `1003:7999`;
   - Language `1003:8105`;
   - logo `1048:1421`;
