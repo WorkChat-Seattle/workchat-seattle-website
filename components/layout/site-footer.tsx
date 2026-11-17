@@ -74,16 +74,16 @@ export function SiteFooter({ lang, t }: { lang: Locale; t: Dictionary }) {
               </div>
             </div>
 
-            <div className="flex gap-1.25 max-md:col-start-1 max-md:row-start-3 max-md:self-end md:col-span-2 md:col-start-1 md:row-start-2 md:mt-15 md:gap-2.5 xl:hidden">
+            <div className="flex gap-1.25 max-md:relative max-md:z-10 max-md:col-start-1 max-md:row-start-3 max-md:self-end md:col-span-2 md:col-start-1 md:row-start-2 md:mt-15 md:gap-2.5 xl:hidden">
               <FooterSocials t={t} />
             </div>
 
-            <div className="col-start-2 row-start-3 -mt-5 flex flex-col justify-between gap-5 self-start md:col-start-4 md:row-span-2 md:row-start-1 md:mt-0 md:self-stretch xl:w-37.5">
-              <div className="flex flex-col gap-5">
-                <ButtonLink option="white" href={localePath(lang, "/volunteer")} className="w-full">
+            <div className="col-span-2 col-start-1 row-start-3 -mt-5 flex flex-col justify-between gap-5 self-start max-md:pl-43.75 md:col-span-1 md:col-start-4 md:row-span-2 md:row-start-1 md:mt-0 md:self-stretch xl:w-37.5">
+              <div className="flex flex-col gap-5 max-md:ml-auto max-md:w-full max-md:max-w-43.75">
+                <ButtonLink option="white" href={localePath(lang, "/volunteer")} className="w-full max-md:px-2">
                   {t["nav.volunteer"]}
                 </ButtonLink>
-                <ButtonLink option="dark" href={DONATE_URL} newTabLabel={t["a11y.newTab"]} className="w-full">
+                <ButtonLink option="dark" href={DONATE_URL} newTabLabel={t["a11y.newTab"]} className="w-full max-md:px-2">
                   {t["nav.donate"]}
                 </ButtonLink>
               </div>
