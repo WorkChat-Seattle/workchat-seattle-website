@@ -1,0 +1,75 @@
+# Синхронизация событий из Notion → pull request (docs/after-launch-updates.md, «GitHub Action для синхронизации»).
+# Раз в день и по кнопке (Actions → Sync events from Notion → Run workflow): запускает scripts/sync-events.ts,
+# и если data/events.ts или картинки событий изменились — открывает (или обновляет) PR из ветки sync/events.
+# В main напрямую не пишет: PR проверяет Vercel Preview, мержит Юлия.
+name: Sync events from Notion
+
+on:
+  schedule:
+    # 22:17 UTC = 14:17 по Сиэтлу зимой (15:17 летом) — после задачи повторяющихся событий (13:43)
+    - cron: "17 22 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-events
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Sync events from Notion
+        # без --env-file: в Actions значения приходят из GitHub Secrets
+        run: npx tsx scripts/sync-events.ts | tee sync-report.txt
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DS_EVENT_LISTINGS: ${{ secrets.NOTION_DS_EVENT_LISTINGS }}
+          NOTION_DS_SPEAKERS: ${{ secrets.NOTION_DS_SPEAKERS }}
+          GOOGLE_MAPS_SERVER_KEY: ${{ secrets.GOOGLE_MAPS_SERVER_KEY }}
+
+      - name: Prepare PR text
+        id: report
+        run: |
+          {
+            echo 'body<<REPORT_EOF'
+            echo 'Автоматическая синхронизация событий из Notion (`npm run sync:events`).'
+            echo ''
+            echo 'Проверьте Vercel Preview и смержите. После merge — статус **Published** у новых событий в Notion.'
+            echo ''
+            echo '<details><summary>Сводка синхронизации</summary>'
+            echo ''
+            echo '```'
+            cat sync-report.txt
+            echo '```'
+            echo '</details>'
+            echo REPORT_EOF
+          } >> "$GITHUB_OUTPUT"
+          rm sync-report.txt
+
+      - name: Open or update pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: sync/events
+          delete-branch: true
+          add-paths: |
+            data/events.ts
+            public/images/events/**
+          commit-message: "Sync events from Notion"
+          title: "Events: синхронизация из Notion"
+          body: ${{ steps.report.outputs.body }}

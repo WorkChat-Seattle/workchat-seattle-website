@@ -26,8 +26,8 @@
 ## Если что-то сломалось
 Vercel → Deployments → предыдущая рабочая сборка → **Instant Rollback**. Исправление — отдельным PR.
 
-## Автосинхронизация (решено 16.11: пока не делаем)
-Синхронизацию Notion и таблицы текстов запускает Claude Code по просьбе Юлии. Вернуться, когда события начнёт заводить кто-то из команды без Юлии. Тогда: GitHub Action с запуском по кнопке (`workflow_dispatch`) выполняет `sync:events`, синхронизацию менторов и `texts`, коммитит изменения сразу в `main` (скрипты меняют только файлы данных) → Vercel пересобирает сайт. Секреты (`NOTION_TOKEN`, id баз) — в GitHub Secrets.
+## Автосинхронизация (события — с 19.11)
+**События — GitHub Action (с 19.11).** `.github/workflows/sync-events.yml` («Sync events from Notion»): каждый день в 22:17 UTC (14:17 по Сиэтлу зимой, 15:17 летом — после задачи повторяющихся событий в 13:43) и по кнопке Actions → Run workflow запускает `scripts/sync-events.ts`. Если `data/events.ts` или картинки в `public/images/events/` изменились, открывает или обновляет PR из ветки `sync/events` (в `main` напрямую не пишет: PR проверяет Vercel Preview, мержит Юлия). Секреты в GitHub (Settings → Secrets and variables → Actions): `NOTION_TOKEN`, `NOTION_DS_EVENT_LISTINGS`, `NOTION_DS_SPEAKERS`, необязательный `GOOGLE_MAPS_SERVER_KEY` (без него координаты — Nominatim). В настройках репозитория (Settings → Actions → General) включено «Allow GitHub Actions to create and approve pull requests». Менторов (`sync:mentors`) и тексты (`texts`) по-прежнему запускает Claude Code по просьбе Юлии.
 
 ## Связь с чатом проекта
 Чат проекта WorkChat Seattle (claude.ai) видит эту папку и может класть задания в `docs/handoff.md`. Claude Code: по просьбе «прочитай handoff» выполнить задание из `docs/handoff.md`, а итог (что сделано, что решить) кратко дописать туда же в раздел «Ответ».
