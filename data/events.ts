@@ -30,6 +30,8 @@ export type EventItem = {
   lng: number | null;
   mapsLink: string | null;
   registrationLink: string | null;
+  /** Ссылка на подключение (Zoom и т. п.): есть — кнопка Join вместо Register. */
+  joinLink: string | null;
   recordingLink: string | null;
   tags: string[];
   short: string;
@@ -55,6 +57,7 @@ export const events: EventItem[] = [
     "lng": null,
     "mapsLink": null,
     "registrationLink": null,
+    "joinLink": null,
     "recordingLink": "https://www.facebook.com/share/v/18t97DM18F/",
     "tags": [
       "Well-Being"
@@ -218,6 +221,7 @@ export const events: EventItem[] = [
     "lng": -122.1856664,
     "mapsLink": "https://www.google.com/maps/search/?api=1&query=19015+N+Creek+Pkwy+Ste+105+Bothell+WA+98011",
     "registrationLink": null,
+    "joinLink": null,
     "recordingLink": null,
     "tags": [
       "Networking"
@@ -301,6 +305,7 @@ export const events: EventItem[] = [
     "lng": -122.1194204,
     "mapsLink": "https://www.google.com/maps/search/?api=1&query=Inkspire+Print+Studio+8275+166th+Ave+NE+Redmond+WA+98052",
     "registrationLink": null,
+    "joinLink": null,
     "recordingLink": null,
     "tags": [
       "Job Search",
@@ -470,6 +475,7 @@ export const events: EventItem[] = [
     "lng": -122.1194204,
     "mapsLink": "https://www.google.com/maps/search/?api=1&query=Inkspire+Print+Studio+8275+166th+Ave+NE+Redmond+WA+98052",
     "registrationLink": "https://www.zeffy.com/ticketing/from-qa-automation-to-ai-engineer",
+    "joinLink": null,
     "recordingLink": null,
     "tags": [
       "Career Growth",
@@ -651,7 +657,7 @@ export const events: EventItem[] = [
       {
         "id": "elena-perfilyeva",
         "name": "Elena Perfilyeva",
-        "position": "AI Engineer",
+        "position": "AI Engineer III",
         "company": "Expeditors",
         "bio": "Elena Perfilyeva is an AI Engineer at Expeditors with 8 years in QA Automation and 10 years in the US. She started as a QA engineer in Novosibirsk, continued as a QA Automation Engineer in the US, and in early 2026 moved into AI Engineering, where she works on MCP adoption and governance, AI observability, and making enterprise AI reliable and secure.",
         "bioRu": "Елена Перфильева — AI-инженер в компании Expeditors. За её плечами 8 лет в автоматизации тестирования и 10 лет жизни в США. Она начинала QA-инженером в Новосибирске, затем работала инженером по автоматизации тестирования в США, а в начале 2026 года перешла в AI-инженерию. Сейчас она занимается внедрением MCP и правилами его использования, наблюдаемостью (observability) ИИ-систем, а также тем, чтобы корпоративный ИИ работал надёжно и безопасно.",
@@ -686,6 +692,7 @@ export const events: EventItem[] = [
     "lng": null,
     "mapsLink": null,
     "registrationLink": "https://www.zeffy.com/ticketing/iamremarkable-workshop",
+    "joinLink": null,
     "recordingLink": null,
     "tags": [
       "Personal Brand",
@@ -781,6 +788,137 @@ export const events: EventItem[] = [
         "bioRu": "Людмила Гишман —  Senior Technical Program Manager в Google, а также коуч для IT-специалистов, которые хотят расти в карьере без выгорания. За 15 лет в IT она работала в управлении программами и в QA, в самых разных направлениях: видеосвязь, регулирование новостного контента, путешествия и электронная коммерция. Её карьера построена на работе с кросс-функциональными командами на разных континентах и в разных часовых поясах. В Google ей довелось пройти и через смену роли, и через переход в другую команду.",
         "photo": "/images/events/speaker-liudmila-gishman.jpg",
         "linkedin": "https://www.linkedin.com/in/liudmila-gishman/",
+        "website": null
+      }
+    ]
+  },
+  {
+    "slug": "practicing-ai-together-2026-11-20",
+    "title": "Practicing AI Together",
+    "titleRu": "Практикуем AI вместе",
+    "start": "2026-11-20T12:00:00.000-08:00",
+    "end": "2026-11-20T13:00:00.000-08:00",
+    "language": "English",
+    "format": "Online",
+    "placeName": null,
+    "address": null,
+    "lat": null,
+    "lng": null,
+    "mapsLink": null,
+    "registrationLink": null,
+    "joinLink": "https://us02web.zoom.us/j/86550601333?pwd=KlvdJiyBs99AmUWaWlbSPmbvbOMjF7.1",
+    "recordingLink": null,
+    "tags": [
+      "Hands-on AI"
+    ],
+    "short": "A relaxed, hands-on online meetup where we try AI tools on real tasks, compare notes, and learn from each other's experiments. New people welcome.",
+    "shortRu": "Пробуем AI-инструменты на реальных задачах, сравниваем результаты и учимся на опыте друг друга. Новички приветствуются.",
+    "description": [
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Tatyana Yakushev works in data and analytics and has been spending a lot of time figuring out how AI fits into real work. She has learned the most by practicing with other people, so she hosts a series of sessions built around exactly that."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "What it is: a relaxed, hands-on meetup where we try AI tools on real tasks, compare notes, and learn from each other's experiments. Whether you're just getting started or already use AI daily, you'll fit in. You don't need to have attended before to join."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "The sessions run every other week. Areas we could dig into:"
+          }
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          [
+            {
+              "text": "Using AI as a thinking partner for planning, decisions, and problem-solving"
+            }
+          ],
+          [
+            {
+              "text": "Building repeatable AI workflows for the work you do every week"
+            }
+          ],
+          [
+            {
+              "text": "Judging AI output: when to trust it, how to check it, and how to improve it"
+            }
+          ],
+          [
+            {
+              "text": "AI for data and analysis: getting from raw information to insight"
+            }
+          ],
+          [
+            {
+              "text": "What's new in AI and which developments matter for your job"
+            }
+          ],
+          [
+            {
+              "text": "Where AI is taking careers and how to stay ahead"
+            }
+          ]
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "What would you most like to learn? Share your topics or challenges, and upcoming sessions will be built around what people want."
+          }
+        ]
+      }
+    ],
+    "descriptionRu": [
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Неформальная встреча-практикум, где мы пробуем AI-инструменты на реальных задачах, сравниваем результаты и учимся на экспериментах друг друга. Подойдёт и тем, кто только начинает, и тем, кто пользуется AI каждый день. Если вы пропустили предыдущие встречи - ничего страшного, присоединяйтесь сейчас!"
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Встречи проходят раз в две недели. Темы, которые можно разобрать:\n- AI как партнёр для размышлений: планирование, решения, поиск выходов из сложных ситуаций;\n- повторяемые AI-процессы для задач, которые вы делаете каждую неделю;\n- как оценивать ответы AI: когда им доверять, как их проверять и улучшать;\n- AI для работы с данными и аналитики: от сырой информации к выводам;\n- что нового в AI и какие изменения важны для вашей работы;\n- в каком направлении AI двигает рынок труда и как оставаться на шаг впереди."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Что вам интересно? Предлагайте темы и задачи — следующие встречи соберём вокруг них."
+          }
+        ]
+      }
+    ],
+    "cover": "/images/events/cover-practicing-ai-together-2026-11-20.png",
+    "speakers": [
+      {
+        "id": "tatyana-yakushev",
+        "name": "Tatyana Yakushev",
+        "position": "Principal Software Architect",
+        "company": "Microsoft",
+        "bio": "Tatyana Yakushev is a Principal Software Architect at Microsoft with more than 25 years of experience in product development and team leadership at major tech companies and startups. In Microsoft's Azure Data team she builds AI-powered solutions and works deeply with data, AI, and large-scale analytics systems. Before Microsoft, she worked at Amazon, Tableau, and a startup, and has switched between software engineer and manager roles several times.\n\nTatyana runs the \"Practicing AI Together\" workshop series and is starting group mentoring sessions for experienced women software engineers, aimed at helping more women reach the principal and staff level.",
+        "bioRu": "Татьяна Якушева — ведущий архитектор программного обеспечения (Principal Software Architect) в Microsoft с более чем 25-летним опытом в разработке продуктов и управлении командами в крупных технологических компаниях и стартапах. В команде Azure Data она разрабатывает решения на основе искусственного интеллекта и глубоко работает с данными, AI и системами аналитики больших масштабов. До Microsoft работала в Amazon, Tableau и стартапе, не раз переходила с позиции инженера на позицию менеджера и обратно.\n\nТатьяна ведёт встречи-практикумы «Practicing AI Together» и групповые менторские встречи для опытных инженеров-разработчиц с целью помочь большему числу женщин выйти на уровень principal и staff.",
+        "photo": "/images/events/speaker-tatyana-yakushev.jpg",
+        "linkedin": "https://www.linkedin.com/in/tatyanay/",
         "website": null
       }
     ]
