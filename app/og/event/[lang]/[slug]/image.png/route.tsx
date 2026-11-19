@@ -15,6 +15,9 @@ export function generateStaticParams() {
 
 const dataUri = (path: string, mime: string) => `data:${mime};base64,${readFileSync(join(/*turbopackIgnore: true*/ process.cwd(), path)).toString("base64")}`;
 
+const MIME: Record<string, string> = { png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", gif: "image/gif" };
+const imageMime = (path: string) => MIME[path.split(".").pop()?.toLowerCase() ?? ""] ?? "image/jpeg";
+
 /** CSS `text-transform: capitalize` для английского названия (Title Case, как на сайте). */
 const titleCase = (s: string) => s.replace(/(^|\s)(\p{L})/gu, (_, a: string, b: string) => a + b.toUpperCase());
 
@@ -61,7 +64,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ lang: s
   const font = readFileSync(join(process.cwd(), "app/fonts/GoogleSans-Regular-og.ttf"));
   const logo = readFileSync(join(process.cwd(), "public/images/ui/logo.svg"), "utf8").replaceAll("currentColor", "#323232");
   const logoSrc = `data:image/svg+xml;base64,${Buffer.from(logo).toString("base64")}`;
-  const cover = event.cover ? dataUri(`public${event.cover}`, "image/jpeg") : null;
+  // тип — по расширению: обложки бывают и JPG, и PNG (PNG под видом JPEG ломает сборку: RangeError в DataView)
+  const cover = event.cover ? dataUri(`public${event.cover}`, imageMime(event.cover)) : null;
 
   return new ImageResponse(
     (
