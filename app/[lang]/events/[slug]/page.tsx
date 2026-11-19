@@ -25,6 +25,7 @@ import {
   eventTitle,
   formatDate,
   formatTime,
+  eventJoinLink,
   getEvent,
   isPast,
   locationLabel,
@@ -72,9 +73,15 @@ export default async function Page({ params }: PageProps<"/[lang]/events/[slug]"
   const hasPlace = event.format !== "Online" && Boolean(event.placeName || event.address);
   const register = {
     href: event.registrationLink,
+    joinHref: eventJoinLink(event),
     endTime: eventEnd(event).toISOString(),
     initialClosed: closed,
-    texts: { register: t["btn.register"], closed: t["btn.registrationClosed"], newTab: t["a11y.newTab"] },
+    texts: {
+      register: t["btn.register"],
+      join: t["btn.join"],
+      closed: t["btn.registrationClosed"],
+      newTab: t["a11y.newTab"],
+    },
   };
   const share = { title, texts: { share: t["eventPage.share"], copied: t["eventPage.shareCopied"] } };
   const language = t[`language.${event.language}` as TextKey] ?? event.language;

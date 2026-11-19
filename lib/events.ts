@@ -47,6 +47,12 @@ export const pastEvents = (now: Date = new Date()): EventItem[] =>
 export const featuredEvent = (now: Date = new Date()): EventItem | null =>
   upcomingEvents(now)[0] ?? pastEvents(now)[0] ?? null;
 
+/**
+ * Ссылка на подключение (поле Join link в Notion, с 19.11). Есть — на странице события кнопка Join вместо Register.
+ * Читается так, потому что data/events.ts, собранный до появления поля, его ещё не содержит (появится при `npm run sync:events`).
+ */
+export const eventJoinLink = (e: EventItem): string | null => (e as EventItem & { joinLink?: string | null }).joinLink ?? null;
+
 export const getEvent = (slug: string): EventItem | undefined => events.find((e) => e.slug === slug);
 
 type Loc = "en" | "ru";

@@ -7,23 +7,28 @@ import { Button, ButtonLink } from "@/components/ui/button";
 const MAX_TIMEOUT = 2_000_000_000;
 
 /**
- * Кнопка регистрации (Figma: button option=dark, state=disabled «Registration closed»). Пока событие не закончилось —
- * ссылка на Zeffy в новой вкладке; после окончания — `<button disabled>`. Страница отдаётся с кэшем до часа,
+ * Кнопка регистрации (Figma: button option=dark, state=disabled «Registration closed»). Пока событие не закончилось:
+ * есть Join link (Zoom и т. п.) — «Join» / «Присоединиться» со ссылкой на подключение, иначе есть Registration link —
+ * «Register» со ссылкой на Zeffy (обе в новой вкладке; если заполнены обе, показывается Join). После окончания —
+ * `<button disabled>Registration closed</button>`. Страница отдаётся с кэшем до часа,
  * поэтому клиент сам переключает кнопку: проверка при монтировании, таймер до окончания, перепроверка при возврате на вкладку.
- * У предстоящего события без ссылки на регистрацию кнопки нет; у прошедшего неактивная кнопка есть всегда.
+ * У предстоящего события без обеих ссылок кнопки нет; у прошедшего неактивная кнопка есть всегда.
  */
 export function RegisterButton({
   href,
+  joinHref = null,
   endTime,
   initialClosed,
   texts,
   className,
 }: {
   href: string | null;
+  /** Ссылка на подключение: есть — кнопка Join вместо Register. */
+  joinHref?: string | null;
   /** Момент окончания события, ISO. */
   endTime: string;
   initialClosed: boolean;
-  texts: { register: string; closed: string; newTab: string };
+  texts: { register: string; join: string; closed: string; newTab: string };
   className?: string;
 }) {
   const [closed, setClosed] = useState(initialClosed);
@@ -55,10 +60,11 @@ export function RegisterButton({
       </Button>
     );
   }
-  if (!href) return null;
+  const link = joinHref ?? href;
+  if (!link) return null;
   return (
-    <ButtonLink option="dark" href={href} newTabLabel={texts.newTab} className={className}>
-      {texts.register}
+    <ButtonLink option="dark" href={link} newTabLabel={texts.newTab} className={className}>
+      {joinHref ? texts.join : texts.register}
     </ButtonLink>
   );
 }
