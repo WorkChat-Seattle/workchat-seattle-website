@@ -248,6 +248,7 @@ async function main() {
       lng: coords?.lng ?? null,
       mapsLink: url(pr["Google Maps link"]) || null,
       registrationLink: url(pr["Registration link"]) || null,
+      joinLink: url(pr["Join link"]) || null,
       recordingLink: url(pr["Recording link"]) || null,
       tags: ((pr.Tags?.multi_select ?? []) as { name: string }[]).map((t) => t.name),
       short: text(pr["Short description"]),
@@ -292,6 +293,8 @@ export type EventItem = {
   lng: number | null;
   mapsLink: string | null;
   registrationLink: string | null;
+  /** Ссылка на подключение (Zoom и т. п.): есть — кнопка Join вместо Register. */
+  joinLink: string | null;
   recordingLink: string | null;
   tags: string[];
   short: string;

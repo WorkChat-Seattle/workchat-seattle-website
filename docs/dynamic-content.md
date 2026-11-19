@@ -5,8 +5,8 @@
 ## Где что лежит
 - **Zeffy** (подключён к Claude как коннектор `https://api.zeffy.com/mcp`, только чтение): кампания мероприятия — название, дата и время, описание, обложка, билеты и цены, вместимость, ссылка на регистрацию, список гостей.
 - **Notion** — источник истины для сайта и соцсетей (у всех таблиц закреплён первый столбец):
-  - **Event listings** (встроена в страницу Events) — https://app.notion.com/p/b74cb05b4ab04e58b3a69b9673367f7f
-  - **Speakers** (встроена в страницу Events) — https://app.notion.com/p/5a08f0db45b141eaa26e184741d8c543
+  - **Event listings** (встроена в страницу Events) — https://app.notion.com/p/cc2e414c5c5e8364a3b7818cd7ff9b14
+  - **Speakers** (встроена в страницу Events) — https://app.notion.com/p/2dce414c5c5e83349bf4010f3b330efa
   - **Mentor cards** (встроена в страницу Mentors) — https://app.notion.com/p/2af6e6057eb3458a9f7afdb055513a3c
   - **Volunteers** (Volunteer Activity Log) — контакты, LinkedIn и навыки людей; поля-связи **Mentor card** и **Speaker profile** ведут на карточки для сайта. Контакты (email, телефон) — только в Volunteers, на сайт не идут.
 - **Сайт**: файлы данных `data/events.ts`, `data/mentors.ts`, картинки в `public/images/...`.
@@ -21,6 +21,8 @@
 7. **LinkedIn (страница компании)** — Claude пишет **LinkedIn text** и **LinkedIn date**; после вашего одобрения пост ставится в отложенные (Buffer или встроенное планирование LinkedIn) и выходит сам. Галочка LinkedIn post.
 
 В постах ссылку лучше давать на страницу события на сайте (`/events/<slug>`) — тогда при смене ссылки на Zeffy править нужно только сайт.
+
+**Повторяющиеся события (с 19.11).** Каждая встреча серии — отдельная карточка в Event listings (у прошедших свои Recording link и Presentation). Поле **Repeats** (Every week / Every 2 weeks / Every 4 weeks) стоит только у последней карточки серии. Запланированная задача Claude «Repeating events: next card in Notion» (каждый день в 13:43 по Сиэтлу) после окончания такой карточки дублирует её: та же карточка, новая дата (тот же час по Сиэтлу), slug `<серия>-YYYY-MM-DD`, статус как у старой (Published → Ready), очищены Recording link, Presentation, LinkedIn date, галочки Facebook event и LinkedIn post; Repeats переходит на новую карточку. Registration link и Facebook text копируются как есть — проверить. На сайт новая встреча попадает обычным путём (`npm run sync:events` → PR). Остановить серию — снять Repeats у последней карточки. Первая серия — Practicing AI Together (Tatyana Yakushev, пятница 12:00, раз в две недели с 20.11.2026).
 
 **Правило изменений:** после переноса главная — запись в Notion. Перенесли время, заменили спикера → правим в Notion (и в Zeffy, если касается даты/билетов); Claude подсказывает, что обновить на сайте, в Facebook и LinkedIn.
 
@@ -44,7 +46,7 @@
 - Публикуем только записи с галочкой **Consent received** (у Speakers так же).
 
 ## Поля баз
-- **Event listings:** Title, Status (Draft / Ready / Published), Slug, Date (начало–окончание с временем), Upcoming / Past (формула — только для команды, сайт считает сам), Language, Format, Place name, Address, Google Maps link, Registration link, Short description, **Short description RU**, **Full description RU** (с 04.11), Cover photo, Speakers (↔ Speakers), Tags, Recording link, LinkedIn text, LinkedIn date, Facebook text, галочки Registration created / Facebook event / LinkedIn post (публикация на сайте — статус Published). Полное описание на английском — в теле страницы, на русском — в поле Full description RU. В карточке поля сгруппированы: обложка → полное описание (EN) → «Описание» (Full description RU, Short description, Short description RU, Speakers, Tags) → «Когда и где» → «Сайт и регистрация» → «Соцсети»; в таблице столбцы в том же порядке.
+- **Event listings:** Title, Status (Draft / Ready / Published), Slug, Date (начало–окончание с временем), Upcoming / Past (формула — только для команды, сайт считает сам), Language, Format, Place name, Address, Google Maps link, Registration link, **Join link** (с 19.11: ссылка на подключение, Zoom и т. п.; заполнена — на сайте кнопка Join / Присоединиться вместо Register, после окончания — Registration closed), Short description, **Short description RU**, **Full description RU** (с 04.11), Cover photo, Speakers (↔ Speakers), Tags, Repeats (повторяющаяся серия), Recording link, LinkedIn text, LinkedIn date, Facebook text, галочки Registration created / Facebook event / LinkedIn post (публикация на сайте — статус Published). Полное описание на английском — в теле страницы, на русском — в поле Full description RU. В карточке поля сгруппированы: обложка → полное описание (EN) → «Описание» (Full description RU, Short description, Short description RU, Speakers, Tags) → «Когда и где» → «Сайт и регистрация» → «Соцсети»; в таблице столбцы в том же порядке.
 - **Tags** — как в Figma (компонент `tag`, фильтр на Events), 10 штук: Career Growth, Family&Career, Goal setting, Hands-on AI, Industry Insights, Job Search, Networking, Personal Brand, Personal Finance, Well-Being. (Work-life Balance удалён 03.11 из Notion и Figma.) Новый тег добавлять и в Figma, и в Notion.
 - В Figma у `card-event-past` в рамке `tags` два слота тега через разделитель; второй слот и разделитель по умолчанию скрыты и включаются у карточек с двумя тегами.
 - **Speakers:** Name, Position, Company, Bio, Photo (квадрат от 800×800), Website (по решению правления — в карточке спикера), LinkedIn, Mentor card (→ Mentor cards), Events (↔ Event listings), Volunteer (↔ Volunteers), Consent received.
