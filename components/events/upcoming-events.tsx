@@ -5,6 +5,7 @@ import type { EventItem } from "@/data/events";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { SHOW_SUGGEST_EVENT } from "@/lib/constants";
+import { autoLink } from "@/lib/rich";
 
 /**
  * Upcoming Events (Figma: upcoming-events `1088:1729`; tablet `1240:16475`, mobile `1145:12558`; пустое — `1582:24736`,
@@ -29,7 +30,7 @@ export function UpcomingEvents({ events, lang, t }: { events: EventItem[]; lang:
       ) : (
         <div className="mt-10 flex flex-col gap-5 md:pl-43 xl:max-w-225 xl:pl-75">
           <p data-reveal="now" className="text-h3 text-text-heading">{t["events.empty.lead"]}</p>
-          <p data-reveal="now" className="text-body whitespace-pre-line text-text-body">{t["events.empty.text"]}</p>
+          <p data-reveal="now" className="text-body whitespace-pre-line text-text-body">{autoLink(t["events.empty.text"], "underline xl:no-underline xl:text-link", t["a11y.newTab"])}</p>
         </div>
       )}
       {SHOW_SUGGEST_EVENT ? (
