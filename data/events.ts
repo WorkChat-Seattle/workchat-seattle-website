@@ -44,6 +44,94 @@ export type EventItem = {
 
 export const events: EventItem[] = [
   {
+    "slug": "ai-for-non-techies-yuliana-loginova",
+    "title": "AI for Non-Techies",
+    "titleRu": "AI для гуманитариев",
+    "start": "2026-06-14T16:30:00.000+00:00",
+    "end": "2026-06-14T18:00:00.000+00:00",
+    "language": "Russian",
+    "format": "Online",
+    "placeName": null,
+    "address": null,
+    "lat": null,
+    "lng": null,
+    "mapsLink": null,
+    "registrationLink": null,
+    "joinLink": null,
+    "recordingLink": null,
+    "tags": [
+      "Hands-on AI"
+    ],
+    "short": "AI for the rest of us: a conversation with Yuliana Loginova on using AI in marketing, communications, and other non-technical roles",
+    "shortRu": "Обсуждение искусственного интеллекта для гуманитариев с Юлианой Логиновой.",
+    "description": [
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "An online discussion of how to use AI if you're “not a software engineer at all.”"
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Our guest, Yuliana Loginova (Moscow), is a former TNT producer and CMO with about 100 launches behind her, and has run her own agency since 2018. Marketers used to cost her agency 120–150 thousand rubles a month for analytics, ideas, content, and project management. Today, AI handles part of that work for about $100 a month."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Join us to learn how modern AI tools can be useful in the humanities, discuss practical examples, and ask the expert your questions."
+          }
+        ]
+      }
+    ],
+    "descriptionRu": [
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Онлайн-встреча о том, как использовать AI, если вы «совсем не программист»."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Гостья — Юлиана Логинова (Москва): экс-продюсер ТНТ, CMO, около 100 запусков, владелица собственного агентства с 2018 года. Раньше маркетологи обходились её агентству в 120–150 тысяч рублей в месяц — аналитика, идеи, контент и ведение проектов. Сейчас часть этих задач выполняет ИИ за $100 в месяц."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Присоединяйтесь, чтобы узнать, как современные технологии искусственного интеллекта могут быть полезны в гуманитарной сфере, обсудить практические примеры и задать вопросы эксперту."
+          }
+        ]
+      }
+    ],
+    "cover": "/images/events/cover-ai-for-non-techies-yuliana-loginova.jpg",
+    "speakers": [
+      {
+        "id": "yuliana-loginova",
+        "name": "Yuliana Loginova",
+        "position": "CMO, Agency Owner",
+        "company": "",
+        "bio": "Yuliana Loginova is a former TNT producer and CMO with about 100 launches behind her. Based in Moscow, she has run her own marketing agency since 2018.",
+        "bioRu": "Юлиана Логинова — экс-продюсер ТНТ и CMO, около 100 запусков. Живёт в Москве, с 2018 года владеет собственным маркетинговым агентством.",
+        "photo": "/images/events/speaker-yuliana-loginova.jpg",
+        "linkedin": null,
+        "website": "https://juliana-loginova.ru/"
+      }
+    ]
+  },
+  {
     "slug": "career-longevity-navigating-stress",
     "title": "Career Longevity: Navigating Stress in the Corporate World",
     "titleRu": "Карьерное долголетие и стресс",
@@ -909,6 +997,137 @@ export const events: EventItem[] = [
       }
     ],
     "cover": "/images/events/cover-practicing-ai-together-2026-11-20.png",
+    "speakers": [
+      {
+        "id": "tatyana-yakushev",
+        "name": "Tatyana Yakushev",
+        "position": "Principal Software Architect",
+        "company": "Microsoft",
+        "bio": "Tatyana Yakushev is a Principal Software Architect at Microsoft with more than 25 years of experience in product development and team leadership at major tech companies and startups. In Microsoft's Azure Data team she builds AI-powered solutions and works deeply with data, AI, and large-scale analytics systems. Before Microsoft, she worked at Amazon, Tableau, and a startup, and has switched between software engineer and manager roles several times.\n\nTatyana runs the \"Practicing AI Together\" workshop series and is starting group mentoring sessions for experienced women software engineers, aimed at helping more women reach the principal and staff level.",
+        "bioRu": "Татьяна Якушева — ведущий архитектор программного обеспечения (Principal Software Architect) в Microsoft с более чем 25-летним опытом в разработке продуктов и управлении командами в крупных технологических компаниях и стартапах. В команде Azure Data она разрабатывает решения на основе искусственного интеллекта и глубоко работает с данными, AI и системами аналитики больших масштабов. До Microsoft работала в Amazon, Tableau и стартапе, не раз переходила с позиции инженера на позицию менеджера и обратно.\n\nТатьяна ведёт встречи-практикумы «Practicing AI Together» и групповые менторские встречи для опытных инженеров-разработчиц с целью помочь большему числу женщин выйти на уровень principal и staff.",
+        "photo": "/images/events/speaker-tatyana-yakushev.jpg",
+        "linkedin": "https://www.linkedin.com/in/tatyanay/",
+        "website": null
+      }
+    ]
+  },
+  {
+    "slug": "practicing-ai-together-2026-12-04",
+    "title": "Practicing AI Together",
+    "titleRu": "Практикуем AI вместе",
+    "start": "2026-12-04T20:00:00.000+00:00",
+    "end": "2026-12-04T21:00:00.000+00:00",
+    "language": "English",
+    "format": "Online",
+    "placeName": null,
+    "address": null,
+    "lat": null,
+    "lng": null,
+    "mapsLink": null,
+    "registrationLink": null,
+    "joinLink": "https://us02web.zoom.us/j/86550601333?pwd=KlvdJiyBs99AmUWaWlbSPmbvbOMjF7.1",
+    "recordingLink": null,
+    "tags": [
+      "Hands-on AI"
+    ],
+    "short": "A relaxed, hands-on online meetup where we try AI tools on real tasks, compare notes, and learn from each other's experiments. New people welcome.",
+    "shortRu": "Пробуем AI-инструменты на реальных задачах, сравниваем результаты и учимся на опыте друг друга. Новички приветствуются.",
+    "description": [
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Tatyana Yakushev works in data and analytics and has been spending a lot of time figuring out how AI fits into real work. She has learned the most by practicing with other people, so she hosts a series of sessions built around exactly that."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "What it is: a relaxed, hands-on meetup where we try AI tools on real tasks, compare notes, and learn from each other's experiments. Whether you're just getting started or already use AI daily, you'll fit in. You don't need to have attended before to join."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "The sessions run every other week. Areas we could dig into:"
+          }
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          [
+            {
+              "text": "Using AI as a thinking partner for planning, decisions, and problem-solving"
+            }
+          ],
+          [
+            {
+              "text": "Building repeatable AI workflows for the work you do every week"
+            }
+          ],
+          [
+            {
+              "text": "Judging AI output: when to trust it, how to check it, and how to improve it"
+            }
+          ],
+          [
+            {
+              "text": "AI for data and analysis: getting from raw information to insight"
+            }
+          ],
+          [
+            {
+              "text": "What's new in AI and which developments matter for your job"
+            }
+          ],
+          [
+            {
+              "text": "Where AI is taking careers and how to stay ahead"
+            }
+          ]
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "What would you most like to learn? Share your topics or challenges, and upcoming sessions will be built around what people want."
+          }
+        ]
+      }
+    ],
+    "descriptionRu": [
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Неформальная встреча-практикум, где мы пробуем AI-инструменты на реальных задачах, сравниваем результаты и учимся на экспериментах друг друга. Подойдёт и тем, кто только начинает, и тем, кто пользуется AI каждый день. Если вы пропустили предыдущие встречи - ничего страшного, присоединяйтесь сейчас!"
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Встречи проходят раз в две недели. Темы, которые можно разобрать:\n- AI как партнёр для размышлений: планирование, решения, поиск выходов из сложных ситуаций;\n- повторяемые AI-процессы для задач, которые вы делаете каждую неделю;\n- как оценивать ответы AI: когда им доверять, как их проверять и улучшать;\n- AI для работы с данными и аналитики: от сырой информации к выводам;\n- что нового в AI и какие изменения важны для вашей работы;\n- в каком направлении AI двигает рынок труда и как оставаться на шаг впереди."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Что вам интересно? Предлагайте темы и задачи — следующие встречи соберём вокруг них."
+          }
+        ]
+      }
+    ],
+    "cover": "/images/events/cover-practicing-ai-together-2026-12-04.png",
     "speakers": [
       {
         "id": "tatyana-yakushev",
