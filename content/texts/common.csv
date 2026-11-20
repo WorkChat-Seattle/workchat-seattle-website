@@ -35,7 +35,7 @@ All rights reserved","© 2026 WorkChat Seattle.
 Все права защищены",Вычитано,Год подставлять автоматически
 btn.register,Кнопка (мероприятия),Register,Зарегистрироваться,Вычитано,
 btn.registrationClosed,Кнопка неактивная (мероприятия),Registration closed,Регистрация закрыта,Вычитано,
-btn.join,"Кнопка (онлайн-мероприятия со ссылкой на Zoom, вместо Register)",Join,Присоединиться,Черновик,"Добавлено 19.11; показывается, если у события заполнено поле Join link в Notion"
+btn.join,"Кнопка (онлайн-мероприятия со ссылкой на Zoom, вместо Register)",Join,Присоединиться,Вычитано,"Добавлено 19.11; показывается, если у события заполнено поле Join link в Notion"
 btn.details,Кнопка (карточки мероприятий),Details,Подробнее,Вычитано,
 btn.videoRecording,Кнопка (прошедшие мероприятия),Video recording,Видеозапись,Вычитано,
 btn.showMore,Кнопка под прошедшими мероприятиями,Show more,Показать ещё,Вычитано,
@@ -91,14 +91,14 @@ industry.Technology,Метка отрасли (Notion → Mentor cards → Indus
 tag.Career Growth,Тег мероприятия (Notion → Event listings → Tags),Career Growth,Карьерный рост,Вычитано,Ключ = значение в Notion; новый тег — добавить строку
 tag.Family&Career,Тег мероприятия,Family&Career,Семья и карьера,Вычитано,
 tag.Goal setting,Тег мероприятия,Goal setting,Цели,Вычитано,
-tag.Hands-on AI,Тег мероприятия,Hands-on AI,ИИ на практике,Вычитано,
+tag.Hands-on AI,Тег мероприятия,Hands-on AI,AI на практике,Вычитано,
 tag.Industry Insights,Тег мероприятия,Industry Insights,Взгляд изнутри,Вычитано,"Варианты: «Об отрасли изнутри», «Инсайты отрасли»"
 tag.Job Search,Тег мероприятия,Job Search,Поиск работы,Вычитано,
 tag.Networking,Тег мероприятия,Networking,Нетворкинг,Вычитано,
 tag.Personal Brand,Тег мероприятия,Personal Brand,Личный бренд,Вычитано,
 tag.Personal Finance,Тег мероприятия,Personal Finance,Личные финансы,Вычитано,
 tag.Well-Being,Тег мероприятия,Well-Being,Баланс,Вычитано,
-format.Online,Формат мероприятия (Notion → Format),Online,Онлайн,Итог (макет),
+format.Online,Формат мероприятия (Notion → Format),Online,Онлайн,Вычитано,
 format.In person,Формат мероприятия,In person,Очно,Вычитано,Для очных показываем город/место; эта подпись — в фильтрах и на странице события
 format.Hybrid,Формат мероприятия,Hybrid,Онлайн и очно,Вычитано,
 language.English,Язык мероприятия (Notion → Language),In English,На английском,Вычитано,
