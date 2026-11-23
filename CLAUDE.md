@@ -116,10 +116,9 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 - white-alpha/90 — #ffffff 90%;
 - neutral-alpha/80 — #faf9f7 80%;
 - neutral-alpha/50 — #faf9f7 50%;
-- dark-alpha/70 — #3a3a3a 70%;
 - dark-alpha/10 — #3a3a3a 10%;
-- alpha/70 — #323232 70%;
-- black-alpha/50 — #121212 50%.
+- black-alpha/50 — #121212 50%;
+- dark-alpha/90 — #323232 90%.
 
 **Семантика**
 - **Фоны:**
@@ -129,8 +128,6 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
   - bg/card-muted → neutral/500;
   - bg/card-dark → neutral/800 (hover: bg/card-dark-hover → neutral/900);
   - bg/card-white → white;
-  - bg/card-green → green;
-  - bg/card-transparent → neutral-alpha/50;
   - bg/glass → neutral-alpha/80;
   - bg/inverse → gray/900;
   - bg/input → white.
@@ -154,13 +151,15 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
   - border/input-focus → gray/300.
 - **Прочее:**
   - status/error → red/600;
+  - status/success → green (иконка успеха в окнах форм; в коде цвет вписан в `icon-success.svg`);
   - decor/card-outline → white-alpha/90;
   - decor/icon → gray/300;
   - decor/accent → gray/900;
   - icon/bg → gray/700;
   - icon/glyph → white;
   - overlay/blur-light → dark-alpha/10;
-  - overlay/hover-dark → black-alpha/50 (также затемнение под модальными окнами).
+  - overlay/hover-dark → black-alpha/50 (также затемнение под модальными окнами);
+  - overlay/team-bio → dark-alpha/90 (био в карточке команды).
 - **Градиенты (paint styles):**
   - bg/gradient-center — white 0% → 100% → 0%;
   - bg/gradient-bottom-neutral — #edeae6 0% → 100%;
