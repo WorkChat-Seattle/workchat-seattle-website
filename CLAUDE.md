@@ -116,10 +116,9 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
 - white-alpha/90 — #ffffff 90%;
 - neutral-alpha/80 — #faf9f7 80%;
 - neutral-alpha/50 — #faf9f7 50%;
-- dark-alpha/70 — #3a3a3a 70%;
 - dark-alpha/10 — #3a3a3a 10%;
-- alpha/70 — #323232 70%;
-- black-alpha/50 — #121212 50%.
+- black-alpha/50 — #121212 50%;
+- dark-alpha/90 — #323232 90%.
 
 **Семантика**
 - **Фоны:**
@@ -129,8 +128,6 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
   - bg/card-muted → neutral/500;
   - bg/card-dark → neutral/800 (hover: bg/card-dark-hover → neutral/900);
   - bg/card-white → white;
-  - bg/card-green → green;
-  - bg/card-transparent → neutral-alpha/50;
   - bg/glass → neutral-alpha/80;
   - bg/inverse → gray/900;
   - bg/input → white.
@@ -154,13 +151,15 @@ Mobile-first. В Tailwind: `--breakpoint-*: initial; --breakpoint-md: 768px; --b
   - border/input-focus → gray/300.
 - **Прочее:**
   - status/error → red/600;
+  - status/success → green (иконка успеха в окнах форм; в коде цвет вписан в `icon-success.svg`);
   - decor/card-outline → white-alpha/90;
   - decor/icon → gray/300;
   - decor/accent → gray/900;
   - icon/bg → gray/700;
   - icon/glyph → white;
   - overlay/blur-light → dark-alpha/10;
-  - overlay/hover-dark → black-alpha/50 (также затемнение под модальными окнами).
+  - overlay/hover-dark → black-alpha/50 (также затемнение под модальными окнами);
+  - overlay/team-bio → dark-alpha/90 (био в карточке команды).
 - **Градиенты (paint styles):**
   - bg/gradient-center — white 0% → 100% → 0%;
   - bg/gradient-bottom-neutral — #edeae6 0% → 100%;
@@ -361,7 +360,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
    **Внешние ссылки (решено 17.11).** Внешние http(s)-ссылки (не наш домен) и все `mailto:` открываются в новой вкладке — `target="_blank" rel="noopener noreferrer"`; внутренние (`/…`, `/ru/…`, якоря, наш домен) — в той же. Правило в одном месте: `lib/links.ts` (`externalProps`, `isExternalHttp`, `needsNewTabLabel`) и компонент `components/ui/smart-link.tsx` (`SmartLink`: внутренний адрес — `next/link`, внешний — `<a>` с атрибутами). Через него уже работают `ButtonLink`, `CardLinkOverlay`, `autoLink` (тексты, FAQ, Privacy Policy, окно ошибки форм), ссылки спикера, карты и описания события; `ButtonSocial` и `MenuButton` берут `externalProps(href)`. **Новую ссылку на адрес из данных или текста не писать голым `<a target=…>` и не ставить `target` руками — только через `SmartLink` / `externalProps`.** Подпись для скринридера: у внешних http(s) — `a11y.newTab`, у `mailto:` — без него (при почте в приложении вкладка не откроется). Исключения — внутренние ссылки, которые открываются в новой вкладке намеренно, чтобы не потерять введённые данные или контекст: Privacy Policy из согласия в формах и cookie-окна, «mentor form» из формы Volunteer (у них свой `target`).
 5. Состояния из вариантов (hover, focus, active, error, expanded, disabled) реализовать все. Focus виден с клавиатуры. Все анимации выключаются при `prefers-reduced-motion: reduce`.
 6. **Картинки** (все проверены и одобрены 06.11 — брать из Figma как есть):
-   - **выгрузка — скриптом, а не по одной** (решено 11.11): `npm run export:figma` (`scripts/export-figma.ts`) через Figma REST API (`GET /v1/images/:file_key`). Список картинок — в `scripts/figma-assets.ts`: `{ nodeId, name, format: 'jpg' | 'png' | 'svg', scale, dir }`. Узлы рендерятся как в макете — с обрезкой и фильтрами (ч/б и затемнение у фото Our Values и т. п.), CSS-фильтрами не повторять. Фото — **JPG 2×** (кадр 1440 → 2880 px по ширине; PNG — только там, где нужна прозрачность); логотип и иконки — SVG, затем SVGO. Оригиналы — в `design-assets/` (вне `public`, в git), файлы для сайта — копии с осмысленными именами в `public/images/`. Повторный запуск перезаписывает файлы: заменили картинку в Figma — одна команда. Список пополняется постранично (начать с Home). Токен — `FIGMA_TOKEN` (личный токен Юлии, только чтение `file_content:read`) в `.env.local`; `.env.local` — в `.gitignore`, в Vercel токен не нужен. Запросы к API — пачками по нескольку узлов, при ответе 429 подождать и повторить. Для разовой картинки можно и `download_assets` из Figma MCP, но затем добавить её в список скрипта;
+   - **выгрузка — скриптом, а не по одной** (решено 11.11): `npm run export:figma` (`scripts/export-figma.ts`) через Figma REST API (`GET /v1/images/:file_key`). Список картинок — в `scripts/figma-assets.ts`: `{ nodeId, name, format: 'jpg' | 'png' | 'svg', scale, dir }`. Узлы рендерятся как в макете — с обрезкой и фильтрами (ч/б и затемнение у фото Our Values и т. п.), CSS-фильтрами не повторять. Фото — **JPG 2×** (кадр 1440 → 2880 px по ширине; PNG — только там, где нужна заметная прозрачность: больше 1 % пикселей не полностью непрозрачны; иначе — JPG с заливкой белым, решено 24.11); логотип и иконки — SVG, затем SVGO. Оригиналы — в `design-assets/` (вне `public`, в git), файлы для сайта — копии с осмысленными именами в `public/images/`. Повторный запуск перезаписывает файлы: заменили картинку в Figma — одна команда. Список пополняется постранично (начать с Home). Токен — `FIGMA_TOKEN` (личный токен Юлии, только чтение `file_content:read`) в `.env.local`; `.env.local` — в `.gitignore`, в Vercel токен не нужен. Запросы к API — пачками по нескольку узлов, при ответе 429 подождать и повторить. Для разовой картинки можно и `download_assets` из Figma MCP, но затем добавить её в список скрипта;
    - оригиналы хранить вне `public`, в `public/images` — только то, что идёт на сайт, имена в kebab-case;
    - сжимать один раз — через `next/image` (WebP/AVIF);
    - у каждой `next/image` задавать `sizes`; у hero — `priority`, остальное лениво;
@@ -394,7 +393,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - `npm run export:figma` — картинки из Figma по `scripts/figma-assets.ts` (`-- имя1 имя2` — выборочно; передавать имена списком, не через `$names` в zsh). Поле `fill: true` — исходная заливка узла (для скрытых и обрезанных узлов, с запеканием exposure / saturation и STRETCH-обрезки).
 - `npm run favicon:build` — favicon из `design-assets/favicon/` (выгрузка `npm run export:figma -- favicon-16 favicon-32 favicon-48 apple-icon-180 icon-192 icon-512`, секция Figma «Favicon» `1474:27269`, favicon — кадр `1969:16474`, замена от 16.11) → `app/favicon.ico` (16/32/48), `app/icon.svg` (тёмный квадрат — виден в светлой и тёмной теме), `app/apple-icon.png` (180). icon-192 / icon-512 выгружены на будущее (manifest не подключён).
 - `npm run privacy:build` — `content/texts/privacy-policy.md` → `data/privacy-policy.ts`.
-- `npm run sync:events` — Notion → `data/events.ts` и фото в `public/images/events/`. Картинки хранятся по содержимому (с 19.11): `cover-<серия>-<хеш>.ext`, `speaker-<имя>-<хеш>.ext`; одинаковый файл (обложка серии, одно фото у разных событий) — один на всех; неиспользуемые cover-* / speaker-* удаляются, map-* не трогаются.
+- `npm run sync:events` — Notion → `data/events.ts` и фото в `public/images/events/`. Картинки оптимизируются при скачивании (с 24.11, `scripts/optimize-image.ts`): JPG до 2048 px и до 600 КБ — как есть, остальное — JPG до 2048 px, качество 85 (PNG — только при прозрачности больше 1 % пикселей, иначе прозрачные края заливаются белым и получается JPG); хеш считается от оптимизированного файла. Нужен `sharp` (devDependency). Картинки хранятся по содержимому (с 19.11): `cover-<серия>-<хеш>.ext`, `speaker-<имя>-<хеш>.ext`; одинаковый файл (обложка серии, одно фото у разных событий) — один на всех; неиспользуемые cover-* / speaker-* удаляются, map-* не трогаются.
 - `npm run sync:mentors` — Notion (Mentor cards: Ready/Published + Consent received, порядок Order) → `data/mentors.ts` и фото в `public/images/mentors/`; в конце сводка, чего не хватает (размер фото, Bio RU, LinkedIn…).
 - `scripts/export-notion-upload.ts` — разовая выгрузка оригиналов для загрузки в Notion (`design-assets/notion-upload/`, в git не идёт).
 - Токены и id баз — `.env.local` (`FIGMA_TOKEN`, `NOTION_TOKEN`, пять `NOTION_DS_*`); файл не открывать и не выводить.
@@ -482,7 +481,7 @@ Resource Hub скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) д
 - **Подчёркивание текстовых ссылок в карточках (решено 16.11):** включается по `@media (hover: none)` (`touchUnderline` в `components/ui/menu-button.tsx`), а не по ширине < 1280, как в Figma (там линия на mobile/tablet). Сознательное отличие: наведения на тач-экранах нет, а у мыши на узком окне работает обычный hover. Не «исправлять» под Figma. В футере и mobile-menu линии нет.
 - **Шапка:** sticky оставляем; сверить с animations.md, п. 6, на проходе анимаций. Активный пункт меню (`aria-current="page"`) — подчёркивание видно всегда, у выбранного языка EN/RU линии нет; зазор в EN | RU — 8 px; «Resource Hub» в шапке не учитывать (шапка из трёх пунктов).
 - **Отступ перед футером:** см. раздел «Брейкпоинты и сетка»; на Mentorship 1440 в макете 400 — не повторять, разобрать в шаге Mentorship / при сверке.
-- **Фото:** JPG 2× (PNG — только с прозрачностью: портреты команды, аватары менторов); фон Subscribe — тоже 2×; фоны Our Values остаются в 2×, а загрузка только активного и соседнего фона — на проходе анимаций (animations.md, п. 11). Узла `1602:27169` в Figma нет; обложка #IAmRemarkable — заливка `1552:18467` (1402×1122).
+- **Фото:** JPG 2× (PNG — только с заметной прозрачностью (> 1 % пикселей): портреты команды, аватары менторов); фон Subscribe — тоже 2×; фоны Our Values остаются в 2×, а загрузка только активного и соседнего фона — на проходе анимаций (animations.md, п. 11). Узла `1602:27169` в Figma нет; обложка #IAmRemarkable — заливка `1552:18467` (1402×1122).
 - **Resource Hub** скрыт флагом `SHOW_RESOURCE_HUB` (`lib/constants.ts`) до готовности контента; при возврате — решить, куда ведут кнопки карточек (`data/resources.ts`). Код, картинки и тексты сохранены.
 - **Privacy Policy:** h1 — «Privacy Policy» (постоянное значение в скрипте сборки), блок контактов — «Organization Information and Contact Details»; `/ru/privacy-policy` отдаёт 404, русские страницы ссылаются на английский адрес; текст — `content/texts/privacy-policy.md`. Дата «Effective date: November 6, 2026» берётся из документа, перед запуском обновится (вопрос в «Открытых вопросах»).
 - **404:** `app/global-not-found.tsx` + `proxy.ts` (язык по пути) + общая рамка `components/layout/site-chrome.tsx`; флаг `experimental.globalNotFound` — после обновления Next перепроверить статусы 404 на `/nope`, `/ru/nope` и `notFound()` внутри страниц.

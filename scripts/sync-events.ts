@@ -7,8 +7,10 @@
  * с галочкой Consent received (без согласия спикер не публикуется — событие остаётся без него), собирает описание из тела
  * страницы (абзацы, маркированные списки, жирный, курсив, ссылки; всё после первого разделителя — служебное, пропускается),
  * скачивает Cover photo и фото спикеров в public/images/events/ (ссылки Notion временные). Сводка в конце: что пропущено и чего не хватает.
+ * Картинки оптимизируются при скачивании (решено 24.11, scripts/optimize-image.ts): JPG до 2048 px по ширине и до 600 КБ
+ * сохраняется как есть; остальное — JPG до 2048 px, качество 85; PNG остаётся только при заметной прозрачности (> 1 % пикселей).
  * Картинки хранятся по содержимому (решено 19.11): имя — `cover-<серия>-<хеш>.ext` / `speaker-<имя>-<хеш>.ext`, где серия — slug
- * без даты в конце, хеш — первые 10 знаков sha256 файла. Если такой же файл (по содержимому) уже есть — берётся он, новый не пишется:
+ * без даты в конце, хеш — первые 10 знаков sha256 уже оптимизированного файла. Если такой же файл (по содержимому) уже есть — берётся он, новый не пишется:
  * у встреч одной серии и у разных событий с одинаковой обложкой один файл. Файлы cover-* / speaker-*, на которые больше не ссылается
  * ни одно событие, удаляются в конце (карты map-* не трогаются).
  * Координаты (lat, lng) для карты считаются здесь, а не в браузере: сначала берутся прежние из data/events.ts (если адрес тот же),
@@ -19,6 +21,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { extname, join } from "node:path";
+import { optimizeImage } from "./optimize-image";
 
 const root = process.cwd();
 const token = process.env.NOTION_TOKEN;
@@ -141,14 +144,14 @@ async function download(fileProp: Props | undefined, name: string): Promise<stri
   if (!src) return null;
   const res = await fetch(src);
   if (!res.ok) throw new Error(`Не скачалось фото ${name}: ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  const h = sha(buf);
+  const srcExt = (extname(new URL(src).pathname) || ".jpg").toLowerCase();
+  const { data, ext } = await optimizeImage(Buffer.from(await res.arrayBuffer()), srcExt);
+  const h = sha(data);
   const known = existingByHash().get(h);
   if (known) return `/images/events/${known}`;
-  const ext = (extname(new URL(src).pathname) || ".jpg").toLowerCase();
   const file = `${name}-${h.slice(0, 10)}${ext}`;
   mkdirSync(IMG_DIR, { recursive: true });
-  writeFileSync(join(IMG_DIR, file), buf);
+  writeFileSync(join(IMG_DIR, file), data);
   existingByHash().set(h, file);
   return `/images/events/${file}`;
 }
