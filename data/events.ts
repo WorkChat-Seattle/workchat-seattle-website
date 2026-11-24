@@ -44,6 +44,130 @@ export type EventItem = {
 
 export const events: EventItem[] = [
   {
+    "slug": "career-proof-yourself-linkedin-positioning",
+    "title": "Career-Proof Yourself: LinkedIn Positioning",
+    "titleRu": "Позиционирование в LinkedIn",
+    "start": "2026-06-01T20:00:00.000+00:00",
+    "end": "2026-06-01T21:30:00.000+00:00",
+    "language": "Russian",
+    "format": "Online",
+    "placeName": null,
+    "address": null,
+    "lat": null,
+    "lng": null,
+    "mapsLink": null,
+    "registrationLink": null,
+    "joinLink": null,
+    "recordingLink": null,
+    "tags": [
+      "Personal Brand",
+      "Job Search"
+    ],
+    "short": "Learn how to position yourself on LinkedIn to future-proof your career",
+    "shortRu": "Узнайте, как позиционировать себя в LinkedIn, чтобы ваша карьера выдержала любые перемены.",
+    "description": [
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "A free 90-minute live session to help job seekers, career changers, and business owners show up on LinkedIn in a way that actually attracts the right opportunities. Hosted by career strategist Oksana Willeke."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "What you'll take away:"
+          }
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          [
+            {
+              "text": "the VALUE LinkedIn headline formula — the framework Oksana uses with clients that doubles their profile search results — plus an AI prompt to tailor it to your role;"
+            }
+          ],
+          [
+            {
+              "text": "a stronger headline, optimized live during the session;"
+            }
+          ],
+          [
+            {
+              "text": "outreach templates that work;"
+            }
+          ],
+          [
+            {
+              "text": "a career resilience strategy designed for today's unpredictable market;"
+            }
+          ],
+          [
+            {
+              "text": "honest, encouraging feedback from peers and from Oksana;"
+            }
+          ],
+          [
+            {
+              "text": "new connections made in breakout rooms."
+            }
+          ]
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Whether you're actively job searching, pivoting careers, or building a business, you'll leave with something tangible to act on immediately. Come as you are, with your LinkedIn profile link and resume handy."
+          }
+        ]
+      }
+    ],
+    "descriptionRu": [
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Бесплатная 90-минутная онлайн-встреча для тех, кто ищет работу, меняет карьеру или развивает бизнес: как представить себя в LinkedIn так, чтобы возможности приходили к вам сами. Ведущая — карьерный стратег Оксана Виллеке."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Что вы унесёте с собой:\n• формулу заголовка LinkedIn VALUE. Оксана работает по этой методике с клиентами, и их профили вдвое чаще показываются в поиске. Вы получите AI-промпт, чтобы адаптировать формулу под вашу роль;\n• свой, более сильный заголовок, доработанный прямо на встрече;\n• проверенные шаблоны сообщений для нетворкинга;\n• стратегию карьерной устойчивости для сегодняшнего непредсказуемого рынка;\n• честную и поддерживающую обратную связь от участников и от Оксаны;\n• новые знакомства в небольшой группе."
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "runs": [
+          {
+            "text": "Вы уйдёте с конкретными применимыми шагами по позиционированию в LinkedIn. Специальной подготовки не нужно — вам понадобится только ссылка на ваш профиль LinkedIn и резюме."
+          }
+        ]
+      }
+    ],
+    "cover": "/images/events/cover-career-proof-yourself-linkedin-positioning.jpg",
+    "speakers": [
+      {
+        "id": "oxana-willeke",
+        "name": "Oxana Willeke",
+        "position": "Founder & Executive Career Coach",
+        "company": "Oxana Willeke Coaching",
+        "bio": "Oxana Willeke is the founder of Oxana Willeke Coaching and an executive career strategist and communication coach for senior tech, corporate and international professionals, named Influence Digest's Top Career Coach in Seattle for 2025. She brings 8+ years in partner and project management, 12+ years of public speaking and 3 years of recruiting to her work on LinkedIn optimization, resumes, interview preparation, job search strategy and AI-powered job search tools.",
+        "bioRu": "Оксана Виллеке — основательница Oxana Willeke Coaching, карьерный стратег и коуч по коммуникации для руководителей и специалистов из IT и корпораций, в том числе международных; лучший карьерный коуч Сиэтла 2025 года по версии Influence Digest. Опирается на более чем 8 лет в управлении партнёрствами и проектами, более 12 лет публичных выступлений и 3 года в рекрутинге: оптимизация LinkedIn, резюме, подготовка к интервью, стратегия поиска работы и AI-инструменты для поиска работы.",
+        "photo": "/images/events/speaker-oxana-willeke.jpg",
+        "linkedin": "https://www.linkedin.com/in/oksanawilleke/",
+        "website": "https://oxanawillekecoaching.com"
+      }
+    ]
+  },
+  {
     "slug": "ai-for-non-techies-yuliana-loginova",
     "title": "AI for Non-Techies",
     "titleRu": "AI для гуманитариев",
@@ -996,7 +1120,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-practicing-ai-together-2026-11-20.png",
+    "cover": "/images/events/cover-practicing-ai-together-2026-11-20.jpg",
     "speakers": [
       {
         "id": "tatyana-yakushev",
@@ -1127,7 +1251,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-practicing-ai-together-2026-12-04.png",
+    "cover": "/images/events/cover-practicing-ai-together-2026-12-04.jpg",
     "speakers": [
       {
         "id": "tatyana-yakushev",
