@@ -8,13 +8,18 @@
  * страницы (абзацы, маркированные списки, жирный, курсив, ссылки; всё после первого разделителя — служебное, пропускается),
  * скачивает Cover photo и фото спикеров в public/images/events/ (ссылки Notion временные). Сводка в конце: что пропущено и чего не хватает.
  * Картинки оптимизируются при скачивании (решено 24.11, scripts/optimize-image.ts): JPG до 2048 px по ширине и до 600 КБ
- * сохраняется как есть; остальное (PNG без прозрачности, крупные файлы) — JPG до 2048 px, качество 85; с прозрачностью — PNG.
+ * сохраняется как есть; остальное — JPG до 2048 px, качество 85; PNG остаётся только при заметной прозрачности (> 1 % пикселей).
+ * Картинки хранятся по содержимому (решено 19.11): имя — `cover-<серия>-<хеш>.ext` / `speaker-<имя>-<хеш>.ext`, где серия — slug
+ * без даты в конце, хеш — первые 10 знаков sha256 уже оптимизированного файла. Если такой же файл (по содержимому) уже есть — берётся он, новый не пишется:
+ * у встреч одной серии и у разных событий с одинаковой обложкой один файл. Файлы cover-* / speaker-*, на которые больше не ссылается
+ * ни одно событие, удаляются в конце (карты map-* не трогаются).
  * Координаты (lat, lng) для карты считаются здесь, а не в браузере: сначала берутся прежние из data/events.ts (если адрес тот же),
  * затем Google Geocoding API (ключ GOOGLE_MAPS_SERVER_KEY в .env.local — серверный, без ограничения по referrer, в Vercel не нужен),
  * при его отсутствии — Nominatim (OpenStreetMap, без ключа). Не нашлись — lat / lng = null, карта в браузере не рисуется.
  * Результат — data/events.ts (коммитится, правится только этим скриптом). Токен и id баз — .env.local (NOTION_TOKEN, NOTION_DS_*).
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { extname, join } from "node:path";
 import { optimizeImage } from "./optimize-image";
 
@@ -109,6 +114,30 @@ const paragraphs = (s: string): Block[] =>
     .filter(Boolean)
     .map((x) => ({ type: "p" as const, runs: [{ text: x }] }));
 
+/** Картинки, которыми управляет этот скрипт (карты map-* — из Figma, их не трогаем). */
+const MANAGED = /^(cover|speaker)-/;
+const HASHED = /-[0-9a-f]{10}\.[a-z0-9]+$/;
+const sha = (buf: Buffer) => createHash("sha256").update(buf).digest("hex");
+
+/** Уже лежащие картинки: хеш содержимого → имя файла (строится один раз за запуск). */
+let byHash: Map<string, string> | null = null;
+function existingByHash(): Map<string, string> {
+  if (byHash) return byHash;
+  byHash = new Map();
+  if (existsSync(IMG_DIR)) {
+    // только файлы уже в новой схеме (с хешем в имени): старые `cover-<slug>.png` при первом запуске заменяются и удаляются как неиспользуемые
+    for (const f of readdirSync(IMG_DIR).filter((f) => MANAGED.test(f) && HASHED.test(f)).sort()) {
+      const h = sha(readFileSync(join(IMG_DIR, f)));
+      if (!byHash.has(h)) byHash.set(h, f);
+    }
+  }
+  return byHash;
+}
+
+/**
+ * Скачивает файл из свойства Notion и возвращает путь для сайта. Одинаковое содержимое — один файл:
+ * если такой уже есть (у этого или другого события), возвращается он; иначе пишется `${name}-<хеш10>.ext`.
+ */
 async function download(fileProp: Props | undefined, name: string): Promise<string | null> {
   const f = fileProp?.files?.[0];
   const src: string | undefined = f?.file?.url ?? f?.external?.url;
@@ -117,11 +146,26 @@ async function download(fileProp: Props | undefined, name: string): Promise<stri
   if (!res.ok) throw new Error(`Не скачалось фото ${name}: ${res.status}`);
   const srcExt = (extname(new URL(src).pathname) || ".jpg").toLowerCase();
   const { data, ext } = await optimizeImage(Buffer.from(await res.arrayBuffer()), srcExt);
-  const file = `${name}${ext}`;
+  const h = sha(data);
+  const known = existingByHash().get(h);
+  if (known) return `/images/events/${known}`;
+  const file = `${name}-${h.slice(0, 10)}${ext}`;
   mkdirSync(IMG_DIR, { recursive: true });
   writeFileSync(join(IMG_DIR, file), data);
+  existingByHash().set(h, file);
   return `/images/events/${file}`;
 }
+
+/** Удаляет cover-* / speaker-*, на которые не ссылается ни одно событие; возвращает имена удалённых. */
+function removeUnused(used: Set<string>): string[] {
+  if (!existsSync(IMG_DIR)) return [];
+  const removed = readdirSync(IMG_DIR).filter((f) => MANAGED.test(f) && !used.has(f));
+  for (const f of removed) unlinkSync(join(IMG_DIR, f));
+  return removed;
+}
+
+/** Серия: slug без даты в конце (practicing-ai-together-2026-11-20 → practicing-ai-together). */
+const seriesOf = (slug: string) => slug.replace(/-\d{4}-\d{2}-\d{2}$/, "");
 
 type Coords = { lat: number; lng: number };
 type Found = Coords & { source: "Google" | "Nominatim" };
@@ -216,7 +260,7 @@ async function main() {
         website: url(sprops.Website) || null,
       });
     }
-    const cover = await download(pr["Cover photo"], `cover-${slug}`);
+    const cover = await download(pr["Cover photo"], `cover-${seriesOf(slug)}`);
     if (!cover) report.push(`  ${title}: нет Cover photo`);
     const format = sel(pr.Format) as "In person" | "Online" | "Hybrid" | "";
     const address = text(pr.Address) || null;
@@ -313,6 +357,12 @@ export const events: EventItem[] = ${JSON.stringify(events, null, 2)};
 `;
   writeFileSync(join(root, "data/events.ts"), out);
   console.log(`Готово: ${events.length} событий → data/events.ts`);
+
+  const used = new Set(
+    events.flatMap((e) => [e.cover, ...e.speakers.map((sp) => sp.photo)]).filter((p): p is string => !!p).map((p) => p.split("/").pop()!),
+  );
+  const removed = removeUnused(used);
+  if (removed.length) report.push(`Удалены неиспользуемые картинки: ${removed.join(", ")}`);
   if (report.length) console.log("\n" + report.join("\n"));
 }
 

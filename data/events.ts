@@ -152,7 +152,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-career-proof-yourself-linkedin-positioning.jpg",
+    "cover": "/images/events/cover-career-proof-yourself-linkedin-positioning-2389192f06.jpg",
     "speakers": [
       {
         "id": "oxana-willeke",
@@ -161,7 +161,7 @@ export const events: EventItem[] = [
         "company": "Oxana Willeke Coaching",
         "bio": "Oxana Willeke is the founder of Oxana Willeke Coaching and an executive career strategist and communication coach for senior tech, corporate and international professionals, named Influence Digest's Top Career Coach in Seattle for 2025. She brings 8+ years in partner and project management, 12+ years of public speaking and 3 years of recruiting to her work on LinkedIn optimization, resumes, interview preparation, job search strategy and AI-powered job search tools.",
         "bioRu": "Оксана Виллеке — основательница Oxana Willeke Coaching, карьерный стратег и коуч по коммуникации для руководителей и специалистов из IT и корпораций, в том числе международных; лучший карьерный коуч Сиэтла 2025 года по версии Influence Digest. Опирается на более чем 8 лет в управлении партнёрствами и проектами, более 12 лет публичных выступлений и 3 года в рекрутинге: оптимизация LinkedIn, резюме, подготовка к интервью, стратегия поиска работы и AI-инструменты для поиска работы.",
-        "photo": "/images/events/speaker-oxana-willeke.jpg",
+        "photo": "/images/events/speaker-oxana-willeke-2970bd0152.jpg",
         "linkedin": "https://www.linkedin.com/in/oksanawilleke/",
         "website": "https://oxanawillekecoaching.com"
       }
@@ -240,7 +240,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-ai-for-non-techies-yuliana-loginova.jpg",
+    "cover": "/images/events/cover-ai-for-non-techies-yuliana-loginova-4c74ea3183.jpg",
     "speakers": [
       {
         "id": "yuliana-loginova",
@@ -249,7 +249,7 @@ export const events: EventItem[] = [
         "company": "",
         "bio": "Yuliana Loginova is a former TNT producer and CMO with about 100 launches behind her. Based in Moscow, she has run her own marketing agency since 2018.",
         "bioRu": "Юлиана Логинова — экс-продюсер ТНТ и CMO, около 100 запусков. Живёт в Москве, с 2018 года владеет собственным маркетинговым агентством.",
-        "photo": "/images/events/speaker-yuliana-loginova.jpg",
+        "photo": "/images/events/speaker-yuliana-loginova-decef471c8.jpg",
         "linkedin": null,
         "website": "https://juliana-loginova.ru/"
       }
@@ -404,7 +404,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-career-longevity-navigating-stress.jpg",
+    "cover": "/images/events/cover-career-longevity-navigating-stress-e3c5463e64.jpg",
     "speakers": [
       {
         "id": "liudmila-gishman",
@@ -413,7 +413,7 @@ export const events: EventItem[] = [
         "company": "Google",
         "bio": "I am a Senior Technical Program Manager at Google and a coach for tech professionals who want to grow in their careers without burnout.\n\nWith 15 years in tech across program management and quality engineering, I’ve worked in diverse sectors including video calling, news regulation, travel, and e-commerce. My career has been built on collaborating with cross-functional teams across multiple continents and time zones, including navigating both role and team transitions during my time at Google.",
         "bioRu": "Людмила Гишман —  Senior Technical Program Manager в Google, а также коуч для IT-специалистов, которые хотят расти в карьере без выгорания. За 15 лет в IT она работала в управлении программами и в QA, в самых разных направлениях: видеосвязь, регулирование новостного контента, путешествия и электронная коммерция. Её карьера построена на работе с кросс-функциональными командами на разных континентах и в разных часовых поясах. В Google ей довелось пройти и через смену роли, и через переход в другую команду.",
-        "photo": "/images/events/speaker-liudmila-gishman.jpg",
+        "photo": "/images/events/speaker-liudmila-gishman-d13485c746.jpg",
         "linkedin": "https://www.linkedin.com/in/liudmila-gishman/",
         "website": null
       }
@@ -500,7 +500,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-workchat-community-meet-up.jpg",
+    "cover": "/images/events/cover-workchat-community-meet-up-cf051e09d6.jpg",
     "speakers": []
   },
   {
@@ -647,7 +647,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-how-ai-is-changing-professions-and-recruiting.jpg",
+    "cover": "/images/events/cover-how-ai-is-changing-professions-and-recruiting-3ea849ed6e.jpg",
     "speakers": [
       {
         "id": "margarita-kostikova",
@@ -656,7 +656,7 @@ export const events: EventItem[] = [
         "company": "Amazon",
         "bio": "Margarita is an AI and international media professional with more than seven years of experience. She currently helps define and advance quality standards for cutting-edge AI technologies at Amazon. Before joining Amazon, Margarita worked as a journalist. A graduate of MGIMO University, she spent more than five years in television, managing content strategy for Disney, Fox, and National Geographic channels across 14 regions. After moving to the U.S. in 2023, Margarita realized that AI was changing the world for good. She charted a new career path, transitioning from media into AI and building a distinctive skill set to stand out even in a challenging job market.",
         "bioRu": "Маргарита — специалист в области ИИ и международных медиа с опытом более семи лет. В Amazon она помогает формировать и развивать стандарты качества для передовых ИИ-технологий. До Amazon Маргарита работала журналистом. После выпуска из МГИМО более пяти лет она проработала на телевидении, где отвечала за контент-стратегию каналов Disney, Fox и National Geographic в 14 регионах. Переехав в США в 2023 году, Маргарита поняла, что ИИ меняет мир безвозвратно. Она выбрала новый карьерный путь — перешла из медиа в ИИ, собрав уникальный набор навыков, который помогает выделиться даже на непростом рынке труда.",
-        "photo": "/images/events/speaker-margarita-kostikova.jpg",
+        "photo": "/images/events/speaker-margarita-kostikova-6856254a58.jpg",
         "linkedin": "https://www.linkedin.com/in/margaritakostikova/",
         "website": null
       },
@@ -667,7 +667,7 @@ export const events: EventItem[] = [
         "company": "Amazon",
         "bio": "Natalia began her career as a financial analyst at hedge funds. After moving to the U.S., she spent five years at Amazon working as a financial analyst and in both non-technical and technical product management roles. From 2023 to 2025, she ran a YouTube channel about job hunting and building a career after immigration. She is now a Senior Product Manager–Technical, working on an internal employee performance management product, and is training to become an Amazon Bar Raiser.",
         "bioRu": "Наталья начинала карьеру финансовым аналитиком в хедж-фондах. После переезда в США она пять лет проработала в Amazon — сначала финансовым аналитиком, а затем продакт-менеджером, как на нетехнических, так и на технических позициях. С 2023 по 2025 год вела YouTube-канал о поиске работы и построении карьеры после эмиграции. Сейчас Наталья — Senior Product Manager–Technical: она отвечает за внутренний продукт для управления эффективностью сотрудников, а также проходит подготовку, чтобы стать Bar Raiser — интервьюером Amazon, который следит за высокой планкой при найме.",
-        "photo": "/images/events/speaker-natalia-vasileva.jpg",
+        "photo": "/images/events/speaker-natalia-vasileva-3b24e1a6ef.jpg",
         "linkedin": "https://www.linkedin.com/in/natalia-vasileva-35223355/",
         "website": null
       }
@@ -864,7 +864,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-from-qa-automation-to-ai-engineer.jpg",
+    "cover": "/images/events/cover-from-qa-automation-to-ai-engineer-d16f7dfcd4.jpg",
     "speakers": [
       {
         "id": "elena-perfilyeva",
@@ -873,7 +873,7 @@ export const events: EventItem[] = [
         "company": "Expeditors",
         "bio": "Elena Perfilyeva is an AI Engineer at Expeditors with 8 years in QA Automation and 10 years in the US. She started as a QA engineer in Novosibirsk, continued as a QA Automation Engineer in the US, and in early 2026 moved into AI Engineering, where she works on MCP adoption and governance, AI observability, and making enterprise AI reliable and secure.",
         "bioRu": "Елена Перфильева — AI-инженер в компании Expeditors. За её плечами 8 лет в автоматизации тестирования и 10 лет жизни в США. Она начинала QA-инженером в Новосибирске, затем работала инженером по автоматизации тестирования в США, а в начале 2026 года перешла в AI-инженерию. Сейчас она занимается внедрением MCP и правилами его использования, наблюдаемостью (observability) ИИ-систем, а также тем, чтобы корпоративный ИИ работал надёжно и безопасно.",
-        "photo": "/images/events/speaker-elena-perfilyeva.jpg",
+        "photo": "/images/events/speaker-elena-perfilyeva-8b4e70f81e.jpg",
         "linkedin": "https://www.linkedin.com/in/elena-perfilyeva/",
         "website": null
       },
@@ -884,7 +884,7 @@ export const events: EventItem[] = [
         "company": "Validor",
         "bio": "Natalya Masyago is an AI Engineer at Validor, where she builds healthcare AI applications: LLM-powered services, RAG pipelines, and governed AI workflows. Before moving into AI engineering, she spent ten years as an analytical chemist and technical program manager in biotech and medical devices.",
         "bioRu": "Наталья Масяго — AI-инженер в компании Validor, где она разрабатывает ИИ-решения для здравоохранения: сервисы на основе LLM, RAG-пайплайны и контролируемые ИИ-процессы. До перехода в AI-инженерию она десять лет работала химиком-аналитиком и техническим руководителем программ в сфере биотехнологий и медицинских изделий.",
-        "photo": "/images/events/speaker-natalya-masyago.jpg",
+        "photo": "/images/events/speaker-natalya-masyago-c83edb55c9.jpg",
         "linkedin": "https://www.linkedin.com/in/masyago/",
         "website": null
       }
@@ -989,7 +989,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-iamremarkable-workshop.jpg",
+    "cover": "/images/events/cover-iamremarkable-workshop-a13f451a2e.jpg",
     "speakers": [
       {
         "id": "liudmila-gishman",
@@ -998,7 +998,7 @@ export const events: EventItem[] = [
         "company": "Google",
         "bio": "I am a Senior Technical Program Manager at Google and a coach for tech professionals who want to grow in their careers without burnout.\n\nWith 15 years in tech across program management and quality engineering, I’ve worked in diverse sectors including video calling, news regulation, travel, and e-commerce. My career has been built on collaborating with cross-functional teams across multiple continents and time zones, including navigating both role and team transitions during my time at Google.",
         "bioRu": "Людмила Гишман —  Senior Technical Program Manager в Google, а также коуч для IT-специалистов, которые хотят расти в карьере без выгорания. За 15 лет в IT она работала в управлении программами и в QA, в самых разных направлениях: видеосвязь, регулирование новостного контента, путешествия и электронная коммерция. Её карьера построена на работе с кросс-функциональными командами на разных континентах и в разных часовых поясах. В Google ей довелось пройти и через смену роли, и через переход в другую команду.",
-        "photo": "/images/events/speaker-liudmila-gishman.jpg",
+        "photo": "/images/events/speaker-liudmila-gishman-d13485c746.jpg",
         "linkedin": "https://www.linkedin.com/in/liudmila-gishman/",
         "website": null
       }
@@ -1120,7 +1120,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-practicing-ai-together-2026-11-20.jpg",
+    "cover": "/images/events/cover-practicing-ai-together-5c3ed3d7b7.jpg",
     "speakers": [
       {
         "id": "tatyana-yakushev",
@@ -1129,7 +1129,7 @@ export const events: EventItem[] = [
         "company": "Microsoft",
         "bio": "Tatyana Yakushev is a Principal Software Architect at Microsoft with more than 25 years of experience in product development and team leadership at major tech companies and startups. In Microsoft's Azure Data team she builds AI-powered solutions and works deeply with data, AI, and large-scale analytics systems. Before Microsoft, she worked at Amazon, Tableau, and a startup, and has switched between software engineer and manager roles several times.\n\nTatyana runs the \"Practicing AI Together\" workshop series and is starting group mentoring sessions for experienced women software engineers, aimed at helping more women reach the principal and staff level.",
         "bioRu": "Татьяна Якушева — ведущий архитектор программного обеспечения (Principal Software Architect) в Microsoft с более чем 25-летним опытом в разработке продуктов и управлении командами в крупных технологических компаниях и стартапах. В команде Azure Data она разрабатывает решения на основе искусственного интеллекта и глубоко работает с данными, AI и системами аналитики больших масштабов. До Microsoft работала в Amazon, Tableau и стартапе, не раз переходила с позиции инженера на позицию менеджера и обратно.\n\nТатьяна ведёт встречи-практикумы «Practicing AI Together» и групповые менторские встречи для опытных инженеров-разработчиц с целью помочь большему числу женщин выйти на уровень principal и staff.",
-        "photo": "/images/events/speaker-tatyana-yakushev.jpg",
+        "photo": "/images/events/speaker-tatyana-yakushev-d4d0140d79.jpg",
         "linkedin": "https://www.linkedin.com/in/tatyanay/",
         "website": null
       }
@@ -1251,7 +1251,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-practicing-ai-together-2026-12-04.jpg",
+    "cover": "/images/events/cover-practicing-ai-together-367596e4f8.jpg",
     "speakers": [
       {
         "id": "tatyana-yakushev",
@@ -1260,7 +1260,7 @@ export const events: EventItem[] = [
         "company": "Microsoft",
         "bio": "Tatyana Yakushev is a Principal Software Architect at Microsoft with more than 25 years of experience in product development and team leadership at major tech companies and startups. In Microsoft's Azure Data team she builds AI-powered solutions and works deeply with data, AI, and large-scale analytics systems. Before Microsoft, she worked at Amazon, Tableau, and a startup, and has switched between software engineer and manager roles several times.\n\nTatyana runs the \"Practicing AI Together\" workshop series and is starting group mentoring sessions for experienced women software engineers, aimed at helping more women reach the principal and staff level.",
         "bioRu": "Татьяна Якушева — ведущий архитектор программного обеспечения (Principal Software Architect) в Microsoft с более чем 25-летним опытом в разработке продуктов и управлении командами в крупных технологических компаниях и стартапах. В команде Azure Data она разрабатывает решения на основе искусственного интеллекта и глубоко работает с данными, AI и системами аналитики больших масштабов. До Microsoft работала в Amazon, Tableau и стартапе, не раз переходила с позиции инженера на позицию менеджера и обратно.\n\nТатьяна ведёт встречи-практикумы «Practicing AI Together» и групповые менторские встречи для опытных инженеров-разработчиц с целью помочь большему числу женщин выйти на уровень principal и staff.",
-        "photo": "/images/events/speaker-tatyana-yakushev.jpg",
+        "photo": "/images/events/speaker-tatyana-yakushev-d4d0140d79.jpg",
         "linkedin": "https://www.linkedin.com/in/tatyanay/",
         "website": null
       }
