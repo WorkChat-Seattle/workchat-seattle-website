@@ -7,6 +7,8 @@
  * с галочкой Consent received (без согласия спикер не публикуется — событие остаётся без него), собирает описание из тела
  * страницы (абзацы, маркированные списки, жирный, курсив, ссылки; всё после первого разделителя — служебное, пропускается),
  * скачивает Cover photo и фото спикеров в public/images/events/ (ссылки Notion временные). Сводка в конце: что пропущено и чего не хватает.
+ * Картинки оптимизируются при скачивании (решено 24.11, scripts/optimize-image.ts): JPG до 2048 px по ширине и до 600 КБ
+ * сохраняется как есть; остальное (PNG без прозрачности, крупные файлы) — JPG до 2048 px, качество 85; с прозрачностью — PNG.
  * Координаты (lat, lng) для карты считаются здесь, а не в браузере: сначала берутся прежние из data/events.ts (если адрес тот же),
  * затем Google Geocoding API (ключ GOOGLE_MAPS_SERVER_KEY в .env.local — серверный, без ограничения по referrer, в Vercel не нужен),
  * при его отсутствии — Nominatim (OpenStreetMap, без ключа). Не нашлись — lat / lng = null, карта в браузере не рисуется.
@@ -14,6 +16,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { extname, join } from "node:path";
+import { optimizeImage } from "./optimize-image";
 
 const root = process.cwd();
 const token = process.env.NOTION_TOKEN;
@@ -112,10 +115,11 @@ async function download(fileProp: Props | undefined, name: string): Promise<stri
   if (!src) return null;
   const res = await fetch(src);
   if (!res.ok) throw new Error(`Не скачалось фото ${name}: ${res.status}`);
-  const ext = (extname(new URL(src).pathname) || ".jpg").toLowerCase();
+  const srcExt = (extname(new URL(src).pathname) || ".jpg").toLowerCase();
+  const { data, ext } = await optimizeImage(Buffer.from(await res.arrayBuffer()), srcExt);
   const file = `${name}${ext}`;
   mkdirSync(IMG_DIR, { recursive: true });
-  writeFileSync(join(IMG_DIR, file), Buffer.from(await res.arrayBuffer()));
+  writeFileSync(join(IMG_DIR, file), data);
   return `/images/events/${file}`;
 }
 
