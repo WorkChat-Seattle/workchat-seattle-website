@@ -161,7 +161,7 @@ export const events: EventItem[] = [
         "company": "Oxana Willeke Coaching",
         "bio": "Oxana Willeke is the founder of Oxana Willeke Coaching and an executive career strategist and communication coach for senior tech, corporate and international professionals, named Influence Digest's Top Career Coach in Seattle for 2025. She brings 8+ years in partner and project management, 12+ years of public speaking and 3 years of recruiting to her work on LinkedIn optimization, resumes, interview preparation, job search strategy and AI-powered job search tools.",
         "bioRu": "Оксана Виллеке — основательница Oxana Willeke Coaching, карьерный стратег и коуч по коммуникации для руководителей и специалистов из IT и корпораций, в том числе международных; лучший карьерный коуч Сиэтла 2025 года по версии Influence Digest. Опирается на более чем 8 лет в управлении партнёрствами и проектами, более 12 лет публичных выступлений и 3 года в рекрутинге: оптимизация LinkedIn, резюме, подготовка к интервью, стратегия поиска работы и AI-инструменты для поиска работы.",
-        "photo": "/images/events/speaker-oxana-willeke.png",
+        "photo": "/images/events/speaker-oxana-willeke.jpg",
         "linkedin": "https://www.linkedin.com/in/oksanawilleke/",
         "website": "https://oxanawillekecoaching.com"
       }
