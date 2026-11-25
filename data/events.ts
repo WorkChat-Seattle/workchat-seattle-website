@@ -1120,7 +1120,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-practicing-ai-together-5c3ed3d7b7.jpg",
+    "cover": "/images/events/cover-practicing-ai-together-9d95949cda.jpg",
     "speakers": [
       {
         "id": "tatyana-yakushev",
@@ -1251,7 +1251,7 @@ export const events: EventItem[] = [
         ]
       }
     ],
-    "cover": "/images/events/cover-practicing-ai-together-367596e4f8.jpg",
+    "cover": "/images/events/cover-practicing-ai-together-e9de7af002.jpg",
     "speakers": [
       {
         "id": "tatyana-yakushev",
